@@ -1,0 +1,65 @@
+{
+  "entities": {
+    "users": {
+      "title": "Usuarios",
+      "description": "Perfiles de usuario y configuración de comensales y tokens de sesión",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "email": { "type": "string" },
+        "displayName": { "type": "string" },
+        "photoURL": { "type": "string" },
+        "peopleCount": { "type": "number" },
+        "dietPreferences": { "type": "array", "items": { "type": "string" } },
+        "sessionToken": { "type": "string" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "email"]
+    },
+    "menu_plans": {
+      "title": "Planes de Raciones",
+      "description": "Planes de menús generados por volumen global de raciones",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "title": { "type": "string" },
+        "totalServings": { "type": "number" },
+        "peopleCount": { "type": "number" },
+        "items": { "type": "array" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "totalServings"]
+    },
+    "pantry_items": {
+      "title": "Inventario Despensa",
+      "description": "Artículos en stock en la nevera o despensa",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "name": { "type": "string" },
+        "category": { "type": "string" },
+        "quantity": { "type": "string" },
+        "inStock": { "type": "boolean" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "name"]
+    },
+    "shopping_items": {
+      "title": "Lista de Compra",
+      "description": "Lista de compra consolidada para la preparación de raciones",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "name": { "type": "string" },
+        "category": { "type": "string" },
+        "checked": { "type": "boolean" },
+        "amount": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "name"]
+    }
+  }
+}
