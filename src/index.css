@@ -1,39 +1,19 @@
 @import "tailwindcss";
 
+@variant dark (&:where(.dark, .dark *));
+
 @theme {
-  --color-primary: #0f5238;
-  --color-primary-container: #2d6a4f;
+  --color-primary: #10b981;
+  --color-primary-container: #064e3b;
   --color-on-primary: #ffffff;
-  --color-on-primary-container: #a8e7c5;
-  
-  --color-secondary: #ac3509;
-  --color-secondary-container: #fe6f42;
+  --color-on-primary-container: #a7f3d0;
+
+  --color-secondary: #f97316;
+  --color-secondary-container: #7c2d12;
   --color-on-secondary: #ffffff;
-  --color-on-secondary-container: #631800;
+  --color-on-secondary-container: #ffedd5;
 
-  --color-tertiary: #4a473d;
-  --color-tertiary-container: #625f54;
-  --color-on-tertiary: #ffffff;
-  --color-on-tertiary-container: #dfd9cc;
-
-  --color-surface: #f8f9ff;
-  --color-surface-dim: #d6dae3;
-  --color-surface-container-lowest: #ffffff;
-  --color-surface-container-low: #f0f4fd;
-  --color-surface-container: #eaeef7;
-  --color-surface-container-high: #e4e8f1;
-  --color-surface-container-highest: #dee3eb;
-  --color-surface-variant: #dee3eb;
-
-  --color-on-surface: #171c22;
-  --color-on-surface-variant: #404943;
-  --color-outline: #707973;
-  --color-outline-variant: #bfc9c1;
-
-  --color-background: #f8f9ff;
-  --color-on-background: #171c22;
-
-  --font-sans: "Inter", sans-serif;
+  --font-sans: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 }
 
 @layer utilities {
@@ -47,4 +27,17 @@
     -ms-overflow-style: none;
     scrollbar-width: none;
   }
+}
+
+/* Glassmorphism & custom glowing background utilities */
+.glass-panel-light {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(228, 228, 231, 0.8);
+}
+
+.glass-panel-dark {
+  background: rgba(24, 24, 27, 0.75);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(39, 39, 42, 0.8);
 }

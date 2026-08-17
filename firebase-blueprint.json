@@ -9,12 +9,26 @@
         "email": { "type": "string" },
         "displayName": { "type": "string" },
         "photoURL": { "type": "string" },
+        "role": { "type": "string", "enum": ["user", "superadmin"], "description": "Rol de privilegios. josferestudio@gmail.com es el Superadmin global" },
         "peopleCount": { "type": "number" },
         "dietPreferences": { "type": "array", "items": { "type": "string" } },
         "sessionToken": { "type": "string" },
         "updatedAt": { "type": "string", "format": "date-time" }
       },
       "required": ["id", "email"]
+    },
+    "system_config": {
+      "title": "Configuraciones del Sistema",
+      "description": "Ajustes globales del motor Batch Cooking y telemetría Firebase (Superadmin: josferestudio@gmail.com)",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "superadminEmail": { "type": "string" },
+        "activeEngines": { "type": "array", "items": { "type": "string" } },
+        "maintenanceMode": { "type": "boolean" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "superadminEmail"]
     },
     "menu_plans": {
       "title": "Planes de Raciones",

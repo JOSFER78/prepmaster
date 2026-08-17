@@ -1,654 +1,592 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   Home, 
   Sparkles, 
   Layers, 
   ShoppingBag, 
   ChefHat, 
-  Menu, 
   X, 
   Refrigerator, 
   BookOpen, 
   User, 
   ChevronRight, 
-  Check,
-  ChevronDown,
-  ShieldCheck
+  Crown,
+  Sun,
+  Moon,
+  LogOut,
+  Calendar,
+  Clock,
+  ArrowRight,
+  Info
 } from 'lucide-react';
-import { ViewState } from '../types';
-import { currentUser } from '../data';
+import { ViewState, BatchProject } from '../types';
+import { auth, onAuthStateChanged, isSuperAdmin, User as FirebaseUser, signOut } from '../lib/firebase';
+import { useTheme } from '../lib/theme';
+import { calculateProjectMetrics } from '../lib/batchProjects';
 
 interface LayoutProps {
   children: React.ReactNode;
   currentView: ViewState;
   onNavigate: (view: ViewState) => void;
   hideNav?: boolean;
+  activeProject?: BatchProject | null;
 }
 
-type MenuCategory = 'home' | 'menus' | 'shopping' | 'cook' | 'all' | null;
+export function Layout({ children, currentView, onNavigate, hideNav = false, activeProject }: LayoutProps) {
+  const { theme, toggleTheme } = useTheme();
+  const [isProfileDrawerOpen, setIsProfileDrawerOpen] = useState(false);
+  const [firebaseUser, setFirebaseUser] = useState<FirebaseUser | null>(null);
 
-export function Layout({ children, currentView, onNavigate, hideNav = false }: LayoutProps) {
-  const [activeCategorySheet, setActiveCategorySheet] = useState<MenuCategory>(null);
+  useEffect(() => {
+    const unsub = onAuthStateChanged(auth, (user) => {
+      setFirebaseUser(user);
+    });
+    return () => unsub();
+  }, []);
 
-  const handleMenuNavigate = (view: ViewState) => {
-    onNavigate(view);
-    setActiveCategorySheet(null);
-  };
+  const isSuperAdminUser = isSuperAdmin(firebaseUser);
 
-  const toggleCategorySheet = (category: MenuCategory) => {
-    if (activeCategorySheet === category) {
-      setActiveCategorySheet(null);
-    } else {
-      setActiveCategorySheet(category);
+  // Metrics from active project
+  const metrics = activeProject ? calculateProjectMetrics(activeProject) : null;
+  const pendingShopCount = activeProject?.shoppingList ? activeProject.shoppingList.filter(i => !i.isBought).length : 0;
+
+  // Dynamic status pill helper
+  const getBatchPillInfo = () => {
+    if (!activeProject) {
+      return {
+        label: 'Sin Lote Activo',
+        subtext: 'Planificar',
+        colorClass: 'bg-zinc-800 text-zinc-400 border-zinc-700',
+        targetView: { name: 'ai-generator' as const }
+      };
     }
-  };
 
-  // Helper to get active section & current view title info for the sticky top bar
-  const getSubMenuHeaderInfo = () => {
-    switch (currentView.name) {
-      case 'home':
+    switch (activeProject.status) {
+      case 'planning':
         return {
-          categoryLabel: 'SECCIÓN INICIO',
-          viewLabel: 'Panel Resumen PrepMaster',
-          icon: <Home size={14} className="text-primary" />,
-          category: 'home' as MenuCategory
+          label: 'Planificando',
+          subtext: `${activeProject.dishes?.length || 0} platos`,
+          colorClass: 'bg-amber-950/60 text-amber-400 border-amber-500/30',
+          targetView: { name: 'ai-generator' as const }
         };
-      case 'profile':
+      case 'shopping':
         return {
-          categoryLabel: 'INICIO & PERFIL',
-          viewLabel: 'Perfil & Tokens Firebase',
-          icon: <User size={14} className="text-slate-700" />,
-          category: 'home' as MenuCategory
+          label: 'Compra',
+          subtext: `${pendingShopCount} pendientes`,
+          colorClass: 'bg-blue-950/60 text-blue-400 border-blue-500/30',
+          targetView: { name: 'shopping-list' as const }
         };
-      case 'ai-generator':
+      case 'ready_to_cook':
         return {
-          categoryLabel: 'MENÚS & RACIONES',
-          viewLabel: 'Generador IA por Raciones',
-          icon: <Sparkles size={14} className="text-primary" />,
-          category: 'menus' as MenuCategory
+          label: 'Listo para Cocinar',
+          subtext: 'Encender fuegos',
+          colorClass: 'bg-emerald-950/60 text-emerald-400 border-emerald-500/30 animate-pulse',
+          targetView: { name: 'interactive-cook' as const }
         };
-      case 'planner':
+      case 'cooking':
         return {
-          categoryLabel: 'MENÚS & RACIONES',
-          viewLabel: 'Planificador Volumen Total',
-          icon: <Layers size={14} className="text-secondary" />,
-          category: 'menus' as MenuCategory
+          label: 'En Cocina',
+          subtext: 'Fuegos activos',
+          colorClass: 'bg-amber-950/60 text-amber-400 border-amber-500/30 animate-pulse',
+          targetView: { name: 'interactive-cook' as const }
         };
-      case 'explore':
-      case 'recipe':
+      case 'in_fridge':
         return {
-          categoryLabel: 'MENÚS & RACIONES',
-          viewLabel: 'Canales & Recetas de Autor',
-          icon: <BookOpen size={14} className="text-rose-700" />,
-          category: 'menus' as MenuCategory
+          label: 'En Nevera',
+          subtext: `${metrics?.remainingServings ?? 0} raciones`,
+          colorClass: 'bg-emerald-950/60 text-emerald-400 border-emerald-500/30',
+          targetView: { name: 'home' as const }
         };
-      case 'shopping-list':
-        return {
-          categoryLabel: 'COMPRA & DESPENSA',
-          viewLabel: 'Lista de Compra Consolidada',
-          icon: <ShoppingBag size={14} className="text-emerald-700" />,
-          category: 'shopping' as MenuCategory
-        };
-      case 'reference-rag':
-        return {
-          categoryLabel: 'COMPRA & DESPENSA',
-          viewLabel: 'Stock Nevera & Despensa',
-          icon: <Refrigerator size={14} className="text-indigo-700" />,
-          category: 'shopping' as MenuCategory
-        };
-      case 'interactive-cook':
-        return {
-          categoryLabel: 'COCINA SIMULTÁNEA',
-          viewLabel: 'Asistente de Fuegos en Vivo',
-          icon: <ChefHat size={14} className="text-amber-700" />,
-          category: 'cook' as MenuCategory
-        };
-      case 'batch-session':
-        return {
-          categoryLabel: 'COCINA SIMULTÁNEA',
-          viewLabel: 'Sesión Batch con Timers',
-          icon: <ChefHat size={14} className="text-primary" />,
-          category: 'cook' as MenuCategory
-        };
+      case 'archived':
       default:
         return {
-          categoryLabel: 'PREPMASTER',
-          viewLabel: 'Panel Principal',
-          icon: <Home size={14} className="text-primary" />,
-          category: 'home' as MenuCategory
+          label: 'Lote Archivado',
+          subtext: 'Crear nuevo',
+          colorClass: 'bg-zinc-800 text-zinc-400 border-zinc-700',
+          targetView: { name: 'ai-generator' as const }
         };
     }
   };
 
-  const headerInfo = getSubMenuHeaderInfo();
+  const pillInfo = getBatchPillInfo();
 
-  const isHomeActive = currentView.name === 'home' || currentView.name === 'profile';
-  const isMenusActive = currentView.name === 'ai-generator' || currentView.name === 'planner' || currentView.name === 'explore' || currentView.name === 'recipe';
-  const isShoppingActive = currentView.name === 'shopping-list' || currentView.name === 'reference-rag';
+  // Active tab checkers
+  const isHomeActive = currentView.name === 'home';
+  const isGeneratorActive = currentView.name === 'ai-generator';
+  const isShoppingActive = currentView.name === 'shopping-list';
   const isCookActive = currentView.name === 'interactive-cook' || currentView.name === 'batch-session';
 
+  const handleLogout = async () => {
+    try {
+      await signOut(auth);
+      setIsProfileDrawerOpen(false);
+      onNavigate({ name: 'landing' });
+    } catch (e) {
+      console.error('Error logging out', e);
+    }
+  };
+
+  // Breadcrumb title helper
+  const getBreadcrumbTitle = () => {
+    switch (currentView.name) {
+      case 'home': return 'Dashboard & Seguimiento de Lote';
+      case 'ai-generator': return 'Generador IA de Raciones';
+      case 'shopping-list': return 'Lista de Compra Descontada';
+      case 'interactive-cook': return 'Cocina Simultánea en Paralelo';
+      case 'planner': return 'Planificador de Volumen y Raciones';
+      case 'reference-rag': return 'Despensa & Stock de Nevera';
+      case 'explore':
+      case 'recipe': return 'Recetario de Autor';
+      case 'profile': return 'Perfil, Hogar y Ajustes';
+      default: return 'Panel Principal';
+    }
+  };
+
   return (
-    <div className="bg-surface text-on-surface flex flex-col min-h-screen font-sans">
+    <div className="bg-zinc-50 dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100 flex flex-col min-h-screen font-sans transition-colors duration-200">
+      
+      {/* GLOBAL HEADER */}
       {!hideNav && (
-        <header className="bg-surface/95 backdrop-blur-md shadow-xs w-full top-0 left-0 sticky z-40 border-b border-outline-variant/20">
-          <div className="flex justify-between items-center px-3 py-1.5 max-w-[1280px] mx-auto">
+        <header className="bg-white/90 dark:bg-zinc-900/90 backdrop-blur-md shadow-xs w-full top-0 left-0 sticky z-40 border-b border-zinc-200 dark:border-zinc-800">
+          <div className="flex justify-between items-center px-4 py-2.5 max-w-7xl mx-auto">
             
-            {/* LOGO & PROFILE LINK */}
-            <div className="flex items-center gap-2 cursor-pointer" onClick={() => onNavigate({ name: 'profile' })}>
-              <div className="w-8 h-8 rounded-full overflow-hidden bg-surface-container-high border border-primary/30 shrink-0 relative">
-                <img src={currentUser.avatar} alt="User" className="w-full h-full object-cover" />
-                <span className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-emerald-500 border border-white rounded-full" />
-              </div>
-              <div className="hidden sm:block">
-                <h1 className="text-xs font-black text-primary flex items-center gap-1 leading-none">
-                  PrepMaster <span className="text-[8px] bg-primary-container text-on-primary-container px-1.5 py-0.2 rounded-full font-bold">FIREBASE</span>
-                </h1>
-                <p className="text-[9px] text-on-surface-variant font-medium">¡Hola, {currentUser.name}!</p>
-              </div>
-            </div>
-
-            {/* STICKY TOP SUBMENU INDICATOR (CLEARLY SHOWS WHERE YOU ARE IN SUBMENU) */}
+            {/* BRAND LOGO */}
             <div 
-              onClick={() => toggleCategorySheet(headerInfo.category)}
-              className="flex items-center gap-1.5 bg-surface-container/80 hover:bg-surface-container-high border border-outline-variant/40 px-2.5 py-1 rounded-2xl cursor-pointer transition-all active:scale-98"
+              className="flex items-center gap-2.5 cursor-pointer select-none group" 
+              onClick={() => onNavigate({ name: 'home' })}
             >
-              <div className="w-5 h-5 rounded-lg bg-surface border border-outline-variant/30 flex items-center justify-center shrink-0">
-                {headerInfo.icon}
+              <div className="w-8 h-8 rounded-xl bg-emerald-600 dark:bg-emerald-500 text-white flex items-center justify-center font-black shadow-xs shrink-0 group-hover:scale-105 transition-transform">
+                <ChefHat size={18} />
               </div>
-              <div className="text-left">
-                <div className="text-[8px] font-black tracking-wider text-primary uppercase leading-none">
-                  {headerInfo.categoryLabel}
+              <div>
+                <div className="flex items-center gap-1.5">
+                  <h1 className="text-sm font-black text-zinc-900 dark:text-white leading-none">
+                    PrepMaster
+                  </h1>
+                  {isSuperAdminUser && (
+                    <span className="text-[9px] bg-amber-500 text-white font-black px-1.5 py-0.2 rounded-full flex items-center gap-0.5 shadow-2xs">
+                      <Crown size={10} /> SUPERADMIN
+                    </span>
+                  )}
                 </div>
-                <div className="text-[11px] font-extrabold text-on-surface leading-tight flex items-center gap-1">
-                  <span>{headerInfo.viewLabel}</span>
-                  <ChevronDown size={11} className="text-on-surface-variant shrink-0" />
-                </div>
+                <p className="text-[10px] text-zinc-500 dark:text-zinc-400 font-medium truncate max-w-[120px] sm:max-w-[200px]">
+                  {firebaseUser ? (firebaseUser.displayName || firebaseUser.email) : 'Batch Cooking Pro'}
+                </p>
               </div>
             </div>
 
-            {/* HAMBURGER & PROFILE BUTTONS */}
-            <div className="flex items-center gap-1.5">
+            {/* DYNAMIC ACTIVE BATCH STATUS PILL (CENTER) */}
+            <button 
+              onClick={() => onNavigate(pillInfo.targetView)}
+              className={`flex items-center gap-2 px-3 py-1.5 rounded-full border text-xs font-bold transition-all hover:scale-102 active:scale-98 ${pillInfo.colorClass}`}
+              title="Ir a la fase activa del lote"
+            >
+              <span className="w-2 h-2 rounded-full bg-current"></span>
+              <span className="truncate max-w-[110px] sm:max-w-[180px]">{pillInfo.label}:</span>
+              <span className="font-mono text-[11px] opacity-90">{pillInfo.subtext}</span>
+            </button>
+
+            {/* HEADER RIGHT ACTIONS */}
+            <div className="flex items-center gap-2">
+              {/* THEME TOGGLE */}
               <button
-                onClick={() => onNavigate({ name: 'profile' })}
-                className="flex items-center gap-1 px-2 py-1 rounded-xl bg-surface-container border border-outline-variant/30 text-on-surface font-bold text-xs hover:bg-surface-container-high transition-all active:scale-95"
-                title="Ver Perfil y Tokens Firebase"
+                onClick={toggleTheme}
+                className="p-2 rounded-xl bg-zinc-100 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 text-zinc-700 dark:text-zinc-300 hover:bg-zinc-200 dark:hover:bg-zinc-700 transition-all active:scale-95"
+                title={theme === 'dark' ? 'Cambiar a Modo Claro' : 'Cambiar a Modo Oscuro'}
               >
-                <ShieldCheck size={14} className="text-emerald-700" />
-                <span className="hidden md:inline text-[10px]">Perfil</span>
+                {theme === 'dark' ? <Sun size={16} className="text-amber-400" /> : <Moon size={16} className="text-zinc-700" />}
               </button>
 
-              <button 
-                onClick={() => toggleCategorySheet('all')}
-                className="flex items-center gap-1 px-2.5 py-1 rounded-xl bg-primary text-on-primary font-bold text-xs shadow-xs hover:bg-primary/90 transition-all active:scale-95"
+              {/* PROFILE / SETTINGS TRIGGER */}
+              <button
+                onClick={() => setIsProfileDrawerOpen(true)}
+                className="p-1.5 sm:px-3 sm:py-1.5 rounded-xl bg-zinc-100 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 text-zinc-700 dark:text-zinc-300 hover:bg-zinc-200 dark:hover:bg-zinc-700 hover:border-emerald-500/50 transition-all active:scale-95 flex items-center gap-2"
+                title="Ajustes y Perfil"
               >
-                <Menu size={15} />
-                <span className="hidden sm:inline">Menú</span>
+                <div className="w-6 h-6 rounded-lg bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 flex items-center justify-center font-bold text-xs">
+                  <User size={14} />
+                </div>
+                <span className="hidden md:inline text-xs font-bold">Hogar</span>
               </button>
             </div>
+
           </div>
         </header>
       )}
 
-      <main className={`flex-grow w-full max-w-[1280px] mx-auto ${hideNav ? '' : 'px-2.5 py-2 md:pl-[210px] pb-16 md:pb-2'}`}>
-        {children}
-      </main>
-
-      {!hideNav && (
-        <>
-          {/* VERTICAL POPUP DRAWER SHEET FOR BOTTOM TABS AND HAMBURGER */}
-          {activeCategorySheet && (
-            <div className="fixed inset-0 z-50 flex flex-col justify-end bg-black/50 backdrop-blur-xs animate-fade-in">
-              {/* Backdrop Click */}
-              <div className="flex-1" onClick={() => setActiveCategorySheet(null)} />
-
-              {/* Vertical Drawer Sheet Container (Consistent Styling Across All Categories) */}
-              <div className="bg-surface border-t border-outline-variant/30 rounded-t-3xl p-4 space-y-3 shadow-xl max-h-[85vh] overflow-y-auto animate-slide-up">
-                
-                {/* SHEET HEADERS */}
-                {activeCategorySheet === 'home' && (
-                  <CategorySheetHeader 
-                    icon={<Home className="text-primary" />} 
-                    title="1. INICIO & MI PERFIL" 
-                    subtitle="Resumen general de raciones, estado de nevera y tokens Firebase" 
-                    onClose={() => setActiveCategorySheet(null)} 
-                  />
-                )}
-
-                {activeCategorySheet === 'menus' && (
-                  <CategorySheetHeader 
-                    icon={<Sparkles className="text-primary" />} 
-                    title="2. MENÚS & RACIONES" 
-                    subtitle="Generación inteligente con IA por volumen total de raciones" 
-                    onClose={() => setActiveCategorySheet(null)} 
-                  />
-                )}
-
-                {activeCategorySheet === 'shopping' && (
-                  <CategorySheetHeader 
-                    icon={<ShoppingBag className="text-emerald-700" />} 
-                    title="3. COMPRA & SUMINISTROS" 
-                    subtitle="Lista consolidada de ingredientes y verificación de stock" 
-                    onClose={() => setActiveCategorySheet(null)} 
-                  />
-                )}
-
-                {activeCategorySheet === 'cook' && (
-                  <CategorySheetHeader 
-                    icon={<ChefHat className="text-amber-700" />} 
-                    title="4. COCINA SIMULTÁNEA BATCH" 
-                    subtitle="Orquestación paso a paso de fuegos paralelos y temporizadores" 
-                    onClose={() => setActiveCategorySheet(null)} 
-                  />
-                )}
-
-                {activeCategorySheet === 'all' && (
-                  <CategorySheetHeader 
-                    icon={<Menu className="text-primary" />} 
-                    title="MENÚ COMPLETO PREPMASTER" 
-                    subtitle="Estructura organizada con acceso directo a todas las secciones" 
-                    onClose={() => setActiveCategorySheet(null)} 
-                  />
-                )}
-
-                {/* OPTIONS LIST FOR ACTIVE CATEGORY */}
-                <div className="space-y-1.5 py-1">
-                  {/* CATEGORY: HOME */}
-                  {activeCategorySheet === 'home' && (
-                    <>
-                      <DrawerItem
-                        icon={<Home className="text-primary" />}
-                        title="Panel Principal Resumen"
-                        subtitle="Métricas globales de raciones en nevera y accesos directos"
-                        isActive={currentView.name === 'home'}
-                        onClick={() => handleMenuNavigate({ name: 'home' })}
-                      />
-                      <DrawerItem
-                        icon={<User className="text-slate-700" />}
-                        title="Perfil & Tokens Firebase"
-                        subtitle="Gestión de autenticación, comensales y sesión de usuario"
-                        isActive={currentView.name === 'profile'}
-                        onClick={() => handleMenuNavigate({ name: 'profile' })}
-                      />
-                      <DrawerItem
-                        icon={<Refrigerator className="text-indigo-700" />}
-                        title="Stock Nevera & Despensa"
-                        subtitle="Ingredientes disponibles y fechas de caducidad"
-                        isActive={currentView.name === 'reference-rag'}
-                        onClick={() => handleMenuNavigate({ name: 'reference-rag' })}
-                      />
-                    </>
-                  )}
-
-                  {/* CATEGORY: MENUS */}
-                  {activeCategorySheet === 'menus' && (
-                    <>
-                      <DrawerItem
-                        icon={<Sparkles className="text-primary" />}
-                        title="Generador IA de Menús por Raciones"
-                        subtitle="Calculador inteligente según antojos, comensales y nevera"
-                        isActive={currentView.name === 'ai-generator'}
-                        onClick={() => handleMenuNavigate({ name: 'ai-generator' })}
-                      />
-                      <DrawerItem
-                        icon={<Layers className="text-secondary" />}
-                        title="Planificador por Volumen de Raciones"
-                        subtitle="Distribución y ajustes de porciones preparadas"
-                        isActive={currentView.name === 'planner'}
-                        onClick={() => handleMenuNavigate({ name: 'planner' })}
-                      />
-                      <DrawerItem
-                        icon={<BookOpen className="text-rose-700" />}
-                        title="Canales & Recetas de Autor"
-                        subtitle="Estilos de referencia batch cooking de chefs"
-                        isActive={currentView.name === 'explore'}
-                        onClick={() => handleMenuNavigate({ name: 'explore' })}
-                      />
-                    </>
-                  )}
-
-                  {/* CATEGORY: SHOPPING */}
-                  {activeCategorySheet === 'shopping' && (
-                    <>
-                      <DrawerItem
-                        icon={<ShoppingBag className="text-emerald-700" />}
-                        title="Lista de Compra Consolidada"
-                        subtitle="Ingredientes agrupados por categoría restando lo que ya tienes"
-                        isActive={currentView.name === 'shopping-list'}
-                        onClick={() => handleMenuNavigate({ name: 'shopping-list' })}
-                      />
-                      <DrawerItem
-                        icon={<Refrigerator className="text-indigo-700" />}
-                        title="Comprobación de Inventario en Stock"
-                        subtitle="Ajuste rápido de ingredientes disponibles"
-                        isActive={currentView.name === 'reference-rag'}
-                        onClick={() => handleMenuNavigate({ name: 'reference-rag' })}
-                      />
-                    </>
-                  )}
-
-                  {/* CATEGORY: COOK */}
-                  {activeCategorySheet === 'cook' && (
-                    <>
-                      <DrawerItem
-                        icon={<ChefHat className="text-amber-700" />}
-                        title="Asistente de Fuegos en Vivo"
-                        subtitle="Secuencia optimizada de fuegos en paralelo y comandos de voz"
-                        isActive={currentView.name === 'interactive-cook'}
-                        onClick={() => handleMenuNavigate({ name: 'interactive-cook' })}
-                      />
-                      <DrawerItem
-                        icon={<Layers className="text-primary" />}
-                        title="Sesión Batch Cooking con Temporizadores"
-                        subtitle="Paso a paso de cocinado masivo con pantalla encendida"
-                        isActive={currentView.name === 'batch-session'}
-                        onClick={() => handleMenuNavigate({ name: 'batch-session' })}
-                      />
-                    </>
-                  )}
-
-                  {/* CATEGORY: ALL (MENU HAMBURGUESA COMPLETO) */}
-                  {activeCategorySheet === 'all' && (
-                    <>
-                      <div className="text-[10px] font-black text-primary uppercase tracking-wider px-1 pt-1">
-                        1. INICIO & PERFIL
-                      </div>
-                      <DrawerItem
-                        icon={<Home className="text-primary" />}
-                        title="Inicio - Resumen de Raciones"
-                        subtitle="Vista rápida de raciones preparadas y accesos"
-                        isActive={currentView.name === 'home'}
-                        onClick={() => handleMenuNavigate({ name: 'home' })}
-                      />
-                      <DrawerItem
-                        icon={<User className="text-slate-700" />}
-                        title="Perfil & Tokens Firebase"
-                        subtitle="Credenciales de acceso, comensales y sincronización"
-                        isActive={currentView.name === 'profile'}
-                        onClick={() => handleMenuNavigate({ name: 'profile' })}
-                      />
-
-                      <div className="text-[10px] font-black text-primary uppercase tracking-wider px-1 pt-2">
-                        2. MENÚS & RACIONES
-                      </div>
-                      <DrawerItem
-                        icon={<Sparkles className="text-primary" />}
-                        title="Generador IA de Raciones"
-                        subtitle="Crea tu menú por bloques totales sin días fijos"
-                        isActive={currentView.name === 'ai-generator'}
-                        onClick={() => handleMenuNavigate({ name: 'ai-generator' })}
-                      />
-                      <DrawerItem
-                        icon={<Layers className="text-secondary" />}
-                        title="Planificador de Volumen Total"
-                        subtitle="Gestión del bloque global de porciones (ej: 25 rac)"
-                        isActive={currentView.name === 'planner'}
-                        onClick={() => handleMenuNavigate({ name: 'planner' })}
-                      />
-                      <DrawerItem
-                        icon={<BookOpen className="text-rose-700" />}
-                        title="Canales y Recetas de Autor"
-                        subtitle="Inspiración y técnicas de cocinado masivo"
-                        isActive={currentView.name === 'explore'}
-                        onClick={() => handleMenuNavigate({ name: 'explore' })}
-                      />
-
-                      <div className="text-[10px] font-black text-primary uppercase tracking-wider px-1 pt-2">
-                        3. COMPRA & SUMINISTROS
-                      </div>
-                      <DrawerItem
-                        icon={<ShoppingBag className="text-emerald-700" />}
-                        title="Lista de Compra Consolidada"
-                        subtitle="Ingredientes optimizados para las raciones"
-                        isActive={currentView.name === 'shopping-list'}
-                        onClick={() => handleMenuNavigate({ name: 'shopping-list' })}
-                      />
-                      <DrawerItem
-                        icon={<Refrigerator className="text-indigo-700" />}
-                        title="Stock Nevera & Despensa"
-                        subtitle="Control de ingredientes en casa"
-                        isActive={currentView.name === 'reference-rag'}
-                        onClick={() => handleMenuNavigate({ name: 'reference-rag' })}
-                      />
-
-                      <div className="text-[10px] font-black text-primary uppercase tracking-wider px-1 pt-2">
-                        4. COCINA SIMULTÁNEA
-                      </div>
-                      <DrawerItem
-                        icon={<ChefHat className="text-amber-700" />}
-                        title="Asistente de Cocina Simultánea"
-                        subtitle="Orquestación de fuegos paralelos y voz"
-                        isActive={currentView.name === 'interactive-cook'}
-                        onClick={() => handleMenuNavigate({ name: 'interactive-cook' })}
-                      />
-                    </>
+      {/* MAIN CONTAINER WITH DESKTOP SIDEBAR */}
+      <div className="flex-grow w-full max-w-7xl mx-auto flex">
+        
+        {/* DESKTOP SIDEBAR */}
+        {!hideNav && (
+          <aside className="hidden md:flex flex-col justify-between w-60 p-4 border-r border-zinc-200 dark:border-zinc-800 shrink-0 sticky top-14 h-[calc(100vh-3.5rem)] overflow-y-auto">
+            
+            <div className="space-y-6">
+              {/* SECTION 1: LOTE ACTIVO (CORE LOOP) */}
+              <div className="space-y-1">
+                <div className="text-[10px] font-bold uppercase tracking-wider text-emerald-600 dark:text-emerald-400 px-2 mb-1 flex items-center justify-between">
+                  <span>Lote de Cocina</span>
+                  {activeProject && (
+                    <span className="w-2 h-2 rounded-full bg-emerald-500"></span>
                   )}
                 </div>
+                <SidebarItem 
+                  icon={<Home size={16} />} 
+                  label="Dashboard Hoy" 
+                  isActive={currentView.name === 'home'} 
+                  onClick={() => onNavigate({ name: 'home' })} 
+                />
+                <SidebarItem 
+                  icon={<Sparkles size={16} />} 
+                  label="Generador IA" 
+                  isActive={currentView.name === 'ai-generator'} 
+                  onClick={() => onNavigate({ name: 'ai-generator' })} 
+                />
+                <SidebarItem 
+                  icon={<ShoppingBag size={16} />} 
+                  label="Lista de Compra" 
+                  badge={pendingShopCount > 0 ? `${pendingShopCount}` : undefined}
+                  isActive={currentView.name === 'shopping-list'} 
+                  onClick={() => onNavigate({ name: 'shopping-list' })} 
+                />
+                <SidebarItem 
+                  icon={<ChefHat size={16} />} 
+                  label="Cocina Simultánea" 
+                  isActive={currentView.name === 'interactive-cook' || currentView.name === 'batch-session'} 
+                  onClick={() => onNavigate({ name: 'interactive-cook' })} 
+                />
+              </div>
 
-                {/* Footer Action */}
-                <div className="pt-2 border-t border-outline-variant/20 flex justify-center">
-                  <button
-                    onClick={() => setActiveCategorySheet(null)}
-                    className="w-full bg-surface-container border border-outline-variant/30 text-on-surface font-bold text-xs py-2 rounded-xl active:scale-98 transition-all"
-                  >
-                    Cerrar Menú
-                  </button>
+              {/* SECTION 2: RECURSOS & BIBLIOTECA */}
+              <div className="space-y-1">
+                <div className="text-[10px] font-bold uppercase tracking-wider text-zinc-400 px-2 mb-1">
+                  Recursos
                 </div>
+                <SidebarItem 
+                  icon={<Layers size={16} />} 
+                  label="Plan de Raciones" 
+                  isActive={currentView.name === 'planner'} 
+                  onClick={() => onNavigate({ name: 'planner' })} 
+                />
+                <SidebarItem 
+                  icon={<Refrigerator size={16} />} 
+                  label="Despensa & Nevera" 
+                  isActive={currentView.name === 'reference-rag'} 
+                  onClick={() => onNavigate({ name: 'reference-rag' })} 
+                />
+                <SidebarItem 
+                  icon={<BookOpen size={16} />} 
+                  label="Recetas de Autor" 
+                  isActive={currentView.name === 'explore' || currentView.name === 'recipe'} 
+                  onClick={() => onNavigate({ name: 'explore' })} 
+                />
               </div>
             </div>
-          )}
 
-          {/* FIXED BOTTOM NAVIGATION BAR WITH 5 DISTINCT CATEGORIES & CLEAR ACTIVE ICON */}
-          <nav className="bg-surface/95 backdrop-blur-md shadow-[0_-2px_10px_rgba(0,0,0,0.08)] fixed bottom-0 w-full z-40 flex justify-around items-center px-1 py-1 md:hidden pb-safe border-t border-outline-variant/20">
-            <NavItem 
-              icon={<Home />} 
-              label="Inicio" 
-              isActive={isHomeActive || activeCategorySheet === 'home'} 
-              onClick={() => toggleCategorySheet('home')} 
-            />
-            <NavItem 
-              icon={<Sparkles />} 
-              label="Plan" 
-              isActive={isMenusActive || activeCategorySheet === 'menus'} 
-              onClick={() => toggleCategorySheet('menus')} 
-            />
-            <NavItem 
-              icon={<ShoppingBag />} 
-              label="Compra" 
-              isActive={isShoppingActive || activeCategorySheet === 'shopping'} 
-              onClick={() => toggleCategorySheet('shopping')} 
-            />
-            <NavItem 
-              icon={<ChefHat />} 
-              label="Cocina" 
-              isActive={isCookActive || activeCategorySheet === 'cook'} 
-              onClick={() => toggleCategorySheet('cook')} 
-            />
-            <NavItem 
-              icon={<Menu />} 
-              label="Menú" 
-              isActive={activeCategorySheet === 'all'} 
-              onClick={() => toggleCategorySheet('all')} 
-            />
-          </nav>
-
-          {/* DESKTOP SIDEBAR WITH CLEAR STRUCTURAL SECTIONS */}
-          <aside className="hidden md:flex flex-col bg-surface-container w-[195px] fixed top-[49px] bottom-0 left-0 p-2.5 border-r border-outline-variant/20 z-30 overflow-y-auto">
-            <div className="space-y-3">
-              <div>
-                <span className="text-[10px] font-black text-on-surface-variant uppercase tracking-wider px-2 block mb-1">
-                  1. Inicio & Cuenta
-                </span>
-                <nav className="flex flex-col gap-0.5">
-                  <DesktopNavItem 
-                    icon={<Home />} 
-                    label="Inicio Resumen" 
-                    isActive={currentView.name === 'home'} 
-                    onClick={() => onNavigate({ name: 'home' })} 
-                  />
-                  <DesktopNavItem 
-                    icon={<User />} 
-                    label="Perfil & Tokens" 
-                    isActive={currentView.name === 'profile'} 
-                    onClick={() => onNavigate({ name: 'profile' })} 
-                  />
-                </nav>
-              </div>
-
-              <div>
-                <span className="text-[10px] font-black text-on-surface-variant uppercase tracking-wider px-2 block mb-1">
-                  2. Plan Raciones
-                </span>
-                <nav className="flex flex-col gap-0.5">
-                  <DesktopNavItem 
-                    icon={<Sparkles />} 
-                    label="Generar Raciones" 
-                    isActive={currentView.name === 'ai-generator'} 
-                    onClick={() => onNavigate({ name: 'ai-generator' })} 
-                  />
-                  <DesktopNavItem 
-                    icon={<Layers />} 
-                    label="Plan de Volumen" 
-                    isActive={currentView.name === 'planner'} 
-                    onClick={() => onNavigate({ name: 'planner' })} 
-                  />
-                  <DesktopNavItem 
-                    icon={<BookOpen />} 
-                    label="Recetas Autor" 
-                    isActive={currentView.name === 'explore'} 
-                    onClick={() => onNavigate({ name: 'explore' })} 
-                  />
-                </nav>
-              </div>
-
-              <div>
-                <span className="text-[10px] font-black text-on-surface-variant uppercase tracking-wider px-2 block mb-1">
-                  3. Suministros
-                </span>
-                <nav className="flex flex-col gap-0.5">
-                  <DesktopNavItem 
-                    icon={<ShoppingBag />} 
-                    label="Lista Compra" 
-                    isActive={currentView.name === 'shopping-list'} 
-                    onClick={() => onNavigate({ name: 'shopping-list' })} 
-                  />
-                  <DesktopNavItem 
-                    icon={<Refrigerator />} 
-                    label="Stock Nevera" 
-                    isActive={currentView.name === 'reference-rag'} 
-                    onClick={() => onNavigate({ name: 'reference-rag' })} 
-                  />
-                </nav>
-              </div>
-
-              <div>
-                <span className="text-[10px] font-black text-on-surface-variant uppercase tracking-wider px-2 block mb-1">
-                  4. Ejecución
-                </span>
-                <nav className="flex flex-col gap-0.5">
-                  <DesktopNavItem 
-                    icon={<ChefHat />} 
-                    label="Cocina Simultánea" 
-                    isActive={currentView.name === 'interactive-cook'} 
-                    onClick={() => onNavigate({ name: 'interactive-cook' })} 
-                  />
-                </nav>
-              </div>
-
+            {/* SECTION 3: FOOTER SETTINGS */}
+            <div className="border-t border-zinc-200 dark:border-zinc-800 pt-3 space-y-1">
+              <SidebarItem 
+                icon={<User size={16} />} 
+                label="Mi Hogar & Ajustes" 
+                isActive={currentView.name === 'profile'} 
+                onClick={() => onNavigate({ name: 'profile' })} 
+              />
               <button
-                onClick={() => toggleCategorySheet('all')}
-                className="w-full flex items-center justify-between px-2.5 py-1.5 rounded-lg text-xs font-bold text-primary bg-primary/10 hover:bg-primary/20 transition-colors mt-2"
+                onClick={() => onNavigate({ name: 'landing' })}
+                className="w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-bold text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white hover:bg-zinc-100 dark:hover:bg-zinc-800/60 transition-all text-left"
               >
-                <div className="flex items-center gap-2">
-                  <Menu size={16} />
-                  <span>Submenús</span>
-                </div>
-                <ChevronRight size={14} />
+                <span>Ver Portada / Landing</span>
+                <ArrowRight size={14} />
               </button>
             </div>
+
           </aside>
-        </>
-      )}
-    </div>
-  );
-}
+        )}
 
-function CategorySheetHeader({ icon, title, subtitle, onClose }: { icon: React.ReactNode, title: string, subtitle: string, onClose: () => void }) {
-  return (
-    <div className="flex items-center justify-between border-b border-outline-variant/20 pb-2.5">
-      <div className="flex items-center gap-2">
-        <div className="w-9 h-9 rounded-xl bg-surface border border-outline-variant/30 flex items-center justify-center shrink-0">
-          {React.cloneElement(icon as React.ReactElement, { size: 20 })}
-        </div>
-        <div>
-          <h2 className="text-xs font-black text-on-surface leading-tight">{title}</h2>
-          <p className="text-[10px] text-on-surface-variant leading-none mt-0.5">{subtitle}</p>
-        </div>
+        {/* MAIN VIEWPORT */}
+        <main className={`flex-grow w-full ${hideNav ? '' : 'p-4 md:p-6 pb-24 md:pb-6 overflow-x-hidden'}`}>
+          {!hideNav && (
+            <div className="hidden md:flex items-center justify-between mb-4 pb-2 border-b border-zinc-200 dark:border-zinc-800/80">
+              <div className="flex items-center gap-2 text-xs font-bold text-zinc-400">
+                <span>PrepMaster</span>
+                <span>/</span>
+                <span className="text-zinc-900 dark:text-white">{getBreadcrumbTitle()}</span>
+              </div>
+              {activeProject && (
+                <div className="text-xs text-zinc-500 dark:text-zinc-400 flex items-center gap-2">
+                  <Clock size={13} className="text-emerald-500" />
+                  <span>{activeProject.title} ({activeProject.peopleCount} personas · {activeProject.daysCount} días)</span>
+                </div>
+              )}
+            </div>
+          )}
+          {children}
+        </main>
       </div>
-      <button
-        onClick={onClose}
-        className="w-7 h-7 rounded-full bg-surface-container border border-outline-variant/30 flex items-center justify-center text-on-surface hover:bg-surface-container-high transition-colors"
-      >
-        <X size={16} />
-      </button>
+
+      {/* MOBILE BOTTOM NAVIGATION BAR (4 CORE DIRECT TABS) */}
+      {!hideNav && (
+        <nav className="bg-white/95 dark:bg-zinc-900/95 backdrop-blur-md shadow-lg fixed bottom-0 left-0 right-0 z-40 flex justify-around items-center px-2 py-2 md:hidden border-t border-zinc-200 dark:border-zinc-800 pb-safe">
+          <NavItem 
+            icon={<Home />} 
+            label="Inicio" 
+            isActive={isHomeActive} 
+            onClick={() => onNavigate({ name: 'home' })} 
+          />
+          <NavItem 
+            icon={<Sparkles />} 
+            label="Generador" 
+            isActive={isGeneratorActive} 
+            onClick={() => onNavigate({ name: 'ai-generator' })} 
+          />
+          <NavItem 
+            icon={<ShoppingBag />} 
+            label="Compra" 
+            badge={pendingShopCount > 0 ? `${pendingShopCount}` : undefined}
+            isActive={isShoppingActive} 
+            onClick={() => onNavigate({ name: 'shopping-list' })} 
+          />
+          <NavItem 
+            icon={<ChefHat />} 
+            label="Cocina" 
+            isActive={isCookActive} 
+            onClick={() => onNavigate({ name: 'interactive-cook' })} 
+          />
+        </nav>
+      )}
+
+      {/* PROFILE & SETTINGS SIDE DRAWER */}
+      {isProfileDrawerOpen && (
+        <div className="fixed inset-0 z-50 flex justify-end bg-black/60 backdrop-blur-xs animate-fade-in">
+          <div className="flex-1" onClick={() => setIsProfileDrawerOpen(false)} />
+
+          <div className="w-full max-w-sm bg-white dark:bg-zinc-900 border-l border-zinc-200 dark:border-zinc-800 p-6 flex flex-col justify-between shadow-2xl h-full overflow-y-auto animate-slide-left">
+            
+            <div className="space-y-6">
+              {/* DRAWER HEADER */}
+              <div className="flex items-center justify-between border-b border-zinc-200 dark:border-zinc-800 pb-4">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-2xl bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 flex items-center justify-center font-bold text-sm">
+                    <User size={20} />
+                  </div>
+                  <div>
+                    <h3 className="text-sm font-bold text-zinc-900 dark:text-white">
+                      {firebaseUser?.displayName || 'Mi Hogar'}
+                    </h3>
+                    <p className="text-xs text-zinc-500 dark:text-zinc-400">
+                      {firebaseUser?.email || 'Modo Local / Invitado'}
+                    </p>
+                  </div>
+                </div>
+                <button
+                  onClick={() => setIsProfileDrawerOpen(false)}
+                  className="p-2 rounded-xl bg-zinc-100 dark:bg-zinc-800 text-zinc-500 hover:text-zinc-900 dark:hover:text-white"
+                >
+                  <X size={18} />
+                </button>
+              </div>
+
+              {/* QUICK STATS */}
+              {activeProject && (
+                <div className="p-3.5 bg-zinc-50 dark:bg-zinc-800/60 rounded-2xl border border-zinc-200 dark:border-zinc-700/60 space-y-2">
+                  <div className="flex items-center justify-between text-xs">
+                    <span className="font-bold text-zinc-700 dark:text-zinc-300">Lote Activo</span>
+                    <span className="text-emerald-600 dark:text-emerald-400 font-bold uppercase text-[10px]">
+                      {activeProject.status}
+                    </span>
+                  </div>
+                  <div className="grid grid-cols-2 gap-2 text-xs">
+                    <div className="p-2 bg-white dark:bg-zinc-900 rounded-xl border border-zinc-200 dark:border-zinc-700/40">
+                      <span className="text-[10px] text-zinc-400 block">Comensales</span>
+                      <span className="font-black text-zinc-900 dark:text-white">{activeProject.peopleCount} personas</span>
+                    </div>
+                    <div className="p-2 bg-white dark:bg-zinc-900 rounded-xl border border-zinc-200 dark:border-zinc-700/40">
+                      <span className="text-[10px] text-zinc-400 block">Días Cubiertos</span>
+                      <span className="font-black text-zinc-900 dark:text-white">{activeProject.daysCount} días</span>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* NAVIGATION LINKS IN DRAWER (NON-DUPLICATE ITEMS) */}
+              <div className="space-y-2">
+                <DrawerItem
+                  icon={<User size={18} />}
+                  title="Preferencias de Hogar & Dieta"
+                  subtitle="Comensales, alergias y macros"
+                  onClick={() => {
+                    setIsProfileDrawerOpen(false);
+                    onNavigate({ name: 'profile' });
+                  }}
+                />
+                <DrawerItem
+                  icon={<Refrigerator size={18} />}
+                  title="Despensa & Stock RAG"
+                  subtitle="Inventario de ingredientes en casa"
+                  onClick={() => {
+                    setIsProfileDrawerOpen(false);
+                    onNavigate({ name: 'reference-rag' });
+                  }}
+                />
+                <DrawerItem
+                  icon={<Layers size={18} />}
+                  title="Planificador de Volumen"
+                  subtitle="Ajuste manual de raciones"
+                  onClick={() => {
+                    setIsProfileDrawerOpen(false);
+                    onNavigate({ name: 'planner' });
+                  }}
+                />
+                <DrawerItem
+                  icon={<BookOpen size={18} />}
+                  title="Recetario de Autor"
+                  subtitle="Canales y técnicas de cocina"
+                  onClick={() => {
+                    setIsProfileDrawerOpen(false);
+                    onNavigate({ name: 'explore' });
+                  }}
+                />
+                <DrawerItem
+                  icon={<Sparkles size={18} />}
+                  title="Portada y Método Batch"
+                  subtitle="Calculadora de ahorro pública"
+                  onClick={() => {
+                    setIsProfileDrawerOpen(false);
+                    onNavigate({ name: 'landing' });
+                  }}
+                />
+              </div>
+            </div>
+
+            {/* DRAWER FOOTER */}
+            <div className="border-t border-zinc-200 dark:border-zinc-800 pt-4 space-y-3">
+              <button
+                onClick={toggleTheme}
+                className="w-full flex items-center justify-between p-3 rounded-xl bg-zinc-100 dark:bg-zinc-800 text-xs font-bold text-zinc-700 dark:text-zinc-300"
+              >
+                <span>Tema de la interfaz</span>
+                <span className="flex items-center gap-1 text-emerald-600 dark:text-emerald-400">
+                  {theme === 'dark' ? 'Modo Oscuro' : 'Modo Claro'}
+                </span>
+              </button>
+
+              {firebaseUser && (
+                <button
+                  onClick={handleLogout}
+                  className="w-full flex items-center justify-center gap-2 p-3 rounded-xl bg-rose-500/10 hover:bg-rose-500/20 text-rose-600 dark:text-rose-400 text-xs font-bold transition-all"
+                >
+                  <LogOut size={16} />
+                  <span>Cerrar Sesión</span>
+                </button>
+              )}
+            </div>
+
+          </div>
+        </div>
+      )}
+
     </div>
   );
 }
 
-function NavItem({ icon, label, isActive, onClick }: { icon: React.ReactNode, label: string, isActive: boolean, onClick: () => void }) {
+function NavItem({ 
+  icon, 
+  label, 
+  isActive, 
+  badge, 
+  onClick 
+}: { 
+  icon: React.ReactNode, 
+  label: string, 
+  isActive: boolean, 
+  badge?: string, 
+  onClick: () => void 
+}) {
   return (
     <button 
       onClick={onClick}
-      className={`flex flex-col items-center justify-center rounded-xl px-2.5 py-1 active:scale-95 transition-all duration-150 ${
-        isActive ? 'bg-primary-container text-on-primary-container font-black shadow-2xs' : 'text-on-surface-variant hover:text-on-surface'
+      className={`flex flex-col items-center justify-center rounded-2xl px-3 py-1 relative active:scale-95 transition-all ${
+        isActive 
+          ? 'text-emerald-600 dark:text-emerald-400 font-black' 
+          : 'text-zinc-500 dark:text-zinc-400 hover:text-zinc-800 dark:hover:text-zinc-200'
       }`}
     >
-      {React.cloneElement(icon as React.ReactElement, { size: 19, strokeWidth: isActive ? 2.5 : 2 })}
-      <span className="text-[9px] mt-0.5 leading-none font-bold">{label}</span>
+      <div className="relative">
+        {React.cloneElement(icon as React.ReactElement<any>, { size: 22, strokeWidth: isActive ? 2.5 : 2 })}
+        {badge && (
+          <span className="absolute -top-1 -right-2 bg-emerald-500 text-zinc-950 text-[9px] font-black w-4 h-4 rounded-full flex items-center justify-center shadow-xs">
+            {badge}
+          </span>
+        )}
+      </div>
+      <span className="text-[10px] mt-1 leading-none font-bold">{label}</span>
     </button>
   );
 }
 
-function DrawerItem({ icon, title, subtitle, isActive, onClick }: { icon: React.ReactNode, title: string, subtitle: string, isActive: boolean, onClick: () => void }) {
+function SidebarItem({ 
+  icon, 
+  label, 
+  isActive, 
+  badge, 
+  onClick 
+}: { 
+  icon: React.ReactNode, 
+  label: string, 
+  isActive: boolean, 
+  badge?: string, 
+  onClick: () => void 
+}) {
+  return (
+    <button 
+      onClick={onClick}
+      className={`flex items-center justify-between px-3 py-2 rounded-xl text-xs font-bold transition-all w-full text-left ${
+        isActive 
+          ? 'bg-emerald-600 text-white shadow-xs' 
+          : 'text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-800 hover:text-zinc-900 dark:hover:text-white'
+      }`}
+    >
+      <div className="flex items-center gap-2.5">
+        {React.cloneElement(icon as React.ReactElement<any>, { size: 16, strokeWidth: isActive ? 2.5 : 2 })}
+        <span>{label}</span>
+      </div>
+      {badge && (
+        <span className={`text-[10px] font-black px-1.5 py-0.5 rounded-md ${
+          isActive ? 'bg-white/20 text-white' : 'bg-emerald-500/20 text-emerald-400'
+        }`}>
+          {badge}
+        </span>
+      )}
+    </button>
+  );
+}
+
+function DrawerItem({ 
+  icon, 
+  title, 
+  subtitle, 
+  onClick 
+}: { 
+  icon: React.ReactNode, 
+  title: string, 
+  subtitle: string, 
+  onClick: () => void 
+}) {
   return (
     <button
       onClick={onClick}
-      className={`w-full flex items-center justify-between p-2.5 rounded-2xl border transition-all text-left ${
-        isActive 
-          ? 'bg-primary-container/40 border-primary/40 shadow-2xs' 
-          : 'bg-surface-container/60 border-outline-variant/30 hover:bg-surface-container-high active:scale-98'
-      }`}
+      className="w-full flex items-center justify-between p-3 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-800/50 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-all text-left group"
     >
       <div className="flex items-center gap-3 min-w-0">
-        <div className="w-8 h-8 rounded-xl bg-surface border border-outline-variant/30 flex items-center justify-center shrink-0">
-          {React.cloneElement(icon as React.ReactElement, { size: 18 })}
+        <div className="w-8 h-8 rounded-xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-700 flex items-center justify-center shrink-0 text-emerald-600 dark:text-emerald-400 group-hover:scale-105 transition-transform">
+          {icon}
         </div>
         <div className="min-w-0">
-          <div className="flex items-center gap-1.5">
-            <h4 className="text-xs font-bold text-on-surface leading-tight truncate">{title}</h4>
-            {isActive && (
-              <span className="bg-primary text-on-primary text-[8px] font-black px-1.5 py-0.2 rounded-full flex items-center gap-0.5">
-                <Check size={9} /> ACTIVO
-              </span>
-            )}
-          </div>
-          <p className="text-[10px] text-on-surface-variant truncate mt-0.5">{subtitle}</p>
+          <h4 className="text-xs font-bold text-zinc-900 dark:text-white leading-tight truncate">{title}</h4>
+          <p className="text-[10px] text-zinc-500 dark:text-zinc-400 truncate mt-0.5">{subtitle}</p>
         </div>
       </div>
-      <ChevronRight size={16} className="text-on-surface-variant shrink-0" />
-    </button>
-  );
-}
-
-function DesktopNavItem({ icon, label, isActive, onClick }: { icon: React.ReactNode, label: string, isActive: boolean, onClick: () => void }) {
-  return (
-    <button 
-      onClick={onClick}
-      className={`flex items-center gap-2 px-2.5 py-1.5 rounded-lg text-xs font-bold transition-colors w-full ${
-        isActive ? 'bg-primary-container text-on-primary-container' : 'text-on-surface-variant hover:bg-surface-container-highest'
-      }`}
-    >
-      {React.cloneElement(icon as React.ReactElement, { size: 16, strokeWidth: isActive ? 2.5 : 2 })}
-      {label}
+      <ChevronRight size={16} className="text-zinc-400 group-hover:translate-x-0.5 transition-transform shrink-0" />
     </button>
   );
 }

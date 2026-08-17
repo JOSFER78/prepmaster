@@ -8,7 +8,9 @@ import {
   onAuthStateChanged, 
   getIdToken,
   User,
-  db 
+  db,
+  SUPERADMIN_EMAIL,
+  isSuperAdmin
 } from '../lib/firebase';
 import { doc, setDoc, getDoc } from 'firebase/firestore';
 import { 
@@ -21,11 +23,18 @@ import {
   Check, 
   Users, 
   Save, 
-  Clock, 
-  Lock,
-  Globe,
-  AlertCircle
+  Lock, 
+  Globe, 
+  AlertCircle, 
+  Crown, 
+  Layers, 
+  ShoppingBag, 
+  Activity, 
+  RefreshCw, 
+  Server 
 } from 'lucide-react';
+import firebaseConfig from '../../firebase-applet-config.json';
+import { AuthModal } from '../components/AuthModal';
 
 interface ProfileViewProps {
   onPeopleCountChange?: (count: number) => void;
@@ -37,6 +46,7 @@ export function ProfileView({ onPeopleCountChange }: ProfileViewProps) {
   const [idToken, setIdToken] = useState<string>('');
   const [copiedToken, setCopiedToken] = useState<boolean>(false);
   const [authError, setAuthError] = useState<string | null>(null);
+  const [isAuthModalOpen, setIsAuthModalOpen] = useState<boolean>(false);
 
   // Household & Preferences state
   const [peopleCount, setPeopleCount] = useState<number>(4);
@@ -44,6 +54,13 @@ export function ProfileView({ onPeopleCountChange }: ProfileViewProps) {
   const [newDietTag, setNewDietTag] = useState<string>('');
   const [savingPrefs, setSavingPrefs] = useState<boolean>(false);
   const [savedSuccess, setSavedSuccess] = useState<boolean>(false);
+
+  // SuperAdmin diagnostics state
+  const [firestoreLatency, setFirestoreLatency] = useState<number | null>(null);
+  const [isPingingFirestore, setIsPingingFirestore] = useState<boolean>(false);
+  const [superadminActionStatus, setSuperadminActionStatus] = useState<string | null>(null);
+
+  const isCurrentSuperAdmin = isSuperAdmin(user);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
@@ -73,26 +90,6 @@ export function ProfileView({ onPeopleCountChange }: ProfileViewProps) {
     return () => unsubscribe();
   }, []);
 
-  const handleGoogleLogin = async () => {
-    setAuthError(null);
-    try {
-      await signInWithPopup(auth, googleProvider);
-    } catch (err: any) {
-      console.error('Google Auth Error:', err);
-      setAuthError('No se pudo completar el acceso con Google. Inténtalo de nuevo o accede de forma anónima.');
-    }
-  };
-
-  const handleAnonymousLogin = async () => {
-    setAuthError(null);
-    try {
-      await signInAnonymously(auth);
-    } catch (err: any) {
-      console.error('Anonymous Auth Error:', err);
-      setAuthError('Error al iniciar sesión anónima.');
-    }
-  };
-
   const handleLogout = async () => {
     try {
       await firebaseSignOut(auth);
@@ -112,14 +109,19 @@ export function ProfileView({ onPeopleCountChange }: ProfileViewProps) {
     if (!user) return;
     setSavingPrefs(true);
     try {
-      await setDoc(doc(db, 'users', user.uid), {
-        id: user.uid,
-        email: user.email || 'anonimo@prepmaster.app',
-        displayName: user.displayName || 'Usuario PrepMaster',
+      const uid = user.uid;
+      const email = user.email || 'anonimo@prepmaster.app';
+      const role = isCurrentSuperAdmin ? 'superadmin' : 'user';
+
+      await setDoc(doc(db, 'users', uid), {
+        id: uid,
+        email: email,
+        displayName: user.displayName || (isCurrentSuperAdmin ? 'SuperAdmin PrepMaster' : 'Usuario PrepMaster'),
         photoURL: user.photoURL || '',
+        role: role,
         peopleCount: peopleCount,
         dietPreferences: dietary,
-        sessionToken: idToken.substring(0, 30) + '...',
+        sessionToken: idToken ? idToken.substring(0, 30) + '...' : '',
         updatedAt: new Date().toISOString()
       }, { merge: true });
 
@@ -133,6 +135,28 @@ export function ProfileView({ onPeopleCountChange }: ProfileViewProps) {
       console.error('Error saving user preferences to Firestore:', err);
     } finally {
       setSavingPrefs(false);
+    }
+  };
+
+  const pingFirestore = async () => {
+    setIsPingingFirestore(true);
+    const start = performance.now();
+    try {
+      const pingDoc = doc(db, 'system_config', 'health_check');
+      await setDoc(pingDoc, {
+        lastPing: new Date().toISOString(),
+        superadmin: SUPERADMIN_EMAIL,
+        status: 'ONLINE'
+      }, { merge: true });
+      const duration = Math.round(performance.now() - start);
+      setFirestoreLatency(duration);
+      setSuperadminActionStatus(`Ping Firestore exitoso en ${duration}ms`);
+    } catch (err: any) {
+      console.error('Firestore Ping Error:', err);
+      setSuperadminActionStatus(`Error al conectar con Firestore: ${err.message || err}`);
+    } finally {
+      setIsPingingFirestore(false);
+      setTimeout(() => setSuperadminActionStatus(null), 5000);
     }
   };
 
@@ -166,15 +190,26 @@ export function ProfileView({ onPeopleCountChange }: ProfileViewProps) {
             <span className="bg-primary/20 text-primary text-[9px] font-extrabold px-2 py-0.5 rounded-full uppercase flex items-center gap-1">
               <ShieldCheck size={11} /> Firebase Auth & Firestore
             </span>
-            <span className="text-[10px] font-bold text-on-surface-variant flex items-center gap-1">
-              <Globe size={12} className="text-emerald-600" /> Sesión Segura
-            </span>
+            {isCurrentSuperAdmin ? (
+              <span className="bg-amber-100 text-amber-900 border border-amber-300 text-[9px] font-black px-2 py-0.5 rounded-full uppercase flex items-center gap-1 shadow-2xs">
+                <Crown size={11} className="text-amber-600" /> Superadmin ({user?.email})
+              </span>
+            ) : (
+              <span className="text-[10px] font-bold text-on-surface-variant flex items-center gap-1">
+                <Globe size={12} className="text-emerald-600" /> Sesión Segura
+              </span>
+            )}
           </div>
-          <h1 className="text-lg md:text-xl font-black text-on-surface">
-            Perfil de Usuario & Tokens de Acceso
+          <h1 className="text-lg md:text-xl font-black text-on-surface flex items-center gap-2">
+            Perfil de Usuario & Ajustes
+            {isCurrentSuperAdmin && (
+              <span className="text-xs bg-amber-500 text-white font-black px-2 py-0.5 rounded-lg shadow-2xs">
+                👑 SuperAdmin
+              </span>
+            )}
           </h1>
           <p className="text-xs text-on-surface-variant mt-0.5">
-            Gestión de credenciales Firebase, tokens de sesión y parámetros de comensales para el planificador batch.
+            Gestión de credenciales, tokens de sesión y parámetros familiares para el planificador batch.
           </p>
         </div>
 
@@ -198,37 +233,31 @@ export function ProfileView({ onPeopleCountChange }: ProfileViewProps) {
 
       {/* LOGIN CARD IF NOT LOGGED IN */}
       {!user ? (
-        <div className="bg-surface rounded-3xl border border-outline-variant/30 p-6 space-y-5 shadow-sm text-center max-w-md mx-auto my-6">
+        <div className="bg-surface rounded-3xl border border-outline-variant/30 p-8 space-y-5 shadow-sm text-center max-w-md mx-auto my-6">
           <div className="w-16 h-16 rounded-3xl bg-primary/10 text-primary mx-auto flex items-center justify-center font-black">
             <UserIcon size={32} />
           </div>
           <div className="space-y-1">
-            <h2 className="text-base font-black text-on-surface">Acceso a PrepMaster Batch</h2>
-            <p className="text-xs text-on-surface-variant">
-              Inicia sesión para sincronizar tus menús de raciones, lista de compra e inventario en tiempo real con Firebase Firestore.
+            <h2 className="text-lg font-black text-on-surface">Tu Cuenta PrepMaster</h2>
+            <p className="text-xs text-on-surface-variant leading-relaxed">
+              Inicia sesión o crea una cuenta para sincronizar tus menús de raciones, lista de compra e inventario en tiempo real.
             </p>
           </div>
 
           <div className="space-y-2 pt-2">
             <button
-              onClick={handleGoogleLogin}
-              className="w-full flex items-center justify-center gap-2.5 bg-surface-container border border-outline-variant/40 hover:bg-surface-container-high text-on-surface font-bold text-xs py-3 px-4 rounded-2xl transition-all shadow-2xs active:scale-98"
+              onClick={() => setIsAuthModalOpen(true)}
+              className="w-full bg-primary hover:bg-primary/90 text-on-primary font-black text-xs py-3 px-4 rounded-2xl transition-all shadow-xs active:scale-98 flex items-center justify-center gap-2"
             >
-              <svg className="w-4 h-4" viewBox="0 0 24 24">
-                <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
-                <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
-                <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
-                <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
-              </svg>
-              <span>Acceder con Google</span>
+              <span>Iniciar Sesión / Registrarse</span>
             </button>
 
             <button
-              onClick={handleAnonymousLogin}
-              className="w-full flex items-center justify-center gap-2 bg-primary text-on-primary font-bold text-xs py-3 px-4 rounded-2xl hover:bg-primary/90 transition-all shadow-xs active:scale-98"
+              onClick={() => signInAnonymously(auth)}
+              className="w-full bg-surface-container hover:bg-surface-container-high border border-outline-variant/40 text-on-surface font-extrabold text-xs py-2.5 px-4 rounded-2xl transition-all active:scale-98 flex items-center justify-center gap-2"
             >
-              <Sparkles size={16} />
-              <span>Acceso Rápido Anónimo (Firebase Auth)</span>
+              <Sparkles size={14} className="text-primary" />
+              <span>Acceso Rápido como Invitado</span>
             </button>
           </div>
 
@@ -238,167 +267,296 @@ export function ProfileView({ onPeopleCountChange }: ProfileViewProps) {
         </div>
       ) : (
         /* USER LOGGED IN CONTENT */
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          
-          {/* USER CARD & TOKENS */}
-          <div className="bg-surface rounded-2xl border border-outline-variant/30 p-4 space-y-4 shadow-2xs">
-            <div className="flex items-center gap-3 border-b border-outline-variant/20 pb-3">
-              <div className="w-12 h-12 rounded-2xl bg-primary/10 text-primary overflow-hidden border border-primary/20 shrink-0 flex items-center justify-center font-black">
-                {user.photoURL ? (
-                  <img src={user.photoURL} alt={user.displayName || 'User'} className="w-full h-full object-cover" />
-                ) : (
-                  <UserIcon size={24} />
-                )}
+        <div className="space-y-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            
+            {/* USER CARD & TOKENS */}
+            <div className="bg-surface rounded-2xl border border-outline-variant/30 p-4 space-y-4 shadow-2xs">
+              <div className="flex items-center gap-3 border-b border-outline-variant/20 pb-3">
+                <div className={`w-12 h-12 rounded-2xl overflow-hidden border shrink-0 flex items-center justify-center font-black ${
+                  isCurrentSuperAdmin 
+                    ? 'bg-amber-100 text-amber-700 border-amber-300 ring-2 ring-amber-400/30' 
+                    : 'bg-primary/10 text-primary border-primary/20'
+                }`}>
+                  {user.photoURL ? (
+                    <img src={user.photoURL} alt={user.displayName || 'User'} className="w-full h-full object-cover" />
+                  ) : isCurrentSuperAdmin ? (
+                    <Crown size={26} className="text-amber-600" />
+                  ) : (
+                    <UserIcon size={24} />
+                  )}
+                </div>
+                <div className="min-w-0 flex-1">
+                  <div className="flex items-center gap-2">
+                    <h2 className="text-sm font-black text-on-surface truncate">
+                      {user.displayName || (isCurrentSuperAdmin ? 'Superadministrador' : 'Usuario Registrado')}
+                    </h2>
+                    {isCurrentSuperAdmin ? (
+                      <span className="bg-amber-100 text-amber-900 border border-amber-300 text-[9px] font-black px-2 py-0.2 rounded-full uppercase flex items-center gap-0.5">
+                        <Crown size={9} className="text-amber-600" /> SUPERADMIN
+                      </span>
+                    ) : (
+                      <span className="bg-emerald-100 text-emerald-800 text-[9px] font-black px-2 py-0.2 rounded-full uppercase">
+                        {user.isAnonymous ? 'Invitado' : 'Verificado'}
+                      </span>
+                    )}
+                  </div>
+                  <p className="text-xs text-on-surface-variant truncate">
+                    {user.email || 'Acceso Anónimo (Invitado)'}
+                  </p>
+                  <p className="text-[10px] font-mono text-on-surface-variant/80 mt-0.5 truncate">
+                    UID: {user.uid}
+                  </p>
+                </div>
               </div>
-              <div className="min-w-0 flex-1">
-                <div className="flex items-center gap-2">
-                  <h2 className="text-sm font-black text-on-surface truncate">
-                    {user.displayName || 'Usuario Registrado'}
-                  </h2>
-                  <span className="bg-emerald-100 text-emerald-800 text-[9px] font-black px-2 py-0.2 rounded-full uppercase">
-                    {user.isAnonymous ? 'Anónimo' : 'Verificado'}
+
+              {/* TOKEN & CREDENTIALS DETAILS */}
+              <div className="space-y-2">
+                <div className="flex items-center justify-between">
+                  <span className="text-xs font-black text-on-surface flex items-center gap-1">
+                    <Key size={14} className="text-primary" /> Token de Sesión JWT
                   </span>
-                </div>
-                <p className="text-xs text-on-surface-variant truncate">{user.email || 'Sin email asociado (Anónimo)'}</p>
-                <p className="text-[10px] font-mono text-on-surface-variant/80 mt-0.5 truncate">
-                  UID: {user.uid}
-                </p>
-              </div>
-            </div>
-
-            {/* TOKEN & CREDENTIALS DETAILS */}
-            <div className="space-y-2">
-              <div className="flex items-center justify-between">
-                <span className="text-xs font-black text-on-surface flex items-center gap-1">
-                  <Key size={14} className="text-primary" /> Token de Sesión JWT (ID Token)
-                </span>
-                <button
-                  onClick={copyTokenToClipboard}
-                  className="flex items-center gap-1 text-[10px] font-extrabold text-primary bg-primary/10 px-2 py-0.5 rounded-lg hover:bg-primary/20 transition-colors"
-                >
-                  {copiedToken ? <Check size={12} className="text-emerald-600" /> : <Copy size={12} />}
-                  <span>{copiedToken ? 'Copiado!' : 'Copiar Token'}</span>
-                </button>
-              </div>
-
-              <div className="bg-surface-container p-2.5 rounded-xl border border-outline-variant/30 font-mono text-[10px] text-on-surface-variant break-all max-h-24 overflow-y-auto leading-relaxed">
-                {idToken || 'Cargando ID Token...'}
-              </div>
-
-              <div className="grid grid-cols-2 gap-2 text-[10px] pt-1">
-                <div className="bg-surface-container/50 p-2 rounded-xl border border-outline-variant/20">
-                  <span className="text-on-surface-variant block">Proveedor de Login</span>
-                  <strong className="text-on-surface font-bold">
-                    {user.providerData[0]?.providerId || 'firebase (anonymous)'}
-                  </strong>
-                </div>
-                <div className="bg-surface-container/50 p-2 rounded-xl border border-outline-variant/20">
-                  <span className="text-on-surface-variant block">Creación de Cuenta</span>
-                  <strong className="text-on-surface font-bold">
-                    {user.metadata.creationTime ? new Date(user.metadata.creationTime).toLocaleDateString() : 'Hoy'}
-                  </strong>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* HOUSEHOLD & DIET PREFERENCES (FIRESTORE SYNC) */}
-          <div className="bg-surface rounded-2xl border border-outline-variant/30 p-4 space-y-4 shadow-2xs">
-            <div className="flex items-center justify-between border-b border-outline-variant/20 pb-2.5">
-              <div className="flex items-center gap-2">
-                <div className="w-8 h-8 rounded-xl bg-secondary/10 text-secondary flex items-center justify-center font-black">
-                  <Users size={18} />
-                </div>
-                <div>
-                  <h3 className="text-xs font-black text-on-surface">Configuración de Comensales</h3>
-                  <p className="text-[10px] text-on-surface-variant">Sincronizado directamente con Firestore</p>
-                </div>
-              </div>
-
-              <button
-                onClick={savePreferences}
-                disabled={savingPrefs}
-                className="flex items-center gap-1.5 bg-primary text-on-primary px-3 py-1.5 rounded-xl text-xs font-extrabold hover:bg-primary/90 transition-colors shadow-2xs active:scale-95 disabled:opacity-50"
-              >
-                {savingPrefs ? (
-                  <div className="w-3.5 h-3.5 border-2 border-on-primary border-t-transparent rounded-full animate-spin" />
-                ) : savedSuccess ? (
-                  <Check size={14} className="text-emerald-300" />
-                ) : (
-                  <Save size={14} />
-                )}
-                <span>{savedSuccess ? 'Guardado' : 'Guardar'}</span>
-              </button>
-            </div>
-
-            {/* People Count Control */}
-            <div className="space-y-1.5">
-              <label className="text-xs font-bold text-on-surface block">
-                Número habitual de comensales en casa:
-              </label>
-              <div className="flex items-center gap-3 bg-surface-container p-2 rounded-xl border border-outline-variant/30">
-                <input 
-                  type="range" 
-                  min={1} 
-                  max={12} 
-                  value={peopleCount} 
-                  onChange={(e) => setPeopleCount(parseInt(e.target.value))} 
-                  className="flex-1 accent-primary h-2 bg-outline-variant/40 rounded-lg cursor-pointer"
-                />
-                <span className="text-sm font-black text-primary bg-primary-container/40 px-3 py-1 rounded-lg min-w-[48px] text-center">
-                  {peopleCount} pers.
-                </span>
-              </div>
-            </div>
-
-            {/* Dietary Tags */}
-            <div className="space-y-2">
-              <label className="text-xs font-bold text-on-surface block">
-                Preferencias y restricciones dietéticas:
-              </label>
-              <div className="flex flex-wrap gap-1.5">
-                {dietary.map((tag) => (
-                  <span 
-                    key={tag}
-                    className="bg-primary/10 text-primary border border-primary/20 text-xs font-bold px-2.5 py-1 rounded-xl flex items-center gap-1.5"
+                  <button
+                    onClick={copyTokenToClipboard}
+                    className="flex items-center gap-1 text-[10px] font-extrabold text-primary bg-primary/10 px-2 py-0.5 rounded-lg hover:bg-primary/20 transition-colors"
                   >
-                    {tag}
-                    <button 
-                      onClick={() => removeDietTag(tag)}
-                      className="hover:text-rose-600 transition-colors font-black text-xs"
-                    >
-                      ×
-                    </button>
-                  </span>
-                ))}
-              </div>
+                    {copiedToken ? <Check size={12} className="text-emerald-600" /> : <Copy size={12} />}
+                    <span>{copiedToken ? 'Copiado!' : 'Copiar Token'}</span>
+                  </button>
+                </div>
 
-              <div className="flex gap-2 pt-1">
-                <input
-                  type="text"
-                  placeholder="Ej: Vegano, Gluten Free, Keto..."
-                  value={newDietTag}
-                  onChange={(e) => setNewDietTag(e.target.value)}
-                  onKeyDown={(e) => e.key === 'Enter' && addDietTag()}
-                  className="flex-1 bg-surface-container border border-outline-variant/40 text-xs px-3 py-1.5 rounded-xl focus:outline-none focus:border-primary text-on-surface"
-                />
+                <div className="bg-surface-container p-2.5 rounded-xl border border-outline-variant/30 font-mono text-[10px] text-on-surface-variant break-all max-h-20 overflow-y-auto leading-relaxed">
+                  {idToken || 'Cargando sesión Firebase...'}
+                </div>
+
+                <div className="grid grid-cols-2 gap-2 text-[10px] pt-1">
+                  <div className="bg-surface-container/50 p-2 rounded-xl border border-outline-variant/20">
+                    <span className="text-on-surface-variant block">Rol de Seguridad</span>
+                    <strong className={`font-black ${isCurrentSuperAdmin ? 'text-amber-700' : 'text-on-surface'}`}>
+                      {isCurrentSuperAdmin ? '👑 SUPERADMIN' : 'USUARIO STANDARD'}
+                    </strong>
+                  </div>
+                  <div className="bg-surface-container/50 p-2 rounded-xl border border-outline-variant/20">
+                    <span className="text-on-surface-variant block">Proveedor de Acceso</span>
+                    <strong className="text-on-surface font-bold">
+                      {user.providerData[0]?.providerId || (user.isAnonymous ? 'Anónimo (Invitado)' : 'Firebase Auth')}
+                    </strong>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* HOUSEHOLD & DIET PREFERENCES (FIRESTORE SYNC) */}
+            <div className="bg-surface rounded-2xl border border-outline-variant/30 p-4 space-y-4 shadow-2xs">
+              <div className="flex items-center justify-between border-b border-outline-variant/20 pb-2.5">
+                <div className="flex items-center gap-2">
+                  <div className="w-8 h-8 rounded-xl bg-secondary/10 text-secondary flex items-center justify-center font-black">
+                    <Users size={18} />
+                  </div>
+                  <div>
+                    <h3 className="text-xs font-black text-on-surface">Configuración de Comensales</h3>
+                    <p className="text-[10px] text-on-surface-variant">Sincronizado directamente con Firestore</p>
+                  </div>
+                </div>
+
                 <button
-                  onClick={addDietTag}
-                  className="bg-surface-container border border-outline-variant/40 hover:bg-surface-container-high text-on-surface font-extrabold text-xs px-3 py-1.5 rounded-xl transition-colors"
+                  onClick={savePreferences}
+                  disabled={savingPrefs}
+                  className="flex items-center gap-1.5 bg-primary text-on-primary px-3 py-1.5 rounded-xl text-xs font-extrabold hover:bg-primary/90 transition-colors shadow-2xs active:scale-95 disabled:opacity-50"
                 >
-                  Añadir
+                  {savingPrefs ? (
+                    <div className="w-3.5 h-3.5 border-2 border-on-primary border-t-transparent rounded-full animate-spin" />
+                  ) : savedSuccess ? (
+                    <Check size={14} className="text-emerald-300" />
+                  ) : (
+                    <Save size={14} />
+                  )}
+                  <span>{savedSuccess ? 'Guardado' : 'Guardar'}</span>
                 </button>
               </div>
+
+              {/* People Count Control */}
+              <div className="space-y-1.5">
+                <label className="text-xs font-bold text-on-surface block">
+                  Número habitual de comensales en casa:
+                </label>
+                <div className="flex items-center gap-3 bg-surface-container p-2 rounded-xl border border-outline-variant/30">
+                  <input 
+                    type="range" 
+                    min={1} 
+                    max={12} 
+                    value={peopleCount} 
+                    onChange={(e) => setPeopleCount(parseInt(e.target.value))} 
+                    className="flex-1 accent-primary h-2 bg-outline-variant/40 rounded-lg cursor-pointer"
+                  />
+                  <span className="text-sm font-black text-primary bg-primary-container/40 px-3 py-1 rounded-lg min-w-[48px] text-center">
+                    {peopleCount} pers.
+                  </span>
+                </div>
+              </div>
+
+              {/* Dietary Tags */}
+              <div className="space-y-2">
+                <label className="text-xs font-bold text-on-surface block">
+                  Preferencias y restricciones dietéticas:
+                </label>
+                <div className="flex flex-wrap gap-1.5">
+                  {dietary.map((tag) => (
+                    <span 
+                      key={tag}
+                      className="bg-primary/10 text-primary border border-primary/20 text-xs font-bold px-2.5 py-1 rounded-xl flex items-center gap-1.5"
+                    >
+                      {tag}
+                      <button 
+                        onClick={() => removeDietTag(tag)}
+                        className="hover:text-rose-600 transition-colors font-black text-xs"
+                      >
+                        ×
+                      </button>
+                    </span>
+                  ))}
+                </div>
+
+                <div className="flex gap-2 pt-1">
+                  <input
+                    type="text"
+                    placeholder="Ej: Vegano, Gluten Free, Keto..."
+                    value={newDietTag}
+                    onChange={(e) => setNewDietTag(e.target.value)}
+                    onKeyDown={(e) => e.key === 'Enter' && addDietTag()}
+                    className="flex-1 bg-surface-container border border-outline-variant/40 text-xs px-3 py-1.5 rounded-xl focus:outline-none focus:border-primary text-on-surface"
+                  />
+                  <button
+                    onClick={addDietTag}
+                    className="bg-surface-container border border-outline-variant/40 hover:bg-surface-container-high text-on-surface font-extrabold text-xs px-3 py-1.5 rounded-xl transition-colors"
+                  >
+                    Añadir
+                  </button>
+                </div>
+              </div>
+
+              <div className="p-2.5 bg-emerald-50 border border-emerald-200 rounded-xl text-[11px] text-emerald-900 font-medium flex items-start gap-2">
+                <Lock size={14} className="text-emerald-700 shrink-0 mt-0.5" />
+                <span>
+                  Tus preferencias se guardan en la colección Firestore <code className="font-mono bg-emerald-100 px-1 py-0.2 rounded">users/{user.uid}</code>.
+                </span>
+              </div>
             </div>
 
-            <div className="p-2.5 bg-emerald-50 border border-emerald-200 rounded-xl text-[11px] text-emerald-900 font-medium flex items-start gap-2">
-              <Lock size={14} className="text-emerald-700 shrink-0 mt-0.5" />
-              <span>Tus preferencias se guardan en la colección Firestore <code className="font-mono bg-emerald-100 px-1 py-0.2 rounded">users/{user.uid}</code> con reglas de seguridad estrictas.</span>
-            </div>
           </div>
+
+          {/* SUPERADMIN MANAGEMENT DASHBOARD (ONLY VISIBLE TO SUPERADMIN) */}
+          {isCurrentSuperAdmin && (
+            <div className="bg-surface rounded-2xl border-2 border-amber-400/40 p-5 space-y-4 shadow-sm animate-fade-in">
+              <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between border-b border-outline-variant/20 pb-3 gap-2">
+                <div className="flex items-center gap-2.5">
+                  <div className="w-10 h-10 rounded-2xl bg-amber-500 text-white flex items-center justify-center font-black shadow-xs">
+                    <Crown size={22} />
+                  </div>
+                  <div>
+                    <h3 className="text-sm font-black text-on-surface flex items-center gap-1.5">
+                      Panel de Control SuperAdmin
+                      <span className="text-[10px] font-bold bg-amber-100 text-amber-900 px-2 py-0.5 rounded-md border border-amber-200">
+                        {user.email}
+                      </span>
+                    </h3>
+                    <p className="text-xs text-on-surface-variant">
+                      Herramientas de diagnóstico, latencia y estado de colecciones Firestore
+                    </p>
+                  </div>
+                </div>
+
+                <button
+                  onClick={pingFirestore}
+                  disabled={isPingingFirestore}
+                  className="flex items-center gap-1.5 bg-amber-500 hover:bg-amber-600 text-white font-extrabold text-xs px-3.5 py-2 rounded-xl transition-all shadow-xs active:scale-95 disabled:opacity-50"
+                >
+                  <RefreshCw size={14} className={isPingingFirestore ? 'animate-spin' : ''} />
+                  <span>{isPingingFirestore ? 'Comprobando...' : 'Test de Latencia Firestore'}</span>
+                </button>
+              </div>
+
+              {superadminActionStatus && (
+                <div className="p-3 bg-emerald-50 border border-emerald-200 text-emerald-900 rounded-xl text-xs font-bold flex items-center gap-2">
+                  <Activity size={16} className="text-emerald-700 shrink-0" />
+                  <span>{superadminActionStatus}</span>
+                </div>
+              )}
+
+              {/* FIRESTORE COLLECTIONS & DIAGNOSTICS */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
+                <div className="bg-surface-container p-3 rounded-xl border border-outline-variant/30 space-y-1">
+                  <div className="flex items-center justify-between text-on-surface-variant">
+                    <span className="text-[10px] font-extrabold uppercase">Colección Usuarios</span>
+                    <Users size={14} className="text-primary" />
+                  </div>
+                  <div className="text-sm font-black text-on-surface">/users/{'{uid}'}</div>
+                  <div className="text-[10px] text-emerald-700 font-bold flex items-center gap-1">
+                    <Check size={11} /> Regla isSuperAdmin() OK
+                  </div>
+                </div>
+
+                <div className="bg-surface-container p-3 rounded-xl border border-outline-variant/30 space-y-1">
+                  <div className="flex items-center justify-between text-on-surface-variant">
+                    <span className="text-[10px] font-extrabold uppercase">Planes de Raciones</span>
+                    <Layers size={14} className="text-secondary" />
+                  </div>
+                  <div className="text-sm font-black text-on-surface">/menu_plans</div>
+                  <div className="text-[10px] text-emerald-700 font-bold flex items-center gap-1">
+                    <Check size={11} /> Lectura/Escritura Total
+                  </div>
+                </div>
+
+                <div className="bg-surface-container p-3 rounded-xl border border-outline-variant/30 space-y-1">
+                  <div className="flex items-center justify-between text-on-surface-variant">
+                    <span className="text-[10px] font-extrabold uppercase">Lista de Compra</span>
+                    <ShoppingBag size={14} className="text-emerald-700" />
+                  </div>
+                  <div className="text-sm font-black text-on-surface">/shopping_items</div>
+                  <div className="text-[10px] text-emerald-700 font-bold flex items-center gap-1">
+                    <Check size={11} /> Sincronización Lista
+                  </div>
+                </div>
+
+                <div className="bg-surface-container p-3 rounded-xl border border-outline-variant/30 space-y-1">
+                  <div className="flex items-center justify-between text-on-surface-variant">
+                    <span className="text-[10px] font-extrabold uppercase">Latencia Firestore</span>
+                    <Activity size={14} className="text-amber-600" />
+                  </div>
+                  <div className="text-sm font-black text-on-surface">
+                    {firestoreLatency !== null ? `${firestoreLatency} ms` : 'Sin medir'}
+                  </div>
+                  <div className="text-[10px] text-on-surface-variant font-medium">
+                    {firestoreLatency !== null ? 'Tiempo de respuesta óptimo' : 'Pulsa test para verificar'}
+                  </div>
+                </div>
+              </div>
+
+              {/* TECHNICAL FIREBASE CONFIG SPEC */}
+              <div className="bg-surface-container/60 rounded-xl p-3 border border-outline-variant/30 font-mono text-[11px] space-y-1 text-on-surface-variant">
+                <div className="flex items-center justify-between border-b border-outline-variant/20 pb-1 font-bold text-on-surface">
+                  <span className="flex items-center gap-1"><Server size={13} className="text-primary" /> Especificación Firebase Conectada:</span>
+                  <span className="text-[10px] text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">ONLINE</span>
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-1 pt-1">
+                  <div><strong>Project ID:</strong> {firebaseConfig.projectId}</div>
+                  <div><strong>Database ID:</strong> {firebaseConfig.firestoreDatabaseId}</div>
+                  <div><strong>Auth Domain:</strong> {firebaseConfig.authDomain}</div>
+                  <div><strong>SuperAdmin:</strong> {SUPERADMIN_EMAIL}</div>
+                </div>
+              </div>
+            </div>
+          )}
 
         </div>
       )}
+
+      {/* Standard Auth Modal */}
+      <AuthModal
+        isOpen={isAuthModalOpen}
+        onClose={() => setIsAuthModalOpen(false)}
+        initialMode="login"
+      />
     </div>
   );
 }

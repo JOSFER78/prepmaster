@@ -1,354 +1,361 @@
 import React, { useState } from 'react';
-import { ShoppingBag, Refrigerator, Copy, Check, Sparkles, ArrowRight, ShieldCheck, AlertCircle } from 'lucide-react';
-import { ShoppingCategory, ShoppingCategoryItem, GeneratedMenuPlan } from '../types';
-import { initialFridgeStock } from '../data';
+import { 
+  ShoppingBag, 
+  Refrigerator, 
+  Copy, 
+  Check, 
+  Sparkles, 
+  ArrowRight, 
+  CheckCircle2, 
+  Clock, 
+  Users, 
+  ChefHat,
+  Filter,
+  Calendar,
+  Share2,
+  Send,
+  Plus
+} from 'lucide-react';
+import { BatchProject, BatchShoppingItem } from '../types';
 
 interface ShoppingListViewProps {
-  currentMenuPlan?: GeneratedMenuPlan | null;
+  activeProject: BatchProject | null;
   onNavigateToInteractiveCook: () => void;
   onNavigateToGenerator?: () => void;
+  onToggleItemBought: (itemId: string) => void;
+  onAdvanceToCooking: () => void;
+  onUpdateShoppingDate?: (dateStr: string) => void;
 }
 
-export function ShoppingListView({ currentMenuPlan, onNavigateToInteractiveCook, onNavigateToGenerator }: ShoppingListViewProps) {
-  const [subStep, setSubStep] = useState<1 | 2 | 3 | 4>(1); // 1: Control Despensa, 2: Diferencial Neto, 3: Lista por Pasillos, 4: Exportar / Avanzar
+export function ShoppingListView({ 
+  activeProject, 
+  onNavigateToInteractiveCook, 
+  onNavigateToGenerator,
+  onToggleItemBought,
+  onAdvanceToCooking,
+  onUpdateShoppingDate
+}: ShoppingListViewProps) {
   const [copied, setCopied] = useState<boolean>(false);
-  const [filterBought, setFilterBought] = useState<'ALL' | 'PENDING' | 'BOUGHT'>('ALL');
+  const [filter, setFilter] = useState<'all' | 'pending' | 'bought'>('all');
+  const [scheduledDate, setScheduledDate] = useState<string>(
+    activeProject?.plannedShoppingDate || new Date().toISOString().split('T')[0]
+  );
 
-  // Build shopping categories with automatic pantry deduction
-  const [categories, setCategories] = useState<ShoppingCategory[]>(() => {
-    const defaultConsolidated = [
-      { name: 'Lentejas pardinas', qty: 500, unit: 'g', cat: 'Despensa & Secos' },
-      { name: 'Ternera para mechada', qty: 1200, unit: 'g', cat: 'Carnes & Pescados' },
-      { name: 'Lomos de merluza fresca', qty: 800, unit: 'g', cat: 'Carnes & Pescados' },
-      { name: 'Cebollas dulces', qty: 6, unit: 'unidades', cat: 'Frescos & Verduras' },
-      { name: 'Zanahorias', qty: 8, unit: 'unidades', cat: 'Frescos & Verduras' },
-      { name: 'Pimientos verdes y rojos', qty: 4, unit: 'unidades', cat: 'Frescos & Verduras' },
-      { name: 'Mix de lechugas y rúculla', qty: 400, unit: 'g', cat: 'Frescos & Verduras' },
-      { name: 'Garbanzos en conserva', qty: 800, unit: 'g', cat: 'Despensa & Secos' },
-      { name: 'Caldo de ave artesano', qty: 2, unit: 'litros', cat: 'Refrigerados' },
-      { name: 'Ajo y Perejil fresco', qty: 1, unit: 'manojo', cat: 'Frescos & Verduras' },
-      { name: 'Aceite de Oliva Virgen Extra', qty: 1, unit: 'litro', cat: 'Especias & Aceites' },
-      { name: 'Vino blanco seco (Chacolí)', qty: 1, unit: 'botella', cat: 'Despensa & Secos' }
+  const items = activeProject?.shoppingList || [];
+  const totalItems = items.length;
+  const boughtItems = items.filter(i => i.isBought).length;
+  const pendingItems = totalItems - boughtItems;
+  const progressPercent = totalItems > 0 ? Math.round((boughtItems / totalItems) * 100) : 100;
+
+  // Filter items
+  const filteredItems = items.filter(item => {
+    if (filter === 'pending') return !item.isBought;
+    if (filter === 'bought') return item.isBought;
+    return true;
+  });
+
+  // Group by category
+  const categoriesMap: Record<string, BatchShoppingItem[]> = {};
+  filteredItems.forEach(item => {
+    const cat = item.category || 'despensa';
+    if (!categoriesMap[cat]) categoriesMap[cat] = [];
+    categoriesMap[cat].push(item);
+  });
+
+  const getCategoryLabel = (cat: string) => {
+    switch (cat) {
+      case 'frescos': return '🥬 Verduras & Frescos de Huerta';
+      case 'carnes-pescados': return '🥩 Carnes, Aves & Pescados';
+      case 'refrigerados': return '🧀 Refrigerados & Lácteos';
+      case 'legumbres': return '🍲 Legumbres & Cereales';
+      case 'despensa': return '🥫 Despensa & Caldos';
+      case 'especias': return '🌿 Aceites, Salsas & Especias';
+      default: return '📦 Otros Ingredientes';
+    }
+  };
+
+  const getFormattedShoppingText = () => {
+    if (!activeProject) return '';
+    const lines = [
+      `🛒 *LISTA DE COMPRA - ${activeProject.title.toUpperCase()}*`,
+      `📦 ${activeProject.totalServings} raciones para ${activeProject.peopleCount} comensales (${activeProject.daysCount} días)`,
+      `📅 Fecha de compra prevista: ${scheduledDate}`,
+      ''
     ];
 
-    const categoryMap: Record<string, ShoppingCategoryItem[]> = {
-      'Frescos & Verduras': [],
-      'Carnes & Pescados': [],
-      'Refrigerados & Lácteos': [],
-      'Despensa & Secos': [],
-      'Especias & Aceites': []
-    };
-
-    defaultConsolidated.forEach((ing, idx) => {
-      const matchedFridge = initialFridgeStock.find(f => 
-        f.name.toLowerCase().includes(ing.name.toLowerCase()) || ing.name.toLowerCase().includes(f.name.toLowerCase())
-      );
-
-      const inPantryQty = matchedFridge ? matchedFridge.quantity : 0;
-      const requiredQty = ing.qty;
-      const toBuyQty = Math.max(0, requiredQty - inPantryQty);
-
-      const item: ShoppingCategoryItem = {
-        id: `shop-${idx}`,
-        name: ing.name,
-        requiredQty,
-        inPantryQty,
-        toBuyQty,
-        unit: ing.unit,
-        isBought: toBuyQty === 0,
-        isFromPantryDeduction: inPantryQty > 0
-      };
-
-      if (categoryMap[ing.cat]) {
-        categoryMap[ing.cat].push(item);
-      } else {
-        categoryMap['Despensa & Secos'].push(item);
+    Object.entries(categoriesMap).forEach(([cat, catItems]) => {
+      const toBuy = catItems.filter(i => !i.isBought && i.toBuyQty > 0);
+      if (toBuy.length > 0) {
+        lines.push(`*${getCategoryLabel(cat)}*`);
+        toBuy.forEach(i => {
+          lines.push(`▫️ ${i.name}: ${i.toBuyQty} ${i.unit}`);
+        });
+        lines.push('');
       }
     });
 
-    return Object.entries(categoryMap).map(([categoryName, items]) => ({
-      categoryName,
-      iconName: categoryName,
-      items
-    }));
-  });
-
-  const toggleItemBought = (catIndex: number, itemIndex: number) => {
-    setCategories(prev => {
-      const updated = [...prev];
-      const item = updated[catIndex].items[itemIndex];
-      item.isBought = !item.isBought;
-      return updated;
-    });
+    lines.push('✨ _Generado con PrepMaster Batch Cooking_');
+    return lines.join('\n');
   };
 
   const handleCopyList = () => {
-    const textLines = ['🛒 *LISTA DE LA COMPRA FINAL - PREPMASTER (Consolidada con Descuentos de Nevera)*\n'];
-    categories.forEach(cat => {
-      const itemsToBuy = cat.items.filter(i => i.toBuyQty > 0 && !i.isBought);
-      if (itemsToBuy.length > 0) {
-        textLines.push(`📌 *${cat.categoryName}*`);
-        itemsToBuy.forEach(i => {
-          textLines.push(`• ${i.name}: ${i.toBuyQty} ${i.unit}`);
-        });
-        textLines.push('');
-      }
-    });
-
-    navigator.clipboard.writeText(textLines.join('\n'));
+    const text = getFormattedShoppingText();
+    navigator.clipboard.writeText(text);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
 
-  const itemsInPantry = categories.reduce((sum, c) => sum + c.items.filter(i => i.isFromPantryDeduction).length, 0);
+  const handleShareWhatsApp = () => {
+    const text = getFormattedShoppingText();
+    const url = `https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`;
+    window.open(url, '_blank');
+  };
+
+  const handleDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const val = e.target.value;
+    setScheduledDate(val);
+    if (onUpdateShoppingDate) {
+      onUpdateShoppingDate(val);
+    }
+  };
+
+  if (!activeProject) {
+    return (
+      <div className="bg-white dark:bg-zinc-900 rounded-3xl p-8 border border-zinc-200 dark:border-zinc-800 text-center space-y-4 max-w-lg mx-auto my-8">
+        <div className="w-12 h-12 rounded-2xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center mx-auto">
+          <ShoppingBag size={24} />
+        </div>
+        <div>
+          <h2 className="text-base font-bold text-zinc-900 dark:text-white">No hay ningún lote de cocina activo</h2>
+          <p className="text-xs text-zinc-500 mt-1">Genera un lote semanal para calcular tu lista de compra con descuento de despensa.</p>
+        </div>
+        {onNavigateToGenerator && (
+          <button
+            onClick={onNavigateToGenerator}
+            className="bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs px-5 py-3 rounded-2xl shadow-xs transition-all flex items-center justify-center gap-2 mx-auto"
+          >
+            <Sparkles size={14} />
+            <span>Generar Lote con IA</span>
+          </button>
+        )}
+      </div>
+    );
+  }
 
   return (
-    <div className="space-y-3 animate-fade-in pb-2">
-      {/* Strict Sequence Notice Banner if Menu not validated */}
-      {!currentMenuPlan && (
-        <div className="bg-amber-50 border border-amber-200 rounded-2xl p-3 flex items-center justify-between gap-3 shadow-2xs">
-          <div className="flex items-center gap-2.5">
-            <AlertCircle className="text-amber-700 shrink-0" size={20} />
-            <div>
-              <p className="text-xs font-bold text-amber-950">Menú de Raciones en Estado de Borrador</p>
-              <p className="text-[11px] text-amber-800">
-                La lista de la compra se calcula sobre un menú validado. Se muestra un cálculo estimado de 25 raciones.
-              </p>
-            </div>
-          </div>
-          {onNavigateToGenerator && (
-            <button
-              onClick={onNavigateToGenerator}
-              className="bg-amber-700 text-white font-bold text-xs px-3 py-1.5 rounded-xl shadow-2xs hover:bg-amber-800 shrink-0 flex items-center gap-1"
-            >
-              <Sparkles size={12} />
-              Validar Mi Menú
-            </button>
-          )}
-        </div>
-      )}
-
-      {/* Header Stepper Bar */}
-      <div className="bg-gradient-to-r from-emerald-50 via-surface to-primary/10 rounded-2xl p-2.5 border border-outline-variant/30 space-y-1.5 shadow-xs">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <div className="w-6 h-6 rounded-lg bg-emerald-700 text-white font-black flex items-center justify-center text-xs">
-              2
+    <div className="space-y-4 animate-fade-in pb-12 text-zinc-900 dark:text-zinc-100 max-w-4xl mx-auto">
+      
+      {/* HEADER: VINCULADO AL PROYECTO BATCH */}
+      <div className="bg-white dark:bg-zinc-900 rounded-3xl border border-zinc-200 dark:border-zinc-800 p-5 sm:p-6 shadow-xs space-y-4">
+        
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div className="flex items-center gap-3.5">
+            <div className="w-11 h-11 rounded-2xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center font-bold border border-emerald-500/20 shrink-0">
+              <ShoppingBag size={22} />
             </div>
             <div>
-              <h1 className="text-xs font-bold text-on-surface leading-none">
-                {subStep === 1 ? 'Paso 1: Consulta de Despensa & Nevera' :
-                 subStep === 2 ? 'Paso 2: Diferencial Neto Ahorrado' :
-                 subStep === 3 ? 'Paso 3: Lista Consolidada por Pasillos' :
-                 'Paso 4: Exportar Lista & Avanzar a Cocina'}
-              </h1>
-              <p className="text-[10px] text-on-surface-variant mt-0.5">
-                Cálculo diferencial tras validar 25 raciones consolidadas
-              </p>
-            </div>
-          </div>
-        </div>
-
-        {/* 4 Step Navigation Pills */}
-        <div className="flex items-center justify-between gap-1 pt-1 border-t border-outline-variant/20">
-          <span className="text-[9px] font-bold text-on-surface-variant uppercase">Lista de Compra:</span>
-          <div className="flex items-center gap-1 flex-1 justify-end">
-            {[
-              { num: 1, label: 'Despensa' },
-              { num: 2, label: 'Descuento' },
-              { num: 3, label: 'Lista' },
-              { num: 4, label: 'Exportar' }
-            ].map((s) => (
-              <button
-                key={s.num}
-                onClick={() => setSubStep(s.num as any)}
-                className={`px-2 py-0.5 rounded-md text-[10px] font-bold transition-all ${
-                  subStep === s.num 
-                    ? 'bg-emerald-700 text-white shadow-xs' 
-                    : 'bg-surface-container text-on-surface-variant hover:bg-surface-container-high'
-                }`}
-              >
-                2.{s.num} {s.label}
-              </button>
-            ))}
-          </div>
-        </div>
-      </div>
-
-      {/* Sub-step 2.1: Refrigerator & Pantry Inventory Query */}
-      {subStep === 1 && (
-        <div className="bg-surface rounded-2xl p-3 border border-outline-variant/30 space-y-2.5 shadow-xs animate-fade-in">
-          <div className="flex items-center justify-between border-b border-outline-variant/20 pb-1.5">
-            <h3 className="text-xs font-bold text-on-surface flex items-center gap-1.5">
-              <Refrigerator className="text-emerald-700" size={16} />
-              1. Inventario Registrado en Nevera / Despensa
-            </h3>
-            <span className="text-[10px] font-bold text-emerald-800 bg-emerald-100 px-2 py-0.5 rounded-full">
-              {initialFridgeStock.length} Insumos Activos
-            </span>
-          </div>
-
-          <div className="grid grid-cols-2 sm:grid-cols-3 gap-1.5">
-            {initialFridgeStock.map((item, idx) => (
-              <div key={idx} className="bg-emerald-50/60 border border-emerald-200/50 p-2 rounded-xl text-xs flex justify-between items-center">
-                <span className="font-medium text-emerald-950 truncate">{item.name}</span>
-                <strong className="text-emerald-800 shrink-0 ml-1">{item.quantity} {item.unit}</strong>
+              <div className="flex items-center gap-2">
+                <span className="text-[10px] font-bold bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 px-2 py-0.5 rounded uppercase">
+                  Lista de Compra Optimizada
+                </span>
+                <span className="text-xs text-zinc-500 font-medium">
+                  {activeProject.totalServings} raciones
+                </span>
               </div>
-            ))}
-          </div>
-
-          <div className="flex justify-end pt-1 border-t border-outline-variant/20">
-            <button onClick={() => setSubStep(2)} className="bg-emerald-700 text-white py-1.5 px-3 rounded-xl font-bold text-xs flex items-center gap-1 shadow-xs hover:bg-emerald-800 transition-all">
-              Calcular Diferencial Neto
-              <ArrowRight size={14} />
-            </button>
-          </div>
-        </div>
-      )}
-
-      {/* Sub-step 2.2: Automatic Pantry Deduction Summary */}
-      {subStep === 2 && (
-        <div className="bg-surface rounded-2xl p-3 border border-outline-variant/30 space-y-3 shadow-xs animate-fade-in">
-          <div className="bg-emerald-50 border border-emerald-200 p-3.5 rounded-2xl flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-800 flex items-center justify-center font-bold shrink-0">
-              <ShieldCheck size={22} />
-            </div>
-            <div>
-              <h3 className="text-xs font-bold text-emerald-950">2. Diferencial Neto Calculado con Éxito</h3>
-              <p className="text-[11px] text-emerald-800 mt-0.5">
-                Se han descontado <strong>{itemsInPantry} ingredientes</strong> ya existentes en tu nevera para evitar compras duplicadas.
-              </p>
+              <h1 className="text-base sm:text-lg font-black text-zinc-900 dark:text-white mt-0.5">
+                {activeProject.title}
+              </h1>
             </div>
           </div>
 
-          <div className="flex items-center justify-between pt-1 border-t border-outline-variant/20">
-            <button onClick={() => setSubStep(1)} className="bg-surface-container border border-outline-variant/30 text-on-surface py-1.5 px-3 rounded-xl font-bold text-xs">
-              ← Volver
-            </button>
-            <button onClick={() => setSubStep(3)} className="bg-emerald-700 text-white py-1.5 px-3 rounded-xl font-bold text-xs flex items-center gap-1 shadow-xs hover:bg-emerald-800 transition-all">
-              Ver Lista Final por Pasillos
-              <ArrowRight size={14} />
-            </button>
-          </div>
-        </div>
-      )}
-
-      {/* Sub-step 2.3: Final Consolidated Shopping List */}
-      {subStep === 3 && (
-        <div className="space-y-2.5 animate-fade-in">
-          <div className="flex items-center justify-between bg-surface-container/60 p-2 rounded-xl border border-outline-variant/30 text-xs">
-            <span className="font-bold text-on-surface">Filtro de Compra:</span>
-            <div className="flex bg-surface p-0.5 rounded-lg border border-outline-variant/30 text-[10px] font-bold">
-              <button onClick={() => setFilterBought('ALL')} className={`px-2 py-0.5 rounded ${filterBought === 'ALL' ? 'bg-emerald-700 text-white' : 'text-on-surface-variant'}`}>Todos</button>
-              <button onClick={() => setFilterBought('PENDING')} className={`px-2 py-0.5 rounded ${filterBought === 'PENDING' ? 'bg-emerald-700 text-white' : 'text-on-surface-variant'}`}>Pendientes</button>
-              <button onClick={() => setFilterBought('BOUGHT')} className={`px-2 py-0.5 rounded ${filterBought === 'BOUGHT' ? 'bg-emerald-700 text-white' : 'text-on-surface-variant'}`}>Comprados</button>
-            </div>
-          </div>
-
-          <div className="space-y-2">
-            {categories.map((cat, catIdx) => {
-              const visibleItems = cat.items.filter(item => {
-                if (filterBought === 'PENDING') return !item.isBought;
-                if (filterBought === 'BOUGHT') return item.isBought;
-                return true;
-              });
-
-              if (visibleItems.length === 0) return null;
-
-              return (
-                <div key={cat.categoryName} className="bg-surface rounded-2xl p-2.5 border border-outline-variant/30 space-y-2">
-                  <div className="flex items-center justify-between border-b border-outline-variant/20 pb-1">
-                    <h3 className="font-bold text-xs text-on-surface flex items-center gap-1.5">
-                      <span className="w-2 h-2 rounded-full bg-emerald-600" />
-                      {cat.categoryName}
-                    </h3>
-                    <span className="text-[10px] text-on-surface-variant font-semibold">{visibleItems.length} productos</span>
-                  </div>
-
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-1.5">
-                    {visibleItems.map((item) => {
-                      const actualIndex = cat.items.findIndex(i => i.id === item.id);
-                      return (
-                        <div
-                          key={item.id}
-                          onClick={() => toggleItemBought(catIdx, actualIndex)}
-                          className={`p-2 rounded-xl border flex items-center justify-between gap-2 cursor-pointer transition-all ${
-                            item.isBought
-                              ? 'bg-surface-container-low/50 border-outline-variant/20 opacity-60 line-through'
-                              : 'bg-surface border-outline-variant/40 hover:border-emerald-600/40'
-                          }`}
-                        >
-                          <div className="flex items-center gap-2 min-w-0">
-                            <div className={`w-5 h-5 rounded border flex items-center justify-center shrink-0 ${
-                              item.isBought ? 'bg-emerald-700 border-emerald-700 text-white' : 'border-outline-variant bg-surface'
-                            }`}>
-                              {item.isBought && <Check size={12} strokeWidth={3} />}
-                            </div>
-                            <div className="min-w-0">
-                              <p className="text-xs font-bold text-on-surface truncate">{item.name}</p>
-                              {item.isFromPantryDeduction ? (
-                                <span className="text-[9px] font-semibold text-emerald-800 bg-emerald-100 px-1.5 py-0.2 rounded inline-block">
-                                  En Nevera: {item.inPantryQty} {item.unit} → Comprar {item.toBuyQty} {item.unit}
-                                </span>
-                              ) : (
-                                <span className="text-[10px] text-on-surface-variant">Comprar: <strong>{item.requiredQty} {item.unit}</strong></span>
-                              )}
-                            </div>
-                          </div>
-                        </div>
-                      );
-                    })}
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-
-          <div className="flex items-center justify-between pt-1 border-t border-outline-variant/20">
-            <button onClick={() => setSubStep(2)} className="bg-surface-container border border-outline-variant/30 text-on-surface py-1.5 px-3 rounded-xl font-bold text-xs">
-              ← Anterior
-            </button>
-            <button onClick={() => setSubStep(4)} className="bg-emerald-700 text-white py-1.5 px-3 rounded-xl font-bold text-xs flex items-center gap-1 shadow-xs hover:bg-emerald-800 transition-all">
-              Exportar Lista (2.4)
-              <ArrowRight size={14} />
-            </button>
-          </div>
-        </div>
-      )}
-
-      {/* Sub-step 2.4: Export & Proceed to Interactive Cook */}
-      {subStep === 4 && (
-        <div className="bg-surface rounded-2xl p-4 border border-outline-variant/30 text-center space-y-3 animate-fade-in shadow-xs">
-          <div className="w-10 h-10 rounded-full bg-emerald-100 text-emerald-800 flex items-center justify-center mx-auto">
-            <ShoppingBag size={20} />
-          </div>
-          <div>
-            <h2 className="text-sm font-bold text-on-surface">2.4 ¡Lista de la Compra Ajustada!</h2>
-            <p className="text-xs text-on-surface-variant max-w-sm mx-auto mt-0.5">
-              Copia la lista consolidada para WhatsApp o avanza directamente al cocinado simultáneo del lote.
-            </p>
-          </div>
-
-          <div className="flex flex-wrap items-center justify-center gap-2 pt-1">
+          <div className="flex flex-wrap items-center gap-2">
             <button
               onClick={handleCopyList}
-              className="bg-surface-container-high border border-outline-variant/40 hover:bg-surface-container-highest text-on-surface px-3 py-2 rounded-xl font-bold text-xs flex items-center gap-1.5"
+              className="bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-800 dark:hover:bg-zinc-700 text-zinc-800 dark:text-zinc-200 font-bold text-xs px-3.5 py-2 rounded-xl transition-colors flex items-center gap-1.5 active:scale-95"
             >
               {copied ? <Check size={14} className="text-emerald-600" /> : <Copy size={14} />}
-              {copied ? '¡Copiado!' : 'Copiar para WhatsApp'}
+              <span>{copied ? '¡Copiada!' : 'Copiar'}</span>
             </button>
 
             <button
-              onClick={onNavigateToInteractiveCook}
-              className="bg-primary text-on-primary px-4 py-2 rounded-xl font-bold text-xs flex items-center gap-1.5 shadow-md hover:bg-primary/90 transition-all"
+              onClick={handleShareWhatsApp}
+              className="bg-emerald-600/15 hover:bg-emerald-600 text-emerald-700 dark:text-emerald-300 hover:text-white font-bold text-xs px-3.5 py-2 rounded-xl transition-all flex items-center gap-1.5 active:scale-95"
+              title="Compartir por WhatsApp"
             >
-              <Sparkles size={14} />
-              Iniciar Cocinado Simultáneo (3)
-              <ArrowRight size={14} />
+              <Send size={13} />
+              <span>WhatsApp</span>
+            </button>
+
+            <button
+              onClick={onAdvanceToCooking}
+              className="bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs px-4 py-2 rounded-xl shadow-xs transition-all flex items-center gap-1.5 active:scale-95"
+            >
+              <ChefHat size={14} />
+              <span>Ir a Cocinar</span>
             </button>
           </div>
         </div>
+
+        {/* Date Selector & Progress Row */}
+        <div className="pt-3 border-t border-zinc-100 dark:border-zinc-800/80 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          
+          <div className="flex items-center gap-2 text-xs">
+            <Calendar size={15} className="text-emerald-500 shrink-0" />
+            <span className="text-zinc-500 dark:text-zinc-400 font-semibold">Día de compra previsto:</span>
+            <input 
+              type="date" 
+              value={scheduledDate} 
+              onChange={handleDateChange}
+              className="bg-zinc-100 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 text-zinc-900 dark:text-zinc-100 text-xs px-2.5 py-1 rounded-lg font-mono focus:outline-none focus:border-emerald-500"
+            />
+          </div>
+
+          <div className="flex items-center gap-3">
+            <div className="text-xs text-right">
+              <span className="font-bold text-emerald-600 dark:text-emerald-400">{boughtItems} de {totalItems}</span>
+              <span className="text-zinc-400 text-[11px]"> ingredientes ({progressPercent}%)</span>
+            </div>
+            <div className="w-24 h-2 bg-zinc-100 dark:bg-zinc-800 rounded-full overflow-hidden">
+              <div 
+                className="h-full bg-emerald-500 rounded-full transition-all duration-300"
+                style={{ width: `${progressPercent}%` }}
+              />
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+      {/* BANNER 100% COMPLETADO */}
+      {progressPercent === 100 && totalItems > 0 && (
+        <div className="p-4 bg-emerald-950/30 border border-emerald-500/40 rounded-3xl flex flex-col sm:flex-row items-center justify-between gap-4 animate-fade-in shadow-xs">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-2xl bg-emerald-500 text-zinc-950 flex items-center justify-center font-bold shrink-0">
+              <CheckCircle2 size={22} />
+            </div>
+            <div>
+              <h3 className="text-sm font-bold text-white">¡Todos los ingredientes están listos!</h3>
+              <p className="text-xs text-emerald-300/80">Has completado la compra. Es el momento perfecto para encender los fogones.</p>
+            </div>
+          </div>
+
+          <button
+            onClick={onAdvanceToCooking}
+            className="w-full sm:w-auto px-5 py-2.5 bg-emerald-500 hover:bg-emerald-400 text-zinc-950 font-black text-xs rounded-xl shadow-sm transition-all flex items-center justify-center gap-1.5 active:scale-95 shrink-0"
+          >
+            <ChefHat size={15} />
+            <span>Iniciar Cocinado Simultáneo</span>
+            <ArrowRight size={14} />
+          </button>
+        </div>
       )}
+
+      {/* FILTER TABS */}
+      <div className="flex items-center gap-2">
+        <button
+          onClick={() => setFilter('all')}
+          className={`px-3 py-1.5 text-xs font-bold rounded-xl transition-all ${
+            filter === 'all' 
+              ? 'bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 shadow-xs' 
+              : 'bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-zinc-600 dark:text-zinc-400'
+          }`}
+        >
+          Todos ({totalItems})
+        </button>
+
+        <button
+          onClick={() => setFilter('pending')}
+          className={`px-3 py-1.5 text-xs font-bold rounded-xl transition-all ${
+            filter === 'pending' 
+              ? 'bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 shadow-xs' 
+              : 'bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-zinc-600 dark:text-zinc-400'
+          }`}
+        >
+          Pendientes ({pendingItems})
+        </button>
+
+        <button
+          onClick={() => setFilter('bought')}
+          className={`px-3 py-1.5 text-xs font-bold rounded-xl transition-all ${
+            filter === 'bought' 
+              ? 'bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 shadow-xs' 
+              : 'bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-zinc-600 dark:text-zinc-400'
+          }`}
+        >
+          Comprados / En Casa ({boughtItems})
+        </button>
+      </div>
+
+      {/* CATEGORIZED INGREDIENTS LIST */}
+      <div className="space-y-4">
+        {Object.keys(categoriesMap).length > 0 ? (
+          Object.entries(categoriesMap).map(([categoryKey, catItems]) => (
+            <div 
+              key={categoryKey}
+              className="bg-white dark:bg-zinc-900 rounded-3xl border border-zinc-200 dark:border-zinc-800 p-4 sm:p-5 shadow-xs space-y-3"
+            >
+              <div className="flex items-center justify-between border-b border-zinc-100 dark:border-zinc-800/80 pb-2">
+                <h3 className="text-xs font-bold uppercase tracking-wider text-zinc-700 dark:text-zinc-300">
+                  {getCategoryLabel(categoryKey)}
+                </h3>
+                <span className="text-[11px] font-mono text-zinc-400">
+                  {catItems.filter(i => i.isBought).length}/{catItems.length}
+                </span>
+              </div>
+
+              <div className="divide-y divide-zinc-100 dark:divide-zinc-800/60">
+                {catItems.map((item) => (
+                  <div 
+                    key={item.id}
+                    onClick={() => onToggleItemBought(item.id)}
+                    className="py-2.5 flex items-center justify-between gap-3 cursor-pointer group select-none"
+                  >
+                    <div className="flex items-center gap-3 min-w-0">
+                      <div className={`w-5 h-5 rounded-lg border flex items-center justify-center transition-all ${
+                        item.isBought 
+                          ? 'bg-emerald-500 border-emerald-500 text-white' 
+                          : 'border-zinc-300 dark:border-zinc-700 group-hover:border-emerald-500'
+                      }`}>
+                        {item.isBought && <Check size={12} strokeWidth={3} />}
+                      </div>
+
+                      <div className="min-w-0">
+                        <span className={`text-xs font-medium block truncate ${
+                          item.isBought 
+                            ? 'line-through text-zinc-400 dark:text-zinc-500' 
+                            : 'text-zinc-900 dark:text-zinc-100'
+                        }`}>
+                          {item.name}
+                        </span>
+
+                        {item.isFromPantryDeduction && (
+                          <span className="text-[10px] text-emerald-600 dark:text-emerald-400 font-semibold flex items-center gap-1 mt-0.5">
+                            <Refrigerator size={10} /> Descontado {item.inPantryQty} {item.unit} de tu despensa
+                          </span>
+                        )}
+                      </div>
+                    </div>
+
+                    <div className="text-right shrink-0">
+                      <span className={`text-xs font-mono font-bold ${
+                        item.isBought ? 'text-zinc-400 dark:text-zinc-500' : 'text-zinc-900 dark:text-white'
+                      }`}>
+                        {item.toBuyQty > 0 ? `${item.toBuyQty} ${item.unit}` : `En casa`}
+                      </span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ))
+        ) : (
+          <div className="p-8 text-center bg-white dark:bg-zinc-900 rounded-3xl border border-zinc-200 dark:border-zinc-800 text-zinc-400 text-xs">
+            No hay ingredientes con el filtro seleccionado.
+          </div>
+        )}
+      </div>
+
     </div>
   );
 }

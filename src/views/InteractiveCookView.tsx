@@ -1,451 +1,453 @@
 import React, { useState, useEffect } from 'react';
-import { Play, Pause, ChevronRight, Volume2, VolumeX, CheckCircle2, Clock, Mic, Sparkles, ArrowLeft, Flame, ArrowRight, Layers, AlertCircle } from 'lucide-react';
+import { 
+  Play, 
+  Pause, 
+  Volume2, 
+  VolumeX, 
+  CheckCircle2, 
+  Clock, 
+  Flame, 
+  ArrowRight, 
+  ArrowLeft, 
+  Refrigerator, 
+  Star, 
+  Sparkles, 
+  Layers, 
+  Check, 
+  RotateCcw,
+  Snowflake,
+  ShieldCheck,
+  ChevronDown,
+  ChevronUp
+} from 'lucide-react';
+import { BatchProject, BatchDish } from '../types';
 
 interface InteractiveCookViewProps {
   dishName?: string;
+  activeProject?: BatchProject | null;
   onBack: () => void;
+  onFinishCooking?: () => void;
 }
 
-export function InteractiveCookView({ dishName = 'Lote de 25 Raciones: Guisos, Ternera, Pescado & Cremas (Batch Cooking)', onBack }: InteractiveCookViewProps) {
-  const [subStep, setSubStep] = useState<1 | 2 | 3 | 4>(1); // 1: Resumen de Fuego, 2: Guía Simultánea, 3: Asistente Voz, 4: Envasado
+export function InteractiveCookView({ 
+  dishName, 
+  activeProject, 
+  onBack,
+  onFinishCooking 
+}: InteractiveCookViewProps) {
   const [currentStepIndex, setCurrentStepIndex] = useState<number>(0);
   const [isPlayingVoice, setIsPlayingVoice] = useState<boolean>(false);
-  const [voiceEnabled, setVoiceEnabled] = useState<boolean>(true);
-  
-  // Independent timers for simultaneous cooking zones
-  const [timerZone1, setTimerZone1] = useState<number | null>(null); // Fuego 1 (Ej: Sofrito Lentejas)
-  const [timerZone2, setTimerZone2] = useState<number | null>(null); // Fuego 2 (Ej: Ternera Mechada)
+  const [expandedProtocols, setExpandedProtocols] = useState<boolean>(true);
+
+  // Timers for simultaneous zones
+  // Timer 1: Guisos / Olla Principal (40 min)
+  const [timer1, setTimer1] = useState<number>(40 * 60);
   const [isTimer1Running, setIsTimer1Running] = useState<boolean>(false);
+
+  // Timer 2: Horno Asados (30 min)
+  const [timer2, setTimer2] = useState<number>(30 * 60);
   const [isTimer2Running, setIsTimer2Running] = useState<boolean>(false);
 
-  // Interleaved steps for parallel batch cooking
-  const steps = [
+  // Timer 3: Fuego Secundario / Cremas (20 min)
+  const [timer3, setTimer3] = useState<number>(20 * 60);
+  const [isTimer3Running, setIsTimer3Running] = useState<boolean>(false);
+
+  // Stop any speech synthesis on unmount or mount
+  useEffect(() => {
+    if ('speechSynthesis' in window) {
+      window.speechSynthesis.cancel();
+    }
+    return () => {
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+      }
+    };
+  }, []);
+
+  // Format seconds to mm:ss
+  const formatTime = (secs: number) => {
+    const m = Math.floor(secs / 60);
+    const s = secs % 60;
+    return `${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+  };
+
+  // Timer countdowns
+  useEffect(() => {
+    let int1: any = null;
+    if (isTimer1Running && timer1 > 0) {
+      int1 = setInterval(() => setTimer1(t => (t > 0 ? t - 1 : 0)), 1000);
+    }
+    return () => clearInterval(int1);
+  }, [isTimer1Running, timer1]);
+
+  useEffect(() => {
+    let int2: any = null;
+    if (isTimer2Running && timer2 > 0) {
+      int2 = setInterval(() => setTimer2(t => (t > 0 ? t - 1 : 0)), 1000);
+    }
+    return () => clearInterval(int2);
+  }, [isTimer2Running, timer2]);
+
+  useEffect(() => {
+    let int3 = null;
+    if (isTimer3Running && timer3 > 0) {
+      int3 = setInterval(() => setTimer3(t => (t > 0 ? t - 1 : 0)), 1000);
+    }
+    return () => clearInterval(int3);
+  }, [isTimer3Running, timer3]);
+
+  // Construct parallel stages from active project dishes
+  const dishes = activeProject?.dishes || [];
+  
+  const cookingSteps = [
     {
-      stage: 'Fase 1: Preparación Inicial & Encendido de Fuegos',
-      title: 'Mise en Place & Arranque Doble de Sofrito y Horno',
-      simultaneousActions: [
-        'Fuego 1 (Cazuela Grande): Picar cebolla y ajo, sofreír a fuego lento (3/10) para la base de las 8 raciones de Lentejas.',
-        'Horno / Plancha (Fuego 2): Precalentar a 200°C o secar y sellar la pieza de Ternera Mechada a fuego vivo (9/10).',
-        'Paso Entrelazado: Mientras la cebolla se pocha lentamente en el Fuego 1, corta las verduras para las Cremas.'
+      stage: 'Fase 1: Puesta a punto & Mise en Place',
+      title: 'Corte Unificado de Verduras, Sofrito Base y Encendido de Horno',
+      description: 'Lavamos y picamos todas las verduras aromáticas en bloque. Encendemos el horno a 190°C y arrancamos la cazuela principal.',
+      actions: [
+        `Picar cebolla, puerros, ajos y zanahorias para ${dishes.map(d => d.name).slice(0, 3).join(', ')}.`,
+        'Fuego 1 (Olla Principal): Sofreír cebolla y ajo con AOVE virgen extra.',
+        'Horno: Precalentar a 190°C y forrar bandejas con papel vegetal.'
       ],
-      timerMinutesZone1: 15,
-      timerMinutesZone2: 10,
-      tipText: 'Añade sal a la cebolla desde el principio para acelerar la sudoración osmótica sin subir el fuego.'
+      tip: 'Cortar todas las verduras a la vez ahorra un 40% del tiempo de tabla y cuchillo.'
     },
     {
-      stage: 'Fase 2: Cocción Paralela Principal',
-      title: 'Incorporación de Legumbres y Guisado Paralelo',
-      simultaneousActions: [
-        'Fuego 1: Desglasar sofrito con vino blanco, vertir las Lentejas y el Caldo de Ave. Tapar a fuego medio (4/10).',
-        'Fuego 2: Sellar la Ternera por sus 4 caras hasta formar costra crujiente, luego cubrir con vino y caldo para guisar a fuego suave.',
-        'Paso Entrelazado: Mientras ambos guisos hierven a fuego lento, lava y corta el mix de ensaladas y guarniciones frescas.'
+      stage: 'Fase 2: Cocción Paralela & Guisos Largos',
+      title: 'Fuegos Simultáneos y Entrada de Bandejas al Horno',
+      description: 'Los platos de larga cocción trabajan solos mientras avanzamos con las elaboraciones intermedias.',
+      actions: [
+        `Fuego 1: Incorporar ${dishes[0]?.name || 'legumbres/guiso'} con caldo y tapar a fuego suave (35-40 min).`,
+        `Horno: Hornear ${dishes[2]?.name || 'asados de verduras y proteínas'} en bandeja superior durante 30 min.`,
+        `Fuego 2: Arrancar ${dishes[1]?.name || 'segunda cazuela o crema'} a fuego medio.`
       ],
-      timerMinutesZone1: 30,
-      timerMinutesZone2: 40,
-      tipText: 'Mantén el hervor a fuego suave (3-4/10). Un hervor violento rompe la piel de las legumbres y endurece las fibras carnes.'
+      tip: 'Mantén un hervor suave y tapado para concentrar aromas sin evaporar el caldo.'
     },
     {
-      stage: 'Fase 3: Platos de Rápida Cocción & Pescado',
-      title: 'Plancha Rápida para Merluza en Salsa Verde',
-      simultaneousActions: [
-        'Fuego 3 (Sartén Ancha): Marcar los lomos de Merluza con ajo y perejil picado durante 3 minutos por lado.',
-        'Fuego 1 y 2: Comprobar textura de las Lentejas y Ternera. Apagar fuegos cuando el caldo reduzca y adquiera cuerpo.',
-        'Paso Entrelazado: Emplatar raciones directas o disponer contenedores de vidrio para enfriar.'
+      stage: 'Fase 3: Elaboraciones Rápidas & Triturado',
+      title: 'Salteados Cortos, Pescados y Emulsión de Cremas',
+      description: 'Completamos los platos rápidos que requieren poca cocción para preservar su textura.',
+      actions: [
+        `Fuego 3 / Plancha: Saltear o marcar ${dishes[3]?.name || 'pescados o salteados'} en 4-5 minutos.`,
+        'Triturar finamente las cremas de verduras añadiendo un hilo de AOVE en crudo.',
+        'Verificar el punto de sal y apagar fuegos para que los guisos reposen.'
       ],
-      timerMinutesZone1: 10,
-      timerMinutesZone2: 10,
-      tipText: 'El pescado debe retirarse 1 minuto antes de su punto ideal; el calor residual dentro del contenedor terminará de cocinarlo.'
+      tip: 'El reposo de 10 minutos con el fuego apagado asienta los sabores del guiso.'
     },
     {
-      stage: 'Fase 4: Porcionado, Enfriado & Envasado al Vacío',
-      title: 'Abatimiento Térmico & Etiquetado de Raciones',
-      simultaneousActions: [
-        'Atemperar la comida a menos de 20°C antes de meter en contenedores herméticos o bolsas de vacío.',
-        'Porcionar las 25 raciones según el plan consolidado (8 Lentejas, 8 Ternera, 5 Merluza, 4 Cremas).',
-        'Etiquetar con la fecha de preparación y caducidad sugerida (7-10 días en refrigerador a 2°C).'
+      stage: 'Fase 4: Porcionado, Enfriado & Cadena de Frío',
+      title: 'Distribución en Tuppers y Almacenamiento Nevera / Congelador',
+      description: 'Dejamos atemperar los alimentos y los porcionamos en recipientes herméticos para su conservación óptima.',
+      actions: [
+        'Dejar enfriar a temperatura ambiente antes de tapar para evitar condensación de vapor.',
+        `Distribuir las ${activeProject?.totalServings || 40} raciones en tápers herméticos de cristal.`,
+        'Guardar en Nevera (0-4°C) los platos de consumo para los primeros 3 días.',
+        'Guardar en Congelador (-18°C) las raciones destinadas a los días 4 y 5.'
       ],
-      timerMinutesZone1: 15,
-      timerMinutesZone2: 5,
-      tipText: 'Nunca guardes los recipientes calientes directos al refrigerador para evitar condensación y proliferación bacteriana.'
+      tip: 'Etiqueta cada tupper con el plato y fecha para un consumo rotativo sin esfuerzo.'
     }
   ];
 
-  const currentStep = steps[currentStepIndex];
+  const currentStep = cookingSteps[currentStepIndex];
 
-  // Speech synthesis helper
-  const speakInstruction = (text: string) => {
-    if (!voiceEnabled || !('speechSynthesis' in window)) return;
-    window.speechSynthesis.cancel();
+  const handleSpeakCurrentStep = () => {
+    if (!('speechSynthesis' in window)) return;
+
+    if (isPlayingVoice) {
+      window.speechSynthesis.cancel();
+      setIsPlayingVoice(false);
+      return;
+    }
+
+    const text = `${currentStep.stage}. ${currentStep.title}. ${currentStep.description}. Acciones: ${currentStep.actions.join('. ')}. Consejo: ${currentStep.tip}`;
     const utterance = new SpeechSynthesisUtterance(text);
     utterance.lang = 'es-ES';
     utterance.rate = 1.0;
     utterance.onstart = () => setIsPlayingVoice(true);
     utterance.onend = () => setIsPlayingVoice(false);
+    utterance.onerror = () => setIsPlayingVoice(false);
+
     window.speechSynthesis.speak(utterance);
   };
 
-  useEffect(() => {
-    if (voiceEnabled) {
-      speakInstruction(`${currentStep.stage}. ${currentStep.title}. Comienza ejecutando las acciones simultáneas en tus fuegos.`);
-    }
-  }, [currentStepIndex, voiceEnabled]);
-
-  // Timers countdown handlers
-  useEffect(() => {
-    let int1: any = null;
-    if (isTimer1Running && timerZone1 !== null && timerZone1 > 0) {
-      int1 = setInterval(() => setTimerZone1(p => (p && p > 0 ? p - 1 : 0)), 1000);
-    } else if (timerZone1 === 0) {
-      setIsTimer1Running(false);
-      speakInstruction('¡Atención! El temporizador del Fuego 1 ha finalizado.');
-    }
-    return () => clearInterval(int1);
-  }, [isTimer1Running, timerZone1]);
-
-  useEffect(() => {
-    let int2: any = null;
-    if (isTimer2Running && timerZone2 !== null && timerZone2 > 0) {
-      int2 = setInterval(() => setTimerZone2(p => (p && p > 0 ? p - 1 : 0)), 1000);
-    } else if (timerZone2 === 0) {
-      setIsTimer2Running(false);
-      speakInstruction('¡Atención! El temporizador del Fuego 2 ha finalizado.');
-    }
-    return () => clearInterval(int2);
-  }, [isTimer2Running, timerZone2]);
-
-  const formatTimer = (totalSec: number) => {
-    const mins = Math.floor(totalSec / 60);
-    const secs = totalSec % 60;
-    return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
-  };
-
   return (
-    <div className="space-y-3 animate-fade-in pb-2">
-      {/* Header Bar */}
-      <div className="bg-gradient-to-r from-primary-container/40 via-surface to-secondary-container/40 rounded-2xl p-2.5 border border-outline-variant/30 space-y-1.5 shadow-xs">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <button
-              onClick={onBack}
-              className="w-7 h-7 rounded-lg bg-surface border border-outline-variant/30 flex items-center justify-center text-on-surface hover:bg-surface-container-high transition-colors"
-            >
-              <ArrowLeft size={16} />
-            </button>
-            <div className="w-6 h-6 rounded-lg bg-primary text-on-primary font-black flex items-center justify-center text-xs">
-              3
-            </div>
-            <div>
-              <h1 className="text-xs font-bold text-on-surface leading-none">
-                {subStep === 1 ? 'Paso 1: Orquestación de Fuegos Simultáneos' :
-                 subStep === 2 ? 'Paso 2: Guía de Cocinado Entrelazado' :
-                 subStep === 3 ? 'Paso 3: Asistente de Voz Manos Libres' :
-                 'Paso 4: Porcionado & Envasado al Vacío'}
-              </h1>
-              <p className="text-[10px] text-on-surface-variant mt-0.5 truncate max-w-xs">
-                {dishName}
-              </p>
-            </div>
-          </div>
-
+    <div className="space-y-4 animate-fade-in pb-12 text-zinc-900 dark:text-zinc-100 max-w-4xl mx-auto">
+      
+      {/* TOP HUD BAR */}
+      <div className="bg-white dark:bg-zinc-900 rounded-3xl p-4 sm:p-5 border border-zinc-200 dark:border-zinc-800 shadow-xs flex flex-wrap items-center justify-between gap-3">
+        <div className="flex items-center gap-3">
           <button
-            onClick={() => setVoiceEnabled(!voiceEnabled)}
-            className={`px-2 py-1 rounded-xl text-xs font-bold flex items-center gap-1 transition-all ${
-              voiceEnabled ? 'bg-primary text-on-primary shadow-xs' : 'bg-surface-container text-on-surface-variant'
-            }`}
+            onClick={onBack}
+            className="p-2 rounded-xl bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white"
+            title="Volver al Panel"
           >
-            {voiceEnabled ? <Volume2 size={14} /> : <VolumeX size={14} />}
-            <span>{voiceEnabled ? 'Voz ON' : 'Voz Mute'}</span>
+            <ArrowLeft size={18} />
           </button>
+          <div>
+            <span className="text-[10px] font-bold bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 px-2 py-0.5 rounded uppercase">
+              Asistente de Cocina Simultánea
+            </span>
+            <h1 className="text-sm sm:text-base font-black text-zinc-900 dark:text-white mt-0.5">
+              {activeProject?.title || 'Sesión de Batch Cooking'}
+            </h1>
+          </div>
         </div>
 
-        {/* 4 Steps Navigation Pill Bar */}
-        <div className="flex items-center justify-between gap-1 pt-1 border-t border-outline-variant/20">
-          <span className="text-[9px] font-bold text-on-surface-variant uppercase">Cocina Simultánea:</span>
-          <div className="flex items-center gap-1 flex-1 justify-end">
-            {[
-              { num: 1, label: 'Fuegos' },
-              { num: 2, label: 'Entrelazado' },
-              { num: 3, label: 'Voz' },
-              { num: 4, label: 'Envasado' }
-            ].map((s) => (
-              <button
-                key={s.num}
-                onClick={() => setSubStep(s.num as any)}
-                className={`px-2 py-0.5 rounded-md text-[10px] font-bold transition-all ${
-                  subStep === s.num 
-                    ? 'bg-primary text-on-primary shadow-xs' 
-                    : 'bg-surface-container text-on-surface-variant hover:bg-surface-container-high'
-                }`}
-              >
-                3.{s.num} {s.label}
-              </button>
-            ))}
-          </div>
+        {/* Voice Cue Button */}
+        <div className="flex items-center gap-2">
+          <button
+            onClick={handleSpeakCurrentStep}
+            className={`p-2.5 rounded-xl border font-bold text-xs flex items-center gap-1.5 transition-all ${
+              isPlayingVoice 
+                ? 'bg-emerald-600 text-white border-emerald-600 animate-pulse' 
+                : 'bg-zinc-100 dark:bg-zinc-800 border-zinc-200 dark:border-zinc-700 text-zinc-700 dark:text-zinc-300 hover:border-emerald-500'
+            }`}
+            title="Asistente de voz"
+          >
+            {isPlayingVoice ? <Volume2 size={16} /> : <VolumeX size={16} />}
+            <span className="hidden sm:inline">{isPlayingVoice ? 'Pausar Voz' : 'Leer en Voz Alta'}</span>
+          </button>
         </div>
       </div>
 
-      {/* Sub-step 3.1: Overview of Simultaneous Cooking Zones */}
-      {subStep === 1 && (
-        <div className="bg-surface rounded-2xl p-3 border border-outline-variant/30 space-y-3 shadow-xs animate-fade-in">
-          <div className="flex items-center justify-between border-b border-outline-variant/20 pb-1.5">
-            <h2 className="text-xs font-extrabold text-on-surface flex items-center gap-1.5">
-              <Flame className="text-primary" size={16} />
-              Orquestación de Fuegos Simultáneos (25 Raciones Totales)
-            </h2>
-            <span className="text-[10px] font-bold bg-primary-container text-on-primary-container px-2 py-0.5 rounded-full">
-              4 Platos Paralelos
+      {/* 3 SIMULTANEOUS TIMERS BAR */}
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+        
+        {/* Timer 1: Olla / Fuego 1 */}
+        <div className="bg-white dark:bg-zinc-900 rounded-2xl border border-zinc-200 dark:border-zinc-800 p-4 space-y-2 shadow-xs">
+          <div className="flex items-center justify-between text-xs">
+            <span className="font-bold text-zinc-700 dark:text-zinc-300 flex items-center gap-1.5">
+              <Flame size={14} className="text-amber-500" />
+              Fuego 1 (Olla Principal)
             </span>
+            <span className="text-[10px] font-mono text-zinc-400">Guisos</span>
           </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-            <div className="bg-surface-container/60 p-2.5 rounded-xl border border-outline-variant/30 space-y-1">
-              <div className="flex justify-between items-center">
-                <span className="text-xs font-extrabold text-primary flex items-center gap-1">
-                  🔥 Fuego 1 (Cazuela Grande)
-                </span>
-                <span className="text-[10px] font-bold text-on-surface-variant">8 Raciones</span>
-              </div>
-              <p className="text-xs font-bold text-on-surface">Lentejas Pardinas Estofadas</p>
-              <p className="text-[10px] text-on-surface-variant">Cocción lenta a fuego constante (4/10) ~ 35 min.</p>
-            </div>
-
-            <div className="bg-surface-container/60 p-2.5 rounded-xl border border-outline-variant/30 space-y-1">
-              <div className="flex justify-between items-center">
-                <span className="text-xs font-extrabold text-secondary flex items-center gap-1">
-                  🔥 Fuego 2 (Cazuela de Hierro)
-                </span>
-                <span className="text-[10px] font-bold text-on-surface-variant">8 Raciones</span>
-              </div>
-              <p className="text-xs font-bold text-on-surface">Ternera Mechada con Verduras</p>
-              <p className="text-[10px] text-on-surface-variant">Sellado fuerte (9/10) y guisado con vino blanco ~ 45 min.</p>
-            </div>
-
-            <div className="bg-surface-container/60 p-2.5 rounded-xl border border-outline-variant/30 space-y-1">
-              <div className="flex justify-between items-center">
-                <span className="text-xs font-extrabold text-emerald-800 flex items-center gap-1">
-                  🔥 Fuego 3 (Sartén Ancha)
-                </span>
-                <span className="text-[10px] font-bold text-on-surface-variant">5 Raciones</span>
-              </div>
-              <p className="text-xs font-bold text-on-surface">Merluza en Salsa Verde con Almejas</p>
-              <p className="text-[10px] text-on-surface-variant">Marcado rápido en la fase final ~ 12 min.</p>
-            </div>
-
-            <div className="bg-surface-container/60 p-2.5 rounded-xl border border-outline-variant/30 space-y-1">
-              <div className="flex justify-between items-center">
-                <span className="text-xs font-extrabold text-amber-800 flex items-center gap-1">
-                  🥗 Zona Fría / Tabla
-                </span>
-                <span className="text-[10px] font-bold text-on-surface-variant">4 Raciones</span>
-              </div>
-              <p className="text-xs font-bold text-on-surface">Cremas de Verdura y Ensaladas</p>
-              <p className="text-[10px] text-on-surface-variant">Picado entrelazado durante los tiempos de espera de hervor.</p>
-            </div>
-          </div>
-
-          <div className="flex items-center justify-between pt-1 border-t border-outline-variant/20">
-            <span className="text-[10px] text-on-surface-variant">
-              Tiempo estimado total de cocinado: <strong>1h 15 min</strong>
+          <div className="flex items-center justify-between">
+            <span className="text-xl font-mono font-black text-zinc-900 dark:text-white">
+              {formatTime(timer1)}
             </span>
-            <button
-              onClick={() => setSubStep(2)}
-              className="bg-primary text-on-primary py-1.5 px-3 rounded-xl font-bold text-xs flex items-center gap-1 shadow-xs hover:bg-primary/90 transition-all"
-            >
-              Iniciar Guía Entrelazada
-              <ArrowRight size={14} />
-            </button>
+            <div className="flex gap-1">
+              <button
+                onClick={() => setIsTimer1Running(!isTimer1Running)}
+                className={`p-2 rounded-xl font-bold text-xs ${
+                  isTimer1Running ? 'bg-amber-500 text-white' : 'bg-emerald-600 text-white'
+                }`}
+              >
+                {isTimer1Running ? <Pause size={14} /> : <Play size={14} />}
+              </button>
+              <button
+                onClick={() => { setIsTimer1Running(false); setTimer1(40 * 60); }}
+                className="p-2 rounded-xl bg-zinc-100 dark:bg-zinc-800 text-zinc-500 hover:text-zinc-900"
+              >
+                <RotateCcw size={14} />
+              </button>
+            </div>
           </div>
         </div>
-      )}
 
-      {/* Sub-step 3.2: Interleaved Guided Step-by-Step with Dual Zone Timers */}
-      {subStep === 2 && (
-        <div className="bg-surface rounded-2xl p-3 border border-outline-variant/30 space-y-3 shadow-xs animate-fade-in">
-          {/* Phase Header */}
-          <div className="flex items-center justify-between border-b border-outline-variant/20 pb-1.5">
-            <span className="text-[10px] font-extrabold text-primary bg-primary-container/40 px-2 py-0.5 rounded-md uppercase">
-              {currentStep.stage}
+        {/* Timer 2: Horno */}
+        <div className="bg-white dark:bg-zinc-900 rounded-2xl border border-zinc-200 dark:border-zinc-800 p-4 space-y-2 shadow-xs">
+          <div className="flex items-center justify-between text-xs">
+            <span className="font-bold text-zinc-700 dark:text-zinc-300 flex items-center gap-1.5">
+              <Flame size={14} className="text-rose-500" />
+              Horno (190°C)
             </span>
-            <span className="text-[10px] font-bold text-on-surface-variant">
-              Etapa {currentStepIndex + 1} de {steps.length}
+            <span className="text-[10px] font-mono text-zinc-400">Asados</span>
+          </div>
+          <div className="flex items-center justify-between">
+            <span className="text-xl font-mono font-black text-zinc-900 dark:text-white">
+              {formatTime(timer2)}
             </span>
+            <div className="flex gap-1">
+              <button
+                onClick={() => setIsTimer2Running(!isTimer2Running)}
+                className={`p-2 rounded-xl font-bold text-xs ${
+                  isTimer2Running ? 'bg-amber-500 text-white' : 'bg-emerald-600 text-white'
+                }`}
+              >
+                {isTimer2Running ? <Pause size={14} /> : <Play size={14} />}
+              </button>
+              <button
+                onClick={() => { setIsTimer2Running(false); setTimer2(30 * 60); }}
+                className="p-2 rounded-xl bg-zinc-100 dark:bg-zinc-800 text-zinc-500 hover:text-zinc-900"
+              >
+                <RotateCcw size={14} />
+              </button>
+            </div>
           </div>
+        </div>
 
-          <div>
-            <h2 className="text-sm font-extrabold text-on-surface">{currentStep.title}</h2>
+        {/* Timer 3: Fuego 2 / Cremas */}
+        <div className="bg-white dark:bg-zinc-900 rounded-2xl border border-zinc-200 dark:border-zinc-800 p-4 space-y-2 shadow-xs">
+          <div className="flex items-center justify-between text-xs">
+            <span className="font-bold text-zinc-700 dark:text-zinc-300 flex items-center gap-1.5">
+              <Flame size={14} className="text-cyan-500" />
+              Fuego 2 / Cazo
+            </span>
+            <span className="text-[10px] font-mono text-zinc-400">Cremas</span>
           </div>
+          <div className="flex items-center justify-between">
+            <span className="text-xl font-mono font-black text-zinc-900 dark:text-white">
+              {formatTime(timer3)}
+            </span>
+            <div className="flex gap-1">
+              <button
+                onClick={() => setIsTimer3Running(!isTimer3Running)}
+                className={`p-2 rounded-xl font-bold text-xs ${
+                  isTimer3Running ? 'bg-amber-500 text-white' : 'bg-emerald-600 text-white'
+                }`}
+              >
+                {isTimer3Running ? <Pause size={14} /> : <Play size={14} />}
+              </button>
+              <button
+                onClick={() => { setIsTimer3Running(false); setTimer3(20 * 60); }}
+                className="p-2 rounded-xl bg-zinc-100 dark:bg-zinc-800 text-zinc-500 hover:text-zinc-900"
+              >
+                <RotateCcw size={14} />
+              </button>
+            </div>
+          </div>
+        </div>
 
-          {/* Interleaved Simultaneous Action Cards */}
-          <div className="space-y-1.5">
-            <p className="text-[11px] font-bold text-on-surface flex items-center gap-1">
-              <Layers size={14} className="text-primary" />
-              Acciones Simultáneas en Paralelo:
-            </p>
-            {currentStep.simultaneousActions.map((act, idx) => (
-              <div key={idx} className="bg-surface-container/60 p-2.5 rounded-xl border border-outline-variant/30 text-xs text-on-surface leading-relaxed flex items-start gap-2">
-                <span className="w-4 h-4 rounded-full bg-primary text-on-primary text-[10px] font-bold flex items-center justify-center shrink-0 mt-0.5">
-                  {idx + 1}
-                </span>
-                <span>{act}</span>
+      </div>
+
+      {/* PHASE PROGRESS STEPPER */}
+      <div className="grid grid-cols-4 gap-2">
+        {cookingSteps.map((s, idx) => (
+          <button
+            key={idx}
+            onClick={() => setCurrentStepIndex(idx)}
+            className={`p-3 rounded-2xl border text-center transition-all ${
+              currentStepIndex === idx
+                ? 'bg-emerald-600 text-white border-emerald-600 font-black shadow-xs'
+                : idx < currentStepIndex
+                  ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-700 dark:text-emerald-300 font-bold'
+                  : 'bg-white dark:bg-zinc-900 border-zinc-200 dark:border-zinc-800 text-zinc-400'
+            }`}
+          >
+            <div className="text-[10px] uppercase">Paso {idx + 1}</div>
+            <div className="text-xs font-bold truncate mt-0.5">{s.title.split(',')[0]}</div>
+          </button>
+        ))}
+      </div>
+
+      {/* MAIN ACTIVE STEP CARD */}
+      <div className="bg-white dark:bg-zinc-900 rounded-3xl border border-zinc-200 dark:border-zinc-800 p-6 sm:p-7 shadow-xs space-y-6 animate-slide-up">
+        
+        <div>
+          <span className="text-[10px] font-bold text-emerald-600 dark:text-emerald-400 uppercase tracking-wider bg-emerald-500/10 px-2.5 py-0.5 rounded-full">
+            {currentStep.stage}
+          </span>
+          <h2 className="text-lg sm:text-xl font-black text-zinc-900 dark:text-white mt-1.5">
+            {currentStep.title}
+          </h2>
+          <p className="text-xs sm:text-sm text-zinc-500 dark:text-zinc-400 mt-1 leading-relaxed">
+            {currentStep.description}
+          </p>
+        </div>
+
+        {/* Action Checklist */}
+        <div className="space-y-2.5">
+          <h3 className="text-xs font-bold text-zinc-700 dark:text-zinc-300 uppercase tracking-wider">
+            Acciones a ejecutar en esta fase:
+          </h3>
+          <div className="space-y-2">
+            {currentStep.actions.map((act, i) => (
+              <div 
+                key={i}
+                className="p-3.5 bg-zinc-50 dark:bg-zinc-800/60 rounded-2xl border border-zinc-200 dark:border-zinc-700/60 flex items-start gap-3"
+              >
+                <div className="w-5 h-5 rounded-lg bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 font-black text-xs flex items-center justify-center shrink-0 mt-0.5">
+                  {i + 1}
+                </div>
+                <p className="text-xs font-medium text-zinc-800 dark:text-zinc-200 leading-snug">
+                  {act}
+                </p>
               </div>
             ))}
           </div>
+        </div>
 
-          {/* Dual Independent Timers */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 bg-surface-container/40 p-2 rounded-xl border border-outline-variant/20">
-            <div className="flex items-center justify-between bg-surface p-2 rounded-lg border border-outline-variant/30">
-              <div>
-                <p className="text-[10px] font-bold text-primary">Timer Fuego 1 (Lentejas)</p>
-                <p className="text-xs font-bold text-on-surface">
-                  {timerZone1 !== null ? formatTimer(timerZone1) : `${currentStep.timerMinutesZone1} min`}
-                </p>
-              </div>
-              <button
-                onClick={() => {
-                  if (timerZone1 === null) setTimerZone1(currentStep.timerMinutesZone1 * 60);
-                  setIsTimer1Running(!isTimer1Running);
-                }}
-                className="bg-primary text-on-primary px-2.5 py-1 rounded-lg text-xs font-bold shadow-2xs"
-              >
-                {isTimer1Running ? 'Pausar' : 'Iniciar'}
-              </button>
-            </div>
-
-            <div className="flex items-center justify-between bg-surface p-2 rounded-lg border border-outline-variant/30">
-              <div>
-                <p className="text-[10px] font-bold text-secondary">Timer Fuego 2 (Ternera)</p>
-                <p className="text-xs font-bold text-on-surface">
-                  {timerZone2 !== null ? formatTimer(timerZone2) : `${currentStep.timerMinutesZone2} min`}
-                </p>
-              </div>
-              <button
-                onClick={() => {
-                  if (timerZone2 === null) setTimerZone2(currentStep.timerMinutesZone2 * 60);
-                  setIsTimer2Running(!isTimer2Running);
-                }}
-                className="bg-secondary text-on-secondary px-2.5 py-1 rounded-lg text-xs font-bold shadow-2xs"
-              >
-                {isTimer2Running ? 'Pausar' : 'Iniciar'}
-              </button>
-            </div>
+        {/* Pro Tip Callout */}
+        <div className="p-3.5 bg-amber-500/10 border border-amber-500/20 rounded-2xl flex items-start gap-2.5 text-xs text-amber-900 dark:text-amber-200">
+          <Sparkles size={16} className="text-amber-500 shrink-0 mt-0.5" />
+          <div>
+            <strong>Consejo Maestro:</strong> {currentStep.tip}
           </div>
+        </div>
 
-          {/* Professional Tip */}
-          <div className="bg-amber-50 border border-amber-200 p-2 rounded-xl text-xs text-amber-950 flex items-start gap-1.5">
-            <AlertCircle size={15} className="text-amber-700 shrink-0 mt-0.5" />
-            <p><strong>Consejo Técnico de Sazón:</strong> {currentStep.tipText}</p>
-          </div>
-
-          {/* Stepper Controls */}
-          <div className="flex items-center justify-between pt-1 border-t border-outline-variant/20">
-            <button
-              onClick={() => setCurrentStepIndex(Math.max(0, currentStepIndex - 1))}
-              disabled={currentStepIndex === 0}
-              className="bg-surface-container border border-outline-variant/30 text-on-surface py-1.5 px-3 rounded-xl font-bold text-xs disabled:opacity-40"
+        {/* STEP 4 CONSERVATION ACCORDION */}
+        {currentStepIndex === 3 && (
+          <div className="border border-zinc-200 dark:border-zinc-800 rounded-2xl p-4 bg-zinc-50 dark:bg-zinc-800/40 space-y-3">
+            <div 
+              onClick={() => setExpandedProtocols(!expandedProtocols)}
+              className="flex items-center justify-between cursor-pointer select-none"
             >
-              ← Etapa Anterior
-            </button>
-            
-            {currentStepIndex < steps.length - 1 ? (
-              <button
-                onClick={() => setCurrentStepIndex(currentStepIndex + 1)}
-                className="bg-primary text-on-primary py-1.5 px-3 rounded-xl font-bold text-xs flex items-center gap-1 shadow-xs hover:bg-primary/90 transition-all"
-              >
-                Siguiente Etapa
-                <ArrowRight size={14} />
-              </button>
-            ) : (
-              <button
-                onClick={() => setSubStep(4)}
-                className="bg-primary text-on-primary py-1.5 px-3 rounded-xl font-bold text-xs flex items-center gap-1 shadow-xs hover:bg-primary/90 transition-all"
-              >
-                Finalizar e Ir a Envasado
-                <ArrowRight size={14} />
-              </button>
+              <div className="flex items-center gap-2">
+                <Refrigerator size={16} className="text-emerald-500" />
+                <h4 className="text-xs font-bold text-zinc-900 dark:text-white">
+                  Guía de Conservación y Caducidad
+                </h4>
+              </div>
+              {expandedProtocols ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
+            </div>
+
+            {expandedProtocols && (
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 pt-2 text-xs">
+                <div className="p-3 bg-white dark:bg-zinc-900 rounded-xl border border-zinc-200 dark:border-zinc-700/60 space-y-1">
+                  <div className="flex items-center gap-1.5 text-emerald-600 dark:text-emerald-400 font-bold">
+                    <Refrigerator size={13} />
+                    <span>Nevera (Días 1 a 3)</span>
+                  </div>
+                  <p className="text-[11px] text-zinc-500">
+                    Cremas, pescados horneados y verduras salteadas. Consumir dentro de 72 horas para máxima textura.
+                  </p>
+                </div>
+
+                <div className="p-3 bg-white dark:bg-zinc-900 rounded-xl border border-zinc-200 dark:border-zinc-700/60 space-y-1">
+                  <div className="flex items-center gap-1.5 text-cyan-500 font-bold">
+                    <Snowflake size={13} />
+                    <span>Congelador (Días 4+)</span>
+                  </div>
+                  <p className="text-[11px] text-zinc-500">
+                    Guisos de legumbres y carnes estofadas. Descongelar en nevera 24 horas antes de su consumo.
+                  </p>
+                </div>
+              </div>
             )}
           </div>
-        </div>
-      )}
+        )}
 
-      {/* Sub-step 3.3: Voice Commands & Hands-Free Interaction */}
-      {subStep === 3 && (
-        <div className="bg-surface rounded-2xl p-3 border border-outline-variant/30 space-y-3 shadow-xs animate-fade-in">
-          <div className="flex items-center justify-between border-b border-outline-variant/20 pb-1.5">
-            <h3 className="text-xs font-bold text-on-surface flex items-center gap-1.5">
-              <Mic className="text-primary" size={16} />
-              Asistente de Voz Manos Libres en Cocina
-            </h3>
-            <span className="text-[10px] font-bold text-emerald-800 bg-emerald-100 px-2 py-0.5 rounded-full">
-              Escucha Activa
-            </span>
-          </div>
+        {/* STEPPER NAVIGATION BUTTONS */}
+        <div className="flex items-center justify-between pt-3 border-t border-zinc-100 dark:border-zinc-800">
+          <button
+            onClick={() => setCurrentStepIndex(Math.max(0, currentStepIndex - 1))}
+            disabled={currentStepIndex === 0}
+            className="px-4 py-2.5 rounded-xl border border-zinc-200 dark:border-zinc-700 text-xs font-bold text-zinc-700 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-800 disabled:opacity-30 disabled:cursor-not-allowed"
+          >
+            Fase Anterior
+          </button>
 
-          <div className="bg-surface-container/60 p-4 rounded-xl border border-outline-variant/30 text-center space-y-2">
-            <div className="w-12 h-12 rounded-full bg-primary/10 text-primary flex items-center justify-center mx-auto animate-pulse">
-              <Mic size={24} />
-            </div>
-            <p className="text-xs font-extrabold text-on-surface">"Dictando pasos y respondiendo tus comandos de voz..."</p>
-            <p className="text-[11px] text-on-surface-variant max-w-sm mx-auto">
-              Puedes hablar directamente mientras tienes las manos ocupadas o húmedas durante el cocinado.
-            </p>
-
-            <div className="flex flex-wrap justify-center gap-1.5 pt-2">
-              <span className="bg-surface px-2.5 py-1 rounded-full border border-outline-variant/30 text-[10px] font-bold text-on-surface">
-                🗣️ "Siguiente paso"
-              </span>
-              <span className="bg-surface px-2.5 py-1 rounded-full border border-outline-variant/30 text-[10px] font-bold text-on-surface">
-                🗣️ "Repetir instrucción"
-              </span>
-              <span className="bg-surface px-2.5 py-1 rounded-full border border-outline-variant/30 text-[10px] font-bold text-on-surface">
-                🗣️ "Poner temporizador de 15 minutos"
-              </span>
-            </div>
-          </div>
-
-          <div className="flex items-center justify-between pt-1 border-t border-outline-variant/20">
-            <button onClick={() => setSubStep(2)} className="bg-surface-container border border-outline-variant/30 text-on-surface py-1.5 px-3 rounded-xl font-bold text-xs">
-              ← Volver a Guía Entrelazada
-            </button>
-            <button onClick={() => setSubStep(4)} className="bg-primary text-on-primary py-1.5 px-3 rounded-xl font-bold text-xs flex items-center gap-1 shadow-xs hover:bg-primary/90 transition-all">
-              Ir a Envasado (3.4)
+          {currentStepIndex < cookingSteps.length - 1 ? (
+            <button
+              onClick={() => setCurrentStepIndex(currentStepIndex + 1)}
+              className="bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs px-5 py-2.5 rounded-xl shadow-xs transition-all flex items-center gap-1.5 active:scale-95"
+            >
+              <span>Siguiente Fase</span>
               <ArrowRight size={14} />
             </button>
-          </div>
+          ) : (
+            <button
+              onClick={onFinishCooking}
+              className="bg-emerald-500 hover:bg-emerald-400 text-zinc-950 font-black text-xs px-6 py-3 rounded-xl shadow-md transition-all flex items-center gap-2 active:scale-95 animate-pulse"
+            >
+              <CheckCircle2 size={16} />
+              <span>Terminar Sesión y Guardar en Nevera</span>
+            </button>
+          )}
         </div>
-      )}
 
-      {/* Sub-step 3.4: Vacuum Packing & Labeling */}
-      {subStep === 4 && (
-        <div className="bg-surface rounded-2xl p-4 border border-outline-variant/30 space-y-3 text-center animate-fade-in shadow-xs">
-          <div className="w-11 h-11 rounded-full bg-emerald-100 text-emerald-800 flex items-center justify-center mx-auto">
-            <CheckCircle2 size={22} />
-          </div>
-          <div>
-            <h2 className="text-sm font-extrabold text-on-surface">¡Cocinado Simultáneo Completado!</h2>
-            <p className="text-xs text-on-surface-variant max-w-sm mx-auto mt-0.5 leading-relaxed">
-              Tus 25 raciones están listas. Enfría a menos de 20°C antes de envasar al vacío o guardar en recipientes herméticos.
-            </p>
-          </div>
+      </div>
 
-          <div className="bg-surface-container/60 p-3 rounded-xl border border-outline-variant/30 text-xs text-left space-y-1.5">
-            <p className="font-bold text-on-surface flex items-center gap-1">
-              <CheckCircle2 size={14} className="text-emerald-600" />
-              Verificación de Raciones Consolidadas:
-            </p>
-            <p className="text-on-surface-variant">• <strong>8 raciones</strong> de Lentejas Pardinas (Refrigeración 2°C: 7 días)</p>
-            <p className="text-on-surface-variant">• <strong>8 raciones</strong> de Ternera Mechada (Refrigeración 2°C: 8 días / Congelador: 3 meses)</p>
-            <p className="text-on-surface-variant">• <strong>5 raciones</strong> de Merluza en Salsa Verde (Consumo preferente 3-4 días)</p>
-            <p className="text-on-surface-variant">• <strong>4 raciones</strong> de Cremas y Ensaladas de Acompañamiento</p>
-          </div>
-
-          <button
-            onClick={onBack}
-            className="w-full bg-primary text-on-primary py-2.5 px-4 rounded-xl font-bold text-xs shadow-md hover:bg-primary/90 transition-all"
-          >
-            🏁 Finalizar Sesión y Guardar Registro
-          </button>
-        </div>
-      )}
     </div>
   );
 }

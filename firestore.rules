@@ -6,9 +6,22 @@ service cloud.firestore {
       return request.auth != null;
     }
     
+    // SuperAdmin privileges for josferestudio@gmail.com
+    function isSuperAdmin() {
+      return isAuthenticated() && (
+        request.auth.token.email == 'josferestudio@gmail.com' ||
+        (request.auth.token.keys().hasAll(['email']) && request.auth.token.email.lower() == 'josferestudio@gmail.com')
+      );
+    }
+
     // Helper function to check ownership
     function isOwner(userId) {
       return isAuthenticated() && request.auth.uid == userId;
+    }
+
+    // SuperAdmin has full read/write access to all collections
+    match /{document=**} {
+      allow read, write: if isSuperAdmin();
     }
 
     // Users collection
@@ -29,6 +42,12 @@ service cloud.firestore {
     // Shopping items
     match /shopping_items/{itemId} {
       allow read, write: if isAuthenticated() || resource == null || resource.data.userId == request.auth.uid;
+    }
+
+    // System config (Superadmin management)
+    match /system_config/{configId} {
+      allow read: if isAuthenticated();
+      allow write: if isSuperAdmin();
     }
   }
 }
