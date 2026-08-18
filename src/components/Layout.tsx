@@ -203,7 +203,7 @@ export function Layout({
                 <div className="hidden sm:block">
                   <div className="flex items-center gap-1.5">
                     <h1 className="text-sm font-black text-zinc-900 dark:text-white leading-none">
-                      PrepMaster
+                      TouChef
                     </h1>
                     {isSuperAdminUser && (
                       <span className="text-[9px] bg-amber-500 text-white font-black px-1.5 py-0.2 rounded-full flex items-center gap-0.5 shadow-2xs">
@@ -288,7 +288,7 @@ export function Layout({
                   <button
                     onClick={() => onOpenAuth ? onOpenAuth('login') : onNavigate({ name: 'profile' })}
                     className="bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-black px-3.5 py-1.5 rounded-xl shadow-xs transition-all active:scale-95 flex items-center gap-1.5 cursor-pointer"
-                    title="Iniciar sesión en PrepMaster"
+                    title="Iniciar sesión en TouChef"
                   >
                     <User size={14} />
                     <span>Acceder</span>
@@ -324,7 +324,7 @@ export function Layout({
                         <div className="flex-1 min-w-0">
                           <div className="flex items-center gap-1.5">
                             <h4 className="text-xs font-black text-zinc-900 dark:text-white truncate">
-                              {firebaseUser.displayName || 'Usuario PrepMaster'}
+                              {firebaseUser.displayName || 'Usuario TouChef'}
                             </h4>
                             {isSuperAdminUser ? (
                               <span className="text-[8px] font-black bg-amber-500 text-white px-1.5 py-0.2 rounded-full">
@@ -540,7 +540,7 @@ export function Layout({
           {!hideNav && (
             <div className="hidden md:flex items-center justify-between mb-4 pb-2 border-b border-zinc-200 dark:border-zinc-800/80">
               <div className="flex items-center gap-2 text-xs font-bold text-zinc-400">
-                <span>PrepMaster</span>
+                <span>TouChef</span>
                 <span>/</span>
                 <span className="text-zinc-900 dark:text-white">{getBreadcrumbTitle()}</span>
               </div>
@@ -701,7 +701,7 @@ export function Layout({
                   </div>
                   <div>
                     <h3 className="text-sm font-black text-zinc-900 dark:text-white leading-tight">
-                      PrepMaster
+                      TouChef
                     </h3>
                     <p className="text-[11px] text-zinc-500 dark:text-zinc-400 truncate max-w-[160px]">
                       {firebaseUser?.displayName || firebaseUser?.email || 'Modo Local / Invitado'}

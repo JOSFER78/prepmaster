@@ -163,7 +163,7 @@ export function LandingView({
             </div>
             <div className="flex items-center gap-1.5">
               <span className="text-base font-black tracking-tight text-zinc-900 dark:text-white">
-                PrepMaster
+                TouChef
               </span>
               <span className="text-[10px] bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border border-emerald-500/20 px-2 py-0.5 rounded-full font-bold uppercase tracking-wider">
                 Batch IA
@@ -225,7 +225,7 @@ export function LandingView({
           </h1>
 
           <p className="text-sm sm:text-base text-zinc-600 dark:text-zinc-400 max-w-2xl mx-auto font-normal leading-relaxed">
-            Sin tener que pensar cada noche qué cenar ni fregar sartenes a diario. PrepMaster calcula tus raciones exactas, aprovecha lo que tienes en la despensa y te guía en una sesión simultánea de horno y fuegos paralelos.
+            Sin tener que pensar cada noche qué cenar ni fregar sartenes a diario. TouChef calcula tus raciones exactas, aprovecha lo que tienes en la despensa y te guía en una sesión simultánea de horno y fuegos paralelos.
           </p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3 pt-3">
@@ -524,7 +524,7 @@ export function LandingView({
       <section id="metodo" className="py-16 px-4">
         <div className="max-w-5xl mx-auto space-y-12">
           <div className="text-center space-y-2 max-w-xl mx-auto">
-            <span className="text-xs font-bold uppercase text-emerald-600 dark:text-emerald-400 tracking-wider">El Método PrepMaster</span>
+            <span className="text-xs font-bold uppercase text-emerald-600 dark:text-emerald-400 tracking-wider">El Método TouChef</span>
             <h2 className="text-2xl sm:text-4xl font-black text-zinc-900 dark:text-white">
               De la Planificación a la Mesa
             </h2>
@@ -602,7 +602,7 @@ export function LandingView({
             <div className="bg-white dark:bg-zinc-900 p-4 rounded-2xl border border-zinc-200 dark:border-zinc-800 space-y-1">
               <h3 className="font-bold text-zinc-900 dark:text-white">¿Puedo usar la aplicación gratis?</h3>
               <p className="text-zinc-600 dark:text-zinc-400 leading-relaxed">
-                Sí, puedes usar PrepMaster sin coste como invitado o registrarte para sincronizar tus planes en la nube con Firebase.
+                Sí, puedes usar TouChef sin coste como invitado o registrarte para sincronizar tus planes en la nube con Firebase.
               </p>
             </div>
           </div>
@@ -613,13 +613,13 @@ export function LandingView({
       <footer className="py-8 border-t border-zinc-200 dark:border-zinc-800 text-center text-xs text-zinc-500 dark:text-zinc-400 space-y-2 bg-white dark:bg-zinc-950">
         <div className="flex items-center justify-center gap-1.5 font-bold text-zinc-900 dark:text-white">
           <ChefHat size={16} className="text-emerald-600 dark:text-emerald-400" />
-          <span>PrepMaster Batch</span>
+          <span>TouChef Batch</span>
         </div>
         <p className="text-[11px]">
           Planificador inteligente de menús por volumen de raciones & Cocina Simultánea.
         </p>
         <div className="text-[10px] text-zinc-400 dark:text-zinc-600">
-          © 2026 PrepMaster. Conectado a Firebase Auth & Firestore.
+          © 2026 TouChef. Conectado a Firebase Auth & Firestore.
         </div>
       </footer>
 

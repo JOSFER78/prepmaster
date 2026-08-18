@@ -1,5 +1,5 @@
 {
-  "name": "PrepMaster",
+  "name": "TouChef",
   "description": "Una aplicación de planificación de comidas semanales y batch cooking.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]

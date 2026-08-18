@@ -320,8 +320,8 @@ export function ProfileView({ onPeopleCountChange }: ProfileViewProps) {
 
     // Save locally
     try {
-      localStorage.setItem('prepmaster_kitchen_profile', JSON.stringify(kitchenProfile));
-      localStorage.setItem('prepmaster_diet_prefs', JSON.stringify(selectedDiets));
+      localStorage.setItem('touchef_kitchen_profile', JSON.stringify(kitchenProfile));
+      localStorage.setItem('touchef_diet_prefs', JSON.stringify(selectedDiets));
     } catch (e) {
       console.error('Local save error', e);
     }

@@ -161,7 +161,7 @@ export default function App() {
   const [simulatorContext, setSimulatorContext] = useState<SimulatorContext | null>(() => {
     if (typeof window !== 'undefined') {
       try {
-        const saved = localStorage.getItem('prepmaster_sim_context');
+        const saved = localStorage.getItem('touchef_sim_context') || localStorage.getItem('prepmaster_sim_context');
         if (saved) return JSON.parse(saved);
       } catch (e) {
         console.error('Failed to parse saved sim context', e);
@@ -179,7 +179,7 @@ export default function App() {
   const handleUpdateSimulatorContext = (ctx: SimulatorContext) => {
     setSimulatorContext(ctx);
     try {
-      localStorage.setItem('prepmaster_sim_context', JSON.stringify(ctx));
+      localStorage.setItem('touchef_sim_context', JSON.stringify(ctx));
     } catch (e) {
       console.error('Failed to store sim context', e);
     }
