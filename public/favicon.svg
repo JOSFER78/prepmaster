@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none">
+  <defs>
+    <linearGradient id="tc-copper-grad" x1="10" y1="8" x2="38" y2="40" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#F4A261"/>
+      <stop offset="100%" stop-color="#E07A5F"/>
+    </linearGradient>
+    <linearGradient id="tc-bg-grad" x1="0" y1="0" x2="48" y2="48" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#1E1F24"/>
+      <stop offset="100%" stop-color="#0E0F12"/>
+    </linearGradient>
+  </defs>
+  <rect x="1" y="1" width="46" height="46" rx="14" fill="url(#tc-bg-grad)" stroke="rgba(255,255,255,0.12)" stroke-width="1.2"/>
+  <circle cx="24" cy="24" r="14" fill="#E07A5F" opacity="0.18"/>
+  <path d="M24 11C20.5 11 18 13.5 17.5 16.5C15 16.8 13 19 13 22C13 24.8 14.8 27.2 17.5 27.8V31C17.5 31.8 18.2 32.5 19 32.5H29C29.8 32.5 30.5 31.8 30.5 31V27.8C33.2 27.2 35 24.8 35 22C35 19 33 16.8 30.5 16.5C30 13.5 27.5 11 24 11Z" fill="url(#tc-copper-grad)"/>
+  <path d="M20.5 18C20.5 22 21 27 21 31" stroke="#0E0F12" stroke-width="1.5" stroke-linecap="round" opacity="0.3"/>
+  <path d="M27.5 18C27.5 22 27 27 27 31" stroke="#0E0F12" stroke-width="1.5" stroke-linecap="round" opacity="0.3"/>
+  <rect x="18" y="33.5" width="12" height="3" rx="1.5" fill="#F4F1DE"/>
+</svg>
