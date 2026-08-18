@@ -365,17 +365,18 @@ export function ProfileView({ onPeopleCountChange }: ProfileViewProps) {
             <div>
               <div className="flex flex-wrap items-center gap-2">
                 <h1 className="text-xl font-black text-zinc-900 dark:text-white leading-tight">
-                  {user ? (user.displayName || user.email?.split('@')[0]) : 'Mi Hogar & Cocina'}
+                  Mi Hogar & Equipamiento de Cocina
                 </h1>
                 <span className="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 uppercase tracking-wider">
-                  PrepMaster Pro
+                  Configuración del Hogar
                 </span>
               </div>
               <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-0.5">
-                {user?.email || 'Sesión en modo local / Invitado'} • Sincronizado en la Nube
+                {user ? `Cuenta vinculada: ${user.email}` : 'Modo local / Invitado'} • Sincronización en la Nube
               </p>
             </div>
           </div>
+
 
           <div className="flex items-center gap-2.5 self-end sm:self-center">
             <button

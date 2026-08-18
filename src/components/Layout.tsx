@@ -22,7 +22,8 @@ import {
   ExternalLink,
   BookOpen,
   PlusCircle,
-  Utensils
+  Utensils,
+  ChevronDown
 } from 'lucide-react';
 import { ViewState, BatchProject } from '../types';
 import { auth, onAuthStateChanged, isSuperAdmin, User as FirebaseUser, signOut } from '../lib/firebase';
@@ -51,8 +52,8 @@ export function Layout({
   const { theme, toggleTheme } = useTheme();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
+  const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
   const [firebaseUser, setFirebaseUser] = useState<FirebaseUser | null>(propUser || null);
-
 
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, (user) => {
@@ -65,7 +66,9 @@ export function Layout({
   useEffect(() => {
     setIsMobileMenuOpen(false);
     setIsCreateModalOpen(false);
+    setIsUserMenuOpen(false);
   }, [currentView]);
+
 
   const isSuperAdminUser = isSuperAdmin(firebaseUser);
 
@@ -246,39 +249,169 @@ export function Layout({
                 {theme === 'dark' ? <Sun size={16} className="text-amber-400" /> : <Moon size={16} className="text-zinc-700" />}
               </button>
 
-              {/* PROFILE / AUTH / MI HOGAR */}
-              {firebaseUser && !firebaseUser.isAnonymous ? (
-                <button
-                  onClick={() => onNavigate({ name: 'profile' })}
-                  className={`p-1.5 sm:px-3 sm:py-1.5 rounded-xl border transition-all active:scale-95 flex items-center gap-2 ${
-                    isProfileActive 
-                      ? 'bg-emerald-600 text-white border-emerald-600 shadow-xs' 
-                      : 'bg-zinc-100 dark:bg-zinc-800 border-zinc-200 dark:border-zinc-700 text-zinc-700 dark:text-zinc-300 hover:bg-zinc-200 dark:hover:bg-zinc-700 hover:border-emerald-500/50'
-                  }`}
-                  title="Ajustes y Perfil del Hogar"
-                >
-                  <div className={`w-6 h-6 rounded-lg flex items-center justify-center font-bold text-xs ${
-                    isProfileActive ? 'bg-white/20 text-white' : 'bg-emerald-500/20 text-emerald-600 dark:text-emerald-400'
-                  }`}>
+              {/* USER ACCOUNT BUTTON & DROPDOWN */}
+              <div className="relative">
+                {firebaseUser && !firebaseUser.isAnonymous ? (
+                  <button
+                    onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
+                    className="p-1 sm:pl-1.5 sm:pr-2.5 sm:py-1 rounded-2xl border border-zinc-200 dark:border-zinc-700/80 bg-zinc-100/80 dark:bg-zinc-800/80 hover:bg-zinc-200 dark:hover:bg-zinc-700 transition-all flex items-center gap-2 active:scale-95 shadow-2xs cursor-pointer"
+                    title="Cuenta de Usuario & Ajustes"
+                  >
+                    {/* Real Google Avatar or Fallback */}
+                    <div className="w-7 h-7 rounded-xl overflow-hidden bg-emerald-600 text-white flex items-center justify-center font-bold text-xs shrink-0 border border-emerald-500/30">
+                      {firebaseUser.photoURL ? (
+                        <img 
+                          src={firebaseUser.photoURL} 
+                          alt={firebaseUser.displayName || 'Google Avatar'} 
+                          className="w-full h-full object-cover"
+                          crossOrigin="anonymous"
+                          referrerPolicy="no-referrer"
+                        />
+                      ) : (
+                        <span>{(firebaseUser.displayName || firebaseUser.email || 'U').charAt(0).toUpperCase()}</span>
+                      )}
+                    </div>
+
+                    <div className="flex flex-col text-left leading-tight">
+                      <span className="text-xs font-black text-zinc-900 dark:text-white truncate max-w-[85px] sm:max-w-[120px]">
+                        {firebaseUser.displayName || firebaseUser.email?.split('@')[0]}
+                      </span>
+                      <span className="text-[9px] font-bold text-emerald-600 dark:text-emerald-400 flex items-center gap-0.5">
+                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                        Cuenta
+                      </span>
+                    </div>
+
+                    <ChevronDown size={14} className={`text-zinc-400 transition-transform ${isUserMenuOpen ? 'rotate-180' : ''}`} />
+                  </button>
+                ) : (
+                  <button
+                    onClick={() => onOpenAuth ? onOpenAuth('login') : onNavigate({ name: 'profile' })}
+                    className="bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-black px-3.5 py-1.5 rounded-xl shadow-xs transition-all active:scale-95 flex items-center gap-1.5 cursor-pointer"
+                    title="Iniciar sesión en PrepMaster"
+                  >
                     <User size={14} />
-                  </div>
-                  <div className="hidden md:flex flex-col text-left leading-tight">
-                    <span className="text-xs font-bold truncate max-w-[100px]">
-                      {firebaseUser.displayName || firebaseUser.email?.split('@')[0]}
-                    </span>
-                    <span className="text-[9px] text-zinc-400">Mi Hogar</span>
-                  </div>
-                </button>
-              ) : (
-                <button
-                  onClick={() => onOpenAuth ? onOpenAuth('login') : onNavigate({ name: 'profile' })}
-                  className="bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-black px-3 py-1.5 rounded-xl shadow-xs transition-all active:scale-95 flex items-center gap-1.5"
-                  title="Iniciar sesión en PrepMaster"
-                >
-                  <User size={14} />
-                  <span>Acceder</span>
-                </button>
-              )}
+                    <span>Acceder</span>
+                  </button>
+                )}
+
+                {/* USER ACCOUNT DROPDOWN MODAL / MENU */}
+                {isUserMenuOpen && firebaseUser && (
+                  <>
+                    <div 
+                      className="fixed inset-0 z-40" 
+                      onClick={() => setIsUserMenuOpen(false)} 
+                    />
+                    
+                    <div className="absolute right-0 mt-2 w-72 sm:w-80 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-3xl shadow-xl z-50 p-4 space-y-3.5 animate-fade-in text-zinc-900 dark:text-zinc-100">
+                      
+                      {/* User Card Header with Google Photo */}
+                      <div className="flex items-center gap-3 p-3 bg-zinc-50 dark:bg-zinc-800/60 rounded-2xl border border-zinc-200/80 dark:border-zinc-700/60">
+                        <div className="w-12 h-12 rounded-2xl overflow-hidden bg-emerald-600 text-white flex items-center justify-center font-black text-lg shrink-0 shadow-xs border border-emerald-500/30">
+                          {firebaseUser.photoURL ? (
+                            <img 
+                              src={firebaseUser.photoURL} 
+                              alt={firebaseUser.displayName || 'Google'} 
+                              className="w-full h-full object-cover"
+                              crossOrigin="anonymous"
+                              referrerPolicy="no-referrer"
+                            />
+                          ) : (
+                            <span>{(firebaseUser.displayName || firebaseUser.email || 'U').charAt(0).toUpperCase()}</span>
+                          )}
+                        </div>
+
+                        <div className="flex-1 min-w-0">
+                          <div className="flex items-center gap-1.5">
+                            <h4 className="text-xs font-black text-zinc-900 dark:text-white truncate">
+                              {firebaseUser.displayName || 'Usuario PrepMaster'}
+                            </h4>
+                            {isSuperAdminUser ? (
+                              <span className="text-[8px] font-black bg-amber-500 text-white px-1.5 py-0.2 rounded-full">
+                                ADMIN
+                              </span>
+                            ) : (
+                              <span className="text-[8px] font-bold bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 px-1.5 py-0.2 rounded-full">
+                                PRO
+                              </span>
+                            )}
+                          </div>
+                          <p className="text-[11px] text-zinc-500 dark:text-zinc-400 truncate mt-0.5">
+                            {firebaseUser.email}
+                          </p>
+                          <span className="text-[9px] text-emerald-600 dark:text-emerald-400 font-bold flex items-center gap-1 mt-1">
+                            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                            Google OAuth Conectado
+                          </span>
+                        </div>
+                      </div>
+
+                      {/* Quick App Preferences */}
+                      <div className="space-y-1">
+                        <span className="text-[10px] font-bold uppercase tracking-wider text-zinc-400 px-1">
+                          Ajustes de la Aplicación
+                        </span>
+                        
+                        <button
+                          onClick={toggleTheme}
+                          className="w-full flex items-center justify-between p-2 rounded-xl hover:bg-zinc-100 dark:hover:bg-zinc-800/80 text-xs font-bold text-zinc-700 dark:text-zinc-300 transition-colors"
+                        >
+                          <span className="flex items-center gap-2">
+                            {theme === 'dark' ? <Sun size={15} className="text-amber-400" /> : <Moon size={15} className="text-zinc-600" />}
+                            <span>Tema de la Interfaz</span>
+                          </span>
+                          <span className="text-[11px] text-zinc-400 font-normal">
+                            {theme === 'dark' ? 'Modo Oscuro' : 'Modo Claro'}
+                          </span>
+                        </button>
+
+                        <div className="flex items-center justify-between p-2 rounded-xl hover:bg-zinc-100 dark:hover:bg-zinc-800/80 text-xs font-bold text-zinc-700 dark:text-zinc-300 transition-colors">
+                          <span className="flex items-center gap-2">
+                            <Sparkles size={15} className="text-emerald-500" />
+                            <span>Sincronización Nube</span>
+                          </span>
+                          <span className="text-[10px] bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 px-2 py-0.5 rounded-md font-bold">
+                            Firestore ✓
+                          </span>
+                        </div>
+                      </div>
+
+                      {/* Direct Link to My Household & Kitchen */}
+                      <div className="pt-2 border-t border-zinc-100 dark:border-zinc-800">
+                        <button
+                          onClick={() => {
+                            setIsUserMenuOpen(false);
+                            onNavigate({ name: 'profile' });
+                          }}
+                          className="w-full flex items-center justify-between p-2.5 rounded-xl bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-700 dark:text-emerald-300 text-xs font-bold transition-all"
+                        >
+                          <span className="flex items-center gap-2">
+                            <ChefHat size={16} className="text-emerald-500" />
+                            <span>Configuración de Mi Hogar & Cocina</span>
+                          </span>
+                          <ChevronRight size={14} />
+                        </button>
+                      </div>
+
+                      {/* Logout Button */}
+                      <div className="pt-2 border-t border-zinc-100 dark:border-zinc-800">
+                        <button
+                          onClick={() => {
+                            setIsUserMenuOpen(false);
+                            handleLogout();
+                          }}
+                          className="w-full flex items-center justify-center gap-2 py-2 rounded-xl bg-rose-500/10 hover:bg-rose-500/20 text-rose-600 dark:text-rose-400 text-xs font-bold transition-all active:scale-95"
+                        >
+                          <LogOut size={14} />
+                          <span>Cerrar Sesión</span>
+                        </button>
+                      </div>
+
+                    </div>
+                  </>
+                )}
+              </div>
+
 
             </div>
 
