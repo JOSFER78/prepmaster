@@ -23,6 +23,7 @@ import {
   TrendingUp,
   Check
 } from 'lucide-react';
+import { TouChefIsotype } from '../components/TouChefLogo';
 import { ViewState, SimulatorContext, BatchProject, BatchDish } from '../types';
 import { calculateProjectMetrics } from '../lib/batchProjects';
 
@@ -75,45 +76,45 @@ export function HomeView({
         <div className="flex items-center gap-1.5 sm:gap-2">
           <button
             onClick={() => setSelectedTab('today')}
-            className={`px-4 py-2 text-xs font-bold rounded-xl transition-all ${
+            className={`px-4 py-2 text-xs font-bold rounded-xl transition-all cursor-pointer ${
               selectedTab === 'today'
-                ? 'bg-emerald-600 text-white shadow-xs'
-                : 'bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white'
+                ? 'btn-hero-copper shadow-xs'
+                : 'glass-surface text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white'
             }`}
           >
-            Hoy / Lote Activo
+            Hoy / Sesión Activa
           </button>
 
           <button
             onClick={() => setSelectedTab('history')}
-            className={`px-4 py-2 text-xs font-bold rounded-xl transition-all ${
+            className={`px-4 py-2 text-xs font-bold rounded-xl transition-all cursor-pointer ${
               selectedTab === 'history'
-                ? 'bg-emerald-600 text-white shadow-xs'
-                : 'bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white'
+                ? 'btn-hero-copper shadow-xs'
+                : 'glass-surface text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white'
             }`}
           >
-            Histórico de Lotes ({batchHistory.length})
+            Bóveda de Sesiones ({batchHistory.length})
           </button>
 
           <button
             onClick={() => setSelectedTab('favorites')}
-            className={`px-4 py-2 text-xs font-bold rounded-xl transition-all flex items-center gap-1.5 ${
+            className={`px-4 py-2 text-xs font-bold rounded-xl transition-all flex items-center gap-1.5 cursor-pointer ${
               selectedTab === 'favorites'
-                ? 'bg-emerald-600 text-white shadow-xs'
-                : 'bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white'
+                ? 'btn-hero-copper shadow-xs'
+                : 'glass-surface text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white'
             }`}
           >
             <Heart size={13} className="text-rose-500" />
-            <span>Platos Favoritos ({favoriteDishes.length})</span>
+            <span>Recetario Maestro ({favoriteDishes.length})</span>
           </button>
         </div>
 
         <button
           onClick={() => onNavigate({ name: 'ai-generator' })}
-          className="bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs px-4 py-2 rounded-xl shadow-xs transition-all flex items-center gap-1.5 active:scale-95"
+          className="btn-hero-copper text-white font-bold text-xs px-4 py-2 rounded-xl shadow-xs transition-all flex items-center gap-1.5 active:scale-95 cursor-pointer"
         >
           <Plus size={14} />
-          <span>Crear Nuevo Lote</span>
+          <span>Planificar Sesión</span>
         </button>
       </div>
 
@@ -121,29 +122,27 @@ export function HomeView({
       {selectedTab === 'today' && (
         <div className="space-y-5">
           {activeProject ? (
-            <div className="bg-white dark:bg-zinc-900 rounded-3xl border border-zinc-200 dark:border-zinc-800 p-5 sm:p-7 shadow-xs space-y-6">
+            <div className="glass-surface-elevated rounded-3xl border border-zinc-200 dark:border-white/10 p-5 sm:p-7 shadow-xs space-y-6">
               
               {/* Header & Main Actions */}
               <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-zinc-100 dark:border-zinc-800 pb-5">
                 <div className="flex items-start sm:items-center gap-3.5">
-                  <div className="w-12 h-12 rounded-2xl bg-emerald-600 text-white flex items-center justify-center font-black shadow-sm shrink-0">
-                    <ChefHat size={24} />
-                  </div>
+                  <TouChefIsotype size={44} />
                   <div>
                     <div className="flex flex-wrap items-center gap-2">
-                      <span className="bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 text-[10px] font-black px-2.5 py-0.5 rounded-full uppercase tracking-wider border border-emerald-500/20">
+                      <span className="bg-[#E07A5F]/15 text-[#E07A5F] text-[10px] font-black px-2.5 py-0.5 rounded-full uppercase tracking-wider border border-[#E07A5F]/25">
                         {activeProject.status === 'planning' && '1. Fase de Planificación'}
-                        {activeProject.status === 'shopping' && '2. Fase de Compra'}
+                        {activeProject.status === 'shopping' && '2. Cesta de Compra Optimizada'}
                         {activeProject.status === 'ready_to_cook' && '3. Listo para Cocinar'}
-                        {activeProject.status === 'cooking' && '3. Cocina en Curso'}
-                        {activeProject.status === 'in_fridge' && '4. En Nevera & Consumo'}
-                        {activeProject.status === 'archived' && '5. Lote Archivado'}
+                        {activeProject.status === 'cooking' && '3. Orquestación Térmica Activa'}
+                        {activeProject.status === 'in_fridge' && '4. En Frío & Consumo'}
+                        {activeProject.status === 'archived' && '5. Sesión Archivada'}
                       </span>
                       <span className="text-xs text-zinc-500 dark:text-zinc-400 font-semibold flex items-center gap-1">
                         <Users size={13} /> {activeProject.peopleCount} comensales • {activeProject.daysCount} días • {activeProject.totalServings} raciones
                       </span>
                     </div>
-                    <h2 className="text-lg sm:text-xl font-black text-zinc-900 dark:text-white mt-1">
+                    <h2 className="text-lg sm:text-xl font-display font-black text-zinc-900 dark:text-white mt-1">
                       {activeProject.title}
                     </h2>
                   </div>
@@ -154,7 +153,7 @@ export function HomeView({
                   {activeProject.status === 'shopping' && (
                     <button
                       onClick={() => onNavigate({ name: 'shopping-list' })}
-                      className="bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs px-5 py-3 rounded-2xl shadow-xs transition-all flex items-center gap-2 active:scale-95"
+                      className="btn-hero-copper text-white font-bold text-xs px-5 py-3 rounded-2xl shadow-xs transition-all flex items-center gap-2 active:scale-95 cursor-pointer"
                     >
                       <ShoppingBag size={15} />
                       <span>Ir a la Compra ({metrics?.boughtShopItems}/{metrics?.totalShopItems})</span>
@@ -165,7 +164,7 @@ export function HomeView({
                   {activeProject.status === 'ready_to_cook' && (
                     <button
                       onClick={() => onNavigate({ name: 'interactive-cook' })}
-                      className="bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs px-5 py-3 rounded-2xl shadow-xs transition-all flex items-center gap-2 active:scale-95 animate-pulse"
+                      className="btn-hero-copper text-white font-bold text-xs px-5 py-3 rounded-2xl shadow-xs transition-all flex items-center gap-2 active:scale-95 cursor-pointer animate-pulse"
                     >
                       <Play size={15} />
                       <span>Comenzar Cocinado Simultáneo</span>
@@ -176,7 +175,7 @@ export function HomeView({
                   {activeProject.status === 'cooking' && (
                     <button
                       onClick={() => onNavigate({ name: 'interactive-cook' })}
-                      className="bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs px-5 py-3 rounded-2xl shadow-xs transition-all flex items-center gap-2 active:scale-95"
+                      className="btn-hero-copper text-white font-bold text-xs px-5 py-3 rounded-2xl shadow-xs transition-all flex items-center gap-2 active:scale-95 cursor-pointer"
                     >
                       <Flame size={15} />
                       <span>Continuar Cocinado en Vivo</span>
@@ -188,15 +187,15 @@ export function HomeView({
                     <div className="flex items-center gap-2">
                       <button
                         onClick={() => onUpdateActiveProjectStatus('archived')}
-                        className="bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-800 dark:hover:bg-zinc-700 text-zinc-800 dark:text-zinc-200 font-bold text-xs px-4 py-3 rounded-2xl transition-colors flex items-center gap-1.5"
+                        className="glass-surface text-zinc-800 dark:text-zinc-200 font-bold text-xs px-4 py-3 rounded-2xl transition-colors flex items-center gap-1.5 cursor-pointer"
                       >
                         <Archive size={14} />
-                        <span>Archivar Lote</span>
+                        <span>Archivar Sesión</span>
                       </button>
 
                       <button
                         onClick={() => onNavigate({ name: 'ai-generator' })}
-                        className="bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs px-5 py-3 rounded-2xl shadow-xs transition-all flex items-center gap-2 active:scale-95"
+                        className="btn-hero-copper text-white font-bold text-xs px-5 py-3 rounded-2xl shadow-xs transition-all flex items-center gap-2 active:scale-95 cursor-pointer"
                       >
                         <Sparkles size={15} />
                         <span>Planificar Siguiente</span>
@@ -399,34 +398,34 @@ export function HomeView({
             </div>
           ) : (
             /* CLEAN EMPTY STATE: NO ACTIVE BATCH */
-            <div className="bg-white dark:bg-zinc-900 rounded-3xl border border-zinc-200 dark:border-zinc-800 p-8 sm:p-12 text-center space-y-5 shadow-xs">
-              <div className="w-16 h-16 rounded-3xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center mx-auto shadow-inner">
-                <ChefHat size={32} />
+            <div className="glass-surface-elevated rounded-3xl border border-zinc-200 dark:border-white/10 p-8 sm:p-12 text-center space-y-5 shadow-xs">
+              <div className="flex justify-center">
+                <TouChefIsotype size={56} />
               </div>
               <div className="max-w-md mx-auto space-y-2">
-                <h3 className="text-lg font-black text-zinc-900 dark:text-white">
-                  No tienes ningún lote activo en curso
+                <h3 className="text-lg font-display font-black text-zinc-900 dark:text-white">
+                  No tienes ninguna sesión activa en curso
                 </h3>
                 <p className="text-xs text-zinc-500 dark:text-zinc-400 leading-relaxed">
-                  Planifica un lote de Batch Cooking para cocinar un solo día de forma simultánea y tener resueltas todas las comidas de la semana.
+                  Planifica una sesión de cocina inteligente para preparar todas tus comidas de la semana en 90 minutos con fuegos simultáneos.
                 </p>
               </div>
 
               <div className="pt-2 flex flex-wrap items-center justify-center gap-3">
                 <button
                   onClick={() => onNavigate({ name: 'ai-generator' })}
-                  className="bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs px-6 py-3 rounded-2xl shadow-sm transition-all flex items-center gap-2 active:scale-95"
+                  className="btn-hero-copper font-bold text-xs px-6 py-3.5 rounded-2xl shadow-sm transition-all flex items-center gap-2 active:scale-95 cursor-pointer"
                 >
                   <Sparkles size={16} />
-                  <span>Crear Lote con Generador IA</span>
+                  <span>Planificar Sesión Inteligente</span>
                 </button>
 
                 {batchHistory.length > 0 && (
                   <button
                     onClick={() => setSelectedTab('history')}
-                    className="bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 font-bold text-xs px-5 py-3 rounded-2xl hover:bg-zinc-200 dark:hover:bg-zinc-700 transition-all"
+                    className="glass-surface text-zinc-700 dark:text-zinc-300 font-bold text-xs px-5 py-3.5 rounded-2xl hover:bg-zinc-200 dark:hover:bg-zinc-700 transition-all cursor-pointer"
                   >
-                    Ver Historial de Lotes
+                    Ver Bóveda de Sesiones
                   </button>
                 )}
               </div>

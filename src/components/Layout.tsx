@@ -276,7 +276,7 @@ export function Layout({
                 ) : (
                   <button
                     onClick={() => onOpenAuth ? onOpenAuth('login') : onNavigate({ name: 'profile' })}
-                    className="bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-black px-3.5 py-1.5 rounded-xl shadow-xs transition-all active:scale-95 flex items-center gap-1.5 cursor-pointer"
+                    className="btn-hero-copper text-white text-xs font-black px-3.5 py-1.5 rounded-xl shadow-xs transition-all active:scale-95 flex items-center gap-1.5 cursor-pointer"
                     title="Iniciar sesión en TouChef"
                   >
                     <User size={14} />
@@ -881,16 +881,16 @@ function NavItem({
   return (
     <button 
       onClick={onClick}
-      className={`flex flex-col items-center justify-center rounded-2xl py-1 relative active:scale-95 transition-all select-none ${
+      className={`flex flex-col items-center justify-center rounded-2xl py-1 relative active:scale-95 transition-all select-none cursor-pointer ${
         isActive 
-          ? 'text-emerald-600 dark:text-emerald-400 font-black' 
+          ? 'text-[#E07A5F] font-black' 
           : 'text-zinc-500 dark:text-zinc-400 hover:text-zinc-800 dark:hover:text-zinc-200'
       }`}
     >
       <div className="relative">
         {React.cloneElement(icon as React.ReactElement<any>, { size: 20, strokeWidth: isActive ? 2.5 : 2 })}
         {badge && (
-          <span className="absolute -top-1.5 -right-2 bg-emerald-500 text-zinc-950 text-[9px] font-black min-w-[16px] h-4 px-1 rounded-full flex items-center justify-center shadow-xs">
+          <span className="absolute -top-1.5 -right-2 bg-[#E07A5F] text-white text-[9px] font-black min-w-[16px] h-4 px-1 rounded-full flex items-center justify-center shadow-xs">
             {badge}
           </span>
         )}
@@ -916,9 +916,9 @@ function SidebarItem({
   return (
     <button 
       onClick={onClick}
-      className={`flex items-center justify-between px-3 py-2 rounded-xl text-xs font-bold transition-all w-full text-left select-none ${
+      className={`flex items-center justify-between px-3 py-2.5 rounded-xl text-xs font-bold transition-all w-full text-left select-none cursor-pointer ${
         isActive 
-          ? 'bg-emerald-600 text-white shadow-xs' 
+          ? 'bg-[#E07A5F] text-white shadow-xs font-black' 
           : 'text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-800 hover:text-zinc-900 dark:hover:text-white'
       }`}
     >
@@ -928,7 +928,7 @@ function SidebarItem({
       </div>
       {badge && (
         <span className={`text-[10px] font-black px-1.5 py-0.5 rounded-md shrink-0 ml-1.5 ${
-          isActive ? 'bg-white/20 text-white' : 'bg-emerald-500/20 text-emerald-400'
+          isActive ? 'bg-white/20 text-white' : 'bg-[#E07A5F]/20 text-[#E07A5F]'
         }`}>
           {badge}
         </span>
@@ -955,16 +955,16 @@ function DrawerLinkItem({
   return (
     <button
       onClick={onClick}
-      className={`w-full flex items-center justify-between p-2.5 rounded-xl border transition-all text-left select-none ${
+      className={`w-full flex items-center justify-between p-2.5 rounded-xl border transition-all text-left select-none cursor-pointer ${
         isActive
-          ? 'bg-emerald-500/10 border-emerald-500/40 text-emerald-600 dark:text-emerald-400'
+          ? 'bg-[#E07A5F]/15 border-[#E07A5F]/40 text-[#E07A5F]'
           : 'border-zinc-200 dark:border-zinc-800/80 bg-zinc-50/50 dark:bg-zinc-800/30 hover:bg-zinc-100 dark:hover:bg-zinc-800 text-zinc-700 dark:text-zinc-300'
       }`}
     >
       <div className="flex items-center gap-2.5 min-w-0">
         <div className={`w-7 h-7 rounded-lg flex items-center justify-center shrink-0 ${
           isActive 
-            ? 'bg-emerald-600 text-white' 
+            ? 'bg-[#E07A5F] text-white' 
             : 'bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-700 text-zinc-600 dark:text-zinc-300'
         }`}>
           {icon}
@@ -975,7 +975,7 @@ function DrawerLinkItem({
               {title}
             </h4>
             {badge && (
-              <span className="text-[9px] font-black px-1.5 py-0.2 bg-emerald-500/20 text-emerald-500 rounded-md">
+              <span className="text-[9px] font-black px-1.5 py-0.2 bg-[#E07A5F]/20 text-[#E07A5F] rounded-md">
                 {badge}
               </span>
             )}

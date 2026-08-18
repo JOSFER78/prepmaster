@@ -171,15 +171,15 @@ export function ShoppingListView({
           <div className="flex flex-wrap items-center gap-2">
             <button
               onClick={handleCopyList}
-              className="bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-800 dark:hover:bg-zinc-700 text-zinc-800 dark:text-zinc-200 font-bold text-xs px-3.5 py-2 rounded-xl transition-colors flex items-center gap-1.5 active:scale-95"
+              className="glass-surface text-zinc-800 dark:text-zinc-200 font-bold text-xs px-3.5 py-2 rounded-xl transition-colors flex items-center gap-1.5 active:scale-95 cursor-pointer"
             >
-              {copied ? <Check size={14} className="text-emerald-600" /> : <Copy size={14} />}
+              {copied ? <Check size={14} className="text-[#E07A5F]" /> : <Copy size={14} />}
               <span>{copied ? '¡Copiada!' : 'Copiar'}</span>
             </button>
 
             <button
               onClick={handleShareWhatsApp}
-              className="bg-emerald-600/15 hover:bg-emerald-600 text-emerald-700 dark:text-emerald-300 hover:text-white font-bold text-xs px-3.5 py-2 rounded-xl transition-all flex items-center gap-1.5 active:scale-95"
+              className="bg-[#52796F]/15 hover:bg-[#52796F] text-[#84A98C] hover:text-white font-bold text-xs px-3.5 py-2 rounded-xl transition-all flex items-center gap-1.5 active:scale-95 cursor-pointer"
               title="Compartir por WhatsApp"
             >
               <Send size={13} />
@@ -188,7 +188,7 @@ export function ShoppingListView({
 
             <button
               onClick={onAdvanceToCooking}
-              className="bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs px-4 py-2 rounded-xl shadow-xs transition-all flex items-center gap-1.5 active:scale-95"
+              className="btn-hero-copper font-bold text-xs px-4 py-2 rounded-xl shadow-xs transition-all flex items-center gap-1.5 active:scale-95 cursor-pointer"
             >
               <ChefHat size={14} />
               <span>Ir a Cocinar</span>
@@ -200,29 +200,28 @@ export function ShoppingListView({
         <div className="pt-3 border-t border-zinc-100 dark:border-zinc-800/80 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           
           <div className="flex items-center gap-2 text-xs">
-            <Calendar size={15} className="text-emerald-500 shrink-0" />
+            <Calendar size={15} className="text-[#E07A5F] shrink-0" />
             <span className="text-zinc-500 dark:text-zinc-400 font-semibold">Día de compra previsto:</span>
             <input 
               type="date" 
               value={scheduledDate} 
               onChange={handleDateChange}
-              className="bg-zinc-100 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 text-zinc-900 dark:text-zinc-100 text-xs px-2.5 py-1 rounded-lg font-mono focus:outline-none focus:border-emerald-500"
+              className="glass-surface text-zinc-900 dark:text-zinc-100 text-xs px-2.5 py-1 rounded-lg font-mono focus:outline-none focus:border-[#E07A5F]"
             />
           </div>
 
           <div className="flex items-center gap-3">
             <div className="text-xs text-right">
-              <span className="font-bold text-emerald-600 dark:text-emerald-400">{boughtItems} de {totalItems}</span>
+              <span className="font-bold text-[#E07A5F]">{boughtItems} de {totalItems}</span>
               <span className="text-zinc-400 text-[11px]"> ingredientes ({progressPercent}%)</span>
             </div>
             <div className="w-24 h-2 bg-zinc-100 dark:bg-zinc-800 rounded-full overflow-hidden">
               <div 
-                className="h-full bg-emerald-500 rounded-full transition-all duration-300"
+                className="h-full bg-[#E07A5F] rounded-full transition-all duration-300"
                 style={{ width: `${progressPercent}%` }}
               />
             </div>
           </div>
-
         </div>
 
       </div>

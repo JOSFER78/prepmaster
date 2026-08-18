@@ -23,6 +23,7 @@ import {
 import { ViewState, SimulatorContext } from '../types';
 import { useTheme } from '../lib/theme';
 import { TouChefLogo, TouChefIsotype } from '../components/TouChefLogo';
+import { calculateBatchStructure, generateDynamicBatchDishes } from '../lib/batchEngine';
 
 interface LandingViewProps {
   onOpenAuth: (mode?: 'login' | 'register', pendingContext?: SimulatorContext) => void;
@@ -45,14 +46,28 @@ export function LandingView({
   const { theme, toggleTheme } = useTheme();
 
   // Simulator State
-  const [calcPeople, setCalcPeople] = useState<number>(initialSimulatorContext?.peopleCount || 4);
+  const [calcPeople, setCalcPeople] = useState<number>(initialSimulatorContext?.peopleCount || 2);
   const [calcDays, setCalcDays] = useState<number>(initialSimulatorContext?.daysCount || 5);
   const [mealCoverage, setMealCoverage] = useState<MealCoverage>(initialSimulatorContext?.mealCoverage || 'both');
   const [dietStyle, setDietStyle] = useState<DietStyle>(initialSimulatorContext?.dietStyle || 'mediterranean');
 
-  // Multiplier for services
-  const servingsMultiplier = mealCoverage === 'both' ? 2 : 1;
-  const totalServings = calcPeople * calcDays * servingsMultiplier;
+  // Dynamic Batch Engine Calculation
+  const structure = calculateBatchStructure({
+    peopleCount: calcPeople,
+    daysCount: calcDays,
+    mealCoverage,
+    dietStyle,
+    varietyPreference: 'balanced'
+  });
+
+  const totalServings = structure.totalIndividualServings;
+  const dynamicBatchDishes = generateDynamicBatchDishes({
+    peopleCount: calcPeople,
+    daysCount: calcDays,
+    mealCoverage,
+    dietStyle,
+    varietyPreference: 'balanced'
+  });
 
   // Build simulator context
   const getSimulatorContext = (): SimulatorContext => ({
@@ -69,86 +84,6 @@ export function LandingView({
     onEnterAsGuest(ctx);
     onNavigate({ name: 'ai-generator' });
   };
-
-  // Realistic 1-Single-Day Cooking Time calculation
-  // Real parallel cooking: oven + 3/4 burners + pressure cooker
-  const calculateCookingMinutes = () => {
-    if (totalServings <= 12) return 75; // 1h 15m
-    if (totalServings <= 24) return 90; // 1h 30m
-    if (totalServings <= 40) return 110; // 1h 50m
-    if (totalServings <= 60) return 135; // 2h 15m
-    if (totalServings <= 84) return 160; // 2h 40m
-    return Math.min(195, 160 + Math.round((totalServings - 84) * 0.8)); // max ~3h 15m
-  };
-
-  const cookingMinutes = calculateCookingMinutes();
-  const formatHours = (mins: number) => {
-    const h = Math.floor(mins / 60);
-    const m = mins % 60;
-    if (m === 0) return `${h}h`;
-    return `${h}h ${m}m`;
-  };
-
-  // Time saved between Mon-Fri (assuming 45 min per traditional meal preparation + washing)
-  const traditionalCookingMinutesWeekly = calcDays * servingsMultiplier * 45;
-  const hoursSavedWeekly = Math.max(2, Math.round((traditionalCookingMinutesWeekly - cookingMinutes) / 60));
-  const dailyMealsPrepared = calcDays * servingsMultiplier;
-
-  // Dynamic dishes for 1 single batch cooking session
-  const getBatchDishes = () => {
-    const dishCount = totalServings >= 48 ? 6 : 4;
-    const perDish = Math.ceil(totalServings / dishCount);
-
-    switch (dietStyle) {
-      case 'fitness':
-        return [
-          { name: 'Pechuga de pollo mechada al curry con arroz basmati', servings: perDish, note: '42g proteína / rac', storage: 'Nevera (Días 1-3)' },
-          { name: 'Lomos de salmón salvaje al horno con batata asada', servings: perDish, note: 'Omega 3 & Antiinflamatorio', storage: 'Nevera (Días 1-3)' },
-          { name: 'Ternera magra estofada con verduras y champiñones', servings: perDish, note: 'Bajo en grasa saturada', storage: 'Congelador (Días 4+)' },
-          { name: 'Quinoa tricolor con garbanzos tostados y semillas', servings: perDish, note: 'Carbohidratos complejos', storage: 'Nevera (Días 1-3)' },
-          ...(dishCount === 6 ? [
-            { name: 'Hamburguesas caseras de pavo y espinacas', servings: perDish, note: 'Proteína limpia', storage: 'Congelador (Días 4+)' },
-            { name: 'Crema proteica de calabaza asada y cáñamo', servings: perDish, note: 'Cena ligera', storage: 'Congelador (Días 4+)' }
-          ] : [])
-        ];
-      case 'veggie':
-        return [
-          { name: 'Curry cremoso de garbanzos con espinacas y leche de coco', servings: perDish, note: 'Proteína vegetal completa', storage: 'Nevera (Días 1-3)' },
-          { name: 'Lasaña de berenjena asada, lentejas y bechamel de avena', servings: perDish, note: 'Alto en fibra', storage: 'Congelador (Días 4+)' },
-          { name: 'Tofu marinado a la plancha con fideos integrales y verduras', servings: perDish, note: 'Perfil aminoácido óptimo', storage: 'Nevera (Días 1-3)' },
-          { name: 'Crema aterciopelada de calabaza asada con jengibre y puerro', servings: perDish, note: 'Cena ligera digestiva', storage: 'Nevera (Días 1-3)' },
-          ...(dishCount === 6 ? [
-            { name: 'Guiso tradicional de alubias blancas con verduras', servings: perDish, note: 'Guiso artesanal', storage: 'Congelador (Días 4+)' },
-            { name: 'Bowl de quinoa con edamames, aguacate y tahini', servings: perDish, note: 'Cena fresca', storage: 'Nevera (Días 1-3)' }
-          ] : [])
-        ];
-      case 'lowcarb':
-        return [
-          { name: 'Lomo de cerdo asado con judías verdes y ajo confitado', servings: perDish, note: '< 5g carbohidratos', storage: 'Nevera (Días 1-3)' },
-          { name: 'Merluza en salsa verde con almejas y espárragos trigueros', servings: perDish, note: 'Pescado blanco al horno', storage: 'Nevera (Días 1-3)' },
-          { name: 'Hamburguesas de pavo y espinacas con calabacín a la plancha', servings: perDish, note: 'Sin harinas ni aditivos', storage: 'Congelador (Días 4+)' },
-          { name: 'Crema de coliflor y puerro asado con nueces y parmesano', servings: perDish, note: 'Grasas saludables', storage: 'Nevera (Días 1-3)' },
-          ...(dishCount === 6 ? [
-            { name: 'Muslos de pollo al horno con limón y romero', servings: perDish, note: 'Proteína magra', storage: 'Congelador (Días 4+)' },
-            { name: 'Ternera salteada con pimientos y champiñones', servings: perDish, note: 'Keto friendly', storage: 'Congelador (Días 4+)' }
-          ] : [])
-        ];
-      case 'mediterranean':
-      default:
-        return [
-          { name: 'Lentejas pardinas tradicionales con verduras de la huerta', servings: perDish, note: 'Guiso artesanal', storage: 'Nevera (Días 1-3)' },
-          { name: 'Ternera estofada muy tierna en su propio jugo con zanahorias', servings: perDish, note: 'Óptima para congelar', storage: 'Congelador (Días 4+)' },
-          { name: 'Lomos de merluza fresca con lecho de patatas panaderas', servings: perDish, note: 'Pescado blanco al horno', storage: 'Nevera (Días 1-3)' },
-          { name: 'Crema suave de calabaza, puerro pochado y AOVE virgen extra', servings: perDish, note: 'Cena ligera digestiva', storage: 'Nevera (Días 1-3)' },
-          ...(dishCount === 6 ? [
-            { name: 'Garbanzos guisados con espinacas y bacalao desalado', servings: perDish, note: 'Legumbre marina', storage: 'Congelador (Días 4+)' },
-            { name: 'Muslos de pollo asados al limón con patata y cebolla', servings: perDish, note: 'Asado tradicional', storage: 'Congelador (Días 4+)' }
-          ] : [])
-        ];
-    }
-  };
-
-  const batchDishes = getBatchDishes();
 
   return (
     <div className="min-h-screen bg-zinc-50 dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100 flex flex-col font-sans antialiased transition-colors duration-200">
@@ -239,24 +174,22 @@ export function LandingView({
         </div>
       </section>
 
-      {/* SIMULADOR DE 1 SOLA SESIÓN (TIEMPO REAL, SIN AHORRO FICTICIO) */}
-      <section id="simulador" className="py-12 md:py-16 bg-zinc-100/60 dark:bg-zinc-900/40 border-y border-zinc-200 dark:border-zinc-800 px-4 scroll-mt-14">
-        <div className="max-w-5xl mx-auto space-y-6">
+      {/* SIMULATOR SECTION 2026 */}
+      <section id="simulador" className="py-12 md:py-16 px-4">
+        <div className="max-w-5xl mx-auto space-y-8">
           
-          <div className="text-center space-y-2 max-w-2xl mx-auto">
-            <div className="inline-flex items-center gap-1.5 bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border border-emerald-500/20 text-[11px] font-bold px-3 py-1 rounded-full uppercase tracking-wider">
-              <Sparkles size={12} /> Simulador de Lote Semanal
-            </div>
-            <h2 className="text-2xl sm:text-4xl font-black text-zinc-900 dark:text-white tracking-tight">
-              Calcula Tu Sesión Única de Batch Cooking
+          <div className="text-center space-y-2 max-w-xl mx-auto">
+            <span className="text-xs font-bold uppercase text-[#E07A5F] tracking-wider">Simulador de Alta Eficiencia</span>
+            <h2 className="text-2xl sm:text-4xl font-display font-black text-zinc-900 dark:text-[#F4F1DE] tracking-tight">
+              Calcula Tu Sesión Única de Cocina
             </h2>
             <p className="text-xs sm:text-sm text-zinc-600 dark:text-zinc-400">
-              Ajusta comensales, días y comidas para ver el volumen exacto y el tiempo de tu sesión de cocina.
+              Ajusta comensales, días y régimen para obtener el volumen exacto de raciones y tiempo de fuegos.
             </p>
           </div>
 
           {/* SIMULATOR CARD */}
-          <div className="bg-white dark:bg-zinc-900 rounded-3xl border border-zinc-200 dark:border-zinc-800 shadow-xl overflow-hidden grid grid-cols-1 lg:grid-cols-12">
+          <div className="glass-surface-elevated rounded-3xl border border-zinc-200 dark:border-white/10 shadow-xl overflow-hidden grid grid-cols-1 lg:grid-cols-12">
             
             {/* LEFT COLUMN: CONTROLS (5 COLS) */}
             <div className="p-6 md:p-8 space-y-5 lg:col-span-5 border-b lg:border-b-0 lg:border-r border-zinc-200 dark:border-zinc-800">
@@ -264,8 +197,8 @@ export function LandingView({
               {/* 1. Comensales */}
               <div className="space-y-2">
                 <div className="flex justify-between items-center text-xs">
-                  <span className="font-bold text-zinc-900 dark:text-zinc-100">1. Personas en casa:</span>
-                  <span className="font-black text-emerald-700 dark:text-emerald-400 bg-emerald-500/10 px-2.5 py-0.5 rounded-lg border border-emerald-500/20">
+                  <span className="font-bold text-zinc-900 dark:text-zinc-100">1. Personas en el hogar:</span>
+                  <span className="font-mono font-black text-[#E07A5F] bg-[#E07A5F]/10 px-2.5 py-0.5 rounded-lg border border-[#E07A5F]/25">
                     {calcPeople} {calcPeople === 1 ? 'persona' : 'personas'}
                   </span>
                 </div>
@@ -276,10 +209,10 @@ export function LandingView({
                       key={num}
                       type="button"
                       onClick={() => setCalcPeople(num)}
-                      className={`py-1.5 text-xs font-bold rounded-xl border transition-all ${
+                      className={`py-2 text-xs font-bold rounded-xl border transition-all cursor-pointer active:scale-95 ${
                         calcPeople === num
-                          ? 'bg-emerald-600 dark:bg-emerald-500 text-white border-emerald-600 dark:border-emerald-500 shadow-sm'
-                          : 'bg-zinc-50 dark:bg-zinc-800/60 border-zinc-200 dark:border-zinc-700 text-zinc-600 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-800'
+                          ? 'bg-[#E07A5F] text-white border-[#E07A5F] shadow-sm shadow-[#E07A5F]/30'
+                          : 'bg-zinc-50 dark:bg-zinc-800/60 border-zinc-200 dark:border-zinc-700/80 text-zinc-600 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-800'
                       }`}
                     >
                       {num === 7 ? '7+' : `${num}p`}
@@ -293,7 +226,7 @@ export function LandingView({
                   max={8} 
                   value={calcPeople} 
                   onChange={(e) => setCalcPeople(parseInt(e.target.value))} 
-                  className="w-full accent-emerald-600 dark:accent-emerald-500 h-2 bg-zinc-200 dark:bg-zinc-800 rounded-lg cursor-pointer"
+                  className="w-full accent-[#E07A5F] h-2 bg-zinc-200 dark:bg-zinc-800 rounded-lg cursor-pointer"
                 />
               </div>
 
@@ -301,7 +234,7 @@ export function LandingView({
               <div className="space-y-2">
                 <div className="flex justify-between items-center text-xs">
                   <span className="font-bold text-zinc-900 dark:text-zinc-100">2. Días de cobertura semanal:</span>
-                  <span className="font-black text-emerald-700 dark:text-emerald-400 bg-emerald-500/10 px-2.5 py-0.5 rounded-lg border border-emerald-500/20">
+                  <span className="font-mono font-black text-[#E07A5F] bg-[#E07A5F]/10 px-2.5 py-0.5 rounded-lg border border-[#E07A5F]/25">
                     {calcDays} días
                   </span>
                 </div>
@@ -312,10 +245,10 @@ export function LandingView({
                       key={days}
                       type="button"
                       onClick={() => setCalcDays(days)}
-                      className={`py-1.5 text-xs font-bold rounded-xl border transition-all ${
+                      className={`py-2 text-xs font-bold rounded-xl border transition-all cursor-pointer active:scale-95 ${
                         calcDays === days
-                          ? 'bg-emerald-600 dark:bg-emerald-500 text-white border-emerald-600 dark:border-emerald-500 shadow-sm'
-                          : 'bg-zinc-50 dark:bg-zinc-800/60 border-zinc-200 dark:border-zinc-700 text-zinc-600 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-800'
+                          ? 'bg-[#E07A5F] text-white border-[#E07A5F] shadow-sm shadow-[#E07A5F]/30'
+                          : 'bg-zinc-50 dark:bg-zinc-800/60 border-zinc-200 dark:border-zinc-700/80 text-zinc-600 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-800'
                       }`}
                     >
                       {days} días
@@ -329,48 +262,48 @@ export function LandingView({
                   max={7} 
                   value={calcDays} 
                   onChange={(e) => setCalcDays(parseInt(e.target.value))} 
-                  className="w-full accent-emerald-600 dark:accent-emerald-500 h-2 bg-zinc-200 dark:bg-zinc-800 rounded-lg cursor-pointer"
+                  className="w-full accent-[#E07A5F] h-2 bg-zinc-200 dark:bg-zinc-800 rounded-lg cursor-pointer"
                 />
               </div>
 
               {/* 3. Servicios a cubrir */}
               <div className="space-y-2">
                 <label className="text-xs font-bold text-zinc-900 dark:text-zinc-100 block">
-                  3. ¿Qué servicios quieres tener listos?
+                  3. Tomas diarias a resolver:
                 </label>
                 <div className="grid grid-cols-3 gap-1.5">
                   <button
                     type="button"
                     onClick={() => setMealCoverage('lunches')}
-                    className={`py-1.5 px-2 text-[11px] font-bold rounded-xl border transition-all text-center ${
+                    className={`py-2 px-2 text-[11px] font-bold rounded-xl border transition-all text-center cursor-pointer active:scale-95 ${
                       mealCoverage === 'lunches'
-                        ? 'bg-emerald-600 dark:bg-emerald-500 text-white border-emerald-600 dark:border-emerald-500 shadow-sm'
-                        : 'bg-zinc-50 dark:bg-zinc-800/60 border-zinc-200 dark:border-zinc-700 text-zinc-600 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-800'
+                        ? 'bg-[#E07A5F] text-white border-[#E07A5F] shadow-sm shadow-[#E07A5F]/30'
+                        : 'bg-zinc-50 dark:bg-zinc-800/60 border-zinc-200 dark:border-zinc-700/80 text-zinc-600 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-800'
                     }`}
                   >
-                    Solo Comidas
+                    Almuerzos
                   </button>
                   <button
                     type="button"
                     onClick={() => setMealCoverage('dinners')}
-                    className={`py-1.5 px-2 text-[11px] font-bold rounded-xl border transition-all text-center ${
+                    className={`py-2 px-2 text-[11px] font-bold rounded-xl border transition-all text-center cursor-pointer active:scale-95 ${
                       mealCoverage === 'dinners'
-                        ? 'bg-emerald-600 dark:bg-emerald-500 text-white border-emerald-600 dark:border-emerald-500 shadow-sm'
-                        : 'bg-zinc-50 dark:bg-zinc-800/60 border-zinc-200 dark:border-zinc-700 text-zinc-600 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-800'
+                        ? 'bg-[#E07A5F] text-white border-[#E07A5F] shadow-sm shadow-[#E07A5F]/30'
+                        : 'bg-zinc-50 dark:bg-zinc-800/60 border-zinc-200 dark:border-zinc-700/80 text-zinc-600 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-800'
                     }`}
                   >
-                    Solo Cenas
+                    Cenas
                   </button>
                   <button
                     type="button"
                     onClick={() => setMealCoverage('both')}
-                    className={`py-1.5 px-2 text-[11px] font-bold rounded-xl border transition-all text-center ${
+                    className={`py-2 px-2 text-[11px] font-bold rounded-xl border transition-all text-center cursor-pointer active:scale-95 ${
                       mealCoverage === 'both'
-                        ? 'bg-emerald-600 dark:bg-emerald-500 text-white border-emerald-600 dark:border-emerald-500 shadow-sm'
-                        : 'bg-zinc-50 dark:bg-zinc-800/60 border-zinc-200 dark:border-zinc-700 text-zinc-600 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-800'
+                        ? 'bg-[#E07A5F] text-white border-[#E07A5F] shadow-sm shadow-[#E07A5F]/30'
+                        : 'bg-zinc-50 dark:bg-zinc-800/60 border-zinc-200 dark:border-zinc-700/80 text-zinc-600 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-800'
                     }`}
                   >
-                    Comidas & Cenas
+                    Cobertura Total
                   </button>
                 </div>
               </div>
@@ -378,23 +311,23 @@ export function LandingView({
               {/* 4. Estilo de alimentación */}
               <div className="space-y-2">
                 <label className="text-xs font-bold text-zinc-900 dark:text-zinc-100 block">
-                  4. Estilo de cocina:
+                  4. Estilo gastronómico:
                 </label>
                 <div className="grid grid-cols-2 gap-1.5">
                   {[
                     { id: 'mediterranean', label: 'Mediterránea' },
-                    { id: 'fitness', label: 'Proteica / Fitness' },
-                    { id: 'veggie', label: 'Plant-Based' },
-                    { id: 'lowcarb', label: 'Baja en Carbos' }
+                    { id: 'fitness', label: 'Alto en Proteína' },
+                    { id: 'veggie', label: '100% Vegetal' },
+                    { id: 'lowcarb', label: 'Low Carb' }
                   ].map((diet) => (
                     <button
                       key={diet.id}
                       type="button"
                       onClick={() => setDietStyle(diet.id as DietStyle)}
-                      className={`py-1.5 px-2 text-xs font-bold rounded-xl border transition-all truncate text-center ${
+                      className={`py-2 px-2 text-xs font-bold rounded-xl border transition-all truncate text-center cursor-pointer active:scale-95 ${
                         dietStyle === diet.id
-                          ? 'bg-emerald-600 dark:bg-emerald-500 text-white border-emerald-600 dark:border-emerald-500 shadow-sm'
-                          : 'bg-zinc-50 dark:bg-zinc-800/60 border-zinc-200 dark:border-zinc-700 text-zinc-600 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-800'
+                          ? 'bg-[#E07A5F] text-white border-[#E07A5F] shadow-sm shadow-[#E07A5F]/30'
+                          : 'bg-zinc-50 dark:bg-zinc-800/60 border-zinc-200 dark:border-zinc-700/80 text-zinc-600 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-800'
                       }`}
                     >
                       {diet.label}
@@ -406,88 +339,101 @@ export function LandingView({
             </div>
 
             {/* RIGHT COLUMN: RESULTS (7 COLS) */}
-            <div className="p-6 md:p-8 bg-zinc-50/70 dark:bg-zinc-950/60 space-y-5 lg:col-span-7 flex flex-col justify-between">
+            <div className="p-6 md:p-8 bg-zinc-50/50 dark:bg-[#0E0F12]/80 space-y-5 lg:col-span-7 flex flex-col justify-between">
               
               <div className="space-y-4">
                 
                 {/* Header Summary */}
                 <div className="flex items-center justify-between border-b border-zinc-200 dark:border-zinc-800 pb-3">
                   <div>
-                    <span className="text-[10px] font-black text-emerald-600 dark:text-emerald-400 uppercase tracking-wider">
-                      Tu Sesión Única Semanal
+                    <span className="text-[10px] font-black text-[#E07A5F] uppercase tracking-wider">
+                      Tu Hoja de Producción
                     </span>
-                    <h3 className="text-base font-black text-zinc-900 dark:text-white">
-                      Lote de {totalServings} Raciones ({dailyMealsPrepared} tomas familiares)
+                    <h3 className="text-base font-display font-black text-zinc-900 dark:text-white">
+                      Lote de {structure.totalIndividualServings} Raciones ({structure.totalFamilyMeals} tomas familiares)
                     </h3>
                   </div>
-                  <span className="text-[10px] font-bold bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border border-emerald-500/20 px-2.5 py-0.5 rounded-full uppercase">
-                    1 Solo Día de Cocina
+                  <span className="text-[10px] font-bold bg-[#E07A5F]/15 text-[#E07A5F] border border-[#E07A5F]/30 px-2.5 py-0.5 rounded-full uppercase">
+                    {structure.dishCount} Recetas Coordinadas
                   </span>
                 </div>
 
-                {/* 3 Metric Cards (Focused on Time and Life Quality) */}
+                {/* 3 Metric Cards */}
                 <div className="grid grid-cols-3 gap-2.5">
-                  <div className="bg-white dark:bg-zinc-900 p-3 rounded-2xl border border-zinc-200 dark:border-zinc-800 shadow-xs space-y-0.5">
+                  <div className="glass-surface p-3.5 rounded-2xl border border-zinc-200 dark:border-white/10 shadow-xs space-y-0.5">
                     <div className="text-[10px] font-bold text-zinc-500 dark:text-zinc-400 uppercase">Raciones</div>
-                    <div className="text-2xl font-black text-emerald-600 dark:text-emerald-400 leading-none">{totalServings}</div>
-                    <div className="text-[10px] text-zinc-500">{calcPeople} pers × {calcDays} días</div>
+                    <div className="text-2xl font-mono font-black text-[#E07A5F] leading-none tabular-nums">{structure.totalIndividualServings}</div>
+                    <div className="text-[10px] text-zinc-500">{calcPeople} pers × {structure.totalFamilyMeals} tomas</div>
                   </div>
 
-                  <div className="bg-white dark:bg-zinc-900 p-3 rounded-2xl border border-zinc-200 dark:border-zinc-800 shadow-xs space-y-0.5">
+                  <div className="glass-surface p-3.5 rounded-2xl border border-zinc-200 dark:border-white/10 shadow-xs space-y-0.5">
                     <div className="text-[10px] font-bold text-zinc-500 dark:text-zinc-400 uppercase">Tiempo Sesión</div>
-                    <div className="text-xl font-black text-zinc-900 dark:text-white leading-none">
-                      {formatHours(cookingMinutes)}
+                    <div className="text-xl font-mono font-black text-zinc-900 dark:text-white leading-none tabular-nums">
+                      {structure.estimatedCookTimeFormatted}
                     </div>
-                    <div className="text-[10px] text-zinc-500">1 sola vez</div>
+                    <div className="text-[10px] text-zinc-500">fuegos simultáneos</div>
                   </div>
 
-                  <div className="bg-white dark:bg-zinc-900 p-3 rounded-2xl border border-zinc-200 dark:border-zinc-800 shadow-xs space-y-0.5">
-                    <div className="text-[10px] font-bold text-zinc-500 dark:text-zinc-400 uppercase">Tiempo Libre</div>
-                    <div className="text-xl font-black text-emerald-600 dark:text-emerald-400 leading-none">
-                      +{hoursSavedWeekly}h
+                  <div className="glass-surface p-3.5 rounded-2xl border border-zinc-200 dark:border-white/10 shadow-xs space-y-0.5">
+                    <div className="text-[10px] font-bold text-zinc-500 dark:text-zinc-400 uppercase">Tiempo Ganado</div>
+                    <div className="text-xl font-mono font-black text-[#84A98C] leading-none tabular-nums">
+                      +{structure.hoursSavedWeekly}h
                     </div>
-                    <div className="text-[10px] text-zinc-500">de Lunes a Viernes</div>
+                    <div className="text-[10px] text-zinc-500">libres de L a V</div>
                   </div>
                 </div>
 
-                {/* Dishes Prepared in this Single Session */}
+                {/* Dishes Prepared */}
                 <div className="space-y-2">
                   <div className="text-xs font-bold text-zinc-800 dark:text-zinc-200 flex items-center justify-between">
-                    <span>Preparaciones que cocinarás en la sesión:</span>
-                    <span className="text-[10px] text-zinc-500 font-medium">Horno + 4 fuegos simultáneos</span>
+                    <span>Orquestación térmica de la sesión ({dynamicBatchDishes.length} recetas):</span>
+                    <span className="text-[10px] text-zinc-500 font-medium">Horno + 4 fuegos paralelos</span>
                   </div>
 
-                  <div className="space-y-1.5">
-                    {batchDishes.map((dish, i) => (
-                      <div 
-                        key={i}
-                        className="bg-white dark:bg-zinc-900 p-2.5 rounded-xl border border-zinc-200 dark:border-zinc-800 flex items-center justify-between text-xs shadow-2xs"
-                      >
-                        <div className="min-w-0 pr-2">
-                          <span className="font-bold text-zinc-900 dark:text-white block truncate">{dish.name}</span>
-                          <span className="text-[10px] text-zinc-500 dark:text-zinc-400">{dish.note} • {dish.storage}</span>
+                  <div className="space-y-1.5 max-h-60 overflow-y-auto pr-1">
+                    {dynamicBatchDishes.map((dish, i) => {
+                      const isLunch = dish.category === 'legumbres' || dish.category === 'carnes' || dish.category === 'acompanamientos';
+                      const familyMeals = Math.round(dish.servings / calcPeople);
+                      return (
+                        <div 
+                          key={dish.id || i}
+                          className="glass-surface p-2.5 rounded-xl border border-zinc-200 dark:border-white/10 flex items-center justify-between text-xs shadow-2xs"
+                        >
+                          <div className="min-w-0 pr-2">
+                            <div className="flex items-center gap-1.5 mb-0.5">
+                              <span className={`text-[9px] font-bold px-1.5 py-0.2 rounded ${
+                                isLunch ? 'bg-amber-500/15 text-amber-600 dark:text-amber-400' : 'bg-indigo-500/15 text-indigo-600 dark:text-indigo-400'
+                              }`}>
+                                {isLunch ? 'Almuerzo' : 'Cena'}
+                              </span>
+                              <span className="font-bold text-zinc-900 dark:text-white truncate">{dish.name}</span>
+                            </div>
+                            <span className="text-[10px] text-zinc-500 dark:text-zinc-400">
+                              {dish.cookingMethod.replace('_', ' ')} • {dish.storageAdvice}
+                            </span>
+                          </div>
+                          <span className="font-mono text-[11px] font-black text-[#E07A5F] bg-[#E07A5F]/10 px-2 py-0.5 rounded-lg border border-[#E07A5F]/20 shrink-0 tabular-nums">
+                            {dish.servings} rac ({familyMeals} tomas)
+                          </span>
                         </div>
-                        <span className="font-mono text-[11px] font-black text-emerald-700 dark:text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded-lg border border-emerald-500/20 shrink-0">
-                          {dish.servings} rac.
-                        </span>
-                      </div>
-                    ))}
+                      );
+                    })}
                   </div>
                 </div>
 
-                {/* Key real life benefits (No arbitrary money claims) */}
-                <div className="bg-white dark:bg-zinc-900 p-3 rounded-2xl border border-zinc-200 dark:border-zinc-800 text-xs space-y-1.5">
+                {/* Key real life benefits */}
+                <div className="glass-surface p-3 rounded-2xl border border-zinc-200 dark:border-white/10 text-xs space-y-1.5">
                   <div className="flex items-center gap-2 font-bold text-zinc-900 dark:text-white">
-                    <Check size={14} className="text-emerald-600 dark:text-emerald-400 shrink-0" />
+                    <Check size={14} className="text-[#E07A5F] shrink-0" />
                     <span><strong>Friegas y recoges la cocina 1 sola vez</strong> en toda la semana</span>
                   </div>
                   <div className="flex items-center gap-2 text-zinc-600 dark:text-zinc-400 text-[11px]">
-                    <Check size={14} className="text-emerald-600 dark:text-emerald-400 shrink-0" />
-                    <span>Cero decisiones de "¿Qué comemos hoy?" entre semana</span>
+                    <Check size={14} className="text-[#E07A5F] shrink-0" />
+                    <span>Cero decisiones de "¿Qué cenamos hoy?" al terminar la jornada</span>
                   </div>
                   <div className="flex items-center gap-2 text-zinc-600 dark:text-zinc-400 text-[11px]">
-                    <Check size={14} className="text-emerald-600 dark:text-emerald-400 shrink-0" />
-                    <span>Conservación natural: Primeros 3 días en nevera a 4°C, resto al congelador</span>
+                    <Check size={14} className="text-[#84A98C] shrink-0" />
+                    <span>Conservación bio-organoléptica: días 1-3 en nevera (4°C), días 4+ al congelador</span>
                   </div>
                 </div>
 
@@ -497,10 +443,10 @@ export function LandingView({
               <div className="pt-2">
                 <button
                   onClick={handleLaunchPlan}
-                  className="w-full bg-emerald-600 hover:bg-emerald-700 dark:bg-emerald-500 dark:hover:bg-emerald-600 text-white font-bold text-sm py-3.5 px-4 rounded-2xl transition-all shadow-md active:scale-98 flex items-center justify-center gap-2"
+                  className="w-full btn-hero-copper font-bold text-sm py-3.5 px-4 rounded-2xl transition-all shadow-md active:scale-98 flex items-center justify-center gap-2 cursor-pointer"
                 >
                   <Sparkles size={16} />
-                  <span>Generar Mi Sesión de {totalServings} Raciones y Lista de Compra</span>
+                  <span>Planificar Sesión de {structure.totalIndividualServings} Raciones ({structure.dishCount} Platos)</span>
                   <ArrowRight size={15} />
                 </button>
               </div>
