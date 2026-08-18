@@ -22,6 +22,7 @@ import {
 } from 'lucide-react';
 import { ViewState, SimulatorContext } from '../types';
 import { useTheme } from '../lib/theme';
+import { TouChefLogo, TouChefIsotype } from '../components/TouChefLogo';
 
 interface LandingViewProps {
   onOpenAuth: (mode?: 'login' | 'register', pendingContext?: SimulatorContext) => void;
@@ -153,39 +154,29 @@ export function LandingView({
     <div className="min-h-screen bg-zinc-50 dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100 flex flex-col font-sans antialiased transition-colors duration-200">
       
       {/* NAVBAR WITH DARK/LIGHT TOGGLE */}
-      <header className="sticky top-0 z-40 bg-white/80 dark:bg-zinc-900/80 backdrop-blur-md border-b border-zinc-200 dark:border-zinc-800 transition-colors">
+      <header className="sticky top-0 z-40 glass-surface border-b border-zinc-200/80 dark:border-white/10 transition-colors">
         <div className="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
           
           {/* Brand Logo */}
-          <div className="flex items-center gap-2.5 cursor-pointer" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
-            <div className="w-9 h-9 rounded-xl bg-emerald-600 dark:bg-emerald-500 text-white flex items-center justify-center font-black shadow-sm">
-              <ChefHat size={20} />
-            </div>
-            <div className="flex items-center gap-1.5">
-              <span className="text-base font-black tracking-tight text-zinc-900 dark:text-white">
-                TouChef
-              </span>
-              <span className="text-[10px] bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border border-emerald-500/20 px-2 py-0.5 rounded-full font-bold uppercase tracking-wider">
-                Batch IA
-              </span>
-            </div>
+          <div className="cursor-pointer" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
+            <TouChefLogo size="md" showWordmark={true} />
           </div>
 
           {/* Nav links */}
           <nav className="hidden md:flex items-center gap-6 text-xs font-semibold text-zinc-600 dark:text-zinc-400">
-            <a href="#simulador" className="hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors flex items-center gap-1">
-              <Sparkles size={13} className="text-emerald-600 dark:text-emerald-400" /> Simulador
+            <a href="#simulador" className="hover:text-[#E07A5F] dark:hover:text-[#F4A261] transition-colors flex items-center gap-1">
+              <Sparkles size={13} className="text-[#E07A5F]" /> Simulador
             </a>
-            <a href="#metodo" className="hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors">Método</a>
-            <a href="#caracteristicas" className="hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors">Características</a>
-            <a href="#faq" className="hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors">Preguntas</a>
+            <a href="#metodo" className="hover:text-[#E07A5F] dark:hover:text-[#F4A261] transition-colors">Método de Eficiencia</a>
+            <a href="#caracteristicas" className="hover:text-[#E07A5F] dark:hover:text-[#F4A261] transition-colors">Sistema Operativo</a>
+            <a href="#faq" className="hover:text-[#E07A5F] dark:hover:text-[#F4A261] transition-colors">Preguntas</a>
           </nav>
 
           {/* Right Action buttons & Theme Switcher */}
           <div className="flex items-center gap-2.5">
             <button
               onClick={toggleTheme}
-              className="p-2 rounded-xl bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-800 dark:hover:bg-zinc-700 text-zinc-700 dark:text-zinc-300 transition-all active:scale-95 border border-zinc-200 dark:border-zinc-700"
+              className="p-2 rounded-xl bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-800/80 dark:hover:bg-zinc-700 text-zinc-700 dark:text-zinc-300 transition-all active:scale-95 border border-zinc-200 dark:border-zinc-700/80"
               title={theme === 'dark' ? 'Cambiar a Modo Claro' : 'Cambiar a Modo Oscuro'}
             >
               {theme === 'dark' ? <Sun size={16} className="text-amber-400" /> : <Moon size={16} className="text-zinc-700" />}
@@ -193,14 +184,14 @@ export function LandingView({
 
             <button
               onClick={() => onOpenAuth('login')}
-              className="text-xs font-bold text-zinc-700 dark:text-zinc-300 hover:text-emerald-600 dark:hover:text-emerald-400 px-3 py-2 rounded-xl transition-colors"
+              className="text-xs font-bold text-zinc-700 dark:text-zinc-300 hover:text-[#E07A5F] dark:hover:text-[#F4A261] px-3 py-2 rounded-xl transition-colors cursor-pointer"
             >
               Iniciar Sesión
             </button>
 
             <button
               onClick={() => onOpenAuth('register')}
-              className="bg-emerald-600 hover:bg-emerald-700 dark:bg-emerald-500 dark:hover:bg-emerald-600 text-white font-bold text-xs px-4 py-2.5 rounded-xl transition-all shadow-xs active:scale-95 flex items-center gap-1.5"
+              className="btn-hero-copper font-bold text-xs px-4 py-2.5 rounded-xl transition-all shadow-xs active:scale-95 flex items-center gap-1.5 cursor-pointer"
             >
               <span>Comenzar</span>
               <ArrowRight size={13} />
@@ -209,39 +200,39 @@ export function LandingView({
         </div>
       </header>
 
-      {/* HERO SECTION */}
+      {/* HERO SECTION 2026 */}
       <section className="relative pt-12 pb-12 md:pt-18 md:pb-16 px-4 overflow-hidden">
-        <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-emerald-500/10 dark:bg-emerald-500/15 rounded-full blur-3xl pointer-events-none -z-10" />
+        <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-[#E07A5F]/15 dark:bg-[#E07A5F]/20 rounded-full blur-3xl pointer-events-none -z-10" />
 
         <div className="max-w-4xl mx-auto text-center space-y-5">
-          <div className="inline-flex items-center gap-2 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 px-3.5 py-1.5 rounded-full text-xs font-semibold text-zinc-700 dark:text-zinc-300 shadow-xs">
-            <CalendarCheck size={14} className="text-emerald-600 dark:text-emerald-400" />
-            <span>Cocina 1 Solo Día a la Semana • Come Toda la Semana</span>
+          <div className="inline-flex items-center gap-2 glass-surface px-4 py-1.5 rounded-full text-xs font-semibold text-zinc-700 dark:text-zinc-300 shadow-xs border border-zinc-200 dark:border-white/10">
+            <Sparkles size={14} className="text-[#E07A5F]" />
+            <span>Cocina 1 Solo Día a la Semana • Come con Calidad de Restaurante Cada Día</span>
           </div>
 
-          <h1 className="text-3xl sm:text-5xl md:text-6xl font-black text-zinc-900 dark:text-white tracking-tight leading-[1.12]">
-            Cocina en <span className="text-emerald-600 dark:text-emerald-400">1 única sesión</span>.<br />
-            Olvídate de cocinar de lunes a viernes.
+          <h1 className="text-3xl sm:text-5xl md:text-6xl font-display font-black text-zinc-900 dark:text-[#F4F1DE] tracking-tight leading-[1.12]">
+            Alta eficiencia culinaria para tu semana.<br />
+            <span className="text-[#E07A5F]">Cocina en 1 única sesión.</span>
           </h1>
 
           <p className="text-sm sm:text-base text-zinc-600 dark:text-zinc-400 max-w-2xl mx-auto font-normal leading-relaxed">
-            Sin tener que pensar cada noche qué cenar ni fregar sartenes a diario. TouChef calcula tus raciones exactas, aprovecha lo que tienes en la despensa y te guía en una sesión simultánea de horno y fuegos paralelos.
+            Sin pensar cada noche qué cenar ni limpiar sartenes a diario. TouChef orquesta tus fuegos simultáneos, cruza tu despensa viva y calcula raciones al milímetro.
           </p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3 pt-3">
             <a
               href="#simulador"
-              className="w-full sm:w-auto bg-emerald-600 hover:bg-emerald-700 dark:bg-emerald-500 dark:hover:bg-emerald-600 text-white font-bold text-sm px-6 py-3.5 rounded-2xl shadow-sm hover:shadow-md transition-all active:scale-98 flex items-center justify-center gap-2"
+              className="w-full sm:w-auto btn-hero-copper font-bold text-sm px-6 py-3.5 rounded-2xl shadow-sm hover:shadow-md transition-all active:scale-98 flex items-center justify-center gap-2 cursor-pointer"
             >
               <Sparkles size={16} />
-              <span>Calcular Mi Lote Semanal</span>
+              <span>Calcular Mi Sesión Semanal</span>
             </a>
 
             <button
               onClick={() => onEnterAsGuest(getSimulatorContext())}
-              className="w-full sm:w-auto bg-white hover:bg-zinc-100 dark:bg-zinc-900 dark:hover:bg-zinc-800 border border-zinc-200 dark:border-zinc-800 text-zinc-800 dark:text-zinc-200 font-bold text-sm px-6 py-3.5 rounded-2xl transition-all active:scale-98 flex items-center justify-center gap-2 shadow-xs"
+              className="w-full sm:w-auto glass-surface hover:bg-zinc-100 dark:hover:bg-zinc-800/80 border border-zinc-200 dark:border-white/10 text-zinc-800 dark:text-zinc-200 font-bold text-sm px-6 py-3.5 rounded-2xl transition-all active:scale-98 flex items-center justify-center gap-2 shadow-xs cursor-pointer"
             >
-              <Play size={14} className="text-emerald-600 dark:text-emerald-400" />
+              <Play size={14} className="text-[#E07A5F]" />
               <span>Explorar como Invitado</span>
             </button>
           </div>
@@ -520,57 +511,57 @@ export function LandingView({
         </div>
       </section>
 
-      {/* MÉTODO & PILARES */}
+      {/* MÉTODO & PILARES DE ALTA EFICIENCIA */}
       <section id="metodo" className="py-16 px-4">
         <div className="max-w-5xl mx-auto space-y-12">
           <div className="text-center space-y-2 max-w-xl mx-auto">
-            <span className="text-xs font-bold uppercase text-emerald-600 dark:text-emerald-400 tracking-wider">El Método TouChef</span>
-            <h2 className="text-2xl sm:text-4xl font-black text-zinc-900 dark:text-white">
-              De la Planificación a la Mesa
+            <span className="text-xs font-bold uppercase text-[#E07A5F] tracking-wider">El Método TouChef</span>
+            <h2 className="text-2xl sm:text-4xl font-display font-black text-zinc-900 dark:text-[#F4F1DE]">
+              Los 4 Pilares de la Cocina de Alta Eficiencia
             </h2>
             <p className="text-xs sm:text-sm text-zinc-600 dark:text-zinc-400">
-              Un flujo de 4 pasos para ahorrar tiempo y cocinar con tranquilidad.
+              Un flujo riguroso para ahorrar tiempo, optimizar tus compras y cocinar con maestría.
             </p>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
-            <div className="bg-white dark:bg-zinc-900 p-5 rounded-2xl border border-zinc-200 dark:border-zinc-800 space-y-2.5 shadow-xs">
-              <div className="w-8 h-8 rounded-xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center font-bold text-sm border border-emerald-500/20">
+            <div className="glass-surface p-5 rounded-2xl space-y-2.5 shadow-xs border border-zinc-200 dark:border-white/10">
+              <div className="w-8 h-8 rounded-xl bg-[#E07A5F]/15 text-[#E07A5F] flex items-center justify-center font-black text-sm border border-[#E07A5F]/30">
                 1
               </div>
-              <h3 className="text-sm font-bold text-zinc-900 dark:text-white">Volumen Modular</h3>
+              <h3 className="text-sm font-bold text-zinc-900 dark:text-white">Orquestación Térmica</h3>
               <p className="text-xs text-zinc-600 dark:text-zinc-400 leading-relaxed">
-                Calcula el número de comidas globales sin atarte a calendarios rígidos de qué comer cada día.
+                Alinea los tiempos de horno, olla exprés y placas para producir 4-6 platos completos en una sola ventana de 90 min.
               </p>
             </div>
 
-            <div className="bg-white dark:bg-zinc-900 p-5 rounded-2xl border border-zinc-200 dark:border-zinc-800 space-y-2.5 shadow-xs">
-              <div className="w-8 h-8 rounded-xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center font-bold text-sm border border-emerald-500/20">
+            <div className="glass-surface p-5 rounded-2xl space-y-2.5 shadow-xs border border-zinc-200 dark:border-white/10">
+              <div className="w-8 h-8 rounded-xl bg-[#52796F]/15 text-[#84A98C] flex items-center justify-center font-black text-sm border border-[#52796F]/30">
                 2
               </div>
-              <h3 className="text-sm font-bold text-zinc-900 dark:text-white">Descuento de Nevera</h3>
+              <h3 className="text-sm font-bold text-zinc-900 dark:text-white">Cesta Descontada</h3>
               <p className="text-xs text-zinc-600 dark:text-zinc-400 leading-relaxed">
-                Deduce automáticamente lo que ya tienes en casa para comprar solo lo estrictamente necesario.
+                Tu lista de la compra descuenta automáticamente lo que ya tienes en la despensa. Cero compras duplicadas.
               </p>
             </div>
 
-            <div className="bg-white dark:bg-zinc-900 p-5 rounded-2xl border border-zinc-200 dark:border-zinc-800 space-y-2.5 shadow-xs">
-              <div className="w-8 h-8 rounded-xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center font-bold text-sm border border-emerald-500/20">
+            <div className="glass-surface p-5 rounded-2xl space-y-2.5 shadow-xs border border-zinc-200 dark:border-white/10">
+              <div className="w-8 h-8 rounded-xl bg-[#E07A5F]/15 text-[#E07A5F] flex items-center justify-center font-black text-sm border border-[#E07A5F]/30">
                 3
               </div>
-              <h3 className="text-sm font-bold text-zinc-900 dark:text-white">Cocina Simultánea</h3>
+              <h3 className="text-sm font-bold text-zinc-900 dark:text-white">Preservación Organoléptica</h3>
               <p className="text-xs text-zinc-600 dark:text-zinc-400 leading-relaxed">
-                Asistente de pasos entrelazados para coordinar horno, fuegos y cortes en paralelo.
+                Protocolos de enfriamiento rápido y almacenamiento para que el plato del viernes mantenga el sabor y textura del primer día.
               </p>
             </div>
 
-            <div className="bg-white dark:bg-zinc-900 p-5 rounded-2xl border border-zinc-200 dark:border-zinc-800 space-y-2.5 shadow-xs">
-              <div className="w-8 h-8 rounded-xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center font-bold text-sm border border-emerald-500/20">
+            <div className="glass-surface p-5 rounded-2xl space-y-2.5 shadow-xs border border-zinc-200 dark:border-white/10">
+              <div className="w-8 h-8 rounded-xl bg-[#52796F]/15 text-[#84A98C] flex items-center justify-center font-black text-sm border border-[#52796F]/30">
                 4
               </div>
-              <h3 className="text-sm font-bold text-zinc-900 dark:text-white">Conservación</h3>
+              <h3 className="text-sm font-bold text-zinc-900 dark:text-white">Cero Carga Mental</h3>
               <p className="text-xs text-zinc-600 dark:text-zinc-400 leading-relaxed">
-                Protocolos claros de frío y congelación para mantener el sabor y textura de cada plato.
+                Llega a casa y ten la cena familiar lista en 3 minutos de regeneración térmica sin sartenes sucias.
               </p>
             </div>
           </div>
@@ -580,26 +571,26 @@ export function LandingView({
       {/* FAQ SECTION */}
       <section id="faq" className="py-12 bg-zinc-100/60 dark:bg-zinc-900/40 border-t border-zinc-200 dark:border-zinc-800 px-4">
         <div className="max-w-2xl mx-auto space-y-6">
-          <h2 className="text-xl font-bold text-zinc-900 dark:text-white text-center">
+          <h2 className="text-xl font-display font-bold text-zinc-900 dark:text-white text-center">
             Preguntas Frecuentes
           </h2>
 
           <div className="space-y-3 text-xs">
-            <div className="bg-white dark:bg-zinc-900 p-4 rounded-2xl border border-zinc-200 dark:border-zinc-800 space-y-1">
+            <div className="glass-surface p-4 rounded-2xl space-y-1 border border-zinc-200 dark:border-white/10">
               <h3 className="font-bold text-zinc-900 dark:text-white">¿Cuánto tiempo se tarda en cocinar la sesión?</h3>
               <p className="text-zinc-600 dark:text-zinc-400 leading-relaxed">
-                Entre 1h 30m y 2h 30m según el número de comensales. Al usar 4 fuegos y el horno en paralelo con los pasos sincronizados, todo se cocina de una sola vez.
+                Entre 60 y 90 minutos según el número de comensales. Al sincronizar 4 fuegos, olla rápida y horno en paralelo con los pasos asistidos, todo se cocina en un único bloque.
               </p>
             </div>
 
-            <div className="bg-white dark:bg-zinc-900 p-4 rounded-2xl border border-zinc-200 dark:border-zinc-800 space-y-1">
+            <div className="glass-surface p-4 rounded-2xl space-y-1 border border-zinc-200 dark:border-white/10">
               <h3 className="font-bold text-zinc-900 dark:text-white">¿Cómo se conservan las comidas para toda la semana?</h3>
               <p className="text-zinc-600 dark:text-zinc-400 leading-relaxed">
-                Las preparaciones de los primeros 3 días se guardan en la nevera a 4°C. Las raciones para los días posteriores se congelan directamente al terminar la sesión para conservar intactos sabor y nutrientes.
+                Las preparaciones de los primeros 3 días se guardan en la nevera a 4°C en recipientes herméticos. Las raciones para los días posteriores se congelan directamente al terminar la sesión para conservar intactos sabor y nutrientes.
               </p>
             </div>
 
-            <div className="bg-white dark:bg-zinc-900 p-4 rounded-2xl border border-zinc-200 dark:border-zinc-800 space-y-1">
+            <div className="glass-surface p-4 rounded-2xl space-y-1 border border-zinc-200 dark:border-white/10">
               <h3 className="font-bold text-zinc-900 dark:text-white">¿Puedo usar la aplicación gratis?</h3>
               <p className="text-zinc-600 dark:text-zinc-400 leading-relaxed">
                 Sí, puedes usar TouChef sin coste como invitado o registrarte para sincronizar tus planes en la nube con Firebase.
@@ -609,17 +600,16 @@ export function LandingView({
         </div>
       </section>
 
-      {/* FOOTER */}
-      <footer className="py-8 border-t border-zinc-200 dark:border-zinc-800 text-center text-xs text-zinc-500 dark:text-zinc-400 space-y-2 bg-white dark:bg-zinc-950">
-        <div className="flex items-center justify-center gap-1.5 font-bold text-zinc-900 dark:text-white">
-          <ChefHat size={16} className="text-emerald-600 dark:text-emerald-400" />
-          <span>TouChef Batch</span>
+      {/* FOOTER 2026 */}
+      <footer className="py-10 border-t border-zinc-200/80 dark:border-white/10 text-center text-xs text-zinc-500 dark:text-zinc-400 space-y-3 bg-white dark:bg-[#0C0D0E]">
+        <div className="flex justify-center">
+          <TouChefLogo size="sm" showWordmark={true} showTagline={true} />
         </div>
-        <p className="text-[11px]">
-          Planificador inteligente de menús por volumen de raciones & Cocina Simultánea.
+        <p className="text-[11px] max-w-md mx-auto">
+          Sistema de Cocina Inteligente &amp; Alta Eficiencia Familiar. Orquestación de fuegos simultáneos.
         </p>
         <div className="text-[10px] text-zinc-400 dark:text-zinc-600">
-          © 2026 TouChef. Conectado a Firebase Auth & Firestore.
+          © 2026 TouChef. Conectado a Firebase Auth &amp; Firestore.
         </div>
       </footer>
 

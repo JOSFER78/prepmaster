@@ -25,6 +25,7 @@ import {
   Utensils,
   ChevronDown
 } from 'lucide-react';
+import { TouChefLogo, TouChefIsotype } from './TouChefLogo';
 import { ViewState, BatchProject } from '../types';
 import { auth, onAuthStateChanged, isSuperAdmin, User as FirebaseUser, signOut } from '../lib/firebase';
 import { useTheme } from '../lib/theme';
@@ -176,11 +177,11 @@ export function Layout({
   };
 
   return (
-    <div className="bg-zinc-50 dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100 flex flex-col min-h-dvh font-sans transition-colors duration-200">
+    <div className="bg-zinc-50 dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100 flex flex-col min-h-dvh font-sans transition-colors duration-200 bg-noise">
       
-      {/* GLOBAL STICKY HEADER */}
+      {/* GLOBAL STICKY HEADER 2026 */}
       {!hideNav && (
-        <header className="bg-white/90 dark:bg-zinc-900/90 backdrop-blur-md shadow-xs w-full top-0 left-0 sticky z-40 border-b border-zinc-200 dark:border-zinc-800">
+        <header className="glass-surface w-full top-0 left-0 sticky z-40 border-b border-zinc-200/80 dark:border-white/10">
           <div className="flex justify-between items-center px-3 sm:px-4 py-2.5 max-w-7xl mx-auto gap-2">
             
             {/* BRAND LOGO & MOBILE HAMBURGER */}
@@ -194,35 +195,23 @@ export function Layout({
               </button>
 
               <div 
-                className="flex items-center gap-2 cursor-pointer select-none group" 
+                className="cursor-pointer select-none group flex items-center gap-2" 
                 onClick={() => onNavigate({ name: 'home' })}
               >
-                <div className="w-8 h-8 rounded-xl bg-emerald-600 text-white flex items-center justify-center font-black shadow-xs shrink-0 group-hover:scale-105 transition-transform">
-                  <ChefHat size={18} />
-                </div>
-                <div className="hidden sm:block">
-                  <div className="flex items-center gap-1.5">
-                    <h1 className="text-sm font-black text-zinc-900 dark:text-white leading-none">
-                      TouChef
-                    </h1>
-                    {isSuperAdminUser && (
-                      <span className="text-[9px] bg-amber-500 text-white font-black px-1.5 py-0.2 rounded-full flex items-center gap-0.5 shadow-2xs">
-                        <Crown size={10} /> SUPERADMIN
-                      </span>
-                    )}
-                  </div>
-                  <p className="text-[10px] text-zinc-500 dark:text-zinc-400 font-medium truncate max-w-[120px] sm:max-w-[180px]">
-                    {firebaseUser ? (firebaseUser.displayName || firebaseUser.email) : 'Batch Cooking Pro'}
-                  </p>
-                </div>
+                <TouChefLogo size="md" showWordmark={true} />
+                {isSuperAdminUser && (
+                  <span className="hidden lg:inline-flex text-[9px] bg-amber-500 text-white font-black px-1.5 py-0.2 rounded-full items-center gap-0.5 shadow-2xs">
+                    <Crown size={10} /> ADMIN
+                  </span>
+                )}
               </div>
             </div>
 
             {/* DYNAMIC ACTIVE BATCH STATUS PILL (CENTER) */}
             <button 
               onClick={() => onNavigate(pillInfo.targetView)}
-              className={`flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-3 py-1.5 rounded-full border text-xs font-bold transition-all hover:scale-102 active:scale-98 shrink min-w-0 ${pillInfo.colorClass}`}
-              title="Ir a la fase activa del lote"
+              className={`flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-3 py-1.5 rounded-full border text-xs font-bold transition-all hover:scale-102 active:scale-98 shrink min-w-0 font-mono tabular-nums ${pillInfo.colorClass}`}
+              title="Ir a la fase activa de la sesión"
             >
               <span className="w-2 h-2 rounded-full bg-current shrink-0"></span>
               <span className="truncate max-w-[90px] sm:max-w-[150px]">{pillInfo.label}:</span>
@@ -234,10 +223,10 @@ export function Layout({
               {/* DESKTOP QUICK CREATE BUTTON */}
               <button
                 onClick={() => setIsCreateModalOpen(true)}
-                className="hidden lg:flex items-center gap-1.5 bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-black px-3 py-1.5 rounded-xl shadow-xs transition-all active:scale-95"
+                className="hidden lg:flex items-center gap-1.5 btn-hero-copper text-xs font-black px-3.5 py-1.5 rounded-xl shadow-xs transition-all active:scale-95 cursor-pointer"
               >
                 <Plus size={14} />
-                <span>Crear</span>
+                <span>Planificar Sesión</span>
               </button>
 
               {/* THEME TOGGLE */}
@@ -424,16 +413,16 @@ export function Layout({
         
         {/* DESKTOP SIDEBAR */}
         {!hideNav && (
-          <aside className="hidden md:flex flex-col justify-between w-64 p-4 border-r border-zinc-200 dark:border-zinc-800 shrink-0 sticky top-14 h-[calc(100dvh-3.5rem)] overflow-y-auto">
+          <aside className="hidden md:flex flex-col justify-between w-64 p-4 border-r border-zinc-200/80 dark:border-white/10 shrink-0 sticky top-14 h-[calc(100dvh-3.5rem)] overflow-y-auto glass-surface">
             
             <div className="space-y-5">
               {/* PRIMARY CREATE CTA */}
               <button
                 onClick={() => setIsCreateModalOpen(true)}
-                className="w-full flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-black shadow-sm transition-all active:scale-95 select-none"
+                className="w-full flex items-center justify-center gap-2 py-3 px-4 rounded-2xl btn-hero-copper text-xs font-black shadow-md transition-all active:scale-95 select-none cursor-pointer"
               >
                 <Plus size={16} />
-                <span>+ Crear Nuevo...</span>
+                <span>+ Planificar Sesión</span>
               </button>
 
               {/* SECTION 1: NAVEGACIÓN PRINCIPAL */}
@@ -558,7 +547,7 @@ export function Layout({
 
       {/* MOBILE BOTTOM NAVIGATION BAR (5 CORE DIRECT TABS) */}
       {!hideNav && (
-        <nav className="bg-white/95 dark:bg-zinc-900/95 backdrop-blur-md shadow-lg fixed bottom-0 left-0 right-0 z-40 grid grid-cols-5 items-center px-1 py-1.5 md:hidden border-t border-zinc-200 dark:border-zinc-800 pb-safe">
+        <nav className="glass-surface fixed bottom-0 left-0 right-0 z-40 grid grid-cols-5 items-center px-1 py-1.5 md:hidden border-t border-zinc-200/80 dark:border-white/10 pb-safe">
           <NavItem 
             icon={<LayoutDashboard />} 
             label="Dashboard" 
@@ -575,10 +564,10 @@ export function Layout({
           <div className="flex flex-col items-center justify-center">
             <button
               onClick={() => setIsCreateModalOpen(true)}
-              className="w-11 h-11 rounded-2xl bg-emerald-600 text-white flex items-center justify-center shadow-md active:scale-90 transition-transform -mt-3"
-              aria-label="Crear nuevo lote o receta"
+              className="w-12 h-12 rounded-2xl btn-hero-copper flex items-center justify-center shadow-lg active:scale-90 transition-transform -mt-3.5 cursor-pointer"
+              aria-label="Planificar nueva sesión o receta"
             >
-              <Plus size={22} strokeWidth={3} />
+              <Plus size={24} strokeWidth={3} />
             </button>
             <span className="text-[10px] mt-0.5 leading-none font-bold text-zinc-500 dark:text-zinc-400">Crear</span>
           </div>
@@ -597,58 +586,56 @@ export function Layout({
         </nav>
       )}
 
-      {/* CREATE SELECTOR MODAL (+ NUEVO LOTE / + NUEVA RECETA) */}
+      {/* CREATE SELECTOR MODAL (+ NUEVA SESIÓN INTELIGENTE / + NUEVA RECETA) */}
       {isCreateModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs animate-fade-in">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-xs animate-fade-in">
           <div 
-            className="w-full max-w-md bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-3xl p-6 shadow-2xl space-y-5 animate-scale-in"
+            className="w-full max-w-md glass-surface-elevated rounded-3xl p-6 sm:p-7 shadow-2xl space-y-5 animate-scale-in border border-zinc-200 dark:border-white/15 text-zinc-900 dark:text-zinc-100"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="flex items-center justify-between border-b border-zinc-200 dark:border-zinc-800 pb-3.5">
               <div className="flex items-center gap-2.5">
-                <div className="w-8 h-8 rounded-xl bg-emerald-600 text-white flex items-center justify-center font-bold">
-                  <Plus size={18} />
-                </div>
+                <TouChefIsotype size={32} />
                 <div>
-                  <h3 className="text-base font-black text-zinc-900 dark:text-white">
-                    ¿Qué deseas crear?
+                  <h3 className="text-base font-black tracking-tight">
+                    Planificar en TouChef
                   </h3>
                   <p className="text-xs text-zinc-500 dark:text-zinc-400">
-                    Elige una opción para continuar
+                    Elige el modo de creación
                   </p>
                 </div>
               </div>
-              <button
+              <button 
                 onClick={() => setIsCreateModalOpen(false)}
-                className="p-1.5 rounded-xl bg-zinc-100 dark:bg-zinc-800 text-zinc-500 hover:text-zinc-900 dark:hover:text-white"
+                className="w-8 h-8 rounded-full bg-zinc-100 dark:bg-zinc-800 hover:bg-zinc-200 dark:hover:bg-zinc-700 text-zinc-500 flex items-center justify-center transition-colors"
               >
                 <X size={18} />
               </button>
             </div>
 
             <div className="space-y-3">
-              {/* OPTION 1: NUEVO LOTE BATCH COOKING */}
+              {/* OPTION 1: NUEVA SESIÓN INTELIGENTE */}
               <div
                 onClick={() => {
                   setIsCreateModalOpen(false);
                   onNavigate({ name: 'ai-generator' });
                 }}
-                className="p-4 rounded-2xl border border-emerald-500/30 bg-emerald-500/5 hover:bg-emerald-500/10 hover:border-emerald-500/60 transition-all cursor-pointer group flex items-start gap-3.5"
+                className="p-4 rounded-2xl border border-[#E07A5F]/40 bg-[#E07A5F]/5 hover:bg-[#E07A5F]/10 hover:border-[#E07A5F] transition-all cursor-pointer group flex items-start gap-3.5 shadow-2xs"
               >
-                <div className="w-10 h-10 rounded-xl bg-emerald-600 text-white flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
+                <div className="w-10 h-10 rounded-xl bg-[#E07A5F] text-white flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform shadow-xs">
                   <Sparkles size={20} />
                 </div>
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center justify-between">
                     <h4 className="text-sm font-black text-zinc-900 dark:text-white">
-                      Nuevo Lote Batch Cooking
+                      Sesión Inteligente de Cocina
                     </h4>
-                    <span className="text-[10px] bg-emerald-600 text-white font-bold px-2 py-0.5 rounded-full">
+                    <span className="text-[10px] bg-[#E07A5F] text-white font-black px-2 py-0.5 rounded-full">
                       Recomendado
                     </span>
                   </div>
-                  <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-1 leading-relaxed">
-                    Planifica tu menú semanal con IA, calculando raciones, lista de compra descontada y fuegos en paralelo.
+                  <p className="text-xs text-zinc-600 dark:text-zinc-300 mt-1 leading-relaxed">
+                    Calcula raciones exactas, cruza tu despensa viva y sincroniza tus fuentes de calor en paralelo.
                   </p>
                 </div>
               </div>
@@ -695,18 +682,8 @@ export function Layout({
               
               {/* DRAWER HEADER */}
               <div className="flex items-center justify-between border-b border-zinc-200 dark:border-zinc-800 pb-3.5">
-                <div className="flex items-center gap-2.5">
-                  <div className="w-9 h-9 rounded-xl bg-emerald-600 text-white flex items-center justify-center font-bold">
-                    <ChefHat size={18} />
-                  </div>
-                  <div>
-                    <h3 className="text-sm font-black text-zinc-900 dark:text-white leading-tight">
-                      TouChef
-                    </h3>
-                    <p className="text-[11px] text-zinc-500 dark:text-zinc-400 truncate max-w-[160px]">
-                      {firebaseUser?.displayName || firebaseUser?.email || 'Modo Local / Invitado'}
-                    </p>
-                  </div>
+                <div className="flex items-center gap-2">
+                  <TouChefLogo size="sm" showWordmark={true} />
                 </div>
                 <button
                   onClick={() => setIsMobileMenuOpen(false)}

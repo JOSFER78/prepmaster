@@ -23,8 +23,9 @@ import {
   ChefHat,
   ShieldCheck,
   ExternalLink,
-  Crown
+  ChevronRight
 } from 'lucide-react';
+import { TouChefIsotype } from './TouChefLogo';
 
 interface AuthModalProps {
   isOpen: boolean;
@@ -209,18 +210,18 @@ export function AuthModal({ isOpen, onClose, initialMode = 'login', onSuccess }:
         </button>
 
         {/* Modal Header */}
-        <div className="text-center space-y-1 pt-1">
-          <div className="w-11 h-11 rounded-2xl bg-emerald-600/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center mx-auto shadow-xs">
-            <ChefHat size={24} />
+        <div className="text-center space-y-2 pt-1">
+          <div className="flex justify-center">
+            <TouChefIsotype size={44} />
           </div>
-          <h2 className="text-lg font-black tracking-tight">
+          <h2 className="text-lg font-display font-black tracking-tight">
             {mode === 'login' && 'Iniciar Sesión en TouChef'}
             {mode === 'register' && 'Crear Cuenta en TouChef'}
             {mode === 'forgot' && 'Recuperar Contraseña'}
           </h2>
           <p className="text-xs text-zinc-500 dark:text-zinc-400">
-            {mode === 'login' && 'Accede a tus menús de raciones, despensa y cronómetros.'}
-            {mode === 'register' && 'Empieza a planificar y cocinar en lote de forma inteligente.'}
+            {mode === 'login' && 'Accede a tus planes de alta eficiencia, despensa viva y temporizadores.'}
+            {mode === 'register' && 'Planifica tu semana en una única sesión con calidad de restaurante.'}
             {mode === 'forgot' && 'Introduce tu email para recibir un enlace de recuperación.'}
           </p>
         </div>
