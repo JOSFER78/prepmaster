@@ -262,7 +262,10 @@ export default function App() {
           onNavigate={setCurrentView} 
           hideNav={shouldHideAppNav}
           activeProject={activeProject}
+          onOpenAuth={handleOpenAuth}
+          currentUser={currentUser}
         >
+
           {currentView.name === 'home' && (
             <HomeView 
               onNavigate={setCurrentView} 

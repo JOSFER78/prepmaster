@@ -35,13 +35,24 @@ interface LayoutProps {
   onNavigate: (view: ViewState) => void;
   hideNav?: boolean;
   activeProject?: BatchProject | null;
+  onOpenAuth?: (mode?: 'login' | 'register') => void;
+  currentUser?: FirebaseUser | null;
 }
 
-export function Layout({ children, currentView, onNavigate, hideNav = false, activeProject }: LayoutProps) {
+export function Layout({ 
+  children, 
+  currentView, 
+  onNavigate, 
+  hideNav = false, 
+  activeProject,
+  onOpenAuth,
+  currentUser: propUser
+}: LayoutProps) {
   const { theme, toggleTheme } = useTheme();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
-  const [firebaseUser, setFirebaseUser] = useState<FirebaseUser | null>(null);
+  const [firebaseUser, setFirebaseUser] = useState<FirebaseUser | null>(propUser || null);
+
 
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, (user) => {
@@ -235,23 +246,40 @@ export function Layout({ children, currentView, onNavigate, hideNav = false, act
                 {theme === 'dark' ? <Sun size={16} className="text-amber-400" /> : <Moon size={16} className="text-zinc-700" />}
               </button>
 
-              {/* PROFILE / MI HOGAR */}
-              <button
-                onClick={() => onNavigate({ name: 'profile' })}
-                className={`p-1.5 sm:px-3 sm:py-1.5 rounded-xl border transition-all active:scale-95 flex items-center gap-2 ${
-                  isProfileActive 
-                    ? 'bg-emerald-600 text-white border-emerald-600 shadow-xs' 
-                    : 'bg-zinc-100 dark:bg-zinc-800 border-zinc-200 dark:border-zinc-700 text-zinc-700 dark:text-zinc-300 hover:bg-zinc-200 dark:hover:bg-zinc-700 hover:border-emerald-500/50'
-                }`}
-                title="Ajustes y Perfil del Hogar"
-              >
-                <div className={`w-6 h-6 rounded-lg flex items-center justify-center font-bold text-xs ${
-                  isProfileActive ? 'bg-white/20 text-white' : 'bg-emerald-500/20 text-emerald-600 dark:text-emerald-400'
-                }`}>
+              {/* PROFILE / AUTH / MI HOGAR */}
+              {firebaseUser && !firebaseUser.isAnonymous ? (
+                <button
+                  onClick={() => onNavigate({ name: 'profile' })}
+                  className={`p-1.5 sm:px-3 sm:py-1.5 rounded-xl border transition-all active:scale-95 flex items-center gap-2 ${
+                    isProfileActive 
+                      ? 'bg-emerald-600 text-white border-emerald-600 shadow-xs' 
+                      : 'bg-zinc-100 dark:bg-zinc-800 border-zinc-200 dark:border-zinc-700 text-zinc-700 dark:text-zinc-300 hover:bg-zinc-200 dark:hover:bg-zinc-700 hover:border-emerald-500/50'
+                  }`}
+                  title="Ajustes y Perfil del Hogar"
+                >
+                  <div className={`w-6 h-6 rounded-lg flex items-center justify-center font-bold text-xs ${
+                    isProfileActive ? 'bg-white/20 text-white' : 'bg-emerald-500/20 text-emerald-600 dark:text-emerald-400'
+                  }`}>
+                    <User size={14} />
+                  </div>
+                  <div className="hidden md:flex flex-col text-left leading-tight">
+                    <span className="text-xs font-bold truncate max-w-[100px]">
+                      {firebaseUser.displayName || firebaseUser.email?.split('@')[0]}
+                    </span>
+                    <span className="text-[9px] text-zinc-400">Mi Hogar</span>
+                  </div>
+                </button>
+              ) : (
+                <button
+                  onClick={() => onOpenAuth ? onOpenAuth('login') : onNavigate({ name: 'profile' })}
+                  className="bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-black px-3 py-1.5 rounded-xl shadow-xs transition-all active:scale-95 flex items-center gap-1.5"
+                  title="Iniciar sesión en PrepMaster"
+                >
                   <User size={14} />
-                </div>
-                <span className="hidden md:inline text-xs font-bold">Mi Hogar</span>
-              </button>
+                  <span>Acceder</span>
+                </button>
+              )}
+
             </div>
 
           </div>
