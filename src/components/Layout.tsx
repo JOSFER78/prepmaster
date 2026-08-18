@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { 
-  Home, 
   Sparkles, 
   Layers, 
   ShoppingBag, 
   ChefHat, 
   X, 
   Refrigerator, 
-  BookOpen, 
+  BookMarked,
   User, 
   ChevronRight, 
   Crown,
@@ -18,11 +17,12 @@ import {
   ArrowRight,
   Menu,
   LayoutDashboard,
-  UtensilsCrossed,
-  SlidersHorizontal,
+  Plus,
   Flame,
-  CheckCircle2,
-  ExternalLink
+  ExternalLink,
+  BookOpen,
+  PlusCircle,
+  Utensils
 } from 'lucide-react';
 import { ViewState, BatchProject } from '../types';
 import { auth, onAuthStateChanged, isSuperAdmin, User as FirebaseUser, signOut } from '../lib/firebase';
@@ -40,6 +40,7 @@ interface LayoutProps {
 export function Layout({ children, currentView, onNavigate, hideNav = false, activeProject }: LayoutProps) {
   const { theme, toggleTheme } = useTheme();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
   const [firebaseUser, setFirebaseUser] = useState<FirebaseUser | null>(null);
 
   useEffect(() => {
@@ -49,9 +50,10 @@ export function Layout({ children, currentView, onNavigate, hideNav = false, act
     return () => unsub();
   }, []);
 
-  // Close mobile drawer on view change or window resize
+  // Close modals on view navigation
   useEffect(() => {
     setIsMobileMenuOpen(false);
+    setIsCreateModalOpen(false);
   }, [currentView]);
 
   const isSuperAdminUser = isSuperAdmin(firebaseUser);
@@ -64,23 +66,20 @@ export function Layout({ children, currentView, onNavigate, hideNav = false, act
 
   // Active view checkers
   const isHomeActive = currentView.name === 'home';
-  const isGeneratorActive = currentView.name === 'ai-generator';
-  const isShoppingActive = currentView.name === 'shopping-list';
-  const isCookActive = currentView.name === 'interactive-cook' || currentView.name === 'batch-session';
+  const isArchiveActive = currentView.name === 'explore' || currentView.name === 'archive' || currentView.name === 'recipe';
   const isPantryActive = currentView.name === 'reference-rag';
   const isPlannerActive = currentView.name === 'planner';
-  const isRecipesActive = currentView.name === 'explore' || currentView.name === 'recipe';
   const isProfileActive = currentView.name === 'profile';
-
-  // Check if active view is one of the secondary resources/settings
-  const isSecondaryActive = isPantryActive || isPlannerActive || isRecipesActive || isProfileActive;
+  const isShoppingActive = currentView.name === 'shopping-list';
+  const isCookActive = currentView.name === 'interactive-cook' || currentView.name === 'batch-session';
+  const isGeneratorActive = currentView.name === 'ai-generator';
 
   // Dynamic status pill helper
   const getBatchPillInfo = () => {
     if (!activeProject) {
       return {
         label: 'Sin Lote Activo',
-        subtext: 'Planificar',
+        subtext: 'Crear nuevo',
         colorClass: 'bg-zinc-800/80 text-zinc-400 border-zinc-700/60',
         targetView: { name: 'ai-generator' as const }
       };
@@ -96,8 +95,8 @@ export function Layout({ children, currentView, onNavigate, hideNav = false, act
         };
       case 'shopping':
         return {
-          label: 'Compra',
-          subtext: `${pendingShopCount} pendientes`,
+          label: 'Compra Pendiente',
+          subtext: `${pendingShopCount} ítems`,
           colorClass: 'bg-blue-950/60 text-blue-400 border-blue-500/30',
           targetView: { name: 'shopping-list' as const }
         };
@@ -148,30 +147,30 @@ export function Layout({ children, currentView, onNavigate, hideNav = false, act
   // Breadcrumb title helper
   const getBreadcrumbTitle = () => {
     switch (currentView.name) {
-      case 'home': return 'Dashboard & Seguimiento de Lote';
+      case 'home': return 'Dashboard & Seguimiento Diario';
+      case 'explore':
+      case 'archive': return 'Mi Archivo, Lotes & Recetas';
       case 'ai-generator': return 'Generador IA de Raciones';
       case 'shopping-list': return 'Lista de Compra Descontada';
       case 'interactive-cook': return 'Cocina Simultánea en Paralelo';
       case 'planner': return 'Planificador de Volumen y Raciones';
       case 'reference-rag': return 'Despensa & Stock de Nevera';
-      case 'explore':
-      case 'recipe': return 'Recetario de Autor';
+      case 'recipe': return 'Detalle de Receta';
       case 'profile': return 'Mi Hogar & Ajustes';
       default: return 'Panel Principal';
     }
   };
 
   return (
-    <div className="bg-zinc-50 dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100 flex flex-col min-h-screen font-sans transition-colors duration-200">
+    <div className="bg-zinc-50 dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100 flex flex-col min-h-dvh font-sans transition-colors duration-200">
       
-      {/* GLOBAL HEADER */}
+      {/* GLOBAL STICKY HEADER */}
       {!hideNav && (
         <header className="bg-white/90 dark:bg-zinc-900/90 backdrop-blur-md shadow-xs w-full top-0 left-0 sticky z-40 border-b border-zinc-200 dark:border-zinc-800">
           <div className="flex justify-between items-center px-3 sm:px-4 py-2.5 max-w-7xl mx-auto gap-2">
             
             {/* BRAND LOGO & MOBILE HAMBURGER */}
             <div className="flex items-center gap-2 sm:gap-3">
-              {/* Mobile Hamburger Toggle */}
               <button
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
                 className="p-1.5 rounded-xl md:hidden text-zinc-600 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-800 active:scale-95 transition-all"
@@ -184,7 +183,7 @@ export function Layout({ children, currentView, onNavigate, hideNav = false, act
                 className="flex items-center gap-2 cursor-pointer select-none group" 
                 onClick={() => onNavigate({ name: 'home' })}
               >
-                <div className="w-8 h-8 rounded-xl bg-emerald-600 dark:bg-emerald-500 text-white flex items-center justify-center font-black shadow-xs shrink-0 group-hover:scale-105 transition-transform">
+                <div className="w-8 h-8 rounded-xl bg-emerald-600 text-white flex items-center justify-center font-black shadow-xs shrink-0 group-hover:scale-105 transition-transform">
                   <ChefHat size={18} />
                 </div>
                 <div className="hidden sm:block">
@@ -218,6 +217,15 @@ export function Layout({ children, currentView, onNavigate, hideNav = false, act
 
             {/* HEADER RIGHT ACTIONS */}
             <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
+              {/* DESKTOP QUICK CREATE BUTTON */}
+              <button
+                onClick={() => setIsCreateModalOpen(true)}
+                className="hidden lg:flex items-center gap-1.5 bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-black px-3 py-1.5 rounded-xl shadow-xs transition-all active:scale-95"
+              >
+                <Plus size={14} />
+                <span>Crear</span>
+              </button>
+
               {/* THEME TOGGLE */}
               <button
                 onClick={toggleTheme}
@@ -227,7 +235,7 @@ export function Layout({ children, currentView, onNavigate, hideNav = false, act
                 {theme === 'dark' ? <Sun size={16} className="text-amber-400" /> : <Moon size={16} className="text-zinc-700" />}
               </button>
 
-              {/* PROFILE / SETTINGS TRIGGER */}
+              {/* PROFILE / MI HOGAR */}
               <button
                 onClick={() => onNavigate({ name: 'profile' })}
                 className={`p-1.5 sm:px-3 sm:py-1.5 rounded-xl border transition-all active:scale-95 flex items-center gap-2 ${
@@ -250,80 +258,103 @@ export function Layout({ children, currentView, onNavigate, hideNav = false, act
         </header>
       )}
 
-      {/* MAIN CONTAINER WITH DESKTOP SIDEBAR */}
-      <div className="flex-grow w-full max-w-7xl mx-auto flex">
+      {/* MAIN CONTAINER WITH STICKY DESKTOP SIDEBAR */}
+      <div className="flex-1 w-full max-w-7xl mx-auto flex">
         
         {/* DESKTOP SIDEBAR */}
         {!hideNav && (
-          <aside className="hidden md:flex flex-col justify-between w-60 p-4 border-r border-zinc-200 dark:border-zinc-800 shrink-0 sticky top-14 h-[calc(100vh-3.5rem)] overflow-y-auto">
+          <aside className="hidden md:flex flex-col justify-between w-64 p-4 border-r border-zinc-200 dark:border-zinc-800 shrink-0 sticky top-14 h-[calc(100dvh-3.5rem)] overflow-y-auto">
             
-            <div className="space-y-6">
-              {/* SECTION 1: LOTE DE COCINA (CORE BATCH LOOP) */}
+            <div className="space-y-5">
+              {/* PRIMARY CREATE CTA */}
+              <button
+                onClick={() => setIsCreateModalOpen(true)}
+                className="w-full flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-black shadow-sm transition-all active:scale-95 select-none"
+              >
+                <Plus size={16} />
+                <span>+ Crear Nuevo...</span>
+              </button>
+
+              {/* SECTION 1: NAVEGACIÓN PRINCIPAL */}
               <div className="space-y-1">
-                <div className="text-[10px] font-bold uppercase tracking-wider text-emerald-600 dark:text-emerald-400 px-2 mb-1.5 flex items-center justify-between">
-                  <span>Lote de Cocina</span>
-                  {activeProject && (
-                    <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                  )}
+                <div className="text-[10px] font-bold uppercase tracking-wider text-zinc-400 px-2 mb-1">
+                  Menú Principal
                 </div>
+                
                 <SidebarItem 
-                  icon={<LayoutDashboard size={16} />} 
+                  icon={<LayoutDashboard size={17} />} 
                   label="Dashboard Hoy" 
                   isActive={isHomeActive} 
                   onClick={() => onNavigate({ name: 'home' })} 
                 />
-                <SidebarItem 
-                  icon={<Sparkles size={16} />} 
-                  label="Generador IA" 
-                  isActive={isGeneratorActive} 
-                  onClick={() => onNavigate({ name: 'ai-generator' })} 
-                />
-                <SidebarItem 
-                  icon={<ShoppingBag size={16} />} 
-                  label="Lista de Compra" 
-                  badge={pendingShopCount > 0 ? `${pendingShopCount}` : undefined}
-                  isActive={isShoppingActive} 
-                  onClick={() => onNavigate({ name: 'shopping-list' })} 
-                />
-                <SidebarItem 
-                  icon={<ChefHat size={16} />} 
-                  label="Cocina Simultánea" 
-                  isActive={isCookActive} 
-                  badge={activeProject?.status === 'ready_to_cook' ? 'Listo' : (activeProject?.status === 'cooking' ? 'Fuego' : undefined)}
-                  onClick={() => onNavigate({ name: 'interactive-cook' })} 
-                />
-              </div>
 
-              {/* SECTION 2: RECURSOS & DESPENSA */}
-              <div className="space-y-1">
-                <div className="text-[10px] font-bold uppercase tracking-wider text-zinc-400 px-2 mb-1.5">
-                  Recursos & Despensa
-                </div>
                 <SidebarItem 
-                  icon={<Refrigerator size={16} />} 
+                  icon={<BookMarked size={17} />} 
+                  label="Mi Archivo & Favoritos" 
+                  isActive={isArchiveActive} 
+                  onClick={() => onNavigate({ name: 'explore' })} 
+                />
+
+                <SidebarItem 
+                  icon={<Refrigerator size={17} />} 
                   label="Despensa & Nevera" 
                   isActive={isPantryActive} 
                   onClick={() => onNavigate({ name: 'reference-rag' })} 
                 />
+
                 <SidebarItem 
-                  icon={<Layers size={16} />} 
+                  icon={<Layers size={17} />} 
                   label="Plan de Raciones" 
                   isActive={isPlannerActive} 
                   onClick={() => onNavigate({ name: 'planner' })} 
                 />
-                <SidebarItem 
-                  icon={<BookOpen size={16} />} 
-                  label="Recetas de Autor" 
-                  isActive={isRecipesActive} 
-                  onClick={() => onNavigate({ name: 'explore' })} 
-                />
               </div>
+
+              {/* SECTION 2: LOTE ACTIVO EN CURSO (CONTEXTUAL) */}
+              {activeProject && (
+                <div className="space-y-1 pt-2 border-t border-zinc-200/80 dark:border-zinc-800/80">
+                  <div className="text-[10px] font-bold uppercase tracking-wider text-emerald-600 dark:text-emerald-400 px-2 mb-1 flex items-center justify-between">
+                    <span>Lote en Curso</span>
+                    <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                  </div>
+
+                  {activeProject.status === 'shopping' && (
+                    <SidebarItem 
+                      icon={<ShoppingBag size={17} />} 
+                      label="Lista de Compra" 
+                      badge={pendingShopCount > 0 ? `${pendingShopCount}` : 'Listo'}
+                      isActive={isShoppingActive} 
+                      onClick={() => onNavigate({ name: 'shopping-list' })} 
+                    />
+                  )}
+
+                  {(activeProject.status === 'ready_to_cook' || activeProject.status === 'cooking') && (
+                    <SidebarItem 
+                      icon={<ChefHat size={17} />} 
+                      label="Cocina Simultánea" 
+                      badge={activeProject.status === 'ready_to_cook' ? 'Listo' : 'Fuegos 🔥'}
+                      isActive={isCookActive} 
+                      onClick={() => onNavigate({ name: 'interactive-cook' })} 
+                    />
+                  )}
+
+                  {activeProject.status === 'in_fridge' && (
+                    <SidebarItem 
+                      icon={<Refrigerator size={17} />} 
+                      label="Raciones en Nevera" 
+                      badge={`${metrics?.remainingServings ?? 0} rac`}
+                      isActive={isHomeActive} 
+                      onClick={() => onNavigate({ name: 'home' })} 
+                    />
+                  )}
+                </div>
+              )}
             </div>
 
             {/* SECTION 3: FOOTER SETTINGS */}
             <div className="border-t border-zinc-200 dark:border-zinc-800 pt-3 space-y-1">
               <SidebarItem 
-                icon={<User size={16} />} 
+                icon={<User size={17} />} 
                 label="Mi Hogar & Ajustes" 
                 isActive={isProfileActive} 
                 onClick={() => onNavigate({ name: 'profile' })} 
@@ -343,8 +374,8 @@ export function Layout({ children, currentView, onNavigate, hideNav = false, act
           </aside>
         )}
 
-        {/* MAIN VIEWPORT */}
-        <main className={`flex-grow w-full ${hideNav ? '' : 'p-3 sm:p-4 md:p-6 pb-24 md:pb-6 overflow-x-hidden'}`}>
+        {/* MAIN VIEWPORT CONTAINER */}
+        <main className={`flex-1 min-w-0 ${hideNav ? '' : 'p-3 sm:p-4 md:p-6 pb-24 md:pb-6'}`}>
           {!hideNav && (
             <div className="hidden md:flex items-center justify-between mb-4 pb-2 border-b border-zinc-200 dark:border-zinc-800/80">
               <div className="flex items-center gap-2 text-xs font-bold text-zinc-400">
@@ -364,7 +395,7 @@ export function Layout({ children, currentView, onNavigate, hideNav = false, act
         </main>
       </div>
 
-      {/* MOBILE BOTTOM NAVIGATION BAR (5 ERGONOMIC TABS) */}
+      {/* MOBILE BOTTOM NAVIGATION BAR (5 CORE DIRECT TABS) */}
       {!hideNav && (
         <nav className="bg-white/95 dark:bg-zinc-900/95 backdrop-blur-md shadow-lg fixed bottom-0 left-0 right-0 z-40 grid grid-cols-5 items-center px-1 py-1.5 md:hidden border-t border-zinc-200 dark:border-zinc-800 pb-safe">
           <NavItem 
@@ -374,36 +405,126 @@ export function Layout({ children, currentView, onNavigate, hideNav = false, act
             onClick={() => onNavigate({ name: 'home' })} 
           />
           <NavItem 
-            icon={<Sparkles />} 
-            label="Generador" 
-            isActive={isGeneratorActive} 
-            onClick={() => onNavigate({ name: 'ai-generator' })} 
+            icon={<BookMarked />} 
+            label="Archivo" 
+            isActive={isArchiveActive} 
+            onClick={() => onNavigate({ name: 'explore' })} 
+          />
+          {/* CENTER ELEVATED CREATE BUTTON */}
+          <div className="flex flex-col items-center justify-center">
+            <button
+              onClick={() => setIsCreateModalOpen(true)}
+              className="w-11 h-11 rounded-2xl bg-emerald-600 text-white flex items-center justify-center shadow-md active:scale-90 transition-transform -mt-3"
+              aria-label="Crear nuevo lote o receta"
+            >
+              <Plus size={22} strokeWidth={3} />
+            </button>
+            <span className="text-[10px] mt-0.5 leading-none font-bold text-zinc-500 dark:text-zinc-400">Crear</span>
+          </div>
+          <NavItem 
+            icon={<Refrigerator />} 
+            label="Despensa" 
+            isActive={isPantryActive} 
+            onClick={() => onNavigate({ name: 'reference-rag' })} 
           />
           <NavItem 
-            icon={<ShoppingBag />} 
-            label="Compra" 
-            badge={pendingShopCount > 0 ? `${pendingShopCount}` : undefined}
-            isActive={isShoppingActive} 
-            onClick={() => onNavigate({ name: 'shopping-list' })} 
-          />
-          <NavItem 
-            icon={<ChefHat />} 
-            label="Cocina" 
-            badge={activeProject?.status === 'ready_to_cook' ? '!' : (activeProject?.status === 'cooking' ? '🔥' : undefined)}
-            isActive={isCookActive} 
-            onClick={() => onNavigate({ name: 'interactive-cook' })} 
-          />
-          <NavItem 
-            icon={<Menu />} 
-            label="Menú" 
-            hasIndicator={isSecondaryActive}
-            isActive={isMobileMenuOpen || isSecondaryActive} 
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} 
+            icon={<User />} 
+            label="Mi Hogar" 
+            isActive={isProfileActive} 
+            onClick={() => onNavigate({ name: 'profile' })} 
           />
         </nav>
       )}
 
-      {/* MOBILE FULL NAVIGATION DRAWER (SYNCHRONIZED WITH DESKTOP SIDEBAR) */}
+      {/* CREATE SELECTOR MODAL (+ NUEVO LOTE / + NUEVA RECETA) */}
+      {isCreateModalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs animate-fade-in">
+          <div 
+            className="w-full max-w-md bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-3xl p-6 shadow-2xl space-y-5 animate-scale-in"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="flex items-center justify-between border-b border-zinc-200 dark:border-zinc-800 pb-3.5">
+              <div className="flex items-center gap-2.5">
+                <div className="w-8 h-8 rounded-xl bg-emerald-600 text-white flex items-center justify-center font-bold">
+                  <Plus size={18} />
+                </div>
+                <div>
+                  <h3 className="text-base font-black text-zinc-900 dark:text-white">
+                    ¿Qué deseas crear?
+                  </h3>
+                  <p className="text-xs text-zinc-500 dark:text-zinc-400">
+                    Elige una opción para continuar
+                  </p>
+                </div>
+              </div>
+              <button
+                onClick={() => setIsCreateModalOpen(false)}
+                className="p-1.5 rounded-xl bg-zinc-100 dark:bg-zinc-800 text-zinc-500 hover:text-zinc-900 dark:hover:text-white"
+              >
+                <X size={18} />
+              </button>
+            </div>
+
+            <div className="space-y-3">
+              {/* OPTION 1: NUEVO LOTE BATCH COOKING */}
+              <div
+                onClick={() => {
+                  setIsCreateModalOpen(false);
+                  onNavigate({ name: 'ai-generator' });
+                }}
+                className="p-4 rounded-2xl border border-emerald-500/30 bg-emerald-500/5 hover:bg-emerald-500/10 hover:border-emerald-500/60 transition-all cursor-pointer group flex items-start gap-3.5"
+              >
+                <div className="w-10 h-10 rounded-xl bg-emerald-600 text-white flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
+                  <Sparkles size={20} />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center justify-between">
+                    <h4 className="text-sm font-black text-zinc-900 dark:text-white">
+                      Nuevo Lote Batch Cooking
+                    </h4>
+                    <span className="text-[10px] bg-emerald-600 text-white font-bold px-2 py-0.5 rounded-full">
+                      Recomendado
+                    </span>
+                  </div>
+                  <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-1 leading-relaxed">
+                    Planifica tu menú semanal con IA, calculando raciones, lista de compra descontada y fuegos en paralelo.
+                  </p>
+                </div>
+              </div>
+
+              {/* OPTION 2: NUEVA RECETA INDIVIDUAL */}
+              <div
+                onClick={() => {
+                  setIsCreateModalOpen(false);
+                  onNavigate({ name: 'explore' });
+                }}
+                className="p-4 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-800/40 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-all cursor-pointer group flex items-start gap-3.5"
+              >
+                <div className="w-10 h-10 rounded-xl bg-zinc-800 text-emerald-400 border border-zinc-700 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
+                  <Utensils size={20} />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <h4 className="text-sm font-black text-zinc-900 dark:text-white">
+                    Nueva Receta o Nota RAG
+                  </h4>
+                  <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-1 leading-relaxed">
+                    Añade un plato individual o importa recetas desde un archivo Markdown a tu recetario personal.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <button
+              onClick={() => setIsCreateModalOpen(false)}
+              className="w-full py-2.5 rounded-xl bg-zinc-100 dark:bg-zinc-800 text-xs font-bold text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white"
+            >
+              Cancelar
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* MOBILE FULL NAVIGATION DRAWER */}
       {isMobileMenuOpen && (
         <div className="fixed inset-0 z-50 flex justify-start md:hidden bg-black/60 backdrop-blur-xs animate-fade-in">
           <div 
@@ -419,7 +540,7 @@ export function Layout({ children, currentView, onNavigate, hideNav = false, act
                   </div>
                   <div>
                     <h3 className="text-sm font-black text-zinc-900 dark:text-white leading-tight">
-                      PrepMaster Menú
+                      PrepMaster
                     </h3>
                     <p className="text-[11px] text-zinc-500 dark:text-zinc-400 truncate max-w-[160px]">
                       {firebaseUser?.displayName || firebaseUser?.email || 'Modo Local / Invitado'}
@@ -457,21 +578,19 @@ export function Layout({ children, currentView, onNavigate, hideNav = false, act
                     <span>{activeProject.peopleCount} comensales</span>
                     <span>•</span>
                     <span>{activeProject.daysCount} días</span>
-                    <span>•</span>
-                    <span>{activeProject.dishes?.length || 0} platos</span>
                   </div>
                 </div>
               )}
 
-              {/* CATEGORY 1: LOTE DE COCINA */}
+              {/* MAIN ITEMS */}
               <div className="space-y-1">
-                <div className="text-[10px] font-bold uppercase tracking-wider text-emerald-600 dark:text-emerald-400 px-2 mb-1">
-                  Lote de Cocina
+                <div className="text-[10px] font-bold uppercase tracking-wider text-zinc-400 px-2 mb-1">
+                  Navegación
                 </div>
                 <DrawerLinkItem 
                   icon={<LayoutDashboard size={18} />} 
                   title="Dashboard Hoy" 
-                  subtitle="Estado del lote y raciones disponibles"
+                  subtitle="Estado del día y seguimiento"
                   isActive={isHomeActive} 
                   onClick={() => {
                     setIsMobileMenuOpen(false);
@@ -479,48 +598,19 @@ export function Layout({ children, currentView, onNavigate, hideNav = false, act
                   }} 
                 />
                 <DrawerLinkItem 
-                  icon={<Sparkles size={18} />} 
-                  title="Generador IA" 
-                  subtitle="Crear nuevo menú semanal con IA"
-                  isActive={isGeneratorActive} 
+                  icon={<BookMarked size={18} />} 
+                  title="Mi Archivo & Favoritos" 
+                  subtitle="Lotes y recetas guardadas"
+                  isActive={isArchiveActive} 
                   onClick={() => {
                     setIsMobileMenuOpen(false);
-                    onNavigate({ name: 'ai-generator' });
+                    onNavigate({ name: 'explore' });
                   }} 
                 />
-                <DrawerLinkItem 
-                  icon={<ShoppingBag size={18} />} 
-                  title="Lista de Compra" 
-                  subtitle="Ingredientes descontados de despensa"
-                  badge={pendingShopCount > 0 ? `${pendingShopCount}` : undefined}
-                  isActive={isShoppingActive} 
-                  onClick={() => {
-                    setIsMobileMenuOpen(false);
-                    onNavigate({ name: 'shopping-list' });
-                  }} 
-                />
-                <DrawerLinkItem 
-                  icon={<ChefHat size={18} />} 
-                  title="Cocina Simultánea" 
-                  subtitle="Paso a paso en paralelo con fuegos"
-                  badge={activeProject?.status === 'ready_to_cook' ? 'Listo' : (activeProject?.status === 'cooking' ? 'Fuego' : undefined)}
-                  isActive={isCookActive} 
-                  onClick={() => {
-                    setIsMobileMenuOpen(false);
-                    onNavigate({ name: 'interactive-cook' });
-                  }} 
-                />
-              </div>
-
-              {/* CATEGORY 2: RECURSOS & DESPENSA */}
-              <div className="space-y-1">
-                <div className="text-[10px] font-bold uppercase tracking-wider text-zinc-400 px-2 mb-1">
-                  Recursos & Despensa
-                </div>
                 <DrawerLinkItem 
                   icon={<Refrigerator size={18} />} 
                   title="Despensa & Nevera" 
-                  subtitle="Stock de ingredientes y caducidades"
+                  subtitle="Stock de alimentos en casa"
                   isActive={isPantryActive} 
                   onClick={() => {
                     setIsMobileMenuOpen(false);
@@ -530,34 +620,59 @@ export function Layout({ children, currentView, onNavigate, hideNav = false, act
                 <DrawerLinkItem 
                   icon={<Layers size={18} />} 
                   title="Plan de Raciones" 
-                  subtitle="Distribución semanal de porciones"
+                  subtitle="Distribución semanal de comidas"
                   isActive={isPlannerActive} 
                   onClick={() => {
                     setIsMobileMenuOpen(false);
                     onNavigate({ name: 'planner' });
                   }} 
                 />
-                <DrawerLinkItem 
-                  icon={<BookOpen size={18} />} 
-                  title="Recetas de Autor" 
-                  subtitle="Biblioteca de técnicas y platos"
-                  isActive={isRecipesActive} 
-                  onClick={() => {
-                    setIsMobileMenuOpen(false);
-                    onNavigate({ name: 'explore' });
-                  }} 
-                />
               </div>
 
-              {/* CATEGORY 3: SISTEMA */}
-              <div className="space-y-1">
+              {/* CONTEXTUAL BATCH ACTIONS */}
+              {activeProject && (
+                <div className="space-y-1 pt-2 border-t border-zinc-200 dark:border-zinc-800">
+                  <div className="text-[10px] font-bold uppercase tracking-wider text-emerald-600 dark:text-emerald-400 px-2 mb-1">
+                    Fases del Lote
+                  </div>
+                  {activeProject.status === 'shopping' && (
+                    <DrawerLinkItem 
+                      icon={<ShoppingBag size={18} />} 
+                      title="Lista de Compra" 
+                      subtitle="Ingredientes descontados"
+                      badge={pendingShopCount > 0 ? `${pendingShopCount}` : undefined}
+                      isActive={isShoppingActive} 
+                      onClick={() => {
+                        setIsMobileMenuOpen(false);
+                        onNavigate({ name: 'shopping-list' });
+                      }} 
+                    />
+                  )}
+                  {(activeProject.status === 'ready_to_cook' || activeProject.status === 'cooking') && (
+                    <DrawerLinkItem 
+                      icon={<ChefHat size={18} />} 
+                      title="Cocina Simultánea" 
+                      subtitle="Fuegos y temporizadores"
+                      badge={activeProject.status === 'ready_to_cook' ? 'Listo' : 'Fuego'}
+                      isActive={isCookActive} 
+                      onClick={() => {
+                        setIsMobileMenuOpen(false);
+                        onNavigate({ name: 'interactive-cook' });
+                      }} 
+                    />
+                  )}
+                </div>
+              )}
+
+              {/* SETTINGS */}
+              <div className="space-y-1 pt-2 border-t border-zinc-200 dark:border-zinc-800">
                 <div className="text-[10px] font-bold uppercase tracking-wider text-zinc-400 px-2 mb-1">
-                  Ajustes & Cuenta
+                  Ajustes
                 </div>
                 <DrawerLinkItem 
                   icon={<User size={18} />} 
                   title="Mi Hogar & Ajustes" 
-                  subtitle="Comensales, dietas y perfil"
+                  subtitle="Comensales, dietas y cuenta"
                   isActive={isProfileActive} 
                   onClick={() => {
                     setIsMobileMenuOpen(false);
@@ -567,7 +682,7 @@ export function Layout({ children, currentView, onNavigate, hideNav = false, act
                 <DrawerLinkItem 
                   icon={<ExternalLink size={18} />} 
                   title="Ver Portada / Landing" 
-                  subtitle="Calculadora y método público"
+                  subtitle="Calculadora y método"
                   isActive={false} 
                   onClick={() => {
                     setIsMobileMenuOpen(false);
@@ -584,10 +699,10 @@ export function Layout({ children, currentView, onNavigate, hideNav = false, act
                 onClick={toggleTheme}
                 className="w-full flex items-center justify-between p-2.5 rounded-xl bg-zinc-100 dark:bg-zinc-800 text-xs font-bold text-zinc-700 dark:text-zinc-300"
               >
-                <span>Tema de la interfaz</span>
+                <span>Tema</span>
                 <span className="flex items-center gap-1.5 text-emerald-600 dark:text-emerald-400">
                   {theme === 'dark' ? <Moon size={14} /> : <Sun size={14} />}
-                  {theme === 'dark' ? 'Modo Oscuro' : 'Modo Claro'}
+                  {theme === 'dark' ? 'Oscuro' : 'Claro'}
                 </span>
               </button>
 
@@ -604,7 +719,6 @@ export function Layout({ children, currentView, onNavigate, hideNav = false, act
 
           </div>
           
-          {/* Backdrop click area */}
           <div className="flex-1" onClick={() => setIsMobileMenuOpen(false)} />
         </div>
       )}
@@ -618,14 +732,12 @@ function NavItem({
   label, 
   isActive, 
   badge, 
-  hasIndicator,
   onClick 
 }: { 
   icon: React.ReactNode, 
   label: string, 
   isActive: boolean, 
   badge?: string, 
-  hasIndicator?: boolean,
   onClick: () => void 
 }) {
   return (
@@ -643,9 +755,6 @@ function NavItem({
           <span className="absolute -top-1.5 -right-2 bg-emerald-500 text-zinc-950 text-[9px] font-black min-w-[16px] h-4 px-1 rounded-full flex items-center justify-center shadow-xs">
             {badge}
           </span>
-        )}
-        {hasIndicator && !badge && (
-          <span className="absolute -top-0.5 -right-1 bg-emerald-500 w-2 h-2 rounded-full ring-2 ring-white dark:ring-zinc-900"></span>
         )}
       </div>
       <span className="text-[10px] mt-1 leading-none font-bold truncate max-w-[60px]">{label}</span>

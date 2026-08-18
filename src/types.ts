@@ -1,11 +1,12 @@
 export type ViewState = 
-  | { name: 'landing' | 'auth' | 'home' | 'planner' | 'explore' | 'profile' }
-  | { name: 'recipe'; id: string }
+  | { name: 'landing' | 'auth' | 'home' | 'planner' | 'explore' | 'profile' | 'archive' }
+  | { name: 'recipe'; id?: string }
   | { name: 'batch-session' }
   | { name: 'ai-generator' }
   | { name: 'shopping-list' }
   | { name: 'interactive-cook'; dishName?: string }
   | { name: 'reference-rag' };
+
 
 export interface ReferenceChannel {
   id: string;

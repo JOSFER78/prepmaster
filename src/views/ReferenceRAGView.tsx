@@ -1,16 +1,35 @@
 import React, { useState } from 'react';
-import { BookOpen, Plus, Sparkles, ChefHat, Tag, ShieldCheck, Search, Trash2, Edit3, Upload, FileText, Check, FileUp } from 'lucide-react';
-import { ReferenceChannel, UserNotebook } from '../types';
+import { 
+  BookOpen, 
+  Plus, 
+  Sparkles, 
+  ChefHat, 
+  Tag, 
+  ShieldCheck, 
+  Search, 
+  Trash2, 
+  Edit3, 
+  Upload, 
+  FileText, 
+  Check, 
+  FileUp,
+  BookmarkCheck,
+  Flame,
+  Clock,
+  ArrowRight
+} from 'lucide-react';
+import { ReferenceChannel, UserNotebook, BatchProject } from '../types';
 import { referenceChannels, userNotebooks as initialNotebooks } from '../data';
 
 interface ReferenceRAGViewProps {
   onSelectChannelForMenu?: (channelId: string) => void;
+  onNavigateToGenerator?: () => void;
 }
 
-export function ReferenceRAGView({ onSelectChannelForMenu }: ReferenceRAGViewProps) {
+export function ReferenceRAGView({ onSelectChannelForMenu, onNavigateToGenerator }: ReferenceRAGViewProps) {
   const [notebooks, setNotebooks] = useState<UserNotebook[]>(initialNotebooks);
   const [channels, setChannels] = useState<ReferenceChannel[]>(referenceChannels);
-  const [activeTab, setActiveTab] = useState<'CHANNELS' | 'NOTEBOOKS' | 'IMPORT_MD'>('NOTEBOOKS');
+  const [activeTab, setActiveTab] = useState<'NOTEBOOKS' | 'CHANNELS' | 'IMPORT_MD'>('NOTEBOOKS');
 
   const [newTitle, setNewTitle] = useState('');
   const [newContent, setNewContent] = useState('');
@@ -44,11 +63,9 @@ export function ReferenceRAGView({ onSelectChannelForMenu }: ReferenceRAGViewPro
     setNotebooks(notebooks.filter(n => n.id !== id));
   };
 
-  // Helper to parse Markdown content and import entries into RAG notebooks/channels
   const parseAndImportMarkdown = (rawText: string, sourceName: string = 'Archivo Markdown') => {
     if (!rawText.trim()) return;
 
-    // Split by Markdown Level 1 or 2 headers (# or ##)
     const sections = rawText.split(/(?=\n#{1,2}\s)/);
     const newParsedNotebooks: UserNotebook[] = [];
 
@@ -62,7 +79,6 @@ export function ReferenceRAGView({ onSelectChannelForMenu }: ReferenceRAGViewPro
       const content = lines.slice(1).join('\n').trim();
       if (!content) return;
 
-      // Extract tags from content if any hashtags exist
       const tagMatches = content.match(/#[\wáéíóúñ]+/gi) || [];
       const tags = Array.from(new Set(['Markdown', sourceName, ...tagMatches.map(t => t.replace('#', ''))]));
 
@@ -77,7 +93,7 @@ export function ReferenceRAGView({ onSelectChannelForMenu }: ReferenceRAGViewPro
 
     if (newParsedNotebooks.length > 0) {
       setNotebooks(prev => [...newParsedNotebooks, ...prev]);
-      setImportSuccessMsg(`¡Éxito! Se han procesado e importado ${newParsedNotebooks.length} notas/recetas desde "${sourceName}".`);
+      setImportSuccessMsg(`¡Éxito! Se han importado ${newParsedNotebooks.length} notas/recetas desde "${sourceName}".`);
       setPastedMdText('');
       setTimeout(() => setImportSuccessMsg(''), 4000);
     }
@@ -124,42 +140,90 @@ Dejar enfriar totalmente el guiso en baño de agua helada antes de embolsar. Ext
   };
 
   return (
-    <div className="space-y-8 animate-fade-in pb-12">
-      {/* Architecture Pipeline Explanation Card */}
-      <div className="bg-gradient-to-r from-surface-container-high via-surface to-surface-container-high rounded-3xl p-6 border border-outline-variant/30 space-y-4">
-        <h3 className="font-extrabold text-sm text-on-surface flex items-center gap-2">
-          <Sparkles className="text-primary" size={18} />
-          Conexión Directa: De tus Notebooks YouTube (`.md`) al Asistente de Cocina IA
+    <div className="space-y-6 animate-fade-in pb-12 text-zinc-900 dark:text-zinc-100 max-w-5xl mx-auto">
+      
+      {/* Top Header & Tab Controls */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-zinc-200 dark:border-zinc-800 pb-4">
+        <div>
+          <h2 className="text-xl font-black text-zinc-900 dark:text-white flex items-center gap-2">
+            <BookOpen className="text-emerald-600 dark:text-emerald-400" size={22} />
+            <span>Mi Archivo & Biblioteca de Conocimiento</span>
+          </h2>
+          <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-0.5">
+            Recetas guardadas, canales de cocina y cuaderno de técnicas culinarias
+          </p>
+        </div>
+
+        {/* Tab Switcher */}
+        <div className="flex items-center gap-1.5 bg-zinc-100 dark:bg-zinc-800 p-1 rounded-2xl border border-zinc-200 dark:border-zinc-700/60">
+          <button
+            onClick={() => setActiveTab('NOTEBOOKS')}
+            className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all ${
+              activeTab === 'NOTEBOOKS'
+                ? 'bg-white dark:bg-zinc-900 text-emerald-600 dark:text-emerald-400 shadow-xs'
+                : 'text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white'
+            }`}
+          >
+            Cuaderno RAG ({notebooks.length})
+          </button>
+          <button
+            onClick={() => setActiveTab('CHANNELS')}
+            className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all ${
+              activeTab === 'CHANNELS'
+                ? 'bg-white dark:bg-zinc-900 text-emerald-600 dark:text-emerald-400 shadow-xs'
+                : 'text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white'
+            }`}
+          >
+            Canales de Autor ({channels.length})
+          </button>
+          <button
+            onClick={() => setActiveTab('IMPORT_MD')}
+            className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all ${
+              activeTab === 'IMPORT_MD'
+                ? 'bg-white dark:bg-zinc-900 text-emerald-600 dark:text-emerald-400 shadow-xs'
+                : 'text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white'
+            }`}
+          >
+            Importar `.md`
+          </button>
+        </div>
+      </div>
+
+      {/* RAG Pipeline Explainer Banner */}
+      <div className="bg-white dark:bg-zinc-900 rounded-3xl p-5 border border-zinc-200 dark:border-zinc-800 shadow-xs space-y-3">
+        <h3 className="font-extrabold text-xs text-zinc-900 dark:text-white flex items-center gap-2">
+          <Sparkles className="text-emerald-600 dark:text-emerald-400" size={16} />
+          <span>Memoria Activa: Cómo influyen tus notas en el Asistente IA</span>
         </h3>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
-          <div className="bg-surface p-4 rounded-2xl border border-outline-variant/20 space-y-1.5">
-            <div className="font-bold text-primary flex items-center gap-1.5">
-              <span className="w-5 h-5 rounded-full bg-primary text-on-primary flex items-center justify-center text-[10px]">1</span>
-              Importa o Pega tu `.md`
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs">
+          <div className="bg-zinc-50 dark:bg-zinc-800/40 p-3.5 rounded-2xl border border-zinc-200/80 dark:border-zinc-700/50 space-y-1">
+            <div className="font-bold text-emerald-600 dark:text-emerald-400 flex items-center gap-1.5">
+              <span className="w-4 h-4 rounded-full bg-emerald-600 text-white flex items-center justify-center text-[9px] font-black">1</span>
+              <span>Notas y Recetas `.md`</span>
             </div>
-            <p className="text-on-surface-variant leading-relaxed">
-              Carga tus notas con las recetas y trucos exactos de tus canales favoritos de YouTube (Robin Food, Dabiz Muñoz, etc.).
+            <p className="text-zinc-500 dark:text-zinc-400 leading-relaxed text-[11px]">
+              Guarda tus trucos y recetas favoritas de YouTube para que el sistema aprenda tus gustos.
             </p>
           </div>
 
-          <div className="bg-surface p-4 rounded-2xl border border-outline-variant/20 space-y-1.5">
-            <div className="font-bold text-secondary flex items-center gap-1.5">
-              <span className="w-5 h-5 rounded-full bg-secondary text-on-secondary flex items-center justify-center text-[10px]">2</span>
-              Procesamiento RAG IA
+          <div className="bg-zinc-50 dark:bg-zinc-800/40 p-3.5 rounded-2xl border border-zinc-200/80 dark:border-zinc-700/50 space-y-1">
+            <div className="font-bold text-emerald-600 dark:text-emerald-400 flex items-center gap-1.5">
+              <span className="w-4 h-4 rounded-full bg-emerald-600 text-white flex items-center justify-center text-[9px] font-black">2</span>
+              <span>Indexación RAG</span>
             </div>
-            <p className="text-on-surface-variant leading-relaxed">
-              La IA no inventa ni simplifica: extrae las temperaturas, tiempos de fuego, puntos de sal y secretos de sofrito exactos.
+            <p className="text-zinc-500 dark:text-zinc-400 leading-relaxed text-[11px]">
+              La IA extrae temperaturas exactas, tiempos de cocción, sofritos y técnicas de conservación.
             </p>
           </div>
 
-          <div className="bg-surface p-4 rounded-2xl border border-outline-variant/20 space-y-1.5">
-            <div className="font-bold text-emerald-700 flex items-center gap-1.5">
-              <span className="w-5 h-5 rounded-full bg-emerald-600 text-white flex items-center justify-center text-[10px]">3</span>
-              Ejecución Guiada en Directo
+          <div className="bg-zinc-50 dark:bg-zinc-800/40 p-3.5 rounded-2xl border border-zinc-200/80 dark:border-zinc-700/50 space-y-1">
+            <div className="font-bold text-emerald-600 dark:text-emerald-400 flex items-center gap-1.5">
+              <span className="w-4 h-4 rounded-full bg-emerald-600 text-white flex items-center justify-center text-[9px] font-black">3</span>
+              <span>Generación de Menú</span>
             </div>
-            <p className="text-on-surface-variant leading-relaxed">
-              Al cocinar o generar menús, la app te muestra la <strong>Técnica Detallada del Autor</strong> paso a paso con control por visión y voz.
+            <p className="text-zinc-500 dark:text-zinc-400 leading-relaxed text-[11px]">
+              Tus lotes semanales respetan tus ingredientes y estilos preferidos automáticamente.
             </p>
           </div>
         </div>
@@ -167,121 +231,123 @@ Dejar enfriar totalmente el guiso en baño de agua helada antes de embolsar. Ext
 
       {/* IMPORT MD TAB */}
       {activeTab === 'IMPORT_MD' && (
-        <div className="bg-surface rounded-3xl p-6 sm:p-8 border border-primary/20 shadow-md space-y-6 animate-fade-in">
-          <div className="space-y-2 border-b border-outline-variant/20 pb-4">
-            <h2 className="text-xl font-bold text-on-surface flex items-center gap-2">
-              <Upload className="text-primary" size={22} />
-              Importar Base de Datos desde Archivos Markdown (`.md`)
+        <div className="bg-white dark:bg-zinc-900 rounded-3xl p-6 border border-emerald-500/30 shadow-xs space-y-6 animate-fade-in">
+          <div className="space-y-1 border-b border-zinc-200 dark:border-zinc-800 pb-4">
+            <h2 className="text-base font-black text-zinc-900 dark:text-white flex items-center gap-2">
+              <Upload className="text-emerald-600 dark:text-emerald-400" size={20} />
+              <span>Importar Archivos Markdown (`.md`)</span>
             </h2>
-            <p className="text-xs sm:text-sm text-on-surface-variant leading-relaxed">
-              Puedes subir un archivo `.md` de tus cuadernos o pegar directamente el código Markdown de recetas o técnicas guardadas de tus canales de YouTube preferidos.
+            <p className="text-xs text-zinc-500 dark:text-zinc-400">
+              Sube un archivo `.md` de tus cuadernos o pega directamente el texto de recetas de tus canales preferidos.
             </p>
           </div>
 
           {importSuccessMsg && (
-            <div className="bg-emerald-50 text-emerald-800 border border-emerald-200 p-4 rounded-2xl flex items-center gap-3 text-xs font-bold animate-fade-in">
-              <Check className="text-emerald-600 shrink-0" size={20} />
-              {importSuccessMsg}
+            <div className="bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 border border-emerald-500/30 p-3.5 rounded-2xl flex items-center gap-2.5 text-xs font-bold animate-fade-in">
+              <Check className="text-emerald-600 shrink-0" size={18} />
+              <span>{importSuccessMsg}</span>
             </div>
           )}
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {/* File Upload Box */}
-            <div className="border-2 border-dashed border-primary/30 bg-primary-container/10 rounded-2xl p-6 flex flex-col items-center justify-center text-center space-y-3 hover:border-primary transition-colors">
-              <div className="w-12 h-12 rounded-full bg-primary/20 text-primary flex items-center justify-center">
-                <FileText size={24} />
+            <div className="border-2 border-dashed border-emerald-500/30 bg-emerald-500/5 rounded-2xl p-5 flex flex-col items-center justify-center text-center space-y-3 hover:border-emerald-500/60 transition-colors">
+              <div className="w-10 h-10 rounded-xl bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 flex items-center justify-center">
+                <FileText size={20} />
               </div>
               <div>
-                <h3 className="font-bold text-sm text-on-surface">Subir Archivo `.md` o `.txt`</h3>
-                <p className="text-xs text-on-surface-variant mt-1">Selecciona tu cuaderno o recetario exportado</p>
+                <h3 className="font-bold text-xs text-zinc-900 dark:text-white">Subir Archivo `.md` o `.txt`</h3>
+                <p className="text-[11px] text-zinc-500 dark:text-zinc-400 mt-0.5">Selecciona tu cuaderno exportado</p>
               </div>
-              <label className="bg-primary text-on-primary px-4 py-2.5 rounded-xl text-xs font-bold cursor-pointer hover:bg-primary/90 transition-colors shadow-xs">
-                Explorar Archivos
+              <label className="bg-emerald-600 hover:bg-emerald-500 text-white px-4 py-2 rounded-xl text-xs font-bold cursor-pointer transition-colors shadow-xs">
+                Explorar Archivo
                 <input type="file" accept=".md,.txt,.markdown" onChange={handleFileUpload} className="hidden" />
               </label>
             </div>
 
             {/* Quick Demo Pre-load Samples */}
-            <div className="bg-surface-container/60 rounded-2xl p-5 border border-outline-variant/30 space-y-3 flex flex-col justify-between">
+            <div className="bg-zinc-50 dark:bg-zinc-800/40 rounded-2xl p-4 border border-zinc-200 dark:border-zinc-700/60 space-y-2 flex flex-col justify-between">
               <div>
-                <h3 className="font-bold text-sm text-on-surface flex items-center gap-2">
-                  <Sparkles size={16} className="text-secondary" />
-                  Prueba Rápida: Cargar Ejemplos `.md`
+                <h3 className="font-bold text-xs text-zinc-900 dark:text-white flex items-center gap-1.5">
+                  <Sparkles size={14} className="text-emerald-500" />
+                  <span>Carga Rápida de Ejemplos `.md`</span>
                 </h3>
-                <p className="text-xs text-on-surface-variant mt-1 leading-relaxed">
-                  Carga archivos Markdown de demostración con 1 solo clic para verificar cómo la IA absorbe y aplica las recetas y técnicas en los menús.
+                <p className="text-[11px] text-zinc-500 dark:text-zinc-400 mt-0.5">
+                  Prueba importando recetarios pre-configurados para comprobar la absorción RAG.
                 </p>
               </div>
 
-              <div className="space-y-2 pt-2">
+              <div className="space-y-1.5 pt-2">
                 <button
                   onClick={handleLoadSampleMarkdown1}
-                  className="w-full bg-surface border border-outline-variant/40 hover:bg-surface-container-high text-on-surface text-xs py-2.5 px-3 rounded-xl font-bold text-left flex items-center justify-between"
+                  className="w-full bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-700 hover:border-emerald-500/50 text-zinc-800 dark:text-zinc-200 text-xs py-2 px-3 rounded-xl font-bold text-left flex items-center justify-between transition-colors"
                 >
-                  <span>📄 Cargar "Recetario_YouTube_Robin.md"</span>
-                  <Plus size={16} className="text-primary" />
+                  <span>📄 Recetario_YouTube_Fundamento.md</span>
+                  <Plus size={14} className="text-emerald-500" />
                 </button>
 
                 <button
                   onClick={handleLoadSampleMarkdown2}
-                  className="w-full bg-surface border border-outline-variant/40 hover:bg-surface-container-high text-on-surface text-xs py-2.5 px-3 rounded-xl font-bold text-left flex items-center justify-between"
+                  className="w-full bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-700 hover:border-emerald-500/50 text-zinc-800 dark:text-zinc-200 text-xs py-2 px-3 rounded-xl font-bold text-left flex items-center justify-between transition-colors"
                 >
-                  <span>📄 Cargar "Tecnicas_Batch_Cooking.md"</span>
-                  <Plus size={16} className="text-primary" />
+                  <span>📄 Tecnicas_Avanzadas_Batch.md</span>
+                  <Plus size={14} className="text-emerald-500" />
                 </button>
               </div>
             </div>
           </div>
 
           {/* Raw Text Paste Area */}
-          <div className="space-y-2 pt-2">
-            <label className="text-xs font-bold text-on-surface block">O pega el texto Markdown directamente aquí:</label>
+          <div className="space-y-2">
+            <label className="text-xs font-bold text-zinc-700 dark:text-zinc-300 block">
+              O pega texto en formato Markdown directamente:
+            </label>
             <textarea
               value={pastedMdText}
               onChange={(e) => setPastedMdText(e.target.value)}
-              placeholder="# Nombre de la Receta o Técnica&#10;Escribe aquí la preparación, sofritos, tiempo y consejos..."
-              rows={5}
-              className="w-full bg-surface-container border border-outline-variant/40 rounded-xl p-3.5 text-xs focus:outline-none focus:ring-2 focus:ring-primary/20 font-mono"
+              placeholder="# Nombre de la Receta o Técnica&#10;Escribe aquí los ingredientes, tiempo de cocción y recomendaciones..."
+              rows={4}
+              className="w-full bg-zinc-50 dark:bg-zinc-800/60 border border-zinc-200 dark:border-zinc-700 rounded-2xl p-3 text-xs focus:outline-none focus:ring-2 focus:ring-emerald-500/30 font-mono text-zinc-800 dark:text-zinc-200"
             />
             <button
               onClick={() => parseAndImportMarkdown(pastedMdText, 'Pegado Manual')}
               disabled={!pastedMdText.trim()}
-              className="bg-primary text-on-primary px-5 py-2.5 rounded-xl text-xs font-bold shadow-xs hover:bg-primary/90 transition-colors disabled:opacity-50"
+              className="bg-emerald-600 hover:bg-emerald-500 text-white px-4 py-2 rounded-xl text-xs font-bold shadow-xs transition-colors disabled:opacity-40 active:scale-95"
             >
-              Procesar e Importar Texto Markdown
+              Procesar e Importar
             </button>
           </div>
         </div>
       )}
 
-      {/* TABS CONTENT */}
+      {/* CHANNELS TAB */}
       {activeTab === 'CHANNELS' && (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 animate-fade-in">
           {channels.map((channel) => (
-            <div key={channel.id} className="bg-surface rounded-3xl p-6 border border-outline-variant/30 shadow-sm space-y-4 flex flex-col justify-between">
+            <div key={channel.id} className="bg-white dark:bg-zinc-900 rounded-3xl p-5 border border-zinc-200 dark:border-zinc-800 shadow-xs space-y-4 flex flex-col justify-between hover:border-emerald-500/40 transition-all">
               <div className="space-y-3">
-                <div className="flex items-center gap-4">
-                  <img src={channel.avatar} alt={channel.author} className="w-14 h-14 rounded-2xl object-cover shadow-sm shrink-0" />
+                <div className="flex items-center gap-3">
+                  <img src={channel.avatar} alt={channel.author} className="w-12 h-12 rounded-2xl object-cover shadow-xs shrink-0" />
                   <div>
-                    <h3 className="font-bold text-lg text-on-surface">{channel.name}</h3>
-                    <p className="text-xs font-semibold text-primary">{channel.style}</p>
+                    <h3 className="font-bold text-sm text-zinc-900 dark:text-white">{channel.name}</h3>
+                    <p className="text-xs font-bold text-emerald-600 dark:text-emerald-400">{channel.style}</p>
                   </div>
                 </div>
 
-                <p className="text-xs text-on-surface-variant leading-relaxed bg-surface-container/50 p-3 rounded-xl">
+                <p className="text-xs text-zinc-600 dark:text-zinc-400 leading-relaxed bg-zinc-50 dark:bg-zinc-800/40 p-3 rounded-2xl border border-zinc-200/60 dark:border-zinc-700/40 italic">
                   "{channel.philosophy}"
                 </p>
 
                 <div>
-                  <p className="text-xs font-bold text-on-surface mb-1.5 flex items-center gap-1.5">
-                    <ChefHat size={14} className="text-secondary" />
-                    Técnicas Clave Registradas:
+                  <p className="text-[11px] font-bold uppercase tracking-wider text-zinc-500 dark:text-zinc-400 mb-1.5 flex items-center gap-1.5">
+                    <ChefHat size={13} className="text-emerald-500" />
+                    <span>Técnicas Clave Registradas:</span>
                   </p>
                   <ul className="space-y-1">
                     {channel.keyTechniques.map((tech, idx) => (
-                      <li key={idx} className="text-xs text-on-surface-variant flex items-center gap-2">
-                        <span className="w-1.5 h-1.5 rounded-full bg-secondary shrink-0" />
-                        {tech}
+                      <li key={idx} className="text-xs text-zinc-700 dark:text-zinc-300 flex items-center gap-2">
+                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 shrink-0" />
+                        <span>{tech}</span>
                       </li>
                     ))}
                   </ul>
@@ -291,10 +357,10 @@ Dejar enfriar totalmente el guiso en baño de agua helada antes de embolsar. Ext
               {onSelectChannelForMenu && (
                 <button
                   onClick={() => onSelectChannelForMenu(channel.id)}
-                  className="w-full bg-primary/10 hover:bg-primary text-primary hover:text-on-primary py-2.5 rounded-xl text-xs font-bold transition-colors flex items-center justify-center gap-2"
+                  className="w-full bg-emerald-500/10 hover:bg-emerald-600 text-emerald-600 hover:text-white dark:text-emerald-400 py-2.5 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-2 active:scale-95"
                 >
                   <Sparkles size={14} />
-                  Usar para Generar Menú de Batch Cooking
+                  <span>Usar este Estilo para Generar Menú</span>
                 </button>
               )}
             </div>
@@ -302,117 +368,125 @@ Dejar enfriar totalmente el guiso en baño de agua helada antes de embolsar. Ext
         </div>
       )}
 
+      {/* NOTEBOOKS TAB */}
       {activeTab === 'NOTEBOOKS' && (
-        <div className="space-y-6">
-          {/* Notebooks Form Header */}
-          <div className="flex items-center justify-between">
-            <h3 className="font-bold text-lg text-on-surface">Apuntes y Cuadernos Registrados en la Base RAG</h3>
-            <div className="flex gap-2">
+        <div className="space-y-4 animate-fade-in">
+          <div className="flex flex-wrap items-center justify-between gap-3">
+            <h3 className="font-bold text-sm text-zinc-900 dark:text-white">
+              Cuadernos y Notas Guardadas ({notebooks.length})
+            </h3>
+            <div className="flex items-center gap-2">
               <button
                 onClick={() => setActiveTab('IMPORT_MD')}
-                className="bg-surface-container border border-outline-variant/40 hover:bg-surface-container-high text-on-surface px-3.5 py-2 rounded-xl text-xs font-bold flex items-center gap-1.5 transition-colors"
+                className="bg-zinc-100 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 text-zinc-700 dark:text-zinc-300 px-3 py-1.5 rounded-xl text-xs font-bold flex items-center gap-1.5 hover:bg-zinc-200 dark:hover:bg-zinc-700 transition-colors"
               >
                 <Upload size={14} />
-                Subir `.md`
+                <span>Importar `.md`</span>
               </button>
               <button
                 onClick={() => setShowAddForm(!showAddForm)}
-                className="bg-primary text-on-primary px-4 py-2 rounded-xl text-xs font-bold flex items-center gap-2 shadow-sm hover:bg-primary/90 transition-colors"
+                className="bg-emerald-600 hover:bg-emerald-500 text-white px-3.5 py-1.5 rounded-xl text-xs font-black flex items-center gap-1.5 shadow-xs transition-all active:scale-95"
               >
-                <Plus size={16} />
-                Nota Manual
+                <Plus size={14} />
+                <span>+ Nueva Nota</span>
               </button>
             </div>
           </div>
 
           {showAddForm && (
-            <form onSubmit={handleAddNotebook} className="bg-surface rounded-2xl p-5 border border-primary/20 shadow-md space-y-4 animate-fade-in">
-              <h4 className="font-bold text-sm text-primary">Añadir Nota a la Base RAG</h4>
+            <form onSubmit={handleAddNotebook} className="bg-white dark:bg-zinc-900 rounded-3xl p-5 border border-emerald-500/40 shadow-md space-y-3 animate-fade-in">
+              <h4 className="font-bold text-xs text-emerald-600 dark:text-emerald-400 uppercase tracking-wider">
+                Añadir Nueva Nota o Receta a la Base
+              </h4>
               <div>
-                <label className="text-xs font-bold text-on-surface block mb-1">Título de la Nota</label>
+                <label className="text-xs font-bold text-zinc-700 dark:text-zinc-300 block mb-1">Título</label>
                 <input
                   type="text"
                   value={newTitle}
                   onChange={(e) => setNewTitle(e.target.value)}
-                  placeholder="Ej: Secreto del sofrito vasco con pimiento choricero"
-                  className="w-full bg-surface-container border border-outline-variant/30 rounded-xl px-3.5 py-2 text-xs focus:outline-none focus:ring-2 focus:ring-primary/20"
+                  placeholder="Ej: Secreto del sofrito con pimiento choricero"
+                  className="w-full bg-zinc-50 dark:bg-zinc-800/60 border border-zinc-200 dark:border-zinc-700 rounded-xl px-3 py-2 text-xs focus:outline-none focus:ring-2 focus:ring-emerald-500/30 text-zinc-900 dark:text-white"
                   required
                 />
               </div>
 
               <div>
-                <label className="text-xs font-bold text-on-surface block mb-1">Instrucciones o Filosofía del Autor</label>
+                <label className="text-xs font-bold text-zinc-700 dark:text-zinc-300 block mb-1">Contenido / Instrucciones</label>
                 <textarea
                   value={newContent}
                   onChange={(e) => setNewContent(e.target.value)}
-                  placeholder="Escribe el truco o técnica que debe respetar la IA..."
+                  placeholder="Escribe los pasos, cantidades o técnicas..."
                   rows={3}
-                  className="w-full bg-surface-container border border-outline-variant/30 rounded-xl p-3.5 text-xs focus:outline-none focus:ring-2 focus:ring-primary/20"
+                  className="w-full bg-zinc-50 dark:bg-zinc-800/60 border border-zinc-200 dark:border-zinc-700 rounded-xl p-3 text-xs focus:outline-none focus:ring-2 focus:ring-emerald-500/30 text-zinc-900 dark:text-white"
                   required
                 />
               </div>
 
               <div>
-                <label className="text-xs font-bold text-on-surface block mb-1">Etiquetas (separadas por comas)</label>
+                <label className="text-xs font-bold text-zinc-700 dark:text-zinc-300 block mb-1">Etiquetas (separadas por comas)</label>
                 <input
                   type="text"
                   value={newTags}
                   onChange={(e) => setNewTags(e.target.value)}
-                  placeholder="Sofritos, Vacío, Robin Food"
-                  className="w-full bg-surface-container border border-outline-variant/30 rounded-xl px-3.5 py-2 text-xs focus:outline-none focus:ring-2 focus:ring-primary/20"
+                  placeholder="Sofritos, Vacío, Lentejas"
+                  className="w-full bg-zinc-50 dark:bg-zinc-800/60 border border-zinc-200 dark:border-zinc-700 rounded-xl px-3 py-2 text-xs focus:outline-none focus:ring-2 focus:ring-emerald-500/30 text-zinc-900 dark:text-white"
                 />
               </div>
 
-              <div className="flex justify-end gap-2">
+              <div className="flex justify-end gap-2 pt-1">
                 <button
                   type="button"
                   onClick={() => setShowAddForm(false)}
-                  className="px-4 py-2 rounded-xl text-xs font-bold text-on-surface-variant hover:bg-surface-container"
+                  className="px-3 py-1.5 rounded-xl text-xs font-bold text-zinc-500 hover:bg-zinc-100 dark:hover:bg-zinc-800"
                 >
                   Cancelar
                 </button>
                 <button
                   type="submit"
-                  className="bg-primary text-on-primary px-5 py-2 rounded-xl text-xs font-bold shadow-xs hover:bg-primary/90"
+                  className="bg-emerald-600 text-white px-4 py-1.5 rounded-xl text-xs font-bold shadow-xs hover:bg-emerald-500 active:scale-95"
                 >
-                  Guardar en RAG
+                  Guardar Nota
                 </button>
               </div>
             </form>
           )}
 
-          {/* Notebook list */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          {/* Notebooks Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-3.5">
             {notebooks.map((nb) => (
-              <div key={nb.id} className="bg-surface rounded-2xl p-5 border border-outline-variant/30 shadow-2xs space-y-3 flex flex-col justify-between hover:border-primary/30 transition-colors">
-                <div className="space-y-2">
+              <div key={nb.id} className="bg-white dark:bg-zinc-900 rounded-2xl p-4 border border-zinc-200 dark:border-zinc-800 shadow-xs space-y-3 flex flex-col justify-between hover:border-emerald-500/40 transition-all">
+                <div className="space-y-1.5">
                   <div className="flex items-start justify-between gap-2">
-                    <h4 className="font-bold text-sm text-on-surface leading-snug">{nb.title}</h4>
-                    <button onClick={() => handleDeleteNotebook(nb.id)} className="text-on-surface-variant hover:text-error shrink-0">
-                      <Trash2 size={16} />
+                    <h4 className="font-bold text-xs text-zinc-900 dark:text-white leading-snug">{nb.title}</h4>
+                    <button 
+                      onClick={() => handleDeleteNotebook(nb.id)} 
+                      className="text-zinc-400 hover:text-rose-500 transition-colors shrink-0 p-1"
+                      title="Eliminar"
+                    >
+                      <Trash2 size={14} />
                     </button>
                   </div>
-                  <p className="text-xs text-on-surface-variant leading-relaxed line-clamp-4">
+                  <p className="text-xs text-zinc-500 dark:text-zinc-400 leading-relaxed line-clamp-3">
                     "{nb.content}"
                   </p>
                 </div>
 
-                <div className="space-y-2 pt-2 border-t border-outline-variant/20">
+                <div className="space-y-2 pt-2 border-t border-zinc-100 dark:border-zinc-800">
                   <div className="flex flex-wrap gap-1">
                     {nb.tags.map((tag, idx) => (
-                      <span key={idx} className="bg-primary-container/20 text-primary text-[10px] font-bold px-2 py-0.5 rounded-md">
+                      <span key={idx} className="bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 text-[10px] font-bold px-2 py-0.5 rounded-md">
                         #{tag}
                       </span>
                     ))}
                   </div>
-                  <p className="text-[10px] text-on-surface-variant text-right">Actualizado: {nb.updatedAt}</p>
+                  <p className="text-[10px] text-zinc-400 text-right">Actualizado: {nb.updatedAt}</p>
                 </div>
               </div>
             ))}
           </div>
         </div>
       )}
+
     </div>
   );
 }
-

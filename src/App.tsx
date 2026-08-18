@@ -244,9 +244,7 @@ export default function App() {
   };
 
   const isLandingView = currentView.name === 'landing';
-  const shouldHideAppNav = isLandingView || 
-    currentView.name === 'recipe' || 
-    currentView.name === 'interactive-cook';
+  const shouldHideAppNav = isLandingView;
 
   return (
     <>
