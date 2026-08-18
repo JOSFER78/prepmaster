@@ -350,14 +350,14 @@ export function ProfileView({ onPeopleCountChange }: ProfileViewProps) {
           
           <div className="flex items-center gap-4">
             <div className="relative">
-              <div className="w-16 h-16 rounded-2xl bg-emerald-600 text-white flex items-center justify-center font-black text-xl shadow-md shrink-0 overflow-hidden">
+              <div className="w-16 h-16 rounded-2xl bg-[#E07A5F] text-white flex items-center justify-center font-black text-xl shadow-md shrink-0 overflow-hidden">
                 {user?.photoURL ? (
                   <img src={user.photoURL} alt={user.displayName || 'Avatar'} className="w-full h-full object-cover" />
                 ) : (
                   <ChefHat size={32} />
                 )}
               </div>
-              <span className="absolute -bottom-1 -right-1 w-5 h-5 rounded-full bg-emerald-500 border-2 border-white dark:border-zinc-900 flex items-center justify-center text-[10px] text-white">
+              <span className="absolute -bottom-1 -right-1 w-5 h-5 rounded-full bg-[#E07A5F] border-2 border-white dark:border-zinc-900 flex items-center justify-center text-[10px] text-white">
                 ✓
               </span>
             </div>
@@ -367,7 +367,7 @@ export function ProfileView({ onPeopleCountChange }: ProfileViewProps) {
                 <h1 className="text-xl font-black text-zinc-900 dark:text-white leading-tight">
                   Mi Hogar & Equipamiento de Cocina
                 </h1>
-                <span className="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 uppercase tracking-wider">
+                <span className="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-[#E07A5F]/10 text-[#E07A5F] dark:text-[#F4A261] border border-[#E07A5F]/20 uppercase tracking-wider">
                   Configuración del Hogar
                 </span>
               </div>
@@ -382,7 +382,7 @@ export function ProfileView({ onPeopleCountChange }: ProfileViewProps) {
             <button
               onClick={handleSaveProfile}
               disabled={saving}
-              className="bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-black px-5 py-2.5 rounded-xl shadow-sm transition-all flex items-center gap-2 active:scale-95 disabled:opacity-50 cursor-pointer"
+              className="btn-hero-copper text-white text-xs font-black px-5 py-2.5 rounded-xl shadow-sm transition-all flex items-center gap-2 active:scale-95 disabled:opacity-50 cursor-pointer"
             >
               {saving ? <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" /> : <Save size={15} />}
               <span>{saving ? 'Guardando...' : 'Guardar Cambios'}</span>
@@ -403,8 +403,8 @@ export function ProfileView({ onPeopleCountChange }: ProfileViewProps) {
 
         {/* TOAST FEEDBACK */}
         {savedToast && (
-          <div className="mt-4 p-3 bg-emerald-500/10 border border-emerald-500/30 rounded-2xl flex items-center gap-2 text-xs font-bold text-emerald-700 dark:text-emerald-300 animate-fade-in">
-            <CheckCircle2 size={16} className="text-emerald-500 shrink-0" />
+          <div className="mt-4 p-3 bg-[#E07A5F]/10 border border-[#E07A5F]/30 rounded-2xl flex items-center gap-2 text-xs font-bold text-zinc-800 dark:text-zinc-200 animate-fade-in">
+            <CheckCircle2 size={16} className="text-[#E07A5F] shrink-0" />
             <span>Perfil familiar y equipamiento de cocina guardados con éxito en Firestore.</span>
           </div>
         )}
@@ -416,7 +416,7 @@ export function ProfileView({ onPeopleCountChange }: ProfileViewProps) {
           onClick={() => setActiveTab('kitchen')}
           className={`flex-1 min-w-[140px] py-2.5 px-3 text-center text-xs font-bold rounded-xl transition-all flex items-center justify-center gap-2 ${
             activeTab === 'kitchen'
-              ? 'bg-emerald-600 text-white shadow-xs'
+              ? 'bg-[#E07A5F] text-white shadow-xs'
               : 'text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white'
           }`}
         >
@@ -428,7 +428,7 @@ export function ProfileView({ onPeopleCountChange }: ProfileViewProps) {
           onClick={() => setActiveTab('household')}
           className={`flex-1 min-w-[140px] py-2.5 px-3 text-center text-xs font-bold rounded-xl transition-all flex items-center justify-center gap-2 ${
             activeTab === 'household'
-              ? 'bg-emerald-600 text-white shadow-xs'
+              ? 'bg-[#E07A5F] text-white shadow-xs'
               : 'text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white'
           }`}
         >
@@ -440,7 +440,7 @@ export function ProfileView({ onPeopleCountChange }: ProfileViewProps) {
           onClick={() => setActiveTab('shopping')}
           className={`flex-1 min-w-[140px] py-2.5 px-3 text-center text-xs font-bold rounded-xl transition-all flex items-center justify-center gap-2 ${
             activeTab === 'shopping'
-              ? 'bg-emerald-600 text-white shadow-xs'
+              ? 'bg-[#E07A5F] text-white shadow-xs'
               : 'text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white'
           }`}
         >
@@ -464,7 +464,7 @@ export function ProfileView({ onPeopleCountChange }: ProfileViewProps) {
                     onClick={() => setBurnersCount(num)}
                     className={`w-7 h-7 rounded-lg text-xs font-black transition-all ${
                       burnersCount === num 
-                        ? 'bg-emerald-600 text-white shadow-xs' 
+                        ? 'bg-[#E07A5F] text-white shadow-xs' 
                         : 'bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 hover:bg-zinc-200'
                     }`}
                   >
@@ -497,7 +497,7 @@ export function ProfileView({ onPeopleCountChange }: ProfileViewProps) {
                     onClick={() => setFreezerDrawers(num)}
                     className={`w-7 h-7 rounded-lg text-xs font-black transition-all ${
                       freezerDrawers === num 
-                        ? 'bg-emerald-600 text-white shadow-xs' 
+                        ? 'bg-[#E07A5F] text-white shadow-xs' 
                         : 'bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 hover:bg-zinc-200'
                     }`}
                   >
@@ -524,8 +524,8 @@ export function ProfileView({ onPeopleCountChange }: ProfileViewProps) {
           </div>
 
           {/* Explanation Callout */}
-          <div className="p-4 bg-emerald-500/10 border border-emerald-500/20 rounded-2xl flex items-start gap-3 text-xs text-emerald-800 dark:text-emerald-300">
-            <Sparkles size={18} className="text-emerald-500 shrink-0 mt-0.5" />
+          <div className="p-4 bg-[#E07A5F]/10 border border-[#E07A5F]/20 rounded-2xl flex items-start gap-3 text-xs text-zinc-800 dark:text-zinc-200">
+            <Sparkles size={18} className="text-[#E07A5F] shrink-0 mt-0.5" />
             <p className="leading-relaxed">
               <strong>Optimización del Algoritmo Batch:</strong> La IA cruzará este perfil con tus menús para calcular la distribución exacta de fuegos simultáneos. Si desactivas un equipo (ej. olla exprés o robot), el planificador nunca te pedirá recetas que lo requieran.
             </p>
@@ -550,7 +550,7 @@ export function ProfileView({ onPeopleCountChange }: ProfileViewProps) {
                       className="w-full h-full object-cover" 
                     />
                     {item.available && (
-                      <span className="absolute top-1 right-1 w-4 h-4 rounded-full bg-emerald-500 text-white flex items-center justify-center text-[9px] font-black shadow-xs">
+                      <span className="absolute top-1 right-1 w-4 h-4 rounded-full bg-[#E07A5F] text-white flex items-center justify-center text-[9px] font-black shadow-xs">
                         ✓
                       </span>
                     )}
@@ -566,7 +566,7 @@ export function ProfileView({ onPeopleCountChange }: ProfileViewProps) {
                       {item.description}
                     </p>
                     {item.countOrCapacity && (
-                      <span className="inline-block text-[10px] font-bold text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded-md mt-1.5">
+                      <span className="inline-block text-[10px] font-bold text-[#E07A5F] dark:text-[#F4A261] bg-[#E07A5F]/10 px-2 py-0.5 rounded-md mt-1.5">
                         {item.countOrCapacity}
                       </span>
                     )}
@@ -580,14 +580,14 @@ export function ProfileView({ onPeopleCountChange }: ProfileViewProps) {
                     value={item.brandOrNotes || ''}
                     onChange={(e) => handleUpdateEquipmentNotes(item.id, e.target.value)}
                     placeholder="Modelo / Marca (ej. Cosori 5.5L)"
-                    className="flex-1 bg-zinc-50 dark:bg-zinc-800/60 border border-zinc-200 dark:border-zinc-700 rounded-xl px-2.5 py-1.5 text-xs text-zinc-900 dark:text-white outline-none focus:border-emerald-500"
+                    className="flex-1 bg-zinc-50 dark:bg-zinc-800/60 border border-zinc-200 dark:border-zinc-700 rounded-xl px-2.5 py-1.5 text-xs text-zinc-900 dark:text-white outline-none focus:border-[#E07A5F]"
                   />
 
                   <button
                     onClick={() => handleToggleEquipment(item.id)}
                     className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all shrink-0 active:scale-95 cursor-pointer ${
                       item.available 
-                        ? 'bg-emerald-600 text-white shadow-xs' 
+                        ? 'bg-[#E07A5F] text-white shadow-xs' 
                         : 'bg-zinc-200 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400'
                     }`}
                   >
@@ -610,7 +610,7 @@ export function ProfileView({ onPeopleCountChange }: ProfileViewProps) {
           <div className="bg-white dark:bg-zinc-900 rounded-3xl border border-zinc-200 dark:border-zinc-800 p-6 shadow-xs space-y-5">
             <div>
               <h3 className="text-sm font-black text-zinc-900 dark:text-white flex items-center gap-2">
-                <Users className="text-emerald-500" size={18} />
+                <Users className="text-[#E07A5F]" size={18} />
                 <span>Composición del Hogar</span>
               </h3>
               <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-0.5">
@@ -649,9 +649,9 @@ export function ProfileView({ onPeopleCountChange }: ProfileViewProps) {
                 </div>
               </div>
 
-              <div className="p-4 bg-emerald-500/10 rounded-2xl border border-emerald-500/30 text-center flex flex-col justify-center">
-                <span className="text-xs font-bold text-emerald-800 dark:text-emerald-300 block">Total Comensales</span>
-                <span className="text-2xl font-black text-emerald-600 dark:text-emerald-400 mt-1">
+              <div className="p-4 bg-[#E07A5F]/10 rounded-2xl border border-[#E07A5F]/30 text-center flex flex-col justify-center">
+                <span className="text-xs font-bold text-zinc-800 dark:text-zinc-200 block">Total Comensales</span>
+                <span className="text-2xl font-black text-[#E07A5F] dark:text-[#F4A261] mt-1">
                   {adultsCount + kidsCount} personas
                 </span>
               </div>
@@ -662,7 +662,7 @@ export function ProfileView({ onPeopleCountChange }: ProfileViewProps) {
           <div className="bg-white dark:bg-zinc-900 rounded-3xl border border-zinc-200 dark:border-zinc-800 p-6 shadow-xs space-y-4">
             <div>
               <h3 className="text-sm font-black text-zinc-900 dark:text-white flex items-center gap-2">
-                <Heart className="text-emerald-500" size={18} />
+                <Heart className="text-[#E07A5F]" size={18} />
                 <span>Estilo Dietético & Preferencias</span>
               </h3>
               <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-0.5">
@@ -679,7 +679,7 @@ export function ProfileView({ onPeopleCountChange }: ProfileViewProps) {
                     onClick={() => toggleDiet(diet)}
                     className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 active:scale-95 cursor-pointer ${
                       isSelected
-                        ? 'bg-emerald-600 text-white shadow-xs'
+                        ? 'bg-[#E07A5F] text-white shadow-xs'
                         : 'bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 hover:bg-zinc-200 dark:hover:bg-zinc-700'
                     }`}
                   >
@@ -696,11 +696,11 @@ export function ProfileView({ onPeopleCountChange }: ProfileViewProps) {
                 value={customDiet}
                 onChange={(e) => setCustomDiet(e.target.value)}
                 placeholder="Añadir otra preferencia (ej: Sin picante, Alto en fibra)..."
-                className="flex-1 bg-zinc-50 dark:bg-zinc-800/60 border border-zinc-200 dark:border-zinc-700 rounded-xl px-3.5 py-2 text-xs text-zinc-900 dark:text-white outline-none focus:border-emerald-500"
+                className="flex-1 bg-zinc-50 dark:bg-zinc-800/60 border border-zinc-200 dark:border-zinc-700 rounded-xl px-3.5 py-2 text-xs text-zinc-900 dark:text-white outline-none focus:border-[#E07A5F]"
               />
               <button
                 type="submit"
-                className="bg-zinc-200 dark:bg-zinc-700 hover:bg-emerald-600 hover:text-white text-zinc-800 dark:text-zinc-200 text-xs font-bold px-4 py-2 rounded-xl transition-colors"
+                className="bg-zinc-200 dark:bg-zinc-700 hover:bg-[#E07A5F] hover:text-white text-zinc-800 dark:text-zinc-200 text-xs font-bold px-4 py-2 rounded-xl transition-colors"
               >
                 Añadir
               </button>
@@ -750,7 +750,7 @@ export function ProfileView({ onPeopleCountChange }: ProfileViewProps) {
           <div className="bg-white dark:bg-zinc-900 rounded-3xl border border-zinc-200 dark:border-zinc-800 p-6 shadow-xs space-y-5">
             <div>
               <h3 className="text-sm font-black text-zinc-900 dark:text-white flex items-center gap-2">
-                <Calendar className="text-emerald-500" size={18} />
+                <Calendar className="text-[#E07A5F]" size={18} />
                 <span>Rutinas Semanales de Batch Cooking</span>
               </h3>
               <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-0.5">
@@ -798,7 +798,7 @@ export function ProfileView({ onPeopleCountChange }: ProfileViewProps) {
           <div className="bg-white dark:bg-zinc-900 rounded-3xl border border-zinc-200 dark:border-zinc-800 p-6 shadow-xs space-y-4">
             <div>
               <h3 className="text-sm font-black text-zinc-900 dark:text-white flex items-center gap-2">
-                <ShoppingBag className="text-emerald-500" size={18} />
+                <ShoppingBag className="text-[#E07A5F]" size={18} />
                 <span>Supermercados & Mercados Preferidos</span>
               </h3>
               <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-0.5">
@@ -815,12 +815,12 @@ export function ProfileView({ onPeopleCountChange }: ProfileViewProps) {
                     onClick={() => toggleSupermarket(store)}
                     className={`p-3 rounded-2xl border text-xs font-bold transition-all text-center flex flex-col items-center justify-center gap-1 active:scale-95 cursor-pointer ${
                       isSelected
-                        ? 'bg-emerald-500/10 border-emerald-500 text-emerald-600 dark:text-emerald-400 shadow-2xs'
+                        ? 'bg-[#E07A5F]/10 border-[#E07A5F] text-[#E07A5F] dark:text-[#F4A261] shadow-2xs'
                         : 'bg-zinc-50 dark:bg-zinc-800/40 border-zinc-200 dark:border-zinc-700/60 text-zinc-700 dark:text-zinc-300 hover:border-zinc-300'
                     }`}
                   >
                     <span>{store}</span>
-                    {isSelected && <span className="text-[10px] text-emerald-500">✓ Preferido</span>}
+                    {isSelected && <span className="text-[10px] text-[#E07A5F]">✓ Preferido</span>}
                   </button>
                 );
               })}

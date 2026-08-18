@@ -61,7 +61,7 @@ export function RecipeView({ onNavigate }: { onNavigate: (view: ViewState) => vo
             className="p-2 rounded-xl bg-zinc-100 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-all active:scale-95"
             title="Compartir Receta"
           >
-            {copied ? <CheckCircle2 size={18} className="text-emerald-500" /> : <Share2 size={18} />}
+            {copied ? <CheckCircle2 size={18} className="text-[#E07A5F]" /> : <Share2 size={18} />}
           </button>
         </div>
       </div>
@@ -78,7 +78,7 @@ export function RecipeView({ onNavigate }: { onNavigate: (view: ViewState) => vo
           <div>
             <div className="flex flex-wrap gap-2 mb-2">
               {detailedRecipe.tags?.map(tag => (
-                <span key={tag} className="bg-emerald-600 text-white text-[11px] font-bold px-2.5 py-1 rounded-full shadow-xs">
+                <span key={tag} className="bg-[#E07A5F] text-white text-[11px] font-bold px-2.5 py-1 rounded-full shadow-xs">
                   {tag}
                 </span>
               ))}
@@ -93,17 +93,17 @@ export function RecipeView({ onNavigate }: { onNavigate: (view: ViewState) => vo
       {/* Meta Stats Grid */}
       <div className="grid grid-cols-3 gap-3">
         <div className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-2xl p-3.5 flex flex-col items-center justify-center text-center shadow-xs">
-          <Clock className="text-emerald-500 mb-1" size={20} />
+          <Clock className="text-[#E07A5F] mb-1" size={20} />
           <span className="text-[10px] text-zinc-500 dark:text-zinc-400 uppercase tracking-wider font-bold">Tiempo Prep</span>
           <span className="text-base font-black text-zinc-900 dark:text-white">{detailedRecipe.time}</span>
         </div>
         <div className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-2xl p-3.5 flex flex-col items-center justify-center text-center shadow-xs">
-          <Utensils className="text-emerald-500 mb-1" size={20} />
+          <Utensils className="text-[#E07A5F] mb-1" size={20} />
           <span className="text-[10px] text-zinc-500 dark:text-zinc-400 uppercase tracking-wider font-bold">Raciones</span>
           <span className="text-base font-black text-zinc-900 dark:text-white">{detailedRecipe.servings} porciones</span>
         </div>
         <div className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-2xl p-3.5 flex flex-col items-center justify-center text-center shadow-xs">
-          <Flame className="text-emerald-500 mb-1" size={20} />
+          <Flame className="text-[#E07A5F] mb-1" size={20} />
           <span className="text-[10px] text-zinc-500 dark:text-zinc-400 uppercase tracking-wider font-bold">Calorías</span>
           <span className="text-base font-black text-zinc-900 dark:text-white">{detailedRecipe.calories || '~450'} kcal</span>
         </div>
@@ -122,7 +122,7 @@ export function RecipeView({ onNavigate }: { onNavigate: (view: ViewState) => vo
           onClick={() => setActiveTab('ingredientes')}
           className={`flex-1 py-2.5 text-center text-xs font-bold rounded-xl transition-all ${
             activeTab === 'ingredientes' 
-              ? 'bg-emerald-600 text-white shadow-xs' 
+              ? 'bg-[#E07A5F] text-white shadow-xs' 
               : 'text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white'
           }`}
         >
@@ -132,7 +132,7 @@ export function RecipeView({ onNavigate }: { onNavigate: (view: ViewState) => vo
           onClick={() => setActiveTab('pasos')}
           className={`flex-1 py-2.5 text-center text-xs font-bold rounded-xl transition-all ${
             activeTab === 'pasos' 
-              ? 'bg-emerald-600 text-white shadow-xs' 
+              ? 'bg-[#E07A5F] text-white shadow-xs' 
               : 'text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white'
           }`}
         >
@@ -142,7 +142,7 @@ export function RecipeView({ onNavigate }: { onNavigate: (view: ViewState) => vo
           onClick={() => setActiveTab('batch')}
           className={`flex-1 py-2.5 text-center text-xs font-bold rounded-xl transition-all ${
             activeTab === 'batch' 
-              ? 'bg-emerald-600 text-white shadow-xs' 
+              ? 'bg-[#E07A5F] text-white shadow-xs' 
               : 'text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white'
           }`}
         >
@@ -168,7 +168,7 @@ export function RecipeView({ onNavigate }: { onNavigate: (view: ViewState) => vo
         </button>
         <button 
           onClick={() => onNavigate({ name: 'interactive-cook', dishName: detailedRecipe.title })}
-          className="w-full sm:w-auto px-6 py-3 rounded-2xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-black shadow-lg shadow-emerald-500/20 transition-all flex items-center justify-center gap-2 active:scale-95"
+          className="w-full sm:w-auto px-6 py-3 rounded-2xl btn-hero-copper text-xs font-black shadow-md transition-all flex items-center justify-center gap-2 active:scale-95"
         >
           <Play size={16} className="fill-current" /> 
           <span>Cocinar este Plato</span>
@@ -183,7 +183,7 @@ function IngredientsTab() {
   return (
     <div className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-3xl p-5 shadow-xs space-y-5 animate-fade-in">
       <div>
-        <h3 className="text-xs font-bold uppercase tracking-wider text-emerald-600 dark:text-emerald-400 mb-3">
+        <h3 className="text-xs font-bold uppercase tracking-wider text-[#E07A5F] dark:text-[#F4A261] mb-3">
           Vegetales & Frescos
         </h3>
         <ul className="space-y-2">
@@ -194,7 +194,7 @@ function IngredientsTab() {
       </div>
 
       <div>
-        <h3 className="text-xs font-bold uppercase tracking-wider text-emerald-600 dark:text-emerald-400 mb-3">
+        <h3 className="text-xs font-bold uppercase tracking-wider text-[#E07A5F] dark:text-[#F4A261] mb-3">
           Despensa & Granos
         </h3>
         <ul className="space-y-2">
@@ -214,14 +214,14 @@ function IngredientItem({ label, amount }: { label: string, amount: string }) {
       onClick={() => setChecked(!checked)}
       className={`flex items-center justify-between p-3 rounded-xl border transition-all cursor-pointer select-none ${
         checked 
-          ? 'bg-emerald-500/5 border-emerald-500/30 text-zinc-400 line-through' 
-          : 'bg-zinc-50 dark:bg-zinc-800/50 border-zinc-200 dark:border-zinc-700/60 text-zinc-800 dark:text-zinc-200 hover:border-emerald-500/40'
+          ? 'bg-[#E07A5F]/5 border-[#E07A5F]/30 text-zinc-400 line-through' 
+          : 'bg-zinc-50 dark:bg-zinc-800/50 border-zinc-200 dark:border-zinc-700/60 text-zinc-800 dark:text-zinc-200 hover:border-[#E07A5F]/40'
       }`}
     >
       <div className="flex items-center gap-3">
         <div className={`w-5 h-5 rounded-md border flex items-center justify-center text-xs transition-colors ${
           checked 
-            ? 'bg-emerald-600 border-emerald-600 text-white' 
+            ? 'bg-[#E07A5F] border-[#E07A5F] text-white' 
             : 'border-zinc-300 dark:border-zinc-600 bg-white dark:bg-zinc-900'
         }`}>
           {checked && '✓'}
@@ -237,7 +237,7 @@ function StepsTab() {
   return (
     <div className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-3xl p-5 shadow-xs space-y-4 animate-fade-in">
       <div className="p-4 bg-zinc-50 dark:bg-zinc-800/40 rounded-2xl border border-zinc-200 dark:border-zinc-700/60 flex items-start gap-3.5">
-        <div className="w-7 h-7 rounded-xl bg-emerald-600 text-white flex items-center justify-center font-black text-xs shrink-0 mt-0.5">
+        <div className="w-7 h-7 rounded-xl bg-[#E07A5F] text-white flex items-center justify-center font-black text-xs shrink-0 mt-0.5">
           1
         </div>
         <div>
@@ -251,7 +251,7 @@ function StepsTab() {
       </div>
 
       <div className="p-4 bg-zinc-50 dark:bg-zinc-800/40 rounded-2xl border border-zinc-200 dark:border-zinc-700/60 flex items-start gap-3.5">
-        <div className="w-7 h-7 rounded-xl bg-emerald-600 text-white flex items-center justify-center font-black text-xs shrink-0 mt-0.5">
+        <div className="w-7 h-7 rounded-xl bg-[#E07A5F] text-white flex items-center justify-center font-black text-xs shrink-0 mt-0.5">
           2
         </div>
         <div>
@@ -265,7 +265,7 @@ function StepsTab() {
       </div>
 
       <div className="p-4 bg-zinc-50 dark:bg-zinc-800/40 rounded-2xl border border-zinc-200 dark:border-zinc-700/60 flex items-start gap-3.5">
-        <div className="w-7 h-7 rounded-xl bg-emerald-600 text-white flex items-center justify-center font-black text-xs shrink-0 mt-0.5">
+        <div className="w-7 h-7 rounded-xl bg-[#E07A5F] text-white flex items-center justify-center font-black text-xs shrink-0 mt-0.5">
           3
         </div>
         <div>
@@ -284,13 +284,13 @@ function StepsTab() {
 function BatchCookingTab() {
   return (
     <div className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-3xl p-5 shadow-xs space-y-4 animate-fade-in">
-      <div className="p-4 bg-emerald-500/10 border border-emerald-500/30 rounded-2xl flex items-start gap-3.5">
-        <Clock size={20} className="text-emerald-600 dark:text-emerald-400 shrink-0 mt-0.5" />
+      <div className="p-4 bg-[#E07A5F]/10 border border-[#E07A5F]/30 rounded-2xl flex items-start gap-3.5">
+        <Clock size={20} className="text-[#E07A5F] dark:text-[#F4A261] shrink-0 mt-0.5" />
         <div>
-          <h4 className="text-xs font-bold text-emerald-800 dark:text-emerald-300 mb-1">
+          <h4 className="text-xs font-bold text-zinc-900 dark:text-white mb-1">
             Regla de Conservación 3 + 4 Días
           </h4>
-          <p className="text-xs text-emerald-700 dark:text-emerald-400/90 leading-relaxed">
+          <p className="text-xs text-zinc-700 dark:text-zinc-300 leading-relaxed">
             Días 1 a 3: Conservar en refrigerador a 4°C. Días 4 a 7: Congelar el mismo día del cocinado para preservar textura y nutrientes.
           </p>
         </div>
@@ -298,7 +298,7 @@ function BatchCookingTab() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
         <div className="p-3.5 bg-zinc-50 dark:bg-zinc-800/40 rounded-2xl border border-zinc-200 dark:border-zinc-700/60 space-y-1.5">
-          <div className="flex items-center gap-2 text-emerald-600 dark:text-emerald-400 font-bold text-xs">
+          <div className="flex items-center gap-2 text-[#E07A5F] dark:text-[#F4A261] font-bold text-xs">
             <Refrigerator size={16} />
             <span>Nevera Óptima</span>
           </div>
@@ -308,7 +308,7 @@ function BatchCookingTab() {
         </div>
 
         <div className="p-3.5 bg-zinc-50 dark:bg-zinc-800/40 rounded-2xl border border-zinc-200 dark:border-zinc-700/60 space-y-1.5">
-          <div className="flex items-center gap-2 text-emerald-600 dark:text-emerald-400 font-bold text-xs">
+          <div className="flex items-center gap-2 text-[#E07A5F] dark:text-[#F4A261] font-bold text-xs">
             <Wind size={16} />
             <span>Regeneración</span>
           </div>

@@ -122,7 +122,7 @@ export function ShoppingListView({
   if (!activeProject) {
     return (
       <div className="bg-white dark:bg-zinc-900 rounded-3xl p-8 border border-zinc-200 dark:border-zinc-800 text-center space-y-4 max-w-lg mx-auto my-8">
-        <div className="w-12 h-12 rounded-2xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center mx-auto">
+        <div className="w-12 h-12 rounded-2xl bg-[#E07A5F]/10 text-[#E07A5F] dark:text-[#F4A261] flex items-center justify-center mx-auto">
           <ShoppingBag size={24} />
         </div>
         <div>
@@ -132,7 +132,7 @@ export function ShoppingListView({
         {onNavigateToGenerator && (
           <button
             onClick={onNavigateToGenerator}
-            className="bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs px-5 py-3 rounded-2xl shadow-xs transition-all flex items-center justify-center gap-2 mx-auto"
+            className="btn-hero-copper text-white font-bold text-xs px-5 py-3 rounded-2xl shadow-xs transition-all flex items-center justify-center gap-2 mx-auto"
           >
             <Sparkles size={14} />
             <span>Generar Lote con IA</span>
@@ -150,12 +150,12 @@ export function ShoppingListView({
         
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div className="flex items-center gap-3.5">
-            <div className="w-11 h-11 rounded-2xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center font-bold border border-emerald-500/20 shrink-0">
+            <div className="w-11 h-11 rounded-2xl bg-[#E07A5F]/10 text-[#E07A5F] dark:text-[#F4A261] flex items-center justify-center font-bold border border-[#E07A5F]/20 shrink-0">
               <ShoppingBag size={22} />
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <span className="text-[10px] font-bold bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 px-2 py-0.5 rounded uppercase">
+                <span className="text-[10px] font-bold bg-[#E07A5F]/10 text-[#E07A5F] dark:text-[#F4A261] px-2 py-0.5 rounded uppercase">
                   Lista de Compra Optimizada
                 </span>
                 <span className="text-xs text-zinc-500 font-medium">
@@ -228,20 +228,20 @@ export function ShoppingListView({
 
       {/* BANNER 100% COMPLETADO */}
       {progressPercent === 100 && totalItems > 0 && (
-        <div className="p-4 bg-emerald-950/30 border border-emerald-500/40 rounded-3xl flex flex-col sm:flex-row items-center justify-between gap-4 animate-fade-in shadow-xs">
+        <div className="p-4 bg-[#E07A5F]/15 border border-[#E07A5F]/40 rounded-3xl flex flex-col sm:flex-row items-center justify-between gap-4 animate-fade-in shadow-xs">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-2xl bg-emerald-500 text-zinc-950 flex items-center justify-center font-bold shrink-0">
+            <div className="w-10 h-10 rounded-2xl bg-[#E07A5F] text-white flex items-center justify-center font-bold shrink-0">
               <CheckCircle2 size={22} />
             </div>
             <div>
               <h3 className="text-sm font-bold text-white">¡Todos los ingredientes están listos!</h3>
-              <p className="text-xs text-emerald-300/80">Has completado la compra. Es el momento perfecto para encender los fogones.</p>
+              <p className="text-xs text-zinc-300">Has completado la compra. Es el momento perfecto para encender los fogones.</p>
             </div>
           </div>
 
           <button
             onClick={onAdvanceToCooking}
-            className="w-full sm:w-auto px-5 py-2.5 bg-emerald-500 hover:bg-emerald-400 text-zinc-950 font-black text-xs rounded-xl shadow-sm transition-all flex items-center justify-center gap-1.5 active:scale-95 shrink-0"
+            className="w-full sm:w-auto px-5 py-2.5 btn-hero-copper text-white font-black text-xs rounded-xl shadow-sm transition-all flex items-center justify-center gap-1.5 active:scale-95 shrink-0"
           >
             <ChefHat size={15} />
             <span>Iniciar Cocinado Simultáneo</span>
@@ -313,8 +313,8 @@ export function ShoppingListView({
                     <div className="flex items-center gap-3 min-w-0">
                       <div className={`w-5 h-5 rounded-lg border flex items-center justify-center transition-all ${
                         item.isBought 
-                          ? 'bg-emerald-500 border-emerald-500 text-white' 
-                          : 'border-zinc-300 dark:border-zinc-700 group-hover:border-emerald-500'
+                          ? 'bg-[#E07A5F] border-[#E07A5F] text-white' 
+                          : 'border-zinc-300 dark:border-zinc-700 group-hover:border-[#E07A5F]'
                       }`}>
                         {item.isBought && <Check size={12} strokeWidth={3} />}
                       </div>
@@ -329,7 +329,7 @@ export function ShoppingListView({
                         </span>
 
                         {item.isFromPantryDeduction && (
-                          <span className="text-[10px] text-emerald-600 dark:text-emerald-400 font-semibold flex items-center gap-1 mt-0.5">
+                          <span className="text-[10px] text-[#E07A5F] dark:text-[#F4A261] font-semibold flex items-center gap-1 mt-0.5">
                             <Refrigerator size={10} /> Descontado {item.inPantryQty} {item.unit} de tu despensa
                           </span>
                         )}

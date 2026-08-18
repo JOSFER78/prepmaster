@@ -234,7 +234,7 @@ export function AuthModal({ isOpen, onClose, initialMode = 'login', onSuccess }:
               onClick={() => { setMode('login'); setError(null); setIsDomainError(false); }}
               className={`flex-1 py-1.5 text-xs font-bold rounded-lg transition-all ${
                 mode === 'login' 
-                  ? 'bg-white dark:bg-zinc-900 text-emerald-600 dark:text-emerald-400 shadow-xs' 
+                  ? 'bg-white dark:bg-zinc-900 text-[#E07A5F] dark:text-[#F4A261] shadow-xs' 
                   : 'text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white'
               }`}
             >
@@ -245,7 +245,7 @@ export function AuthModal({ isOpen, onClose, initialMode = 'login', onSuccess }:
               onClick={() => { setMode('register'); setError(null); setIsDomainError(false); }}
               className={`flex-1 py-1.5 text-xs font-bold rounded-lg transition-all ${
                 mode === 'register' 
-                  ? 'bg-white dark:bg-zinc-900 text-emerald-600 dark:text-emerald-400 shadow-xs' 
+                  ? 'bg-white dark:bg-zinc-900 text-[#E07A5F] dark:text-[#F4A261] shadow-xs' 
                   : 'text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white'
               }`}
             >
@@ -271,7 +271,7 @@ export function AuthModal({ isOpen, onClose, initialMode = 'login', onSuccess }:
                   href="https://console.firebase.google.com/project/gen-lang-client-0115864240/authentication/settings"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1 text-emerald-600 dark:text-emerald-400 font-bold hover:underline"
+                  className="inline-flex items-center gap-1 text-[#E07A5F] dark:text-[#F4A261] font-bold hover:underline"
                 >
                   <span>Abrir Ajustes de Firebase</span>
                   <ExternalLink size={12} />
@@ -282,8 +282,8 @@ export function AuthModal({ isOpen, onClose, initialMode = 'login', onSuccess }:
         )}
 
         {resetSuccess && (
-          <div className="p-3 bg-emerald-500/10 border border-emerald-500/20 text-emerald-700 dark:text-emerald-400 rounded-xl text-xs font-medium flex items-center gap-2">
-            <CheckCircle2 size={16} className="shrink-0 text-emerald-600 dark:text-emerald-400" />
+          <div className="p-3 bg-[#E07A5F]/10 border border-[#E07A5F]/20 text-[#E07A5F] dark:text-[#F4A261] rounded-xl text-xs font-medium flex items-center gap-2">
+            <CheckCircle2 size={16} className="shrink-0 text-[#E07A5F] dark:text-[#F4A261]" />
             <span>Te hemos enviado un enlace para restablecer tu contraseña. Revisa tu correo.</span>
           </div>
         )}
@@ -301,7 +301,7 @@ export function AuthModal({ isOpen, onClose, initialMode = 'login', onSuccess }:
                   placeholder="Tu nombre"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  className="w-full bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 rounded-xl pl-9 pr-3 py-2 text-xs text-zinc-900 dark:text-white focus:outline-none focus:border-emerald-500 transition-colors"
+                  className="w-full bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 rounded-xl pl-9 pr-3 py-2 text-xs text-zinc-900 dark:text-white focus:outline-none focus:border-[#E07A5F] transition-colors"
                 />
               </div>
             </div>
@@ -317,7 +317,7 @@ export function AuthModal({ isOpen, onClose, initialMode = 'login', onSuccess }:
                 placeholder="ejemplo@correo.com"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 rounded-xl pl-9 pr-3 py-2 text-xs text-zinc-900 dark:text-white focus:outline-none focus:border-emerald-500 transition-colors"
+                className="w-full bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 rounded-xl pl-9 pr-3 py-2 text-xs text-zinc-900 dark:text-white focus:outline-none focus:border-[#E07A5F] transition-colors"
               />
             </div>
           </div>
@@ -330,7 +330,7 @@ export function AuthModal({ isOpen, onClose, initialMode = 'login', onSuccess }:
                   <button
                     type="button"
                     onClick={() => { setMode('forgot'); setError(null); setIsDomainError(false); }}
-                    className="text-[11px] font-bold text-emerald-600 dark:text-emerald-400 hover:underline"
+                    className="text-[11px] font-bold text-[#E07A5F] dark:text-[#F4A261] hover:underline"
                   >
                     ¿Olvidaste tu contraseña?
                   </button>
@@ -344,7 +344,7 @@ export function AuthModal({ isOpen, onClose, initialMode = 'login', onSuccess }:
                   placeholder="••••••••"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="w-full bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 rounded-xl pl-9 pr-3 py-2 text-xs text-zinc-900 dark:text-white focus:outline-none focus:border-emerald-500 transition-colors"
+                  className="w-full bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 rounded-xl pl-9 pr-3 py-2 text-xs text-zinc-900 dark:text-white focus:outline-none focus:border-[#E07A5F] transition-colors"
                 />
               </div>
             </div>
@@ -361,7 +361,7 @@ export function AuthModal({ isOpen, onClose, initialMode = 'login', onSuccess }:
                   placeholder="••••••••"
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
-                  className="w-full bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 rounded-xl pl-9 pr-3 py-2 text-xs text-zinc-900 dark:text-white focus:outline-none focus:border-emerald-500 transition-colors"
+                  className="w-full bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 rounded-xl pl-9 pr-3 py-2 text-xs text-zinc-900 dark:text-white focus:outline-none focus:border-[#E07A5F] transition-colors"
                 />
               </div>
             </div>
@@ -370,7 +370,7 @@ export function AuthModal({ isOpen, onClose, initialMode = 'login', onSuccess }:
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-emerald-600 hover:bg-emerald-700 dark:bg-emerald-500 dark:hover:bg-emerald-600 text-white font-bold text-xs py-2.5 px-4 rounded-xl transition-all shadow-xs flex items-center justify-center gap-2 active:scale-98 disabled:opacity-50"
+            className="w-full btn-hero-copper text-white font-bold text-xs py-2.5 px-4 rounded-xl transition-all shadow-xs flex items-center justify-center gap-2 active:scale-98 disabled:opacity-50"
           >
             {loading ? (
               <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
@@ -392,7 +392,7 @@ export function AuthModal({ isOpen, onClose, initialMode = 'login', onSuccess }:
             <button
               type="button"
               onClick={() => { setMode('login'); setError(null); }}
-              className="text-xs font-bold text-emerald-600 dark:text-emerald-400 hover:underline"
+              className="text-xs font-bold text-[#E07A5F] dark:text-[#F4A261] hover:underline"
             >
               Volver a Iniciar Sesión
             </button>
@@ -430,7 +430,7 @@ export function AuthModal({ isOpen, onClose, initialMode = 'login', onSuccess }:
             disabled={loading}
             className="w-full flex items-center justify-center gap-2 bg-zinc-50/60 hover:bg-zinc-100 dark:bg-zinc-800/60 dark:hover:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 text-zinc-600 dark:text-zinc-300 font-bold text-xs py-2.5 px-4 rounded-xl transition-all active:scale-98 disabled:opacity-50"
           >
-            <Sparkles size={14} className="text-emerald-600 dark:text-emerald-400" />
+            <Sparkles size={14} className="text-[#E07A5F] dark:text-[#F4A261]" />
             <span>Probar como Invitado (Sin Registro)</span>
           </button>
         </div>
@@ -438,7 +438,7 @@ export function AuthModal({ isOpen, onClose, initialMode = 'login', onSuccess }:
         {/* Trust Footer */}
         <div className="text-center">
           <p className="text-[10px] text-zinc-500 dark:text-zinc-400 flex items-center justify-center gap-1 font-medium">
-            <ShieldCheck size={12} className="text-emerald-600 dark:text-emerald-400" />
+            <ShieldCheck size={12} className="text-[#E07A5F] dark:text-[#F4A261]" />
             Tus datos se almacenan de forma segura en Firebase
           </p>
         </div>

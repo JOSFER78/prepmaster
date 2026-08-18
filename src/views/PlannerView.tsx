@@ -36,7 +36,7 @@ export function PlannerView({
   if (!activeProject) {
     return (
       <div className="bg-white dark:bg-zinc-900 rounded-3xl p-8 border border-zinc-200 dark:border-zinc-800 text-center space-y-4 max-w-lg mx-auto my-8">
-        <div className="w-12 h-12 rounded-2xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center mx-auto">
+        <div className="w-12 h-12 rounded-2xl bg-[#E07A5F]/10 text-[#E07A5F] dark:text-[#F4A261] flex items-center justify-center mx-auto">
           <Layers size={24} />
         </div>
         <div>
@@ -47,7 +47,7 @@ export function PlannerView({
         </div>
         <button
           onClick={() => onNavigate({ name: 'ai-generator' })}
-          className="bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs px-5 py-3 rounded-2xl shadow-xs transition-all flex items-center justify-center gap-2 mx-auto"
+          className="bg-[#E07A5F] hover:bg-[#c96a50] text-white font-bold text-xs px-5 py-3 rounded-2xl shadow-xs transition-all flex items-center justify-center gap-2 mx-auto"
         >
           <Sparkles size={14} />
           <span>Generar Lote con IA</span>
@@ -63,15 +63,15 @@ export function PlannerView({
       <div className="bg-white dark:bg-zinc-900 rounded-3xl p-5 border border-zinc-200 dark:border-zinc-800 shadow-xs flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
         <div>
           <div className="flex items-center gap-2 mb-1">
-            <span className="bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 text-[10px] font-black px-2.5 py-0.5 rounded-full uppercase flex items-center gap-1">
+            <span className="bg-[#E07A5F]/10 text-[#E07A5F] dark:text-[#F4A261] text-[10px] font-black px-2.5 py-0.5 rounded-full uppercase flex items-center gap-1">
               <Sparkles size={11} /> Plan de Raciones Activo
             </span>
             <span className="text-xs font-bold text-zinc-500 flex items-center gap-1">
-              <Users size={13} className="text-emerald-500" /> {people} Comensales
+              <Users size={13} className="text-[#E07A5F]" /> {people} Comensales
             </span>
           </div>
           <h1 className="text-lg md:text-xl font-black text-zinc-900 dark:text-white">
-            Gestión de Volumen: <span className="text-emerald-600 dark:text-emerald-400">{totalServingsCount} Raciones Totales</span>
+            Gestión de Volumen: <span className="text-[#E07A5F] dark:text-[#F4A261]">{totalServingsCount} Raciones Totales</span>
           </h1>
           <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-0.5">
             Ajusta las raciones por plato para recalcular automáticamente las proporciones de tu lista de compra.
@@ -81,7 +81,7 @@ export function PlannerView({
         <div className="flex items-center gap-2 w-full md:w-auto">
           <button 
             onClick={() => onNavigate({ name: 'shopping-list' })}
-            className="flex-1 md:flex-none flex items-center justify-center gap-1.5 bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2.5 rounded-xl text-xs font-bold shadow-xs transition-all active:scale-95"
+            className="flex-1 md:flex-none flex items-center justify-center gap-1.5 bg-[#E07A5F] hover:bg-[#c96a50] text-white px-4 py-2.5 rounded-xl text-xs font-bold shadow-xs transition-all active:scale-95"
           >
             <ShoppingCart size={15} />
             <span>Lista de Compra</span>
@@ -105,7 +105,7 @@ export function PlannerView({
           >
             <div>
               <div className="flex items-center justify-between">
-                <span className="text-[10px] font-bold uppercase bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 px-2 py-0.5 rounded">
+                <span className="text-[10px] font-bold uppercase bg-[#E07A5F]/10 text-[#E07A5F] dark:text-[#F4A261] px-2 py-0.5 rounded">
                   {dish.category}
                 </span>
                 <span className="text-xs font-mono text-zinc-400">
@@ -116,7 +116,7 @@ export function PlannerView({
                 {dish.name}
               </h3>
               <p className="text-xs text-zinc-500 mt-1 flex items-center gap-1">
-                <Refrigerator size={12} className="text-emerald-500" />
+                <Refrigerator size={12} className="text-[#E07A5F]" />
                 <span>{dish.storageAdvice}</span>
               </p>
             </div>
@@ -132,7 +132,7 @@ export function PlannerView({
                 >
                   <Minus size={14} />
                 </button>
-                <span className="text-base font-black font-mono text-emerald-600 dark:text-emerald-400 w-8 text-center">
+                <span className="text-base font-black font-mono text-[#E07A5F] dark:text-[#F4A261] w-8 text-center">
                   {dish.servings}
                 </span>
                 <button

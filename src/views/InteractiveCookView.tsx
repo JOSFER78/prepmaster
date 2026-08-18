@@ -183,7 +183,7 @@ export function InteractiveCookView({
             <ArrowLeft size={18} />
           </button>
           <div>
-            <span className="text-[10px] font-bold bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 px-2 py-0.5 rounded uppercase">
+            <span className="text-[10px] font-bold bg-[#E07A5F]/10 text-[#E07A5F] dark:text-[#F4A261] px-2 py-0.5 rounded uppercase">
               Asistente de Cocina Simultánea
             </span>
             <h1 className="text-sm sm:text-base font-black text-zinc-900 dark:text-white mt-0.5">
@@ -198,8 +198,8 @@ export function InteractiveCookView({
             onClick={handleSpeakCurrentStep}
             className={`p-2.5 rounded-xl border font-bold text-xs flex items-center gap-1.5 transition-all ${
               isPlayingVoice 
-                ? 'bg-emerald-600 text-white border-emerald-600 animate-pulse' 
-                : 'bg-zinc-100 dark:bg-zinc-800 border-zinc-200 dark:border-zinc-700 text-zinc-700 dark:text-zinc-300 hover:border-emerald-500'
+                ? 'bg-[#E07A5F] text-white border-[#E07A5F] animate-pulse' 
+                : 'bg-zinc-100 dark:bg-zinc-800 border-zinc-200 dark:border-zinc-700 text-zinc-700 dark:text-zinc-300 hover:border-[#E07A5F]'
             }`}
             title="Asistente de voz"
           >
@@ -229,7 +229,7 @@ export function InteractiveCookView({
               <button
                 onClick={() => setIsTimer1Running(!isTimer1Running)}
                 className={`p-2 rounded-xl font-bold text-xs ${
-                  isTimer1Running ? 'bg-amber-500 text-white' : 'bg-emerald-600 text-white'
+                  isTimer1Running ? 'bg-amber-500 text-white' : 'bg-[#E07A5F] text-white'
                 }`}
               >
                 {isTimer1Running ? <Pause size={14} /> : <Play size={14} />}
@@ -261,7 +261,7 @@ export function InteractiveCookView({
               <button
                 onClick={() => setIsTimer2Running(!isTimer2Running)}
                 className={`p-2 rounded-xl font-bold text-xs ${
-                  isTimer2Running ? 'bg-amber-500 text-white' : 'bg-emerald-600 text-white'
+                  isTimer2Running ? 'bg-amber-500 text-white' : 'bg-[#E07A5F] text-white'
                 }`}
               >
                 {isTimer2Running ? <Pause size={14} /> : <Play size={14} />}
@@ -293,7 +293,7 @@ export function InteractiveCookView({
               <button
                 onClick={() => setIsTimer3Running(!isTimer3Running)}
                 className={`p-2 rounded-xl font-bold text-xs ${
-                  isTimer3Running ? 'bg-amber-500 text-white' : 'bg-emerald-600 text-white'
+                  isTimer3Running ? 'bg-amber-500 text-white' : 'bg-[#E07A5F] text-white'
                 }`}
               >
                 {isTimer3Running ? <Pause size={14} /> : <Play size={14} />}
@@ -318,9 +318,9 @@ export function InteractiveCookView({
             onClick={() => setCurrentStepIndex(idx)}
             className={`p-3 rounded-2xl border text-center transition-all ${
               currentStepIndex === idx
-                ? 'bg-emerald-600 text-white border-emerald-600 font-black shadow-xs'
+                ? 'bg-[#E07A5F] text-white border-[#E07A5F] font-black shadow-xs'
                 : idx < currentStepIndex
-                  ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-700 dark:text-emerald-300 font-bold'
+                  ? 'bg-[#E07A5F]/10 border-[#E07A5F]/30 text-zinc-900 dark:text-zinc-100 font-bold'
                   : 'bg-white dark:bg-zinc-900 border-zinc-200 dark:border-zinc-800 text-zinc-400'
             }`}
           >
@@ -334,7 +334,7 @@ export function InteractiveCookView({
       <div className="bg-white dark:bg-zinc-900 rounded-3xl border border-zinc-200 dark:border-zinc-800 p-6 sm:p-7 shadow-xs space-y-6 animate-slide-up">
         
         <div>
-          <span className="text-[10px] font-bold text-emerald-600 dark:text-emerald-400 uppercase tracking-wider bg-emerald-500/10 px-2.5 py-0.5 rounded-full">
+          <span className="text-[10px] font-bold text-[#E07A5F] dark:text-[#F4A261] uppercase tracking-wider bg-[#E07A5F]/10 px-2.5 py-0.5 rounded-full">
             {currentStep.stage}
           </span>
           <h2 className="text-lg sm:text-xl font-black text-zinc-900 dark:text-white mt-1.5">
@@ -356,7 +356,7 @@ export function InteractiveCookView({
                 key={i}
                 className="p-3.5 bg-zinc-50 dark:bg-zinc-800/60 rounded-2xl border border-zinc-200 dark:border-zinc-700/60 flex items-start gap-3"
               >
-                <div className="w-5 h-5 rounded-lg bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 font-black text-xs flex items-center justify-center shrink-0 mt-0.5">
+                <div className="w-5 h-5 rounded-lg bg-[#E07A5F]/15 text-[#E07A5F] dark:text-[#F4A261] font-black text-xs flex items-center justify-center shrink-0 mt-0.5">
                   {i + 1}
                 </div>
                 <p className="text-xs font-medium text-zinc-800 dark:text-zinc-200 leading-snug">
@@ -383,7 +383,7 @@ export function InteractiveCookView({
               className="flex items-center justify-between cursor-pointer select-none"
             >
               <div className="flex items-center gap-2">
-                <Refrigerator size={16} className="text-emerald-500" />
+                <Refrigerator size={16} className="text-[#E07A5F]" />
                 <h4 className="text-xs font-bold text-zinc-900 dark:text-white">
                   Guía de Conservación y Caducidad
                 </h4>
@@ -394,7 +394,7 @@ export function InteractiveCookView({
             {expandedProtocols && (
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 pt-2 text-xs">
                 <div className="p-3 bg-white dark:bg-zinc-900 rounded-xl border border-zinc-200 dark:border-zinc-700/60 space-y-1">
-                  <div className="flex items-center gap-1.5 text-emerald-600 dark:text-emerald-400 font-bold">
+                  <div className="flex items-center gap-1.5 text-[#E07A5F] dark:text-[#F4A261] font-bold">
                     <Refrigerator size={13} />
                     <span>Nevera (Días 1 a 3)</span>
                   </div>
@@ -430,7 +430,7 @@ export function InteractiveCookView({
           {currentStepIndex < cookingSteps.length - 1 ? (
             <button
               onClick={() => setCurrentStepIndex(currentStepIndex + 1)}
-              className="bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs px-5 py-2.5 rounded-xl shadow-xs transition-all flex items-center gap-1.5 active:scale-95"
+              className="bg-[#E07A5F] hover:bg-[#c96a50] text-white font-bold text-xs px-5 py-2.5 rounded-xl shadow-xs transition-all flex items-center gap-1.5 active:scale-95"
             >
               <span>Siguiente Fase</span>
               <ArrowRight size={14} />
@@ -438,7 +438,7 @@ export function InteractiveCookView({
           ) : (
             <button
               onClick={onFinishCooking}
-              className="bg-emerald-500 hover:bg-emerald-400 text-zinc-950 font-black text-xs px-6 py-3 rounded-xl shadow-md transition-all flex items-center gap-2 active:scale-95 animate-pulse"
+              className="bg-[#E07A5F] hover:bg-[#f4a261] text-white font-black text-xs px-6 py-3 rounded-xl shadow-md transition-all flex items-center gap-2 active:scale-95 animate-pulse"
             >
               <CheckCircle2 size={16} />
               <span>Terminar Sesión y Guardar en Nevera</span>

@@ -209,7 +209,7 @@ export function HomeView({
               <div className="space-y-2">
                 <div className="text-xs font-bold text-zinc-500 flex justify-between">
                   <span>Progreso del Ciclo de Vida:</span>
-                  <span className="text-emerald-600 dark:text-emerald-400 font-semibold">
+                  <span className="text-[#E07A5F] dark:text-[#F4A261] font-semibold">
                     {activeProject.status === 'planning' && 'Configurando platos y fuegos'}
                     {activeProject.status === 'shopping' && `Lista de compra (${metrics?.boughtShopItems}/${metrics?.totalShopItems} adquiridos)`}
                     {activeProject.status === 'ready_to_cook' && 'Compra lista • Preparado para cocina simultánea'}
@@ -229,9 +229,9 @@ export function HomeView({
                       key={idx}
                       className={`p-2.5 rounded-xl border text-center transition-all ${
                         phase.done 
-                          ? 'bg-emerald-500/10 border-emerald-500/40 text-emerald-700 dark:text-emerald-300 font-bold' 
+                          ? 'bg-[#E07A5F]/10 border-[#E07A5F]/40 text-[#E07A5F] dark:text-[#F4A261] font-bold' 
                           : phase.current
-                            ? 'bg-emerald-600 text-white border-emerald-600 font-black shadow-xs'
+                            ? 'bg-[#E07A5F] text-white border-[#E07A5F] font-black shadow-xs'
                             : 'bg-zinc-50 dark:bg-zinc-800/40 border-zinc-200 dark:border-zinc-800 text-zinc-400 font-medium'
                       }`}
                     >
@@ -243,10 +243,10 @@ export function HomeView({
 
               {/* SPECIAL WIDGET: SEGUIMIENTO DE CONSUMO EN NEVERA (SI STATUS === 'in_fridge') */}
               {activeProject.status === 'in_fridge' && (
-                <div className="p-4 sm:p-5 bg-emerald-950/20 border border-emerald-500/30 rounded-3xl space-y-4">
+                <div className="p-4 sm:p-5 bg-[#E07A5F]/10 border border-[#E07A5F]/30 rounded-3xl space-y-4">
                   <div className="flex flex-wrap items-center justify-between gap-3">
                     <div className="flex items-center gap-2.5">
-                      <div className="w-8 h-8 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-bold">
+                      <div className="w-8 h-8 rounded-xl bg-[#E07A5F]/20 text-[#F4A261] flex items-center justify-center font-bold">
                         <Refrigerator size={18} />
                       </div>
                       <div>
@@ -263,13 +263,13 @@ export function HomeView({
                     <div className="flex items-center gap-3">
                       <div className="text-right">
                         <span className="text-[10px] text-zinc-400 uppercase font-bold block">Consumidas</span>
-                        <span className="text-sm font-black text-emerald-400">
+                        <span className="text-sm font-black text-[#F4A261]">
                           {metrics?.totalConsumed} / {metrics?.totalPlanned} raciones
                         </span>
                       </div>
                       <div className="w-16 h-2 bg-zinc-800 rounded-full overflow-hidden">
                         <div 
-                          className="h-full bg-emerald-500 rounded-full transition-all duration-500" 
+                          className="h-full bg-[#E07A5F] rounded-full transition-all duration-500" 
                           style={{ width: `${metrics?.progressPercent}%` }}
                         />
                       </div>
@@ -277,7 +277,7 @@ export function HomeView({
                   </div>
 
                   {/* Cold Chain Smart Tip */}
-                  <div className="p-3 bg-zinc-900/60 rounded-2xl border border-emerald-500/20 text-xs text-zinc-300 flex items-center gap-2.5">
+                  <div className="p-3 bg-zinc-900/60 rounded-2xl border border-[#E07A5F]/20 text-xs text-zinc-300 flex items-center gap-2.5">
                     <Snowflake size={16} className="text-cyan-400 shrink-0" />
                     <span>
                       <strong>Protocolo de Frío:</strong> Consume primero las raciones de nevera (días 1 a 3). Las raciones de congelador pásalas a la nevera 24 horas antes de comerlas.
@@ -290,7 +290,7 @@ export function HomeView({
               <div className="space-y-3 pt-2">
                 <div className="flex justify-between items-center">
                   <h3 className="text-xs font-bold text-zinc-900 dark:text-white uppercase tracking-wider flex items-center gap-1.5">
-                    <Flame size={14} className="text-emerald-600 dark:text-emerald-400" />
+                    <Flame size={14} className="text-[#E07A5F] dark:text-[#F4A261]" />
                     Platos del Lote Activo ({activeProject.dishes.length}):
                   </h3>
                   <span className="text-[11px] text-zinc-500">
@@ -316,7 +316,7 @@ export function HomeView({
                       >
                         <div>
                           <div className="flex items-start justify-between gap-1.5">
-                            <span className="text-[9px] font-bold bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 px-2 py-0.5 rounded uppercase">
+                            <span className="text-[9px] font-bold bg-[#E07A5F]/10 text-[#E07A5F] dark:text-[#F4A261] px-2 py-0.5 rounded uppercase">
                               {dish.category}
                             </span>
                             <button
@@ -337,7 +337,7 @@ export function HomeView({
                         <div className="space-y-2 pt-2 border-t border-zinc-200/60 dark:border-zinc-700/60 text-xs">
                           <div className="flex justify-between items-center text-[11px] text-zinc-500 dark:text-zinc-400">
                             <span className="flex items-center gap-1">
-                              <Refrigerator size={12} className="text-emerald-500" /> Nevera: <strong>{fridgeLeft}</strong>
+                              <Refrigerator size={12} className="text-[#E07A5F]" /> Nevera: <strong>{fridgeLeft}</strong>
                             </span>
                             {freezerLeft > 0 && (
                               <span className="flex items-center gap-1">
@@ -355,7 +355,7 @@ export function HomeView({
                               <button
                                 onClick={() => onConsumePortion && onConsumePortion(dish.id, 1)}
                                 disabled={isFullyConsumed}
-                                className="flex-1 py-1.5 px-2 bg-emerald-600/15 hover:bg-emerald-600 text-emerald-700 dark:text-emerald-300 hover:text-white rounded-xl text-[10px] font-bold transition-all disabled:opacity-30 disabled:cursor-not-allowed flex items-center justify-center gap-1"
+                                className="flex-1 py-1.5 px-2 bg-[#E07A5F]/15 hover:bg-[#E07A5F] text-[#E07A5F] dark:text-[#F4A261] hover:text-white rounded-xl text-[10px] font-bold transition-all disabled:opacity-30 disabled:cursor-not-allowed flex items-center justify-center gap-1"
                               >
                                 <Utensils size={11} />
                                 <span>-1 Ración</span>
@@ -364,7 +364,7 @@ export function HomeView({
                               <button
                                 onClick={() => onConsumePortion && onConsumePortion(dish.id, activeProject.peopleCount)}
                                 disabled={isFullyConsumed}
-                                className="flex-1 py-1.5 px-2 bg-zinc-200 dark:bg-zinc-700 hover:bg-emerald-600 text-zinc-800 dark:text-zinc-200 hover:text-white rounded-xl text-[10px] font-bold transition-all disabled:opacity-30 disabled:cursor-not-allowed flex items-center justify-center gap-1"
+                                className="flex-1 py-1.5 px-2 bg-zinc-200 dark:bg-zinc-700 hover:bg-[#E07A5F] text-zinc-800 dark:text-zinc-200 hover:text-white rounded-xl text-[10px] font-bold transition-all disabled:opacity-30 disabled:cursor-not-allowed flex items-center justify-center gap-1"
                               >
                                 <Users size={11} />
                                 <span>Toma Familiar (-{activeProject.peopleCount})</span>
@@ -452,7 +452,7 @@ export function HomeView({
                 >
                   <div className="space-y-2">
                     <div className="flex items-center justify-between text-xs">
-                      <span className="text-[10px] font-bold text-emerald-600 dark:text-emerald-400 uppercase bg-emerald-500/10 px-2 py-0.5 rounded-full">
+                      <span className="text-[10px] font-bold text-[#E07A5F] dark:text-[#F4A261] uppercase bg-[#E07A5F]/10 px-2 py-0.5 rounded-full">
                         {batch.daysCount} días • {batch.totalServings} raciones
                       </span>
                       <span className="text-[11px] text-zinc-400">
@@ -484,7 +484,7 @@ export function HomeView({
 
                     <button
                       onClick={() => onRepeatBatch(batch)}
-                      className="bg-emerald-600/15 hover:bg-emerald-600 text-emerald-700 dark:text-emerald-300 hover:text-white font-bold text-xs px-3.5 py-2 rounded-xl transition-all flex items-center gap-1.5 active:scale-95"
+                      className="bg-[#E07A5F]/15 hover:bg-[#E07A5F] text-[#E07A5F] dark:text-[#F4A261] hover:text-white font-bold text-xs px-3.5 py-2 rounded-xl transition-all flex items-center gap-1.5 active:scale-95"
                     >
                       <RotateCcw size={13} />
                       <span>Repetir este Lote</span>
@@ -498,7 +498,7 @@ export function HomeView({
               <p className="text-xs text-zinc-400">No hay lotes históricos archivados todavía.</p>
               <button
                 onClick={() => onNavigate({ name: 'ai-generator' })}
-                className="bg-emerald-600 text-white font-bold text-xs px-4 py-2 rounded-xl"
+                className="bg-[#E07A5F] text-white font-bold text-xs px-4 py-2 rounded-xl"
               >
                 Crear Primer Lote
               </button>
@@ -525,7 +525,7 @@ export function HomeView({
                 >
                   <div>
                     <div className="flex items-center justify-between">
-                      <span className="text-[9px] font-bold uppercase bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 px-2 py-0.5 rounded">
+                      <span className="text-[9px] font-bold uppercase bg-[#E07A5F]/10 text-[#E07A5F] dark:text-[#F4A261] px-2 py-0.5 rounded">
                         {dish.category}
                       </span>
                       <Heart size={14} className="text-rose-500" fill="currentColor" />

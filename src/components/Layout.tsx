@@ -119,7 +119,7 @@ export function Layout({
         return {
           label: 'Listo para Cocinar',
           subtext: 'Encender fuegos',
-          colorClass: 'bg-emerald-950/60 text-emerald-400 border-emerald-500/40 animate-pulse',
+          colorClass: 'bg-[#E07A5F]/15 text-[#E07A5F] border-[#E07A5F]/30 animate-pulse',
           targetView: { name: 'interactive-cook' as const }
         };
       case 'cooking':
@@ -133,7 +133,7 @@ export function Layout({
         return {
           label: 'En Nevera',
           subtext: `${metrics?.remainingServings ?? 0} raciones`,
-          colorClass: 'bg-emerald-950/60 text-emerald-400 border-emerald-500/30',
+          colorClass: 'bg-[#52796F]/15 text-[#84A98C] border-[#52796F]/30',
           targetView: { name: 'home' as const }
         };
       case 'archived':
@@ -247,7 +247,7 @@ export function Layout({
                     title="Cuenta de Usuario & Ajustes"
                   >
                     {/* Real Google Avatar or Fallback */}
-                    <div className="w-7 h-7 rounded-xl overflow-hidden bg-emerald-600 text-white flex items-center justify-center font-bold text-xs shrink-0 border border-emerald-500/30">
+                    <div className="w-7 h-7 rounded-xl overflow-hidden bg-[#E07A5F] text-white flex items-center justify-center font-bold text-xs shrink-0 border border-[#E07A5F]/30">
                       {firebaseUser.photoURL ? (
                         <img 
                           src={firebaseUser.photoURL} 
@@ -265,8 +265,8 @@ export function Layout({
                       <span className="text-xs font-black text-zinc-900 dark:text-white truncate max-w-[85px] sm:max-w-[120px]">
                         {firebaseUser.displayName || firebaseUser.email?.split('@')[0]}
                       </span>
-                      <span className="text-[9px] font-bold text-emerald-600 dark:text-emerald-400 flex items-center gap-0.5">
-                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                      <span className="text-[9px] font-bold text-[#E07A5F] dark:text-[#F4A261] flex items-center gap-0.5">
+                        <span className="w-1.5 h-1.5 rounded-full bg-[#E07A5F]"></span>
                         Cuenta
                       </span>
                     </div>
@@ -296,7 +296,7 @@ export function Layout({
                       
                       {/* User Card Header with Google Photo */}
                       <div className="flex items-center gap-3 p-3 bg-zinc-50 dark:bg-zinc-800/60 rounded-2xl border border-zinc-200/80 dark:border-zinc-700/60">
-                        <div className="w-12 h-12 rounded-2xl overflow-hidden bg-emerald-600 text-white flex items-center justify-center font-black text-lg shrink-0 shadow-xs border border-emerald-500/30">
+                        <div className="w-12 h-12 rounded-2xl overflow-hidden bg-[#E07A5F] text-white flex items-center justify-center font-black text-lg shrink-0 shadow-xs border border-[#E07A5F]/30">
                           {firebaseUser.photoURL ? (
                             <img 
                               src={firebaseUser.photoURL} 
@@ -320,7 +320,7 @@ export function Layout({
                                 ADMIN
                               </span>
                             ) : (
-                              <span className="text-[8px] font-bold bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 px-1.5 py-0.2 rounded-full">
+                              <span className="text-[8px] font-bold bg-[#E07A5F]/10 text-[#E07A5F] dark:text-[#F4A261] px-1.5 py-0.2 rounded-full">
                                 PRO
                               </span>
                             )}
@@ -328,8 +328,8 @@ export function Layout({
                           <p className="text-[11px] text-zinc-500 dark:text-zinc-400 truncate mt-0.5">
                             {firebaseUser.email}
                           </p>
-                          <span className="text-[9px] text-emerald-600 dark:text-emerald-400 font-bold flex items-center gap-1 mt-1">
-                            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                          <span className="text-[9px] text-[#E07A5F] dark:text-[#F4A261] font-bold flex items-center gap-1 mt-1">
+                            <span className="w-1.5 h-1.5 rounded-full bg-[#E07A5F]"></span>
                             Google OAuth Conectado
                           </span>
                         </div>
@@ -356,10 +356,10 @@ export function Layout({
 
                         <div className="flex items-center justify-between p-2 rounded-xl hover:bg-zinc-100 dark:hover:bg-zinc-800/80 text-xs font-bold text-zinc-700 dark:text-zinc-300 transition-colors">
                           <span className="flex items-center gap-2">
-                            <Sparkles size={15} className="text-emerald-500" />
+                            <Sparkles size={15} className="text-[#E07A5F]" />
                             <span>Sincronización Nube</span>
                           </span>
-                          <span className="text-[10px] bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 px-2 py-0.5 rounded-md font-bold">
+                          <span className="text-[10px] bg-[#E07A5F]/10 text-[#E07A5F] dark:text-[#F4A261] px-2 py-0.5 rounded-md font-bold">
                             Firestore ✓
                           </span>
                         </div>
@@ -372,10 +372,10 @@ export function Layout({
                             setIsUserMenuOpen(false);
                             onNavigate({ name: 'profile' });
                           }}
-                          className="w-full flex items-center justify-between p-2.5 rounded-xl bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-700 dark:text-emerald-300 text-xs font-bold transition-all"
+                          className="w-full flex items-center justify-between p-2.5 rounded-xl bg-[#E07A5F]/10 hover:bg-[#E07A5F]/20 text-zinc-900 dark:text-zinc-100 text-xs font-bold transition-all"
                         >
                           <span className="flex items-center gap-2">
-                            <ChefHat size={16} className="text-emerald-500" />
+                            <ChefHat size={16} className="text-[#E07A5F]" />
                             <span>Configuración de Mi Hogar & Cocina</span>
                           </span>
                           <ChevronRight size={14} />
@@ -463,9 +463,9 @@ export function Layout({
               {/* SECTION 2: LOTE ACTIVO EN CURSO (CONTEXTUAL) */}
               {activeProject && (
                 <div className="space-y-1 pt-2 border-t border-zinc-200/80 dark:border-zinc-800/80">
-                  <div className="text-[10px] font-bold uppercase tracking-wider text-emerald-600 dark:text-emerald-400 px-2 mb-1 flex items-center justify-between">
+                  <div className="text-[10px] font-bold uppercase tracking-wider text-[#E07A5F] dark:text-[#F4A261] px-2 mb-1 flex items-center justify-between">
                     <span>Lote en Curso</span>
-                    <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                    <span className="w-2 h-2 rounded-full bg-[#E07A5F] animate-pulse"></span>
                   </div>
 
                   {activeProject.status === 'shopping' && (
@@ -514,7 +514,7 @@ export function Layout({
                 className="w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-bold text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white hover:bg-zinc-100 dark:hover:bg-zinc-800/60 transition-all text-left group"
               >
                 <div className="flex items-center gap-2.5">
-                  <ExternalLink size={15} className="group-hover:text-emerald-500 transition-colors" />
+                  <ExternalLink size={15} className="group-hover:text-[#E07A5F] transition-colors" />
                   <span>Ver Portada / Landing</span>
                 </div>
                 <ArrowRight size={14} className="group-hover:translate-x-0.5 transition-transform" />
@@ -535,7 +535,7 @@ export function Layout({
               </div>
               {activeProject && (
                 <div className="text-xs text-zinc-500 dark:text-zinc-400 flex items-center gap-2">
-                  <Clock size={13} className="text-emerald-500" />
+                  <Clock size={13} className="text-[#E07A5F]" />
                   <span>{activeProject.title} ({activeProject.peopleCount} personas · {activeProject.daysCount} días)</span>
                 </div>
               )}
@@ -648,7 +648,7 @@ export function Layout({
                 }}
                 className="p-4 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-800/40 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-all cursor-pointer group flex items-start gap-3.5"
               >
-                <div className="w-10 h-10 rounded-xl bg-zinc-800 text-emerald-400 border border-zinc-700 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
+                <div className="w-10 h-10 rounded-xl bg-zinc-800 text-[#F4A261] border border-zinc-700 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
                   <Utensils size={20} />
                 </div>
                 <div className="flex-1 min-w-0">
@@ -701,7 +701,7 @@ export function Layout({
                     setIsMobileMenuOpen(false);
                     onNavigate(pillInfo.targetView);
                   }}
-                  className="p-3 bg-zinc-50 dark:bg-zinc-800/60 rounded-2xl border border-zinc-200 dark:border-zinc-700/60 space-y-1.5 cursor-pointer hover:border-emerald-500/40 transition-all"
+                  className="p-3 bg-zinc-50 dark:bg-zinc-800/60 rounded-2xl border border-zinc-200 dark:border-zinc-700/60 space-y-1.5 cursor-pointer hover:border-[#E07A5F]/40 transition-all"
                 >
                   <div className="flex items-center justify-between text-[11px]">
                     <span className="font-bold text-zinc-500 dark:text-zinc-400">Lote en Curso</span>
@@ -770,7 +770,7 @@ export function Layout({
               {/* CONTEXTUAL BATCH ACTIONS */}
               {activeProject && (
                 <div className="space-y-1 pt-2 border-t border-zinc-200 dark:border-zinc-800">
-                  <div className="text-[10px] font-bold uppercase tracking-wider text-emerald-600 dark:text-emerald-400 px-2 mb-1">
+                  <div className="text-[10px] font-bold uppercase tracking-wider text-[#E07A5F] dark:text-[#F4A261] px-2 mb-1">
                     Fases del Lote
                   </div>
                   {activeProject.status === 'shopping' && (
@@ -838,7 +838,7 @@ export function Layout({
                 className="w-full flex items-center justify-between p-2.5 rounded-xl bg-zinc-100 dark:bg-zinc-800 text-xs font-bold text-zinc-700 dark:text-zinc-300"
               >
                 <span>Tema</span>
-                <span className="flex items-center gap-1.5 text-emerald-600 dark:text-emerald-400">
+                <span className="flex items-center gap-1.5 text-[#E07A5F] dark:text-[#F4A261]">
                   {theme === 'dark' ? <Moon size={14} /> : <Sun size={14} />}
                   {theme === 'dark' ? 'Oscuro' : 'Claro'}
                 </span>
