@@ -1,562 +1,834 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   auth, 
-  googleProvider, 
-  signInWithPopup, 
-  signInAnonymously, 
-  firebaseSignOut, 
   onAuthStateChanged, 
-  getIdToken,
-  User,
-  db,
-  SUPERADMIN_EMAIL,
-  isSuperAdmin
+  User, 
+  db, 
+  signOut as firebaseSignOut 
 } from '../lib/firebase';
 import { doc, setDoc, getDoc } from 'firebase/firestore';
 import { 
   User as UserIcon, 
-  Key, 
-  ShieldCheck, 
-  LogOut, 
-  Sparkles, 
-  Copy, 
-  Check, 
+  ChefHat, 
   Users, 
-  Save, 
-  Lock, 
-  Globe, 
-  AlertCircle, 
-  Crown, 
-  Layers, 
+  Check, 
+  Flame, 
+  Sparkles, 
   ShoppingBag, 
-  Activity, 
-  RefreshCw, 
-  Server 
+  Refrigerator, 
+  Heart, 
+  ShieldCheck, 
+  Save, 
+  LogOut, 
+  Clock, 
+  SlidersHorizontal,
+  Calendar,
+  AlertCircle,
+  Plus,
+  Trash2,
+  CheckCircle2,
+  Utensils,
+  Wind,
+  Box,
+  Layers,
+  Sparkle
 } from 'lucide-react';
-import firebaseConfig from '../../firebase-applet-config.json';
-import { AuthModal } from '../components/AuthModal';
+import { KitchenEquipmentItem, KitchenProfile } from '../types';
 
 interface ProfileViewProps {
   onPeopleCountChange?: (count: number) => void;
 }
 
+const initialEquipmentCatalog: KitchenEquipmentItem[] = [
+  {
+    id: 'stove-burners',
+    name: 'Placa de Cocción (Fuegos Simultáneos)',
+    category: 'fuegos',
+    description: 'Placa para ollas, cazuelas y sartenes funcionando en paralelo.',
+    available: true,
+    countOrCapacity: '4 fuegos activos',
+    image: 'https://images.unsplash.com/photo-1588854337236-6889d631faa8?w=500&auto=format&fit=crop&q=80',
+    brandOrNotes: 'Inducción rápida'
+  },
+  {
+    id: 'oven-main',
+    name: 'Horno Convencional / Multifunción',
+    category: 'hornos_robots',
+    description: 'Asados en bloque de verduras de raíz, pescados y carnes al mismo tiempo.',
+    available: true,
+    countOrCapacity: 'Bandeja grande',
+    image: 'https://images.unsplash.com/photo-1590794056226-79ef3a8147e1?w=500&auto=format&fit=crop&q=80',
+    brandOrNotes: 'Con ventilador'
+  },
+  {
+    id: 'airfryer',
+    name: 'Airfryer (Freidora de Aire)',
+    category: 'hornos_robots',
+    description: 'Cocción rápida y crujiente de guarniciones, pollo o verduras en 15 min.',
+    available: true,
+    countOrCapacity: '5.5 Litros',
+    image: 'https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?w=500&auto=format&fit=crop&q=80',
+    brandOrNotes: 'Freidora sin aceite'
+  },
+  {
+    id: 'pressure-cooker',
+    name: 'Olla Rápida / Exprés a Presión',
+    category: 'utensilios',
+    description: 'Reduce el tiempo de legumbres (lentejas, garbanzos) y estofados a 25 min.',
+    available: true,
+    countOrCapacity: '6 Litros',
+    image: 'https://images.unsplash.com/photo-1544233726-9f1d2b27be8b?w=500&auto=format&fit=crop&q=80',
+    brandOrNotes: 'Olla rápida supersegura'
+  },
+  {
+    id: 'kitchen-robot',
+    name: 'Robot de Cocina Multifunción',
+    category: 'hornos_robots',
+    description: 'Thermomix, Mambo o similar para cremas sedosas, sofritos y vaporeras.',
+    available: false,
+    countOrCapacity: 'Vaso 2.2L',
+    image: 'https://images.unsplash.com/photo-1584990347449-39908cf6b48c?w=500&auto=format&fit=crop&q=80',
+    brandOrNotes: 'Thermomix / Mambo'
+  },
+  {
+    id: 'microwave',
+    name: 'Microondas con Grill',
+    category: 'hornos_robots',
+    description: 'Descongelación controlada y regeneración uniforme de raciones.',
+    available: true,
+    countOrCapacity: '800W',
+    image: 'https://images.unsplash.com/photo-1574269909862-7e1d70bb8078?w=500&auto=format&fit=crop&q=80',
+    brandOrNotes: 'Con función grill'
+  },
+  {
+    id: 'cast-iron-pot',
+    name: 'Cazuela Alta / Cocotte de Hierro',
+    category: 'utensilios',
+    description: 'Guisos de cocción lenta y salsas reducidas con calor uniforme.',
+    available: true,
+    countOrCapacity: 'Cazuela 28cm',
+    image: 'https://images.unsplash.com/photo-1585515320310-259814833e62?w=500&auto=format&fit=crop&q=80',
+    brandOrNotes: 'Hierro fundido / Acero'
+  },
+  {
+    id: 'vacuum-sealer',
+    name: 'Envasadora al Vacío',
+    category: 'conservacion',
+    description: 'Conserva carnes y guisos al vacío en nevera hasta 10 días frescos.',
+    available: false,
+    countOrCapacity: 'Bolsas herméticas',
+    image: 'https://images.unsplash.com/photo-1606787366850-de6330128bfc?w=500&auto=format&fit=crop&q=80',
+    brandOrNotes: 'Vacío doméstico'
+  },
+  {
+    id: 'glass-containers',
+    name: 'Set de Tuppers de Cristal Herméticos',
+    category: 'conservacion',
+    description: 'Recipientes de vidrio de borosilicato con válvula aptos para horno y congelador.',
+    available: true,
+    countOrCapacity: '12 recipientes',
+    image: 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=500&auto=format&fit=crop&q=80',
+    brandOrNotes: 'Vidrio borosilicato'
+  },
+  {
+    id: 'hand-blender',
+    name: 'Batidora de Brazo Potente',
+    category: 'utensilios',
+    description: 'Triturados finos de purés, gazpachos, emulsiones y vinagretas.',
+    available: true,
+    countOrCapacity: '1000W',
+    image: 'https://images.unsplash.com/photo-1570222094114-d054a817e56b?w=500&auto=format&fit=crop&q=80',
+    brandOrNotes: 'Cuchillas de titanio'
+  }
+];
+
+const availableDietStyles = [
+  'Mediterránea Equilibrada',
+  'Alta en Proteína / Fitness',
+  'Baja en Carbohidratos / Low Carb',
+  'Vegetariana / Plant Based',
+  'Vegana',
+  'Comida Casera Tradicional',
+  'Baja en Sodio / Cardiosaludable',
+  'Antiinflamatoria'
+];
+
+const availableAllergies = [
+  'Gluten / Celíaco',
+  'Lactosa',
+  'Frutos Secos',
+  'Mariscos / Crustáceos',
+  'Pescado',
+  'Huevos',
+  'Soja',
+  'Legumbres'
+];
+
+const availableSupermarkets = [
+  'Mercadona',
+  'Carrefour',
+  'Lidl',
+  'Día',
+  'Alcampo',
+  'Eroski',
+  'Aldi',
+  'Mercado Local / Frutería'
+];
+
 export function ProfileView({ onPeopleCountChange }: ProfileViewProps) {
   const [user, setUser] = useState<User | null>(null);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [idToken, setIdToken] = useState<string>('');
-  const [copiedToken, setCopiedToken] = useState<boolean>(false);
-  const [authError, setAuthError] = useState<string | null>(null);
-  const [isAuthModalOpen, setIsAuthModalOpen] = useState<boolean>(false);
+  const [activeTab, setActiveTab] = useState<'household' | 'kitchen' | 'shopping' | 'account'>('kitchen');
+  const [saving, setSaving] = useState(false);
+  const [savedToast, setSavedToast] = useState(false);
 
-  // Household & Preferences state
+  // Household state
   const [peopleCount, setPeopleCount] = useState<number>(4);
-  const [dietary, setDietary] = useState<string[]>(['Bajo en sal', 'Mediterránea']);
-  const [newDietTag, setNewDietTag] = useState<string>('');
-  const [savingPrefs, setSavingPrefs] = useState<boolean>(false);
-  const [savedSuccess, setSavedSuccess] = useState<boolean>(false);
+  const [adultsCount, setAdultsCount] = useState<number>(2);
+  const [kidsCount, setKidsCount] = useState<number>(2);
+  const [selectedDiets, setSelectedDiets] = useState<string[]>(['Mediterránea Equilibrada']);
+  const [selectedAllergies, setSelectedAllergies] = useState<string[]>([]);
+  const [customDiet, setCustomDiet] = useState('');
 
-  // SuperAdmin diagnostics state
-  const [firestoreLatency, setFirestoreLatency] = useState<number | null>(null);
-  const [isPingingFirestore, setIsPingingFirestore] = useState<boolean>(false);
-  const [superadminActionStatus, setSuperadminActionStatus] = useState<string | null>(null);
+  // Kitchen Profile state
+  const [stoveType, setStoveType] = useState<'induccion' | 'vitro' | 'gas' | 'mixta'>('induccion');
+  const [burnersCount, setBurnersCount] = useState<number>(4);
+  const [freezerDrawers, setFreezerDrawers] = useState<number>(3);
+  const [tupperContainersCount, setTupperContainersCount] = useState<number>(12);
+  const [equipmentList, setEquipmentList] = useState<KitchenEquipmentItem[]>(initialEquipmentCatalog);
 
-  const isCurrentSuperAdmin = isSuperAdmin(user);
+  // Shopping & Schedule state
+  const [preferredShoppingDay, setPreferredShoppingDay] = useState<string>('Sábado por la mañana');
+  const [preferredBatchDay, setPreferredBatchDay] = useState<string>('Domingo por la mañana');
+  const [selectedSupermarkets, setSelectedSupermarkets] = useState<string[]>(['Mercadona', 'Mercado Local / Frutería']);
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
+    const unsub = onAuthStateChanged(auth, async (currentUser) => {
       setUser(currentUser);
-      setLoading(false);
-
       if (currentUser) {
         try {
-          const token = await getIdToken(currentUser, true);
-          setIdToken(token);
-
-          // Load user Firestore preferences if present
-          const userDoc = await getDoc(doc(db, 'users', currentUser.uid));
-          if (userDoc.exists()) {
-            const data = userDoc.data();
-            if (data.peopleCount) setPeopleCount(data.peopleCount);
-            if (data.dietPreferences) setDietary(data.dietPreferences);
+          const docRef = doc(db, 'users', currentUser.uid);
+          const snap = await getDoc(docRef);
+          if (snap.exists()) {
+            const data = snap.data();
+            if (data.peopleCount) {
+              setPeopleCount(data.peopleCount);
+              setAdultsCount(Math.max(1, Math.round(data.peopleCount * 0.6)));
+              setKidsCount(Math.max(0, data.peopleCount - Math.max(1, Math.round(data.peopleCount * 0.6))));
+            }
+            if (data.dietPreferences) setSelectedDiets(data.dietPreferences);
+            if (data.allergies) setSelectedAllergies(data.allergies);
+            if (data.kitchenProfile) {
+              const kp = data.kitchenProfile;
+              if (kp.stoveType) setStoveType(kp.stoveType);
+              if (kp.burnersCount) setBurnersCount(kp.burnersCount);
+              if (kp.freezerDrawersCount) setFreezerDrawers(kp.freezerDrawersCount);
+              if (kp.glassContainersCount) setTupperContainersCount(kp.glassContainersCount);
+              if (kp.equipmentList && Array.isArray(kp.equipmentList)) {
+                setEquipmentList(kp.equipmentList);
+              }
+              if (kp.preferredShoppingDay) setPreferredShoppingDay(kp.preferredShoppingDay);
+              if (kp.preferredBatchDay) setPreferredBatchDay(kp.preferredBatchDay);
+              if (kp.preferredSupermarkets) setSelectedSupermarkets(kp.preferredSupermarkets);
+            }
           }
-        } catch (err) {
-          console.error('Error fetching auth details:', err);
+        } catch (e) {
+          console.error('Error loading user profile from Firestore:', e);
         }
-      } else {
-        setIdToken('');
       }
     });
-
-    return () => unsubscribe();
+    return () => unsub();
   }, []);
+
+  const handleToggleEquipment = (id: string) => {
+    setEquipmentList(prev => prev.map(item => 
+      item.id === id ? { ...item, available: !item.available } : item
+    ));
+  };
+
+  const handleUpdateEquipmentNotes = (id: string, notes: string) => {
+    setEquipmentList(prev => prev.map(item => 
+      item.id === id ? { ...item, brandOrNotes: notes } : item
+    ));
+  };
+
+  const toggleDiet = (diet: string) => {
+    setSelectedDiets(prev => 
+      prev.includes(diet) ? prev.filter(d => d !== diet) : [...prev, diet]
+    );
+  };
+
+  const toggleAllergy = (allergy: string) => {
+    setSelectedAllergies(prev => 
+      prev.includes(allergy) ? prev.filter(a => a !== allergy) : [...prev, allergy]
+    );
+  };
+
+  const toggleSupermarket = (supermarket: string) => {
+    setSelectedSupermarkets(prev => 
+      prev.includes(supermarket) ? prev.filter(s => s !== supermarket) : [...prev, supermarket]
+    );
+  };
+
+  const handleAddCustomDiet = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!customDiet.trim()) return;
+    if (!selectedDiets.includes(customDiet.trim())) {
+      setSelectedDiets([...selectedDiets, customDiet.trim()]);
+    }
+    setCustomDiet('');
+  };
+
+  const handleSaveProfile = async () => {
+    setSaving(true);
+    const totalPeople = adultsCount + kidsCount;
+    setPeopleCount(totalPeople);
+    if (onPeopleCountChange) onPeopleCountChange(totalPeople);
+
+    const kitchenProfile: KitchenProfile = {
+      stoveType,
+      burnersCount,
+      hasOven: equipmentList.find(e => e.id === 'oven-main')?.available ?? true,
+      hasAirfryer: equipmentList.find(e => e.id === 'airfryer')?.available ?? true,
+      hasPressureCooker: equipmentList.find(e => e.id === 'pressure-cooker')?.available ?? true,
+      hasKitchenRobot: equipmentList.find(e => e.id === 'kitchen-robot')?.available ?? false,
+      kitchenRobotModel: equipmentList.find(e => e.id === 'kitchen-robot')?.brandOrNotes,
+      hasMicrowave: equipmentList.find(e => e.id === 'microwave')?.available ?? true,
+      hasVacuumSealer: equipmentList.find(e => e.id === 'vacuum-sealer')?.available ?? false,
+      glassContainersCount: tupperContainersCount,
+      freezerDrawersCount: freezerDrawers,
+      equipmentList,
+      preferredShoppingDay,
+      preferredBatchDay,
+      preferredSupermarkets: selectedSupermarkets
+    };
+
+    if (user) {
+      try {
+        await setDoc(doc(db, 'users', user.uid), {
+          displayName: user.displayName || user.email?.split('@')[0] || 'Cocinero',
+          email: user.email,
+          peopleCount: totalPeople,
+          dietPreferences: selectedDiets,
+          allergies: selectedAllergies,
+          kitchenProfile,
+          updatedAt: new Date().toISOString()
+        }, { merge: true });
+      } catch (err) {
+        console.error('Error saving profile to Firestore:', err);
+      }
+    }
+
+    // Save locally
+    try {
+      localStorage.setItem('prepmaster_kitchen_profile', JSON.stringify(kitchenProfile));
+      localStorage.setItem('prepmaster_diet_prefs', JSON.stringify(selectedDiets));
+    } catch (e) {
+      console.error('Local save error', e);
+    }
+
+    setSaving(false);
+    setSavedToast(true);
+    setTimeout(() => setSavedToast(false), 3000);
+  };
 
   const handleLogout = async () => {
     try {
       await firebaseSignOut(auth);
-    } catch (err) {
-      console.error('Logout Error:', err);
+    } catch (e) {
+      console.error('Logout error:', e);
     }
   };
 
-  const copyTokenToClipboard = () => {
-    if (!idToken) return;
-    navigator.clipboard.writeText(idToken);
-    setCopiedToken(true);
-    setTimeout(() => setCopiedToken(false), 2000);
-  };
-
-  const savePreferences = async () => {
-    if (!user) return;
-    setSavingPrefs(true);
-    try {
-      const uid = user.uid;
-      const email = user.email || 'anonimo@prepmaster.app';
-      const role = isCurrentSuperAdmin ? 'superadmin' : 'user';
-
-      await setDoc(doc(db, 'users', uid), {
-        id: uid,
-        email: email,
-        displayName: user.displayName || (isCurrentSuperAdmin ? 'SuperAdmin PrepMaster' : 'Usuario PrepMaster'),
-        photoURL: user.photoURL || '',
-        role: role,
-        peopleCount: peopleCount,
-        dietPreferences: dietary,
-        sessionToken: idToken ? idToken.substring(0, 30) + '...' : '',
-        updatedAt: new Date().toISOString()
-      }, { merge: true });
-
-      if (onPeopleCountChange) {
-        onPeopleCountChange(peopleCount);
-      }
-
-      setSavedSuccess(true);
-      setTimeout(() => setSavedSuccess(false), 2500);
-    } catch (err) {
-      console.error('Error saving user preferences to Firestore:', err);
-    } finally {
-      setSavingPrefs(false);
-    }
-  };
-
-  const pingFirestore = async () => {
-    setIsPingingFirestore(true);
-    const start = performance.now();
-    try {
-      const pingDoc = doc(db, 'system_config', 'health_check');
-      await setDoc(pingDoc, {
-        lastPing: new Date().toISOString(),
-        superadmin: SUPERADMIN_EMAIL,
-        status: 'ONLINE'
-      }, { merge: true });
-      const duration = Math.round(performance.now() - start);
-      setFirestoreLatency(duration);
-      setSuperadminActionStatus(`Ping Firestore exitoso en ${duration}ms`);
-    } catch (err: any) {
-      console.error('Firestore Ping Error:', err);
-      setSuperadminActionStatus(`Error al conectar con Firestore: ${err.message || err}`);
-    } finally {
-      setIsPingingFirestore(false);
-      setTimeout(() => setSuperadminActionStatus(null), 5000);
-    }
-  };
-
-  const addDietTag = () => {
-    if (!newDietTag.trim()) return;
-    if (!dietary.includes(newDietTag.trim())) {
-      setDietary([...dietary, newDietTag.trim()]);
-    }
-    setNewDietTag('');
-  };
-
-  const removeDietTag = (tag: string) => {
-    setDietary(dietary.filter(t => t !== tag));
-  };
-
-  if (loading) {
-    return (
-      <div className="flex flex-col items-center justify-center min-h-[50vh] space-y-3">
-        <div className="w-8 h-8 border-3 border-primary border-t-transparent rounded-full animate-spin" />
-        <p className="text-xs font-bold text-on-surface-variant">Cargando estado de autenticación Firebase...</p>
-      </div>
-    );
-  }
+  const availableEquipmentCount = equipmentList.filter(e => e.available).length;
 
   return (
-    <div className="w-full max-w-4xl mx-auto space-y-4 animate-fade-in pb-12">
-      {/* Header Banner */}
-      <div className="bg-surface rounded-2xl p-4 border border-outline-variant/30 shadow-xs flex flex-col md:flex-row justify-between items-start md:items-center gap-3">
-        <div>
-          <div className="flex items-center gap-1.5 mb-1">
-            <span className="bg-primary/20 text-primary text-[9px] font-extrabold px-2 py-0.5 rounded-full uppercase flex items-center gap-1">
-              <ShieldCheck size={11} /> Firebase Auth & Firestore
-            </span>
-            {isCurrentSuperAdmin ? (
-              <span className="bg-amber-100 text-amber-900 border border-amber-300 text-[9px] font-black px-2 py-0.5 rounded-full uppercase flex items-center gap-1 shadow-2xs">
-                <Crown size={11} className="text-amber-600" /> Superadmin ({user?.email})
+    <div className="space-y-6 animate-fade-in pb-16 text-zinc-900 dark:text-zinc-100 max-w-5xl mx-auto">
+      
+      {/* COMMERCIAL USER HERO CARD */}
+      <div className="bg-white dark:bg-zinc-900 rounded-3xl border border-zinc-200 dark:border-zinc-800 p-5 sm:p-7 shadow-xs">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          
+          <div className="flex items-center gap-4">
+            <div className="relative">
+              <div className="w-16 h-16 rounded-2xl bg-emerald-600 text-white flex items-center justify-center font-black text-xl shadow-md shrink-0 overflow-hidden">
+                {user?.photoURL ? (
+                  <img src={user.photoURL} alt={user.displayName || 'Avatar'} className="w-full h-full object-cover" />
+                ) : (
+                  <ChefHat size={32} />
+                )}
+              </div>
+              <span className="absolute -bottom-1 -right-1 w-5 h-5 rounded-full bg-emerald-500 border-2 border-white dark:border-zinc-900 flex items-center justify-center text-[10px] text-white">
+                ✓
               </span>
-            ) : (
-              <span className="text-[10px] font-bold text-on-surface-variant flex items-center gap-1">
-                <Globe size={12} className="text-emerald-600" /> Sesión Segura
-              </span>
+            </div>
+
+            <div>
+              <div className="flex flex-wrap items-center gap-2">
+                <h1 className="text-xl font-black text-zinc-900 dark:text-white leading-tight">
+                  {user ? (user.displayName || user.email?.split('@')[0]) : 'Mi Hogar & Cocina'}
+                </h1>
+                <span className="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 uppercase tracking-wider">
+                  PrepMaster Pro
+                </span>
+              </div>
+              <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-0.5">
+                {user?.email || 'Sesión en modo local / Invitado'} • Sincronizado en la Nube
+              </p>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-2.5 self-end sm:self-center">
+            <button
+              onClick={handleSaveProfile}
+              disabled={saving}
+              className="bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-black px-5 py-2.5 rounded-xl shadow-sm transition-all flex items-center gap-2 active:scale-95 disabled:opacity-50 cursor-pointer"
+            >
+              {saving ? <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" /> : <Save size={15} />}
+              <span>{saving ? 'Guardando...' : 'Guardar Cambios'}</span>
+            </button>
+
+            {user && (
+              <button
+                onClick={handleLogout}
+                className="p-2.5 rounded-xl bg-rose-500/10 hover:bg-rose-500/20 text-rose-600 dark:text-rose-400 border border-rose-500/20 transition-all active:scale-95 text-xs font-bold"
+                title="Cerrar Sesión"
+              >
+                <LogOut size={16} />
+              </button>
             )}
           </div>
-          <h1 className="text-lg md:text-xl font-black text-on-surface flex items-center gap-2">
-            Perfil de Usuario & Ajustes
-            {isCurrentSuperAdmin && (
-              <span className="text-xs bg-amber-500 text-white font-black px-2 py-0.5 rounded-lg shadow-2xs">
-                👑 SuperAdmin
-              </span>
-            )}
-          </h1>
-          <p className="text-xs text-on-surface-variant mt-0.5">
-            Gestión de credenciales, tokens de sesión y parámetros familiares para el planificador batch.
-          </p>
+
         </div>
 
-        {user && (
-          <button
-            onClick={handleLogout}
-            className="flex items-center gap-1.5 bg-rose-50 text-rose-700 border border-rose-200 px-3.5 py-2 rounded-xl text-xs font-bold hover:bg-rose-100 transition-colors active:scale-95 shrink-0"
-          >
-            <LogOut size={15} />
-            <span>Cerrar Sesión</span>
-          </button>
+        {/* TOAST FEEDBACK */}
+        {savedToast && (
+          <div className="mt-4 p-3 bg-emerald-500/10 border border-emerald-500/30 rounded-2xl flex items-center gap-2 text-xs font-bold text-emerald-700 dark:text-emerald-300 animate-fade-in">
+            <CheckCircle2 size={16} className="text-emerald-500 shrink-0" />
+            <span>Perfil familiar y equipamiento de cocina guardados con éxito en Firestore.</span>
+          </div>
         )}
       </div>
 
-      {authError && (
-        <div className="p-3 bg-rose-50 border border-rose-200 rounded-2xl flex items-center gap-2 text-rose-800 text-xs font-bold">
-          <AlertCircle size={16} className="shrink-0" />
-          <span>{authError}</span>
-        </div>
-      )}
+      {/* TABS SELECTOR */}
+      <div className="flex border-b border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 rounded-2xl p-1 shadow-xs overflow-x-auto hide-scrollbar">
+        <button
+          onClick={() => setActiveTab('kitchen')}
+          className={`flex-1 min-w-[140px] py-2.5 px-3 text-center text-xs font-bold rounded-xl transition-all flex items-center justify-center gap-2 ${
+            activeTab === 'kitchen'
+              ? 'bg-emerald-600 text-white shadow-xs'
+              : 'text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white'
+          }`}
+        >
+          <Flame size={15} />
+          <span>Mi Cocina & Equipamiento ({availableEquipmentCount})</span>
+        </button>
 
-      {/* LOGIN CARD IF NOT LOGGED IN */}
-      {!user ? (
-        <div className="bg-surface rounded-3xl border border-outline-variant/30 p-8 space-y-5 shadow-sm text-center max-w-md mx-auto my-6">
-          <div className="w-16 h-16 rounded-3xl bg-primary/10 text-primary mx-auto flex items-center justify-center font-black">
-            <UserIcon size={32} />
+        <button
+          onClick={() => setActiveTab('household')}
+          className={`flex-1 min-w-[140px] py-2.5 px-3 text-center text-xs font-bold rounded-xl transition-all flex items-center justify-center gap-2 ${
+            activeTab === 'household'
+              ? 'bg-emerald-600 text-white shadow-xs'
+              : 'text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white'
+          }`}
+        >
+          <Users size={15} />
+          <span>Comensales & Dietas ({adultsCount + kidsCount}p)</span>
+        </button>
+
+        <button
+          onClick={() => setActiveTab('shopping')}
+          className={`flex-1 min-w-[140px] py-2.5 px-3 text-center text-xs font-bold rounded-xl transition-all flex items-center justify-center gap-2 ${
+            activeTab === 'shopping'
+              ? 'bg-emerald-600 text-white shadow-xs'
+              : 'text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white'
+          }`}
+        >
+          <ShoppingBag size={15} />
+          <span>Compras & Horarios</span>
+        </button>
+      </div>
+
+      {/* TAB 1: MI COCINA & EQUIPAMIENTO CON FOTOS */}
+      {activeTab === 'kitchen' && (
+        <div className="space-y-6 animate-fade-in">
+          
+          {/* Quick Metrics Bar */}
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+            <div className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-2xl p-3.5 text-center shadow-xs">
+              <span className="text-[10px] uppercase tracking-wider text-zinc-400 font-bold block">Fuegos de Cocina</span>
+              <div className="flex items-center justify-center gap-1 mt-1">
+                {[2, 3, 4, 5].map(num => (
+                  <button
+                    key={num}
+                    onClick={() => setBurnersCount(num)}
+                    className={`w-7 h-7 rounded-lg text-xs font-black transition-all ${
+                      burnersCount === num 
+                        ? 'bg-emerald-600 text-white shadow-xs' 
+                        : 'bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 hover:bg-zinc-200'
+                    }`}
+                  >
+                    {num}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            <div className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-2xl p-3.5 text-center shadow-xs">
+              <span className="text-[10px] uppercase tracking-wider text-zinc-400 font-bold block">Tipo de Placa</span>
+              <select
+                value={stoveType}
+                onChange={(e) => setStoveType(e.target.value as any)}
+                className="mt-1 bg-zinc-100 dark:bg-zinc-800 text-zinc-900 dark:text-white text-xs font-bold py-1 px-2 rounded-lg border border-zinc-200 dark:border-zinc-700 outline-none w-full text-center"
+              >
+                <option value="induccion">⚡ Inducción</option>
+                <option value="vitro">🔥 Vitrocerámica</option>
+                <option value="gas">🔵 Gas</option>
+                <option value="mixta">🔄 Mixta</option>
+              </select>
+            </div>
+
+            <div className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-2xl p-3.5 text-center shadow-xs">
+              <span className="text-[10px] uppercase tracking-wider text-zinc-400 font-bold block">Cajones Congelador</span>
+              <div className="flex items-center justify-center gap-1 mt-1">
+                {[1, 2, 3, 4].map(num => (
+                  <button
+                    key={num}
+                    onClick={() => setFreezerDrawers(num)}
+                    className={`w-7 h-7 rounded-lg text-xs font-black transition-all ${
+                      freezerDrawers === num 
+                        ? 'bg-emerald-600 text-white shadow-xs' 
+                        : 'bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 hover:bg-zinc-200'
+                    }`}
+                  >
+                    {num}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            <div className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-2xl p-3.5 text-center shadow-xs">
+              <span className="text-[10px] uppercase tracking-wider text-zinc-400 font-bold block">Tuppers de Cristal</span>
+              <div className="flex items-center justify-center gap-2 mt-1">
+                <input
+                  type="number"
+                  min={2}
+                  max={40}
+                  value={tupperContainersCount}
+                  onChange={(e) => setTupperContainersCount(Number(e.target.value))}
+                  className="w-14 bg-zinc-100 dark:bg-zinc-800 text-zinc-900 dark:text-white text-xs font-black py-1 rounded-lg border border-zinc-200 dark:border-zinc-700 text-center outline-none"
+                />
+                <span className="text-xs text-zinc-400 font-bold">uds.</span>
+              </div>
+            </div>
           </div>
-          <div className="space-y-1">
-            <h2 className="text-lg font-black text-on-surface">Tu Cuenta PrepMaster</h2>
-            <p className="text-xs text-on-surface-variant leading-relaxed">
-              Inicia sesión o crea una cuenta para sincronizar tus menús de raciones, lista de compra e inventario en tiempo real.
+
+          {/* Explanation Callout */}
+          <div className="p-4 bg-emerald-500/10 border border-emerald-500/20 rounded-2xl flex items-start gap-3 text-xs text-emerald-800 dark:text-emerald-300">
+            <Sparkles size={18} className="text-emerald-500 shrink-0 mt-0.5" />
+            <p className="leading-relaxed">
+              <strong>Optimización del Algoritmo Batch:</strong> La IA cruzará este perfil con tus menús para calcular la distribución exacta de fuegos simultáneos. Si desactivas un equipo (ej. olla exprés o robot), el planificador nunca te pedirá recetas que lo requieran.
             </p>
           </div>
 
-          <div className="space-y-2 pt-2">
-            <button
-              onClick={() => setIsAuthModalOpen(true)}
-              className="w-full bg-primary hover:bg-primary/90 text-on-primary font-black text-xs py-3 px-4 rounded-2xl transition-all shadow-xs active:scale-98 flex items-center justify-center gap-2"
-            >
-              <span>Iniciar Sesión / Registrarse</span>
-            </button>
-
-            <button
-              onClick={() => signInAnonymously(auth)}
-              className="w-full bg-surface-container hover:bg-surface-container-high border border-outline-variant/40 text-on-surface font-extrabold text-xs py-2.5 px-4 rounded-2xl transition-all active:scale-98 flex items-center justify-center gap-2"
-            >
-              <Sparkles size={14} className="text-primary" />
-              <span>Acceso Rápido como Invitado</span>
-            </button>
-          </div>
-
-          <p className="text-[10px] text-on-surface-variant font-medium">
-            🔒 Autenticación cifrada basada en tokens JWT con Firebase SDK
-          </p>
-        </div>
-      ) : (
-        /* USER LOGGED IN CONTENT */
-        <div className="space-y-4">
+          {/* Equipment Cards Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            
-            {/* USER CARD & TOKENS */}
-            <div className="bg-surface rounded-2xl border border-outline-variant/30 p-4 space-y-4 shadow-2xs">
-              <div className="flex items-center gap-3 border-b border-outline-variant/20 pb-3">
-                <div className={`w-12 h-12 rounded-2xl overflow-hidden border shrink-0 flex items-center justify-center font-black ${
-                  isCurrentSuperAdmin 
-                    ? 'bg-amber-100 text-amber-700 border-amber-300 ring-2 ring-amber-400/30' 
-                    : 'bg-primary/10 text-primary border-primary/20'
-                }`}>
-                  {user.photoURL ? (
-                    <img src={user.photoURL} alt={user.displayName || 'User'} className="w-full h-full object-cover" />
-                  ) : isCurrentSuperAdmin ? (
-                    <Crown size={26} className="text-amber-600" />
-                  ) : (
-                    <UserIcon size={24} />
-                  )}
-                </div>
-                <div className="min-w-0 flex-1">
-                  <div className="flex items-center gap-2">
-                    <h2 className="text-sm font-black text-on-surface truncate">
-                      {user.displayName || (isCurrentSuperAdmin ? 'Superadministrador' : 'Usuario Registrado')}
-                    </h2>
-                    {isCurrentSuperAdmin ? (
-                      <span className="bg-amber-100 text-amber-900 border border-amber-300 text-[9px] font-black px-2 py-0.2 rounded-full uppercase flex items-center gap-0.5">
-                        <Crown size={9} className="text-amber-600" /> SUPERADMIN
-                      </span>
-                    ) : (
-                      <span className="bg-emerald-100 text-emerald-800 text-[9px] font-black px-2 py-0.2 rounded-full uppercase">
-                        {user.isAnonymous ? 'Invitado' : 'Verificado'}
+            {equipmentList.map((item) => (
+              <div 
+                key={item.id}
+                className={`rounded-3xl border p-4 sm:p-5 flex flex-col justify-between gap-4 transition-all ${
+                  item.available 
+                    ? 'bg-white dark:bg-zinc-900 border-zinc-200 dark:border-zinc-800 shadow-xs' 
+                    : 'bg-zinc-50 dark:bg-zinc-900/40 border-zinc-200 dark:border-zinc-800/60 opacity-60'
+                }`}
+              >
+                <div className="flex items-start gap-3.5">
+                  <div className="w-20 h-20 rounded-2xl overflow-hidden shrink-0 border border-zinc-200 dark:border-zinc-700 bg-zinc-100 dark:bg-zinc-800 relative">
+                    <img 
+                      src={item.image} 
+                      alt={item.name} 
+                      className="w-full h-full object-cover" 
+                    />
+                    {item.available && (
+                      <span className="absolute top-1 right-1 w-4 h-4 rounded-full bg-emerald-500 text-white flex items-center justify-center text-[9px] font-black shadow-xs">
+                        ✓
                       </span>
                     )}
                   </div>
-                  <p className="text-xs text-on-surface-variant truncate">
-                    {user.email || 'Acceso Anónimo (Invitado)'}
-                  </p>
-                  <p className="text-[10px] font-mono text-on-surface-variant/80 mt-0.5 truncate">
-                    UID: {user.uid}
-                  </p>
-                </div>
-              </div>
 
-              {/* TOKEN & CREDENTIALS DETAILS */}
-              <div className="space-y-2">
-                <div className="flex items-center justify-between">
-                  <span className="text-xs font-black text-on-surface flex items-center gap-1">
-                    <Key size={14} className="text-primary" /> Token de Sesión JWT
-                  </span>
-                  <button
-                    onClick={copyTokenToClipboard}
-                    className="flex items-center gap-1 text-[10px] font-extrabold text-primary bg-primary/10 px-2 py-0.5 rounded-lg hover:bg-primary/20 transition-colors"
-                  >
-                    {copiedToken ? <Check size={12} className="text-emerald-600" /> : <Copy size={12} />}
-                    <span>{copiedToken ? 'Copiado!' : 'Copiar Token'}</span>
-                  </button>
-                </div>
-
-                <div className="bg-surface-container p-2.5 rounded-xl border border-outline-variant/30 font-mono text-[10px] text-on-surface-variant break-all max-h-20 overflow-y-auto leading-relaxed">
-                  {idToken || 'Cargando sesión Firebase...'}
-                </div>
-
-                <div className="grid grid-cols-2 gap-2 text-[10px] pt-1">
-                  <div className="bg-surface-container/50 p-2 rounded-xl border border-outline-variant/20">
-                    <span className="text-on-surface-variant block">Rol de Seguridad</span>
-                    <strong className={`font-black ${isCurrentSuperAdmin ? 'text-amber-700' : 'text-on-surface'}`}>
-                      {isCurrentSuperAdmin ? '👑 SUPERADMIN' : 'USUARIO STANDARD'}
-                    </strong>
-                  </div>
-                  <div className="bg-surface-container/50 p-2 rounded-xl border border-outline-variant/20">
-                    <span className="text-on-surface-variant block">Proveedor de Acceso</span>
-                    <strong className="text-on-surface font-bold">
-                      {user.providerData[0]?.providerId || (user.isAnonymous ? 'Anónimo (Invitado)' : 'Firebase Auth')}
-                    </strong>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* HOUSEHOLD & DIET PREFERENCES (FIRESTORE SYNC) */}
-            <div className="bg-surface rounded-2xl border border-outline-variant/30 p-4 space-y-4 shadow-2xs">
-              <div className="flex items-center justify-between border-b border-outline-variant/20 pb-2.5">
-                <div className="flex items-center gap-2">
-                  <div className="w-8 h-8 rounded-xl bg-secondary/10 text-secondary flex items-center justify-center font-black">
-                    <Users size={18} />
-                  </div>
-                  <div>
-                    <h3 className="text-xs font-black text-on-surface">Configuración de Comensales</h3>
-                    <p className="text-[10px] text-on-surface-variant">Sincronizado directamente con Firestore</p>
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-start justify-between gap-1">
+                      <h4 className="text-xs sm:text-sm font-black text-zinc-900 dark:text-white leading-tight">
+                        {item.name}
+                      </h4>
+                    </div>
+                    <p className="text-[11px] text-zinc-500 dark:text-zinc-400 mt-1 leading-relaxed line-clamp-2">
+                      {item.description}
+                    </p>
+                    {item.countOrCapacity && (
+                      <span className="inline-block text-[10px] font-bold text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded-md mt-1.5">
+                        {item.countOrCapacity}
+                      </span>
+                    )}
                   </div>
                 </div>
 
-                <button
-                  onClick={savePreferences}
-                  disabled={savingPrefs}
-                  className="flex items-center gap-1.5 bg-primary text-on-primary px-3 py-1.5 rounded-xl text-xs font-extrabold hover:bg-primary/90 transition-colors shadow-2xs active:scale-95 disabled:opacity-50"
-                >
-                  {savingPrefs ? (
-                    <div className="w-3.5 h-3.5 border-2 border-on-primary border-t-transparent rounded-full animate-spin" />
-                  ) : savedSuccess ? (
-                    <Check size={14} className="text-emerald-300" />
-                  ) : (
-                    <Save size={14} />
-                  )}
-                  <span>{savedSuccess ? 'Guardado' : 'Guardar'}</span>
-                </button>
-              </div>
-
-              {/* People Count Control */}
-              <div className="space-y-1.5">
-                <label className="text-xs font-bold text-on-surface block">
-                  Número habitual de comensales en casa:
-                </label>
-                <div className="flex items-center gap-3 bg-surface-container p-2 rounded-xl border border-outline-variant/30">
-                  <input 
-                    type="range" 
-                    min={1} 
-                    max={12} 
-                    value={peopleCount} 
-                    onChange={(e) => setPeopleCount(parseInt(e.target.value))} 
-                    className="flex-1 accent-primary h-2 bg-outline-variant/40 rounded-lg cursor-pointer"
-                  />
-                  <span className="text-sm font-black text-primary bg-primary-container/40 px-3 py-1 rounded-lg min-w-[48px] text-center">
-                    {peopleCount} pers.
-                  </span>
-                </div>
-              </div>
-
-              {/* Dietary Tags */}
-              <div className="space-y-2">
-                <label className="text-xs font-bold text-on-surface block">
-                  Preferencias y restricciones dietéticas:
-                </label>
-                <div className="flex flex-wrap gap-1.5">
-                  {dietary.map((tag) => (
-                    <span 
-                      key={tag}
-                      className="bg-primary/10 text-primary border border-primary/20 text-xs font-bold px-2.5 py-1 rounded-xl flex items-center gap-1.5"
-                    >
-                      {tag}
-                      <button 
-                        onClick={() => removeDietTag(tag)}
-                        className="hover:text-rose-600 transition-colors font-black text-xs"
-                      >
-                        ×
-                      </button>
-                    </span>
-                  ))}
-                </div>
-
-                <div className="flex gap-2 pt-1">
+                {/* Bottom Toggle & Model notes */}
+                <div className="flex items-center justify-between gap-2 pt-3 border-t border-zinc-100 dark:border-zinc-800/80">
                   <input
                     type="text"
-                    placeholder="Ej: Vegano, Gluten Free, Keto..."
-                    value={newDietTag}
-                    onChange={(e) => setNewDietTag(e.target.value)}
-                    onKeyDown={(e) => e.key === 'Enter' && addDietTag()}
-                    className="flex-1 bg-surface-container border border-outline-variant/40 text-xs px-3 py-1.5 rounded-xl focus:outline-none focus:border-primary text-on-surface"
+                    value={item.brandOrNotes || ''}
+                    onChange={(e) => handleUpdateEquipmentNotes(item.id, e.target.value)}
+                    placeholder="Modelo / Marca (ej. Cosori 5.5L)"
+                    className="flex-1 bg-zinc-50 dark:bg-zinc-800/60 border border-zinc-200 dark:border-zinc-700 rounded-xl px-2.5 py-1.5 text-xs text-zinc-900 dark:text-white outline-none focus:border-emerald-500"
                   />
+
                   <button
-                    onClick={addDietTag}
-                    className="bg-surface-container border border-outline-variant/40 hover:bg-surface-container-high text-on-surface font-extrabold text-xs px-3 py-1.5 rounded-xl transition-colors"
+                    onClick={() => handleToggleEquipment(item.id)}
+                    className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all shrink-0 active:scale-95 cursor-pointer ${
+                      item.available 
+                        ? 'bg-emerald-600 text-white shadow-xs' 
+                        : 'bg-zinc-200 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400'
+                    }`}
                   >
-                    Añadir
+                    {item.available ? '✅ En mi cocina' : '❌ No disponible'}
                   </button>
                 </div>
-              </div>
 
-              <div className="p-2.5 bg-emerald-50 border border-emerald-200 rounded-xl text-[11px] text-emerald-900 font-medium flex items-start gap-2">
-                <Lock size={14} className="text-emerald-700 shrink-0 mt-0.5" />
-                <span>
-                  Tus preferencias se guardan en la colección Firestore <code className="font-mono bg-emerald-100 px-1 py-0.2 rounded">users/{user.uid}</code>.
-                </span>
               </div>
-            </div>
-
+            ))}
           </div>
-
-          {/* SUPERADMIN MANAGEMENT DASHBOARD (ONLY VISIBLE TO SUPERADMIN) */}
-          {isCurrentSuperAdmin && (
-            <div className="bg-surface rounded-2xl border-2 border-amber-400/40 p-5 space-y-4 shadow-sm animate-fade-in">
-              <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between border-b border-outline-variant/20 pb-3 gap-2">
-                <div className="flex items-center gap-2.5">
-                  <div className="w-10 h-10 rounded-2xl bg-amber-500 text-white flex items-center justify-center font-black shadow-xs">
-                    <Crown size={22} />
-                  </div>
-                  <div>
-                    <h3 className="text-sm font-black text-on-surface flex items-center gap-1.5">
-                      Panel de Control SuperAdmin
-                      <span className="text-[10px] font-bold bg-amber-100 text-amber-900 px-2 py-0.5 rounded-md border border-amber-200">
-                        {user.email}
-                      </span>
-                    </h3>
-                    <p className="text-xs text-on-surface-variant">
-                      Herramientas de diagnóstico, latencia y estado de colecciones Firestore
-                    </p>
-                  </div>
-                </div>
-
-                <button
-                  onClick={pingFirestore}
-                  disabled={isPingingFirestore}
-                  className="flex items-center gap-1.5 bg-amber-500 hover:bg-amber-600 text-white font-extrabold text-xs px-3.5 py-2 rounded-xl transition-all shadow-xs active:scale-95 disabled:opacity-50"
-                >
-                  <RefreshCw size={14} className={isPingingFirestore ? 'animate-spin' : ''} />
-                  <span>{isPingingFirestore ? 'Comprobando...' : 'Test de Latencia Firestore'}</span>
-                </button>
-              </div>
-
-              {superadminActionStatus && (
-                <div className="p-3 bg-emerald-50 border border-emerald-200 text-emerald-900 rounded-xl text-xs font-bold flex items-center gap-2">
-                  <Activity size={16} className="text-emerald-700 shrink-0" />
-                  <span>{superadminActionStatus}</span>
-                </div>
-              )}
-
-              {/* FIRESTORE COLLECTIONS & DIAGNOSTICS */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
-                <div className="bg-surface-container p-3 rounded-xl border border-outline-variant/30 space-y-1">
-                  <div className="flex items-center justify-between text-on-surface-variant">
-                    <span className="text-[10px] font-extrabold uppercase">Colección Usuarios</span>
-                    <Users size={14} className="text-primary" />
-                  </div>
-                  <div className="text-sm font-black text-on-surface">/users/{'{uid}'}</div>
-                  <div className="text-[10px] text-emerald-700 font-bold flex items-center gap-1">
-                    <Check size={11} /> Regla isSuperAdmin() OK
-                  </div>
-                </div>
-
-                <div className="bg-surface-container p-3 rounded-xl border border-outline-variant/30 space-y-1">
-                  <div className="flex items-center justify-between text-on-surface-variant">
-                    <span className="text-[10px] font-extrabold uppercase">Planes de Raciones</span>
-                    <Layers size={14} className="text-secondary" />
-                  </div>
-                  <div className="text-sm font-black text-on-surface">/menu_plans</div>
-                  <div className="text-[10px] text-emerald-700 font-bold flex items-center gap-1">
-                    <Check size={11} /> Lectura/Escritura Total
-                  </div>
-                </div>
-
-                <div className="bg-surface-container p-3 rounded-xl border border-outline-variant/30 space-y-1">
-                  <div className="flex items-center justify-between text-on-surface-variant">
-                    <span className="text-[10px] font-extrabold uppercase">Lista de Compra</span>
-                    <ShoppingBag size={14} className="text-emerald-700" />
-                  </div>
-                  <div className="text-sm font-black text-on-surface">/shopping_items</div>
-                  <div className="text-[10px] text-emerald-700 font-bold flex items-center gap-1">
-                    <Check size={11} /> Sincronización Lista
-                  </div>
-                </div>
-
-                <div className="bg-surface-container p-3 rounded-xl border border-outline-variant/30 space-y-1">
-                  <div className="flex items-center justify-between text-on-surface-variant">
-                    <span className="text-[10px] font-extrabold uppercase">Latencia Firestore</span>
-                    <Activity size={14} className="text-amber-600" />
-                  </div>
-                  <div className="text-sm font-black text-on-surface">
-                    {firestoreLatency !== null ? `${firestoreLatency} ms` : 'Sin medir'}
-                  </div>
-                  <div className="text-[10px] text-on-surface-variant font-medium">
-                    {firestoreLatency !== null ? 'Tiempo de respuesta óptimo' : 'Pulsa test para verificar'}
-                  </div>
-                </div>
-              </div>
-
-              {/* TECHNICAL FIREBASE CONFIG SPEC */}
-              <div className="bg-surface-container/60 rounded-xl p-3 border border-outline-variant/30 font-mono text-[11px] space-y-1 text-on-surface-variant">
-                <div className="flex items-center justify-between border-b border-outline-variant/20 pb-1 font-bold text-on-surface">
-                  <span className="flex items-center gap-1"><Server size={13} className="text-primary" /> Especificación Firebase Conectada:</span>
-                  <span className="text-[10px] text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">ONLINE</span>
-                </div>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-1 pt-1">
-                  <div><strong>Project ID:</strong> {firebaseConfig.projectId}</div>
-                  <div><strong>Database ID:</strong> {firebaseConfig.firestoreDatabaseId}</div>
-                  <div><strong>Auth Domain:</strong> {firebaseConfig.authDomain}</div>
-                  <div><strong>SuperAdmin:</strong> {SUPERADMIN_EMAIL}</div>
-                </div>
-              </div>
-            </div>
-          )}
 
         </div>
       )}
 
-      {/* Standard Auth Modal */}
-      <AuthModal
-        isOpen={isAuthModalOpen}
-        onClose={() => setIsAuthModalOpen(false)}
-        initialMode="login"
-      />
+      {/* TAB 2: COMENSALES & DIETAS */}
+      {activeTab === 'household' && (
+        <div className="space-y-6 animate-fade-in">
+          
+          {/* Family Composition Card */}
+          <div className="bg-white dark:bg-zinc-900 rounded-3xl border border-zinc-200 dark:border-zinc-800 p-6 shadow-xs space-y-5">
+            <div>
+              <h3 className="text-sm font-black text-zinc-900 dark:text-white flex items-center gap-2">
+                <Users className="text-emerald-500" size={18} />
+                <span>Composición del Hogar</span>
+              </h3>
+              <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-0.5">
+                Define cuántas raciones base se cocinan en cada tanda
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              <div className="p-4 bg-zinc-50 dark:bg-zinc-800/40 rounded-2xl border border-zinc-200 dark:border-zinc-700/60 text-center space-y-2">
+                <span className="text-xs font-bold text-zinc-600 dark:text-zinc-400 block">Adultos</span>
+                <div className="flex items-center justify-center gap-3">
+                  <button 
+                    onClick={() => setAdultsCount(Math.max(1, adultsCount - 1))}
+                    className="w-8 h-8 rounded-xl bg-zinc-200 dark:bg-zinc-700 font-black text-sm text-zinc-800 dark:text-zinc-200 active:scale-90"
+                  >-</button>
+                  <span className="text-xl font-black text-zinc-900 dark:text-white">{adultsCount}</span>
+                  <button 
+                    onClick={() => setAdultsCount(adultsCount + 1)}
+                    className="w-8 h-8 rounded-xl bg-zinc-200 dark:bg-zinc-700 font-black text-sm text-zinc-800 dark:text-zinc-200 active:scale-90"
+                  >+</button>
+                </div>
+              </div>
+
+              <div className="p-4 bg-zinc-50 dark:bg-zinc-800/40 rounded-2xl border border-zinc-200 dark:border-zinc-700/60 text-center space-y-2">
+                <span className="text-xs font-bold text-zinc-600 dark:text-zinc-400 block">Niños / Raciones Pequeñas</span>
+                <div className="flex items-center justify-center gap-3">
+                  <button 
+                    onClick={() => setKidsCount(Math.max(0, kidsCount - 1))}
+                    className="w-8 h-8 rounded-xl bg-zinc-200 dark:bg-zinc-700 font-black text-sm text-zinc-800 dark:text-zinc-200 active:scale-90"
+                  >-</button>
+                  <span className="text-xl font-black text-zinc-900 dark:text-white">{kidsCount}</span>
+                  <button 
+                    onClick={() => setKidsCount(kidsCount + 1)}
+                    className="w-8 h-8 rounded-xl bg-zinc-200 dark:bg-zinc-700 font-black text-sm text-zinc-800 dark:text-zinc-200 active:scale-90"
+                  >+</button>
+                </div>
+              </div>
+
+              <div className="p-4 bg-emerald-500/10 rounded-2xl border border-emerald-500/30 text-center flex flex-col justify-center">
+                <span className="text-xs font-bold text-emerald-800 dark:text-emerald-300 block">Total Comensales</span>
+                <span className="text-2xl font-black text-emerald-600 dark:text-emerald-400 mt-1">
+                  {adultsCount + kidsCount} personas
+                </span>
+              </div>
+            </div>
+          </div>
+
+          {/* Diet Preferences Card */}
+          <div className="bg-white dark:bg-zinc-900 rounded-3xl border border-zinc-200 dark:border-zinc-800 p-6 shadow-xs space-y-4">
+            <div>
+              <h3 className="text-sm font-black text-zinc-900 dark:text-white flex items-center gap-2">
+                <Heart className="text-emerald-500" size={18} />
+                <span>Estilo Dietético & Preferencias</span>
+              </h3>
+              <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-0.5">
+                Selecciona los patrones de alimentación para tus menús
+              </p>
+            </div>
+
+            <div className="flex flex-wrap gap-2">
+              {availableDietStyles.map((diet) => {
+                const isSelected = selectedDiets.includes(diet);
+                return (
+                  <button
+                    key={diet}
+                    onClick={() => toggleDiet(diet)}
+                    className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 active:scale-95 cursor-pointer ${
+                      isSelected
+                        ? 'bg-emerald-600 text-white shadow-xs'
+                        : 'bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 hover:bg-zinc-200 dark:hover:bg-zinc-700'
+                    }`}
+                  >
+                    {isSelected && <Check size={13} />}
+                    <span>{diet}</span>
+                  </button>
+                );
+              })}
+            </div>
+
+            <form onSubmit={handleAddCustomDiet} className="flex gap-2 pt-2">
+              <input
+                type="text"
+                value={customDiet}
+                onChange={(e) => setCustomDiet(e.target.value)}
+                placeholder="Añadir otra preferencia (ej: Sin picante, Alto en fibra)..."
+                className="flex-1 bg-zinc-50 dark:bg-zinc-800/60 border border-zinc-200 dark:border-zinc-700 rounded-xl px-3.5 py-2 text-xs text-zinc-900 dark:text-white outline-none focus:border-emerald-500"
+              />
+              <button
+                type="submit"
+                className="bg-zinc-200 dark:bg-zinc-700 hover:bg-emerald-600 hover:text-white text-zinc-800 dark:text-zinc-200 text-xs font-bold px-4 py-2 rounded-xl transition-colors"
+              >
+                Añadir
+              </button>
+            </form>
+          </div>
+
+          {/* Allergies & Intolerances */}
+          <div className="bg-white dark:bg-zinc-900 rounded-3xl border border-zinc-200 dark:border-zinc-800 p-6 shadow-xs space-y-4">
+            <div>
+              <h3 className="text-sm font-black text-zinc-900 dark:text-white flex items-center gap-2">
+                <AlertCircle className="text-rose-500" size={18} />
+                <span>Alergias & Restricciones Médicas</span>
+              </h3>
+              <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-0.5">
+                Ingredientes que nunca deben incluirse en las recetas
+              </p>
+            </div>
+
+            <div className="flex flex-wrap gap-2">
+              {availableAllergies.map((allergy) => {
+                const isSelected = selectedAllergies.includes(allergy);
+                return (
+                  <button
+                    key={allergy}
+                    onClick={() => toggleAllergy(allergy)}
+                    className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 active:scale-95 cursor-pointer ${
+                      isSelected
+                        ? 'bg-rose-600 text-white shadow-xs'
+                        : 'bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 hover:bg-zinc-200 dark:hover:bg-zinc-700'
+                    }`}
+                  >
+                    {isSelected && <Check size={13} />}
+                    <span>{allergy}</span>
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+
+        </div>
+      )}
+
+      {/* TAB 3: COMPRAS & HORARIOS */}
+      {activeTab === 'shopping' && (
+        <div className="space-y-6 animate-fade-in">
+          
+          <div className="bg-white dark:bg-zinc-900 rounded-3xl border border-zinc-200 dark:border-zinc-800 p-6 shadow-xs space-y-5">
+            <div>
+              <h3 className="text-sm font-black text-zinc-900 dark:text-white flex items-center gap-2">
+                <Calendar className="text-emerald-500" size={18} />
+                <span>Rutinas Semanales de Batch Cooking</span>
+              </h3>
+              <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-0.5">
+                Configura tus días favoritos para comprar y cocinar
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="p-4 bg-zinc-50 dark:bg-zinc-800/40 rounded-2xl border border-zinc-200 dark:border-zinc-700/60 space-y-2">
+                <label className="text-xs font-bold text-zinc-700 dark:text-zinc-300 block">
+                  Día Habitual de Compra
+                </label>
+                <select
+                  value={preferredShoppingDay}
+                  onChange={(e) => setPreferredShoppingDay(e.target.value)}
+                  className="w-full bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-700 rounded-xl p-2.5 text-xs font-bold text-zinc-900 dark:text-white outline-none"
+                >
+                  <option>Viernes por la tarde</option>
+                  <option>Sábado por la mañana</option>
+                  <option>Sábado por la tarde</option>
+                  <option>Domingo por la mañana</option>
+                  <option>Lunes por la mañana</option>
+                </select>
+              </div>
+
+              <div className="p-4 bg-zinc-50 dark:bg-zinc-800/40 rounded-2xl border border-zinc-200 dark:border-zinc-700/60 space-y-2">
+                <label className="text-xs font-bold text-zinc-700 dark:text-zinc-300 block">
+                  Día Habitual de Cocinado Simultáneo
+                </label>
+                <select
+                  value={preferredBatchDay}
+                  onChange={(e) => setPreferredBatchDay(e.target.value)}
+                  className="w-full bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-700 rounded-xl p-2.5 text-xs font-bold text-zinc-900 dark:text-white outline-none"
+                >
+                  <option>Domingo por la mañana (Recomendado)</option>
+                  <option>Domingo por la tarde</option>
+                  <option>Sábado por la mañana</option>
+                  <option>Lunes por la tarde</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          {/* Supermarkets Card */}
+          <div className="bg-white dark:bg-zinc-900 rounded-3xl border border-zinc-200 dark:border-zinc-800 p-6 shadow-xs space-y-4">
+            <div>
+              <h3 className="text-sm font-black text-zinc-900 dark:text-white flex items-center gap-2">
+                <ShoppingBag className="text-emerald-500" size={18} />
+                <span>Supermercados & Mercados Preferidos</span>
+              </h3>
+              <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-0.5">
+                Para clasificar los ingredientes por pasillos según tus tiendas habituales
+              </p>
+            </div>
+
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
+              {availableSupermarkets.map((store) => {
+                const isSelected = selectedSupermarkets.includes(store);
+                return (
+                  <button
+                    key={store}
+                    onClick={() => toggleSupermarket(store)}
+                    className={`p-3 rounded-2xl border text-xs font-bold transition-all text-center flex flex-col items-center justify-center gap-1 active:scale-95 cursor-pointer ${
+                      isSelected
+                        ? 'bg-emerald-500/10 border-emerald-500 text-emerald-600 dark:text-emerald-400 shadow-2xs'
+                        : 'bg-zinc-50 dark:bg-zinc-800/40 border-zinc-200 dark:border-zinc-700/60 text-zinc-700 dark:text-zinc-300 hover:border-zinc-300'
+                    }`}
+                  >
+                    <span>{store}</span>
+                    {isSelected && <span className="text-[10px] text-emerald-500">✓ Preferido</span>}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+
+        </div>
+      )}
+
     </div>
   );
 }

@@ -274,6 +274,35 @@ export interface SimulatorContext {
   totalServings: number;
 }
 
+export interface KitchenEquipmentItem {
+  id: string;
+  name: string;
+  category: 'fuegos' | 'hornos_robots' | 'utensilios' | 'conservacion';
+  description: string;
+  available: boolean;
+  countOrCapacity?: string;
+  image: string;
+  brandOrNotes?: string;
+}
+
+export interface KitchenProfile {
+  stoveType: 'induccion' | 'vitro' | 'gas' | 'mixta';
+  burnersCount: number;
+  hasOven: boolean;
+  hasAirfryer: boolean;
+  hasPressureCooker: boolean;
+  hasKitchenRobot: boolean;
+  kitchenRobotModel?: string;
+  hasMicrowave: boolean;
+  hasVacuumSealer: boolean;
+  glassContainersCount: number;
+  freezerDrawersCount: number;
+  equipmentList: KitchenEquipmentItem[];
+  preferredBatchDay?: string;
+  preferredShoppingDay?: string;
+  preferredSupermarkets?: string[];
+}
+
 export interface AppUserProfile {
   id: string;
   email: string;
@@ -283,6 +312,9 @@ export interface AppUserProfile {
   isSuperAdmin: boolean;
   peopleCount: number;
   dietPreferences: string[];
+  allergies?: string[];
+  goals?: string[];
+  kitchenProfile?: KitchenProfile;
   sessionToken?: string;
   simulatorContext?: SimulatorContext;
   activeProjectId?: string;
@@ -290,6 +322,7 @@ export interface AppUserProfile {
   lastActivePlanId?: string;
   updatedAt?: string;
 }
+
 
 
 
