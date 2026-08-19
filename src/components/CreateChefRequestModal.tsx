@@ -77,13 +77,7 @@ export const CreateChefRequestModal: React.FC<CreateChefRequestModalProps> = ({
     ? APPROVED_CHEFS.find(c => c.id === targetChefId) || selectedChef || BOOTSTRAP_CHEF_PROFILE
     : BOOTSTRAP_CHEF_PROFILE;
 
-  const dishes = activeProject?.dishes.map(d => ({ name: d.name, servings: d.servings })) || [
-    { name: 'Lentejas Pardinas Tradicionales con Verduras (Carmen)', servings: 8 },
-    { name: 'Pollo de Corral en Pepitoria con Almendras (Carmen)', servings: 4 },
-    { name: 'Merluza en Salsa Verde con Almejas (Carmen)', servings: 4 },
-    { name: 'Pisto Manchego Tradicional Confitado (Carmen)', servings: 8 }
-  ];
-
+  const dishes = activeProject?.dishes ? activeProject.dishes.map(d => ({ name: d.name, servings: d.servings })) : [];
   const peopleCount = activeProject?.peopleCount || 4;
   const planTitle = activeProject?.title || 'Menú Semanal Batch Cooking Tradicional (Carmen)';
 
@@ -389,14 +383,21 @@ export const CreateChefRequestModal: React.FC<CreateChefRequestModalProps> = ({
                 Recetario Cocina con Carmen
               </span>
             </div>
-            <div className="space-y-1.5 pt-1">
-              {dishes.map((dish, i) => (
-                <div key={i} className="flex items-center justify-between text-xs py-1 border-b border-zinc-200/50 dark:border-zinc-800/50 last:border-0">
-                  <span className="font-medium text-zinc-800 dark:text-zinc-200">▫️ {dish.name}</span>
-                  <span className="font-mono text-zinc-500">{dish.servings} raciones</span>
-                </div>
-              ))}
-            </div>
+            {dishes.length > 0 ? (
+              <div className="space-y-1.5 pt-1">
+                {dishes.map((dish, i) => (
+                  <div key={i} className="flex items-center justify-between text-xs py-1 border-b border-zinc-200/50 dark:border-zinc-800/50 last:border-0">
+                    <span className="font-medium text-zinc-800 dark:text-zinc-200">▫️ {dish.name}</span>
+                    <span className="font-mono text-zinc-500">{dish.servings} raciones</span>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div className="py-2 text-center text-xs text-zinc-500 space-y-1">
+                <span>⚠️ No tienes ningún menú formulado todavía.</span>
+                <p className="text-[11px] text-zinc-400">Formula primero tu menú en el Asistente Guiado para que el chef conozca los platos y raciones.</p>
+              </div>
+            )}
           </div>
 
           {/* 4. Fecha, Franja Horaria y Dirección */}

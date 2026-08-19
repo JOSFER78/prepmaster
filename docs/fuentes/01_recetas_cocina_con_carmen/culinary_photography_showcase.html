@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TouChef — Showcase de Fotografía Culinaria de Procesos</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-dark: #0a0d14;
+      --bg-card: rgba(18, 24, 38, 0.75);
+      --bg-card-hover: rgba(28, 36, 56, 0.85);
+      --border-glow: rgba(255, 153, 0, 0.25);
+      --border-subtle: rgba(255, 255, 255, 0.08);
+      --accent-orange: #ff7a18;
+      --accent-gold: #ffb347;
+      --accent-emerald: #10b981;
+      --accent-cyan: #06b6d4;
+      --text-main: #f3f4f6;
+      --text-muted: #9ca3af;
+      --text-dim: #6b7280;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: var(--bg-dark);
+      background-image: 
+        radial-gradient(circle at 10% 20%, rgba(255, 122, 24, 0.08) 0%, transparent 40%),
+        radial-gradient(circle at 90% 80%, rgba(16, 185, 129, 0.06) 0%, transparent 40%),
+        linear-gradient(180deg, rgba(10, 13, 20, 0.95) 0%, #0a0d14 100%);
+      color: var(--text-main);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      min-height: 100vh;
+      line-height: 1.5;
+      padding-bottom: 80px;
+    }
+
+    header {
+      padding: 40px 24px 20px;
+      max-width: 1440px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .badge-top {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      background: rgba(255, 122, 24, 0.12);
+      border: 1px solid rgba(255, 122, 24, 0.35);
+      border-radius: 9999px;
+      color: var(--accent-gold);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      width: fit-content;
+    }
+
+    .title-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    h1 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 2.5rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #ffffff 30%, var(--accent-gold) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      letter-spacing: -0.02em;
+    }
+
+    .subtitle {
+      color: var(--text-muted);
+      font-size: 1.05rem;
+      max-width: 780px;
+      margin-top: 4px;
+    }
+
+    .stats-bar {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+      max-width: 1440px;
+      margin: 20px auto 30px;
+      padding: 0 24px;
+    }
+
+    .stat-card {
+      background: var(--bg-card);
+      backdrop-filter: blur(16px);
+      border: 1px solid var(--border-subtle);
+      border-radius: 16px;
+      padding: 18px 22px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      transition: all 0.3s ease;
+    }
+
+    .stat-card:hover {
+      border-color: var(--border-glow);
+      transform: translateY(-2px);
+    }
+
+    .stat-label {
+      color: var(--text-muted);
+      font-size: 0.82rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .stat-value {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .stat-value.green { color: var(--accent-emerald); }
+    .stat-value.orange { color: var(--accent-gold); }
+    .stat-value.cyan { color: var(--accent-cyan); }
+
+    /* Controls & Filter Bar */
+    .controls-wrapper {
+      max-width: 1440px;
+      margin: 0 auto 30px;
+      padding: 0 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .search-input {
+      width: 100%;
+      padding: 14px 20px;
+      background: rgba(18, 24, 38, 0.9);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      color: #fff;
+      font-size: 0.95rem;
+      font-family: inherit;
+      outline: none;
+      transition: all 0.2s ease;
+    }
+
+    .search-input:focus {
+      border-color: var(--accent-orange);
+      box-shadow: 0 0 0 3px rgba(255, 122, 24, 0.2);
+    }
+
+    .cat-tabs {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding-bottom: 6px;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
+    }
+
+    .cat-btn {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-muted);
+      padding: 8px 16px;
+      border-radius: 9999px;
+      font-size: 0.88rem;
+      font-weight: 500;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .cat-btn:hover {
+      background: rgba(255, 255, 255, 0.08);
+      color: #fff;
+    }
+
+    .cat-btn.active {
+      background: var(--accent-orange);
+      border-color: var(--accent-orange);
+      color: #fff;
+      font-weight: 600;
+      box-shadow: 0 4px 12px rgba(255, 122, 24, 0.35);
+    }
+
+    /* Grid of Recipes */
+    .recipes-container {
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 0 24px;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(420px, 1fr));
+      gap: 28px;
+    }
+
+    .recipe-card {
+      background: var(--bg-card);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--border-subtle);
+      border-radius: 20px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .recipe-card:hover {
+      border-color: rgba(255, 179, 71, 0.4);
+      transform: translateY(-4px);
+      box-shadow: 0 16px 32px rgba(0, 0, 0, 0.4);
+    }
+
+    .recipe-header {
+      padding: 20px 22px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .recipe-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .category-tag {
+      font-size: 0.78rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--accent-gold);
+    }
+
+    .purity-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+      font-weight: 600;
+      padding: 3px 8px;
+      border-radius: 6px;
+      background: rgba(16, 185, 129, 0.15);
+      color: var(--accent-emerald);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+    }
+
+    .recipe-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.35;
+    }
+
+    /* 3-Step Culinary Gallery */
+    .culinary-steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 6px;
+      padding: 10px 18px 18px;
+      background: rgba(10, 13, 20, 0.5);
+    }
+
+    .step-box {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .step-label {
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .step-img-wrapper {
+      position: relative;
+      aspect-ratio: 16 / 9;
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      background: #000;
+    }
+
+    .step-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s ease;
+      cursor: pointer;
+    }
+
+    .step-img:hover {
+      transform: scale(1.08);
+    }
+
+    .recipe-footer {
+      padding: 12px 20px;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(10, 13, 20, 0.3);
+    }
+
+    .yt-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.8rem;
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--text-dim);
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+
+    .yt-link:hover {
+      color: #ff4b4b;
+    }
+
+    /* Modal for Full Image Inspection */
+    .modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(10px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 999;
+      padding: 24px;
+    }
+
+    .modal.active {
+      display: flex;
+    }
+
+    .modal-content {
+      max-width: 900px;
+      width: 100%;
+      background: #121826;
+      border: 1px solid var(--border-subtle);
+      border-radius: 20px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .modal-img {
+      width: 100%;
+      max-height: 70vh;
+      object-fit: contain;
+      background: #000;
+    }
+
+    .modal-info {
+      padding: 18px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .close-btn {
+      background: rgba(255, 255, 255, 0.1);
+      border: none;
+      color: #fff;
+      padding: 8px 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    @media (max-width: 768px) {
+      .recipes-container {
+        grid-template-columns: 1fr;
+      }
+      h1 {
+        font-size: 1.8rem;
+      }
+      .culinary-steps {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="badge-top">
+      <span>🛡️ CERTIFICACIÓN CULINARIA 100% LIBRE DE PRESENTADORES</span>
+    </div>
+    <div class="title-row">
+      <div>
+        <h1>Showcase de Fotografía Culinaria de Procesos</h1>
+        <p class="subtitle">Inspección visual y auditoría de los tres momentos clave de la cocina: <strong>Mise en Place (Crudos)</strong>, <strong>Paso Técnico (Cocción/Fuego)</strong> y <strong>Emplatado Final (Textura)</strong> para las 141 recetas de TouChef.</p>
+      </div>
+    </div>
+  </header>
+
+  <section class="stats-bar">
+    <div class="stat-card">
+      <span class="stat-label">Recetas Certificadas</span>
+      <span class="stat-value green">141 / 141</span>
+    </div>
+    <div class="stat-card">
+      <span class="stat-label">Fotogramas de Comida</span>
+      <span class="stat-value orange">543</span>
+    </div>
+    <div class="stat-card">
+      <span class="stat-label">Pureza Culinaria</span>
+      <span class="stat-value green">100%</span>
+    </div>
+    <div class="stat-card">
+      <span class="stat-label">Caras / Presentadores</span>
+      <span class="stat-value cyan">0 Restantes</span>
+    </div>
+  </section>
+
+  <section class="controls-wrapper">
+    <input type="text" id="searchInput" class="search-input" placeholder="🔍 Buscar receta por nombre o ingrediente (ej. Albóndigas, Arroz, Champiñones, Hojaldre...)...">
+    <div class="cat-tabs" id="catTabs">
+      <button class="cat-btn active" data-cat="all">Todas las Categorías (141)</button>
+    </div>
+  </section>
+
+  <main class="recipes-container" id="recipesGrid"></main>
+
+  <div class="modal" id="imgModal" onclick="closeModal(event)">
+    <div class="modal-content" onclick="event.stopPropagation()">
+      <img src="" alt="Ampliación" class="modal-img" id="modalImg">
+      <div class="modal-info">
+        <div>
+          <h3 id="modalTitle" style="color: #fff; font-size: 1.1rem;"></h3>
+          <p id="modalSubtitle" style="color: var(--text-muted); font-size: 0.85rem;"></p>
+        </div>
+        <button class="close-btn" onclick="closeModal()">Cerrar ✕</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const data = {"01_tapas_y_entrantes.md":{"name":"Tapas y Entrantes","icon":"🍢","file":"01_tapas_y_entrantes.md","recipes":[{"file":"01_tapas_y_entrantes.md","title":"🥓 1. Croquetas de Jamón Ibérico Cremosas de la Abuela","line":45,"slug":"croquetas_de_jamon_iberico_cremosas_de_la_abu","ytId":"ktv5vseGTSY","images":["assets/croquetas_de_jamon_iberico_cremosas_de_la_abu_portada.jpg","assets/croquetas_de_jamon_iberico_cremosas_de_la_abu_01_ingredientes.jpg","assets/croquetas_de_jamon_iberico_cremosas_de_la_abu_02_elaboracion.jpg","assets/croquetas_de_jamon_iberico_cremosas_de_la_abu_03_resultado_final.jpg"],"assets":{"portada":"assets/croquetas_de_jamon_iberico_cremosas_de_la_abu_portada.jpg","ingredientes":"assets/croquetas_de_jamon_iberico_cremosas_de_la_abu_01_ingredientes.jpg","elaboracion":"assets/croquetas_de_jamon_iberico_cremosas_de_la_abu_02_elaboracion.jpg","resultado":"assets/croquetas_de_jamon_iberico_cremosas_de_la_abu_03_resultado_final.jpg"}},{"file":"01_tapas_y_entrantes.md","title":"🍗 2. Croquetas de Pollo Asado y Huevo Duro","line":169,"slug":"croquetas_de_pollo_asado_y_huevo_duro","ytId":"SrmYBYpsj7M","images":["assets/croquetas_de_pollo_asado_y_huevo_duro_portada.jpg","assets/croquetas_de_pollo_asado_y_huevo_duro_01_ingredientes.jpg","assets/croquetas_de_pollo_asado_y_huevo_duro_02_elaboracion.jpg","assets/croquetas_de_pollo_asado_y_huevo_duro_03_resultado_final.jpg"],"assets":{"portada":"assets/croquetas_de_pollo_asado_y_huevo_duro_portada.jpg","ingredientes":"assets/croquetas_de_pollo_asado_y_huevo_duro_01_ingredientes.jpg","elaboracion":"assets/croquetas_de_pollo_asado_y_huevo_duro_02_elaboracion.jpg","resultado":"assets/croquetas_de_pollo_asado_y_huevo_duro_03_resultado_final.jpg"}},{"file":"01_tapas_y_entrantes.md","title":"🥗 3. Ensaladilla Rusa Tradicional de Carmen con Mayonesa Casera","line":277,"slug":"ensaladilla_rusa_tradicional_de_carmen_con_ma","ytId":"dnb8hFQRQ7s","images":["assets/ensaladilla_rusa_tradicional_de_carmen_con_ma_portada.jpg","assets/ensaladilla_rusa_tradicional_de_carmen_con_ma_01_ingredientes.jpg","assets/ensaladilla_rusa_tradicional_de_carmen_con_ma_02_elaboracion.jpg","assets/ensaladilla_rusa_tradicional_de_carmen_con_ma_03_resultado_final.jpg"],"assets":{"portada":"assets/ensaladilla_rusa_tradicional_de_carmen_con_ma_portada.jpg","ingredientes":"assets/ensaladilla_rusa_tradicional_de_carmen_con_ma_01_ingredientes.jpg","elaboracion":"assets/ensaladilla_rusa_tradicional_de_carmen_con_ma_02_elaboracion.jpg","resultado":"assets/ensaladilla_rusa_tradicional_de_carmen_con_ma_03_resultado_final.jpg"}},{"file":"01_tapas_y_entrantes.md","title":"🥔 4. Patatas Bravas con Salsa Brava Auténtica Picante","line":391,"slug":"patatas_bravas_con_salsa_brava_autentica_pica","ytId":"QnvxWpExzUs","images":["assets/patatas_bravas_con_salsa_brava_autentica_pica_portada.jpg","assets/patatas_bravas_con_salsa_brava_autentica_pica_01_ingredientes.jpg","assets/patatas_bravas_con_salsa_brava_autentica_pica_02_elaboracion.jpg","assets/patatas_bravas_con_salsa_brava_autentica_pica_03_resultado_final.jpg"],"assets":{"portada":"assets/patatas_bravas_con_salsa_brava_autentica_pica_portada.jpg","ingredientes":"assets/patatas_bravas_con_salsa_brava_autentica_pica_01_ingredientes.jpg","elaboracion":"assets/patatas_bravas_con_salsa_brava_autentica_pica_02_elaboracion.jpg","resultado":"assets/patatas_bravas_con_salsa_brava_autentica_pica_03_resultado_final.jpg"}},{"file":"01_tapas_y_entrantes.md","title":"🧄 5. Patatas Alioli Tradicionales al Mortero","line":492,"slug":"patatas_alioli_tradicionales_al_mortero","ytId":"dtAt0SgheoQ","images":["assets/patatas_alioli_tradicionales_al_mortero_portada.jpg","assets/patatas_alioli_tradicionales_al_mortero_01_ingredientes.jpg","assets/patatas_alioli_tradicionales_al_mortero_02_elaboracion.jpg","assets/patatas_alioli_tradicionales_al_mortero_03_resultado_final.jpg"],"assets":{"portada":"assets/patatas_alioli_tradicionales_al_mortero_portada.jpg","ingredientes":"assets/patatas_alioli_tradicionales_al_mortero_01_ingredientes.jpg","elaboracion":"assets/patatas_alioli_tradicionales_al_mortero_02_elaboracion.jpg","resultado":"assets/patatas_alioli_tradicionales_al_mortero_03_resultado_final.jpg"}},{"file":"01_tapas_y_entrantes.md","title":"🥟 6. Empanadillas Caseras de Atún, Tomate y Huevo Duro","line":582,"slug":"empanadillas_caseras_de_atun_tomate_y_huevo_d","ytId":"9UboRelKDXA","images":["assets/empanadillas_caseras_de_atun_tomate_y_huevo_d_portada.jpg","assets/empanadillas_caseras_de_atun_tomate_y_huevo_d_01_ingredientes.jpg","assets/empanadillas_caseras_de_atun_tomate_y_huevo_d_02_elaboracion.jpg","assets/empanadillas_caseras_de_atun_tomate_y_huevo_d_03_resultado_final.jpg"],"assets":{"portada":"assets/empanadillas_caseras_de_atun_tomate_y_huevo_d_portada.jpg","ingredientes":"assets/empanadillas_caseras_de_atun_tomate_y_huevo_d_01_ingredientes.jpg","elaboracion":"assets/empanadillas_caseras_de_atun_tomate_y_huevo_d_02_elaboracion.jpg","resultado":"assets/empanadillas_caseras_de_atun_tomate_y_huevo_d_03_resultado_final.jpg"}},{"file":"01_tapas_y_entrantes.md","title":"🍳 7. Tortilla Española Jugosa con Cebolla Pochada","line":690,"slug":"tortilla_espanola_jugosa_con_cebolla_pochada","ytId":"uc8Pwe7alJ8","images":["assets/tortilla_espanola_jugosa_con_cebolla_pochada_portada.jpg","assets/tortilla_espanola_jugosa_con_cebolla_pochada_01_ingredientes.jpg","assets/tortilla_espanola_jugosa_con_cebolla_pochada_02_elaboracion.jpg","assets/tortilla_espanola_jugosa_con_cebolla_pochada_03_resultado_final.jpg"],"assets":{"portada":"assets/tortilla_espanola_jugosa_con_cebolla_pochada_portada.jpg","ingredientes":"assets/tortilla_espanola_jugosa_con_cebolla_pochada_01_ingredientes.jpg","elaboracion":"assets/tortilla_espanola_jugosa_con_cebolla_pochada_02_elaboracion.jpg","resultado":"assets/tortilla_espanola_jugosa_con_cebolla_pochada_03_resultado_final.jpg"}},{"file":"01_tapas_y_entrantes.md","title":"🦐 8. Tortillitas de Camarones / Gambas Crujientes","line":784,"slug":"tortillitas_de_camarones_gambas_crujientes","ytId":"bG6iMLxS6Oo","images":["assets/tortillitas_de_camarones_gambas_crujientes_portada.jpg","assets/tortillitas_de_camarones_gambas_crujientes_01_ingredientes.jpg","assets/tortillitas_de_camarones_gambas_crujientes_02_elaboracion.jpg","assets/tortillitas_de_camarones_gambas_crujientes_03_resultado_final.jpg"],"assets":{"portada":"assets/tortillitas_de_camarones_gambas_crujientes_portada.jpg","ingredientes":"assets/tortillitas_de_camarones_gambas_crujientes_01_ingredientes.jpg","elaboracion":"assets/tortillitas_de_camarones_gambas_crujientes_02_elaboracion.jpg","resultado":"assets/tortillitas_de_camarones_gambas_crujientes_03_resultado_final.jpg"}},{"file":"01_tapas_y_entrantes.md","title":"🥚 9. Huevos Rellenos de Atún y Yema con Gratinado / Mahonesa","line":871,"slug":"huevos_rellenos_de_atun_y_yema_con_gratinado_","ytId":"igUKFdkin6s","images":["assets/huevos_rellenos_de_atun_y_yema_con_gratinado__portada.jpg","assets/huevos_rellenos_de_atun_y_yema_con_gratinado__01_ingredientes.jpg","assets/huevos_rellenos_de_atun_y_yema_con_gratinado__02_elaboracion.jpg","assets/huevos_rellenos_de_atun_y_yema_con_gratinado__03_resultado_final.jpg"],"assets":{"portada":"assets/huevos_rellenos_de_atun_y_yema_con_gratinado__portada.jpg","ingredientes":"assets/huevos_rellenos_de_atun_y_yema_con_gratinado__01_ingredientes.jpg","elaboracion":"assets/huevos_rellenos_de_atun_y_yema_con_gratinado__02_elaboracion.jpg","resultado":"assets/huevos_rellenos_de_atun_y_yema_con_gratinado__03_resultado_final.jpg"}},{"file":"01_tapas_y_entrantes.md","title":"🥓 10. Flamenquines Cordobeses Caseros de Lomo y Jamón Serrano","line":958,"slug":"flamenquines_cordobeses_caseros_de_lomo_y_jam","ytId":"lOKzjd8qUEk","images":["assets/flamenquines_cordobeses_caseros_de_lomo_y_jam_portada.jpg","assets/flamenquines_cordobeses_caseros_de_lomo_y_jam_01_ingredientes.jpg","assets/flamenquines_cordobeses_caseros_de_lomo_y_jam_02_elaboracion.jpg","assets/flamenquines_cordobeses_caseros_de_lomo_y_jam_03_resultado_final.jpg"],"assets":{"portada":"assets/flamenquines_cordobeses_caseros_de_lomo_y_jam_portada.jpg","ingredientes":"assets/flamenquines_cordobeses_caseros_de_lomo_y_jam_01_ingredientes.jpg","elaboracion":"assets/flamenquines_cordobeses_caseros_de_lomo_y_jam_02_elaboracion.jpg","resultado":"assets/flamenquines_cordobeses_caseros_de_lomo_y_jam_03_resultado_final.jpg"}},{"file":"01_tapas_y_entrantes.md","title":"🦑 11. Calamares a la Romana Crujientes y Tiernos","line":1049,"slug":"calamares_a_la_romana_crujientes_y_tiernos","ytId":"xwTp0-5YhNY","images":["assets/calamares_a_la_romana_crujientes_y_tiernos_portada.jpg","assets/calamares_a_la_romana_crujientes_y_tiernos_01_ingredientes.jpg","assets/calamares_a_la_romana_crujientes_y_tiernos_02_elaboracion.jpg","assets/calamares_a_la_romana_crujientes_y_tiernos_03_resultado_final.jpg"],"assets":{"portada":"assets/calamares_a_la_romana_crujientes_y_tiernos_portada.jpg","ingredientes":"assets/calamares_a_la_romana_crujientes_y_tiernos_01_ingredientes.jpg","elaboracion":"assets/calamares_a_la_romana_crujientes_y_tiernos_02_elaboracion.jpg","resultado":"assets/calamares_a_la_romana_crujientes_y_tiernos_03_resultado_final.jpg"}}]},"02_arroces_y_paellas.md":{"name":"Arroces y Paellas","icon":"🥘","file":"02_arroces_y_paellas.md","recipes":[]},"03_guisos_y_legumbres.md":{"name":"Guisos y Legumbres","icon":"🍲","file":"03_guisos_y_legumbres.md","recipes":[]},"04_carnes_y_aves.md":{"name":"Carnes y Aves","icon":"🍗","file":"04_carnes_y_aves.md","recipes":[]},"05_pescados_y_mariscos.md":{"name":"Pescados y Mariscos","icon":"🐟","file":"05_pescados_y_mariscos.md","recipes":[]},"06_verduras_y_ensaladas.md":{"name":"Verduras y Ensaladas","icon":"🥗","file":"06_verduras_y_ensaladas.md","recipes":[]},"07_pastas_y_gratinados.md":{"name":"Pastas y Gratinados","icon":"🍝","file":"07_pastas_y_gratinados.md","recipes":[]},"08_sopas_y_cremas.md":{"name":"Sopas y Cremas","icon":"🥣","file":"08_sopas_y_cremas.md","recipes":[]},"09_huevos_y_tortillas.md":{"name":"Huevos y Tortillas","icon":"🍳","file":"09_huevos_y_tortillas.md","recipes":[]},"10_postres_y_dulces_tradicionales.md":{"name":"Postres y Dulces Tradicionales","icon":"🍰","file":"10_postres_y_dulces_tradicionales.md","recipes":[]},"11_panaderia_y_masas.md":{"name":"Panadería y Masas","icon":"🥖","file":"11_panaderia_y_masas.md","recipes":[]},"12_salsas_y_fondos_base.md":{"name":"Salsas y Fondos Base","icon":"🫙","file":"12_salsas_y_fondos_base.md","recipes":[]}};
+    let currentCat = 'all';
+    let currentSearch = '';
+
+    // Init Category Tabs
+    const catTabs = document.getElementById('catTabs');
+    for (const [file, cat] of Object.entries(data)) {
+      const btn = document.createElement('button');
+      btn.className = 'cat-btn';
+      btn.dataset.cat = file;
+      btn.innerHTML = `${cat.icon} ${cat.name} (${cat.recipes.length})`;
+      btn.onclick = () => {
+        document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        currentCat = file;
+        renderGrid();
+      };
+      catTabs.appendChild(btn);
+    }
+
+    document.getElementById('searchInput').addEventListener('input', (e) => {
+      currentSearch = e.target.value.toLowerCase().trim();
+      renderGrid();
+    });
+
+    function renderGrid() {
+      const grid = document.getElementById('recipesGrid');
+      grid.innerHTML = '';
+
+      let allRecs = [];
+      for (const [file, cat] of Object.entries(data)) {
+        if (currentCat === 'all' || currentCat === file) {
+          cat.recipes.forEach(r => allRecs.push({ ...r, catName: cat.name, catIcon: cat.icon }));
+        }
+      }
+
+      if (currentSearch) {
+        allRecs = allRecs.filter(r => r.title.toLowerCase().includes(currentSearch) || r.slug.toLowerCase().includes(currentSearch));
+      }
+
+      allRecs.forEach(r => {
+        const cleanTitle = r.title.replace(/^[0-9\.\s\uD800-\uDBFF\uDC00-\uDFFF\u2600-\u26FF\u2700-\u27BF]+/, '').trim();
+        const card = document.createElement('article');
+        card.className = 'recipe-card';
+        card.innerHTML = `
+          <div class="recipe-header">
+            <div class="recipe-meta">
+              <span class="category-tag">${r.catIcon} ${r.catName}</span>
+              <span class="purity-badge">✓ 100% COMIDA</span>
+            </div>
+            <h2 class="recipe-title">${cleanTitle}</h2>
+          </div>
+
+          <div class="culinary-steps">
+            <div class="step-box">
+              <span class="step-label">🥩 1. Ingredientes</span>
+              <div class="step-img-wrapper">
+                <img src="${r.assets.ingredientes}" alt="Ingredientes" class="step-img" loading="lazy" onclick="openModal('${r.assets.ingredientes}', '${cleanTitle}', '1. Mise en Place e Ingredientes Crudos')">
+              </div>
+            </div>
+
+            <div class="step-box">
+              <span class="step-label">🔥 2. Elaboración</span>
+              <div class="step-img-wrapper">
+                <img src="${r.assets.elaboracion}" alt="Elaboración" class="step-img" loading="lazy" onclick="openModal('${r.assets.elaboracion}', '${cleanTitle}', '2. Paso Técnico de Cocción / Fuego')">
+              </div>
+            </div>
+
+            <div class="step-box">
+              <span class="step-label">🍽️ 3. Resultado</span>
+              <div class="step-img-wrapper">
+                <img src="${r.assets.resultado}" alt="Resultado" class="step-img" loading="lazy" onclick="openModal('${r.assets.resultado}', '${cleanTitle}', '3. Emplatado y Textura Gastronómica')">
+              </div>
+            </div>
+          </div>
+
+          <div class="recipe-footer">
+            <span style="font-size: 0.8rem; color: var(--text-dim);">ID: ${r.slug.substring(0, 24)}...</span>
+            <a href="https://youtu.be/${r.ytId}" target="_blank" rel="noopener noreferrer" class="yt-link">
+              <span>▶ YouTube</span>
+            </a>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+    }
+
+    renderGrid();
+
+    function openModal(src, title, subtitle) {
+      document.getElementById('modalImg').src = src;
+      document.getElementById('modalTitle').innerText = title;
+      document.getElementById('modalSubtitle').innerText = subtitle;
+      document.getElementById('imgModal').classList.add('active');
+    }
+
+    function closeModal() {
+      document.getElementById('imgModal').classList.remove('active');
+    }
+  </script>
+</body>
+</html>

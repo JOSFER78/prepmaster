@@ -210,6 +210,9 @@ Para alimentos deformables por presión negativa (pastas cocidas, hojas verdes, 
 ![Infografía Vertical Póster: Ciencia de Materiales y Recipientes TouChef](assets/infografia_vertical_equipamiento_recipientes.svg)
 > **Infografía Técnica Vertical TouChef:** Comparativa físico-química de recipientes (Borosilicato 3.3, Tritán y PP-05), ciencia de polímeros PA/PE/EVOH y equipamiento de precisión térmica.
 
+![Tuppers Herméticos de Vidrio Borosilicato para Conservación y Batch Cooking](assets/foto_tuppers_vidrio_borosilicato_preparados.jpg)
+> **Fotografía Real Operativa:** Contenedores de vidrio borosilicato 3.3 con sellado perimetral hermético para almacenamiento estable libre de migraciones químicas.
+
 ---
 
 ## 3. Tabla Maestra de Vida Útil de Alimentos en Batch Cooking
@@ -272,6 +275,9 @@ gantt
 
 ![Infografía Vertical Póster: Cinética del Abatimiento Térmico y Choque 50/50 TouChef](assets/infografia_vertical_abatimiento_cook_chill.svg)
 > **Infografía Técnica Vertical TouChef:** Parámetros críticos de choque térmico en baño de hielo 50/50 con sal gruesa, mapa de patógenos en Zona de Peligro y protocolo de 5 pasos con tapado diferido.
+
+![Abatimiento Térmico Forzado en Baño de Agua Helada](assets/foto_bano_hielo_abatimiento_batch.jpg)
+> **Fotografía Real Operativa:** Choque térmico forzado y enfriamiento acelerado por inmersión en baño de agua y hielo para atravesar la zona de peligro bacteriano en tiempo récord.
 
 ### 4.1. La Zona de Peligro de Temperatura (ZPT / Danger Zone)
 

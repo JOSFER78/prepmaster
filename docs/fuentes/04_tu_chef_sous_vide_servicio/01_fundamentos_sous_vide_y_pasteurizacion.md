@@ -129,6 +129,9 @@ $$\frac{T_{\text{centro}} - T_{\text{baño}}}{T_{\text{inicial}} - T_{\text{bañ
 ![Infografía Vertical Técnica: Curvas de Penetración Térmica según Modelo Fourier-Baldwin](assets/infografia_vertical_curvas_baldwin_fourier.svg)
 *Figura 1.1: Infografía vertical técnica con las curvas de penetración térmica en el centro geométrico para losas planas de matriz cárnica ($10\text{ mm}$ a $70\text{ mm}$) a $55.0^\circ\text{C}$, $60.0^\circ\text{C}$ y $65.0^\circ\text{C}$ basadas en la solución analítica de la ecuación de Fourier ($t \propto L^2 / \alpha$), número de Biot ($Bi \gg 1$) y umbral límite para Cook-Chill ($45\text{ mm}$). Trazabilidad científica: [Douglas Baldwin, IJGFS (2012)](https://doi.org/10.1016/j.ijgfs.2011.11.002) / [USDA-FSIS Pathogen Modeling Program](https://www.fsis.usda.gov).*
 
+![Corte transversal de carne cocinada a baja temperatura con punto rosado uniforme](assets/foto_corte_transversal_carne_sous_vide.jpg)
+*Fotografía 1.1b: Validación experimental del modelo Fourier-Baldwin en corte cárnico a $54.0^\circ\text{C}$: punto rosado homogéneo de borde a borde (*edge-to-edge*) con desnaturalización selectiva de miosina sin contraer la actina.*
+
 ---
 
 ### 1.3 Anoxia, Retención de Volátiles y Cinética de Autooxidación Lipídica
@@ -337,6 +340,9 @@ Donde $n$ es el número de reducciones decimales exigidas por la autoridad sanit
 
 ![Infografía Vertical Cuantitativa: Cinética de Pasteurización 6D / 7D y Valores D y z](assets/infografia_vertical_pasteurizacion_6d_7d.svg)
 *Figura 2.1: Infografía vertical de microbiología predictiva con la cinética log-lineal de Bigelow para Salmonella spp. (7D en aves de corral) y Listeria monocytogenes (6D en vacuno/pescados) a $60.0^\circ\text{C}$, matriz de valores $D_T$ y $z$ por temperatura ($55^\circ\text{C}$ a $70^\circ\text{C}$), integral de letalidad acumulada ($P$) y tecnología de obstáculos de Leistner. Trazabilidad oficial: [FDA Food Code Annex 3 (Public Health Reasons)](https://www.fda.gov/food/fda-food-code/food-code-2022) / [USDA FSIS 9 CFR § 381.150 Lethality Standards](https://www.ecfr.gov).*
+
+![Bolsas multicapa termoselladas al vacío con alimentos en marinada](assets/foto_bolsas_vacio_alimentos_termoselladas.jpg)
+*Fotografía 2.1b: Raciones individuales al vacío listas para el ciclo de pasteurización en baño de inmersión, garantizando la eliminación de patógenos y barrera anóxica completa.*
 
 ---
 

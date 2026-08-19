@@ -148,10 +148,16 @@ export function ChefDirectoryView({
             </p>
           </div>
           <button
-            onClick={() => onSelectChefToBook({ id: 'any' } as any)}
+            onClick={() => {
+              if (activeBatchProject) {
+                onSelectChefToBook({ id: 'any' } as any);
+              } else if (onNavigate) {
+                onNavigate({ name: 'ai-generator' });
+              }
+            }}
             className="w-full sm:w-auto px-4 py-2 rounded-xl bg-[#E07A5F] hover:bg-[#c85a32] text-white text-xs font-black transition-all cursor-pointer shrink-0 shadow-xs active:scale-95"
           >
-            <span>📡 Lanzar a la Red TouChef</span>
+            <span>📡 {activeBatchProject ? 'Lanzar este Menú a la Red' : 'Formular Menú y Lanzar a la Red'}</span>
           </button>
         </div>
 
@@ -271,10 +277,16 @@ export function ChefDirectoryView({
                 </button>
 
                 <button
-                  onClick={() => onSelectChefToBook(chef)}
+                  onClick={() => {
+                    if (activeBatchProject) {
+                      onSelectChefToBook(chef);
+                    } else if (onNavigate) {
+                      onNavigate({ name: 'ai-generator' });
+                    }
+                  }}
                   className="flex-1 py-2.5 rounded-xl btn-hero-copper text-white text-xs font-black shadow-xs transition-all cursor-pointer flex items-center justify-center gap-1 active:scale-95"
                 >
-                  <span>Elegir Manualmente</span>
+                  <span>{activeBatchProject ? 'Asignar este Menú' : 'Formular Menú y Asignar'}</span>
                   <ArrowRight size={13} />
                 </button>
               </div>

@@ -403,30 +403,72 @@ export function HomeView({
               </div>
             </div>
 
-            {/* BROADCAST CARD */}
-            <div className="p-5 rounded-2xl bg-gradient-to-r from-[#E07A5F]/15 via-amber-500/10 to-transparent border border-[#E07A5F]/30 flex flex-col sm:flex-row items-center justify-between gap-4">
-              <div className="space-y-1">
-                <div className="flex items-center gap-2">
-                  <span className="text-[10px] font-black uppercase bg-[#E07A5F] text-white px-2 py-0.5 rounded-md">
-                    Modo Recomendado
-                  </span>
-                  <strong className="text-sm font-black text-zinc-900 dark:text-white">
-                    1. Lanzar Encargo a la Red de Cocineros
-                  </strong>
-                </div>
-                <p className="text-xs text-zinc-600 dark:text-zinc-400">
-                  Publica tu menú a los chefs verificados de tu barrio. Ellos postulan enviándote un mensaje personalizado con su experiencia y tú aceptas al que más te convenza vía chat.
-                </p>
-              </div>
+            {/* ACTIVE PLAN PREVIEW OR CALL TO FORMULATE */}
+            {activeProject ? (
+              <div className="p-5 rounded-2xl bg-amber-500/10 border-2 border-amber-500/30 space-y-4">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-amber-500/20">
+                  <div>
+                    <span className="text-[10px] font-black uppercase tracking-wider text-amber-600 dark:text-amber-400">
+                      Menú Actual Formulado para este Encargo:
+                    </span>
+                    <strong className="text-base font-black text-zinc-900 dark:text-white block mt-0.5">
+                      {activeProject.title} ({activeProject.totalServings} raciones · {activeProject.dishes.length} platos)
+                    </strong>
+                  </div>
 
-              <button
-                onClick={() => onNavigate({ name: 'create-chef-request', preselectedPlanId: activeProject?.id })}
-                className="w-full sm:w-auto px-5 py-2.5 rounded-xl bg-[#E07A5F] hover:bg-[#c85a32] text-white text-xs font-black shadow-xs transition-all flex items-center justify-center gap-1.5 cursor-pointer shrink-0 active:scale-95"
-              >
-                <Radio size={14} className="animate-pulse" />
-                <span>📡 Lanzar a la Red TouChef</span>
-              </button>
-            </div>
+                  <div className="flex flex-wrap items-center gap-2">
+                    <button
+                      onClick={() => onHireChefForBatch && onHireChefForBatch()}
+                      className="px-4 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-stone-950 text-xs font-black shadow-xs transition-all flex items-center gap-1.5 cursor-pointer"
+                    >
+                      <ChefHat size={15} />
+                      <span>Encargar CON Compra DIA</span>
+                    </button>
+
+                    <button
+                      onClick={() => onNavigate({ name: 'create-chef-request', preselectedPlanId: activeProject.id })}
+                      className="px-4 py-2 rounded-xl bg-zinc-100 dark:bg-zinc-800 hover:bg-zinc-200 text-zinc-800 dark:text-zinc-200 text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer"
+                    >
+                      <Radio size={14} className="text-[#E07A5F]" />
+                      <span>Lanzar a la Red</span>
+                    </button>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2 text-xs">
+                  {activeProject.dishes.map((dish, i) => (
+                    <div key={dish.id || i} className="p-2.5 rounded-xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 flex items-center gap-2">
+                      <img src={dish.image} alt={dish.name} className="w-9 h-9 rounded-lg object-cover" />
+                      <div className="min-w-0 flex-1">
+                        <strong className="font-bold text-zinc-900 dark:text-white block truncate">{dish.name}</strong>
+                        <span className="text-[10px] text-zinc-400">{dish.servings} raciones</span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ) : (
+              <div className="p-6 rounded-2xl bg-zinc-50 dark:bg-zinc-850 border border-zinc-200 dark:border-zinc-800 text-center space-y-3">
+                <div className="w-12 h-12 rounded-2xl bg-amber-500/15 text-amber-600 dark:text-amber-400 flex items-center justify-center mx-auto">
+                  <ChefHat size={24} />
+                </div>
+                <div>
+                  <h4 className="text-sm font-black text-zinc-900 dark:text-white">
+                    El proceso de encargo parte de tu Menú de Batch Cooking
+                  </h4>
+                  <p className="text-xs text-zinc-500 dark:text-zinc-400 max-w-md mx-auto mt-1">
+                    Creas tu plan con el Asistente Guiado (raciones, comensales y recetas de Carmen). Al finalizarlo, decides si encargas la compra de ingredientes o si el cocinero solo acude a cocinar lo que ya tienes.
+                  </p>
+                </div>
+                <button
+                  onClick={() => onNavigate({ name: 'ai-generator' })}
+                  className="btn-hero-copper text-white text-xs font-black px-6 py-2.5 rounded-xl shadow-xs transition-all flex items-center gap-2 mx-auto cursor-pointer hover:scale-[1.02]"
+                >
+                  <Sparkles size={14} />
+                  <span>Crear Plan de Menú para Encargar</span>
+                </button>
+              </div>
+            )}
 
             {/* DIRECT CHEF CATALOG SECTION */}
             <div className="space-y-3 pt-2">

@@ -160,6 +160,11 @@ El arte de las masas horneadas representa la cúspide de la alquimia en la cocin
 
 ---
 
+
+![Resultado Final y Emplatado](assets/masa_de_empanada_gallega_tradicional_con_rell_03_resultado_final.jpg)
+
+---
+
 ### 📦 Protocolo de Conservación y Batch Cooking
 
 * **Conservación a Temperatura Ambiente:** Una vez enfriada, se conserva perfecta tapada con un paño limpio durante **24-48 horas** en lugar fresco y seco.
@@ -263,6 +268,11 @@ El arte de las masas horneadas representa la cúspide de la alquimia en la cocin
 
 ---
 
+
+![Resultado Final y Emplatado](assets/masa_de_pizza_casera_crujiente_de_larga_ferme_03_resultado_final.jpg)
+
+---
+
 ### 📦 Protocolo de Conservación y Batch Cooking
 
 * **Congelación de Bolas en Crudo:** Tras bolearlas y dejarlas 1 hora a temperatura ambiente, congelar cada bola en un táper individual engrasado. Descongelar en la nevera durante 24 horas y atemperar 3 horas antes de estirar.
@@ -355,6 +365,11 @@ El arte de las masas horneadas representa la cúspide de la alquimia en la cocin
 4. **Segundo Reposo en Frío:** Pinchar toda la base repetidamente con un tenedor y meter el molde forrado al **congelador durante 15 minutos** (este paso es vital para que la mantequilla se endurezca y los bordes no bajen ni un milímetro al entrar al calor).
 5. **Horneado en Blanco con Peso:** Precalentar el horno a **180°C con calor arriba y abajo**. Colocar una hoja de papel vegetal arrugada y adaptada sobre la masa y rellenar con garbanzos secos o bolas cerámicas. Hornear en la guía media durante **15 minutos**.
 6. **Secado Final:** Retirar el papel y los pesos, y hornear otros **5 minutos** a 180°C para que la base quede ligeramente dorada, sellada y seca, lista para recibir cualquier relleno húmedo sin reblandecerse.
+
+---
+
+
+![Resultado Final y Emplatado](assets/masa_quebrada_brisa_casera_para_tartas_salada_03_resultado_final.jpg)
 
 ---
 
@@ -556,6 +571,11 @@ El arte de las masas horneadas representa la cúspide de la alquimia en la cocin
 
 ---
 
+
+![Resultado Final y Emplatado](assets/pan_casero_facil_sin_amasado_en_cocotte_pyrex_03_resultado_final.jpg)
+
+---
+
 ### 📦 Protocolo de Conservación y Batch Cooking
 
 * **Conservación a Temperatura Ambiente:** Guardado en una bolsa de papel o paño de tela de lino, el pan aguanta con corteza crujiente y miga tierna durante **3 a 4 días**.
@@ -663,6 +683,11 @@ El arte de las masas horneadas representa la cúspide de la alquimia en la cocin
   1. Precalentar el horno a **200°C con calor arriba y abajo**.
   2. Disponer las empanadillas sobre una bandeja con papel vegetal y pincelar la superficie con huevo batido.
   3. Hornear durante **15 a 18 minutos**, hasta que luzcan bien doradas y crujientes.
+
+---
+
+
+![Resultado Final y Emplatado](assets/masa_para_empanadillas_fritas_y_al_horno_oble_03_resultado_final.jpg)
 
 ---
 

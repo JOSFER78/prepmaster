@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useEffect } from 'react';
+import React, { useState, useMemo, useEffect, useRef } from 'react';
 import { 
   Sparkles, 
   Clock, 
@@ -31,7 +31,13 @@ import {
   Square,
   HelpCircle,
   Video,
-  Info
+  Info,
+  Send,
+  Bot,
+  User as UserIcon,
+  Loader2,
+  Wand2,
+  ListPlus
 } from 'lucide-react';
 import { 
   GeneratedMenuPlan, 
@@ -53,6 +59,13 @@ import {
   getFilteredCarmenRecipes, 
   CanonicalRecipe 
 } from '../data/recipesCarmenDatabase';
+import { 
+  sendChatMessageToFreeLLM, 
+  generateStructuredAIProposal, 
+  extractRecipeIdsFromAIText,
+  AIChatMessage,
+  AIPlanProposal 
+} from '../services/aiAssistantService';
 
 interface AIGeneratorViewProps {
   onMenuApproved: (plan: GeneratedMenuPlan) => void;
@@ -74,12 +87,11 @@ export function AIGeneratorView({
   onCookMyself
 }: AIGeneratorViewProps) {
   
-  // Wizard Step: 1 = Modo & Parámetros, 2 = Selección de Recetas (SSOT Carmen), 3 = Ficha Técnica & Ejecución
+  // Wizard Step: 1 = Modo & Parámetros, 2 = Asistente IA & Selección (SSOT Carmen), 3 = Ficha Técnica & Ejecución
   const [wizardStep, setWizardStep] = useState<1 | 2 | 3>(1);
   const [projectMode, setProjectMode] = useState<ProjectMode>('batch_cooking');
   
   // Household parameters
-  const [selectedArchetype, setSelectedArchetype] = useState<'familiar' | 'fitness' | 'gourmet' | 'custom'>('familiar');
   const [peopleCount, setPeopleCount] = useState<number>(initialContext?.peopleCount || 4);
   const [daysCount, setDaysCount] = useState<number>(initialContext?.daysCount || 5);
   const [mealCoverage, setMealCoverage] = useState<'lunches' | 'dinners' | 'both'>(initialContext?.mealCoverage || 'both');
@@ -89,14 +101,23 @@ export function AIGeneratorView({
   const [varietyPreference, setVarietyPreference] = useState<'max_efficiency' | 'balanced' | 'high_variety'>('balanced');
   const [selectedAllergens, setSelectedAllergens] = useState<string[]>([]);
   const [includeFridge, setIncludeFridge] = useState<boolean>(true);
+  const [userSpecificGoal, setUserSpecificGoal] = useState<string>('');
 
   // Single recipe mode state
   const [selectedSingleRecipe, setSelectedSingleRecipe] = useState<CanonicalRecipe | null>(CARMEN_RECIPES_DATABASE[0]);
   const [recipeSearchQuery, setRecipeSearchQuery] = useState<string>('');
   const [recipeCategoryFilter, setRecipeCategoryFilter] = useState<string>('all');
 
+  // Step 2 submode: 'ai_copilot' vs 'manual_catalog'
+  const [step2SubMode, setStep2SubMode] = useState<'ai_copilot' | 'manual_catalog'>('ai_copilot');
+
+  // Interactive AI Copilot Chat state
+  const [chatMessages, setChatMessages] = useState<AIChatMessage[]>([]);
+  const [chatInput, setChatInput] = useState<string>('');
+  const [isAiResponding, setIsAiResponding] = useState<boolean>(false);
+  const chatBottomRef = useRef<HTMLDivElement>(null);
+
   // Batch manual / auto selection
-  const [batchSelectionMode, setBatchSelectionMode] = useState<'auto' | 'manual'>('auto');
   const [manuallySelectedRecipeIds, setManuallySelectedRecipeIds] = useState<string[]>([
     'carmen-lentejas-chorizo',
     'carmen-pollo-pepitoria',
@@ -130,6 +151,26 @@ export function AIGeneratorView({
     });
   }, [recipeCategoryFilter, selectedAllergens, recipeSearchQuery]);
 
+  // INITIALIZE AI COPILOT GREETING WHEN MOVING TO STEP 2
+  useEffect(() => {
+    if (wizardStep === 2 && chatMessages.length === 0) {
+      const modeText = projectMode === 'batch_cooking' 
+        ? `un menú de **Batch Cooking Semanal** para **${peopleCount} personas** durante **${daysCount} días** (${structure.totalIndividualServings} raciones en estilo ${dietStyle})`
+        : `una **Receta Individual Canónica** para **${peopleCount} personas**`;
+
+      const initialAiGreeting: AIChatMessage = {
+        role: 'assistant',
+        content: `¡Hola! Soy tu **Copiloto Culinario TouChef con IA**, entrenado con las recetas y técnicas de *Cocina con Carmen* y compendios de cocción simultánea.\n\nHe configurado tu proyecto para ${modeText}.${selectedAllergens.length > 0 ? ` He excluido automáticamente: ${selectedAllergens.join(', ')}.` : ''}\n\n¿Tienes alguna preferencia en especial? Por ejemplo: *"Quiero 2 platos de carne y 1 de pescado"*, *"Tengo calabacines en la nevera y quiero aprovecharlos"*, o *"Proponme un menú tradicional completo"*.\n\nPuedes pedirme variaciones o pulsar el botón para que te formule una propuesta óptima al instante.`
+      };
+      setChatMessages([initialAiGreeting]);
+    }
+  }, [wizardStep, projectMode, peopleCount, daysCount, dietStyle, selectedAllergens, structure.totalIndividualServings, chatMessages.length]);
+
+  // Auto-scroll chat
+  useEffect(() => {
+    chatBottomRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [chatMessages, isAiResponding]);
+
   const toggleAllergen = (allergen: string) => {
     setSelectedAllergens(prev => 
       prev.includes(allergen) ? prev.filter(a => a !== allergen) : [...prev, allergen]
@@ -142,7 +183,85 @@ export function AIGeneratorView({
     );
   };
 
-  // BUILD FINAL BATCH OR RECIPE DISHES
+  // SEND MESSAGE TO AI COPILOT
+  const handleSendChatMessage = async (presetText?: string) => {
+    const textToSend = presetText || chatInput.trim();
+    if (!textToSend || isAiResponding) return;
+
+    const userMsg: AIChatMessage = { role: 'user', content: textToSend };
+    const newHistory = [...chatMessages, userMsg];
+    setChatMessages(newHistory);
+    setChatInput('');
+    setIsAiResponding(true);
+
+    try {
+      const aiReplyText = await sendChatMessageToFreeLLM(newHistory);
+      const suggestedRecipeIds = extractRecipeIdsFromAIText(aiReplyText);
+
+      setChatMessages(prev => [
+        ...prev,
+        {
+          role: 'assistant',
+          content: aiReplyText,
+          suggestedRecipes: suggestedRecipeIds.length > 0 ? suggestedRecipeIds : undefined
+        }
+      ]);
+    } catch (err: any) {
+      console.error('AI Copilot error:', err);
+      setChatMessages(prev => [
+        ...prev,
+        {
+          role: 'assistant',
+          content: `Hubo un error de conexión con la IA (${err.message || 'FreeLLM API'}). Sin embargo, tienes a tu disposición todas las recetas canónicas de Carmen en el explorador.`
+        }
+      ]);
+    } finally {
+      setIsAiResponding(false);
+    }
+  };
+
+  // APPLY AI STRUCTURED PROPOSAL
+  const handleApplyAIAutoProposal = async () => {
+    setIsGenerating(true);
+    setIsAiResponding(true);
+
+    try {
+      const proposal: AIPlanProposal = await generateStructuredAIProposal(
+        userSpecificGoal || 'Menú equilibrado y tradicional',
+        peopleCount,
+        daysCount,
+        selectedAllergens
+      );
+
+      if (proposal.selectedRecipeIds && proposal.selectedRecipeIds.length > 0) {
+        setManuallySelectedRecipeIds(proposal.selectedRecipeIds);
+        
+        // Add confirmation message to chat
+        const confirmationMsg: AIChatMessage = {
+          role: 'assistant',
+          content: `✨ **¡Propuesta de Menú IA Formulada con Éxito!**\n\n📌 **${proposal.title}**\n${proposal.philosophy}\n\n**Recetas seleccionadas del catálogo de Carmen:**\n${proposal.selectedRecipeIds.map(id => {
+            const rec = CARMEN_RECIPES_DATABASE.find(r => r.id === id);
+            return `• **${rec?.name || id}** (${proposal.servingsPerDish?.[id] || peopleCount * 2} raciones)`;
+          }).join('\n')}\n\n💡 *Consejos de concurrencia:*\n${proposal.variationsAndTips?.map(t => `• ${t}`).join('\n') || 'Optimizado para cocción en 2 horas.'}`,
+          suggestedRecipes: proposal.selectedRecipeIds
+        };
+        setChatMessages(prev => [...prev, confirmationMsg]);
+      }
+    } catch (error) {
+      console.error('Error applying AI auto proposal:', error);
+    } finally {
+      setIsGenerating(false);
+      setIsAiResponding(false);
+    }
+  };
+
+  // APPLY SUGGESTED RECIPES FROM AI
+  const handleApplySuggestedRecipes = (recipeIds: string[]) => {
+    setManuallySelectedRecipeIds(recipeIds);
+    setStep2SubMode('manual_catalog');
+  };
+
+  // BUILD FINAL BATCH OR RECIPE DISHES & GO TO STEP 3
   const handleProceedToTechnicalReview = () => {
     setIsGenerating(true);
 
@@ -170,20 +289,11 @@ export function AIGeneratorView({
       onMenuApproved(plan);
     } else {
       // BATCH COOKING MODE
-      let dishes: BatchDish[] = [];
-      if (batchSelectionMode === 'auto') {
-        dishes = generateDynamicBatchDishes(
-          { peopleCount, daysCount, mealCoverage, dietStyle, varietyPreference },
-          selectedAllergens
-        );
-      } else {
-        // Build from manual selection
-        const targetServingsPerDish = Math.max(2, Math.ceil(structure.totalIndividualServings / Math.max(1, manuallySelectedRecipeIds.length)));
-        dishes = manuallySelectedRecipeIds.map(id => {
-          const rec = CARMEN_RECIPES_DATABASE.find(r => r.id === id) || CARMEN_RECIPES_DATABASE[0];
-          return createDishFromCanonicalRecipe(rec, targetServingsPerDish);
-        });
-      }
+      const targetServingsPerDish = Math.max(2, Math.ceil(structure.totalIndividualServings / Math.max(1, manuallySelectedRecipeIds.length)));
+      const dishes: BatchDish[] = manuallySelectedRecipeIds.map(id => {
+        const rec = CARMEN_RECIPES_DATABASE.find(r => r.id === id) || CARMEN_RECIPES_DATABASE[0];
+        return createDishFromCanonicalRecipe(rec, targetServingsPerDish);
+      });
 
       setGeneratedDishes(dishes);
 
@@ -293,21 +403,21 @@ export function AIGeneratorView({
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <div className="flex items-center gap-3">
             <div className="w-12 h-12 rounded-2xl bg-[#E07A5F] text-white flex items-center justify-center font-bold text-xl shadow-md">
-              <Sparkles size={24} />
+              <Bot size={26} />
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <span className="text-[10px] font-black uppercase tracking-wider bg-[#E07A5F]/15 text-[#E07A5F] px-2.5 py-0.5 rounded-full">
-                  Asistente Culinario Paso a Paso
+                <span className="text-[10px] font-black uppercase tracking-wider bg-[#E07A5F]/15 text-[#E07A5F] px-2.5 py-0.5 rounded-full flex items-center gap-1">
+                  <Sparkles size={11} /> Asistente Culinario con IA Real
                 </span>
-                <span className="text-[10px] font-black uppercase bg-amber-500/15 text-amber-600 dark:text-amber-400 px-2.5 py-0.5 rounded-full border border-amber-500/30">
-                  SSOT: Recetario Carmen
+                <span className="text-[10px] font-black uppercase bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 px-2.5 py-0.5 rounded-full border border-emerald-500/30">
+                  FreeLLM Proxy Conectado
                 </span>
               </div>
               <h1 className="text-xl font-black text-zinc-900 dark:text-white mt-0.5">
-                {wizardStep === 1 && '1. Tipo de Proyecto & Dimensiones del Hogar'}
-                {wizardStep === 2 && (projectMode === 'batch_cooking' ? '2. Selección de Platos para tu Lote Semanal' : '2. Selección de Receta Magistral de Carmen')}
-                {wizardStep === 3 && '3. Ficha Técnica, Ingredientes & Modo de Ejecución'}
+                {wizardStep === 1 && '1. Tipo de Proyecto, Hogar & Petición a la IA'}
+                {wizardStep === 2 && (projectMode === 'batch_cooking' ? '2. Copiloto IA & Selección de Recetas de Carmen' : '2. Copiloto IA & Receta Canónica')}
+                {wizardStep === 3 && '3. Ficha Técnica, Ingredientes & Encargo de Servicio'}
               </h1>
             </div>
           </div>
@@ -332,19 +442,18 @@ export function AIGeneratorView({
       </div>
 
       {/* ========================================================================= */}
-      {/* STEP 1: PROJECT MODE & HOUSEHOLD SETUP                                    */}
+      {/* STEP 1: PROJECT MODE, HOUSEHOLD & USER GOAL                               */}
       {/* ========================================================================= */}
       {wizardStep === 1 && (
         <div className="glass-surface-elevated rounded-3xl p-6 sm:p-8 border border-zinc-200/80 dark:border-white/10 shadow-xl space-y-8">
           
-          {/* A. PROJECT TYPE SELECTOR (BATCH COOKING VS SINGLE RECIPE) */}
+          {/* A. PROJECT TYPE SELECTOR */}
           <div className="space-y-3">
             <span className="text-[11px] font-black uppercase tracking-wider text-[#E07A5F] block">
               A. ¿Qué deseas preparar en este proyecto?
             </span>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               
-              {/* Mode 1: Batch Cooking */}
               <div
                 onClick={() => setProjectMode('batch_cooking')}
                 className={`p-5 rounded-2xl border-2 cursor-pointer transition-all space-y-2.5 relative ${
@@ -360,14 +469,13 @@ export function AIGeneratorView({
                   <Layers size={20} />
                 </div>
                 <strong className="text-sm font-black text-zinc-900 dark:text-white block">
-                  🍲 Plan Maestro de Batch Cooking
+                  🍲 Plan Maestro de Batch Cooking Semanal
                 </strong>
                 <p className="text-xs text-zinc-600 dark:text-zinc-400 leading-relaxed">
-                  Cocina 1 solo día en paralelo para cubrir todas las comidas y cenas de tu semana. Optimización de fuegos, raciones y tuppers.
+                  La IA organiza y balancea 4-5 platos de Carmen para cocinar en 2 horas en paralelo y cubrir comidas/cenas de toda tu semana.
                 </p>
               </div>
 
-              {/* Mode 2: Single Recipe */}
               <div
                 onClick={() => setProjectMode('single_recipe')}
                 className={`p-5 rounded-2xl border-2 cursor-pointer transition-all space-y-2.5 relative ${
@@ -386,7 +494,7 @@ export function AIGeneratorView({
                   🥘 Receta Individual de Alta Cocina
                 </strong>
                 <p className="text-xs text-zinc-600 dark:text-zinc-400 leading-relaxed">
-                  Prepara o encarga una receta canónica específica de Carmen (guiso, arroz caldoso, merluza, lasaña) con gramajes milimétricos.
+                  Prepara o encarga una receta canónica específica de Carmen (guiso, arroz, merluza, etc.) con raciones exactas calculadas por la IA.
                 </p>
               </div>
 
@@ -401,7 +509,6 @@ export function AIGeneratorView({
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
               
-              {/* Comensales */}
               <div className="p-4 rounded-2xl bg-zinc-50 dark:bg-zinc-850 border border-zinc-200 dark:border-zinc-800 space-y-2">
                 <div className="flex items-center justify-between text-xs">
                   <span className="font-bold text-zinc-700 dark:text-zinc-300 flex items-center gap-1.5">
@@ -424,7 +531,6 @@ export function AIGeneratorView({
                 </div>
               </div>
 
-              {/* Días (solo para Batch Cooking) */}
               {projectMode === 'batch_cooking' && (
                 <div className="p-4 rounded-2xl bg-zinc-50 dark:bg-zinc-850 border border-zinc-200 dark:border-zinc-800 space-y-2">
                   <div className="flex items-center justify-between text-xs">
@@ -449,7 +555,6 @@ export function AIGeneratorView({
                 </div>
               )}
 
-              {/* Estilo Culinario */}
               <div className="p-4 rounded-2xl bg-zinc-50 dark:bg-zinc-850 border border-zinc-200 dark:border-zinc-800 space-y-2">
                 <span className="font-bold text-xs text-zinc-700 dark:text-zinc-300 block">
                   Estilo Culinario Base:
@@ -470,11 +575,25 @@ export function AIGeneratorView({
             </div>
           </div>
 
-          {/* C. ALÉRGENOS & DEDUCCIÓN DE DESPENSA */}
+          {/* C. DIRECTIVA ESPECÍFICA PARA LA IA (OPCIONAL) */}
+          <div className="space-y-3 pt-4 border-t border-zinc-100 dark:border-zinc-800">
+            <span className="text-[11px] font-black uppercase tracking-wider text-[#E07A5F] block flex items-center gap-1.5">
+              <Wand2 size={14} /> C. Instrucción u Objetivo Específico para el Copiloto IA (Opcional):
+            </span>
+            <input
+              type="text"
+              placeholder="Ej: 'Quiero usar pollo y calabacines que tengo en la nevera', 'Platos ricos en hierro para niños', 'Sin picante'..."
+              value={userSpecificGoal}
+              onChange={(e) => setUserSpecificGoal(e.target.value)}
+              className="w-full p-3 rounded-2xl bg-zinc-50 dark:bg-zinc-800/80 border border-zinc-200 dark:border-zinc-700 text-xs font-medium text-zinc-800 dark:text-zinc-200 focus:outline-none"
+            />
+          </div>
+
+          {/* D. ALÉRGENOS */}
           <div className="space-y-3 pt-4 border-t border-zinc-100 dark:border-zinc-800">
             <div className="flex items-center justify-between">
               <span className="text-[11px] font-black uppercase tracking-wider text-[#E07A5F]">
-                C. Alérgenos y Restricciones a Excluir
+                D. Alérgenos y Restricciones a Excluir
               </span>
               <label className="flex items-center gap-2 text-xs font-bold text-zinc-600 dark:text-zinc-400 cursor-pointer">
                 <input
@@ -483,7 +602,7 @@ export function AIGeneratorView({
                   onChange={(e) => setIncludeFridge(e.target.checked)}
                   className="accent-[#E07A5F] rounded-md"
                 />
-                <span>Descontar ingredientes existentes en mi despensa</span>
+                <span>Descontar ingredientes de mi despensa</span>
               </label>
             </div>
 
@@ -524,7 +643,7 @@ export function AIGeneratorView({
               onClick={() => setWizardStep(2)}
               className="btn-hero-copper text-white font-bold text-xs px-6 py-3 rounded-2xl flex items-center gap-2 cursor-pointer shadow-md hover:scale-[1.02] transition-transform"
             >
-              <span>Continuar a Selección de Recetas</span>
+              <span>Abrir Copiloto IA &amp; Selección de Platos</span>
               <ArrowRight size={16} />
             </button>
           </div>
@@ -533,139 +652,309 @@ export function AIGeneratorView({
       )}
 
       {/* ========================================================================= */}
-      {/* STEP 2: RECIPES EXPLORATION & SELECTION (SSOT DOCS/FUENTES)               */}
+      {/* STEP 2: INTERACTIVE AI COPILOT & RECIPE SELECTION                          */}
       {/* ========================================================================= */}
       {wizardStep === 2 && (
         <div className="glass-surface-elevated rounded-3xl p-6 sm:p-8 border border-zinc-200/80 dark:border-white/10 shadow-xl space-y-6">
           
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-zinc-100 dark:border-zinc-800">
+          {/* SUB-MODE TABS: AI COPILOT VS MANUAL CATALOG */}
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-zinc-100 dark:border-zinc-800">
             <div>
-              <span className="text-[10px] font-black uppercase tracking-wider text-[#E07A5F]">
-                {projectMode === 'batch_cooking' ? 'Lote de Recetas en Concurrencia' : 'Receta Canónica de Carmen'}
+              <span className="text-[10px] font-black uppercase tracking-wider text-[#E07A5F] flex items-center gap-1">
+                <Sparkles size={12} /> SSOT: Compendios de Cocina con Carmen
               </span>
               <h3 className="text-lg font-black text-zinc-900 dark:text-white mt-0.5">
-                {projectMode === 'batch_cooking' 
-                  ? 'Configura las recetas de tu menú semanal' 
-                  : 'Elige la receta que deseas preparar o encargar'}
+                {step2SubMode === 'ai_copilot' ? 'Copiloto Culinario IA en Vivo' : 'Explorador Canónico de Recetas'}
               </h3>
             </div>
 
-            {projectMode === 'batch_cooking' && (
-              <div className="flex items-center gap-2 bg-zinc-100 dark:bg-zinc-800 p-1 rounded-xl">
-                <button
-                  onClick={() => setBatchSelectionMode('auto')}
-                  className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
-                    batchSelectionMode === 'auto'
-                      ? 'bg-white dark:bg-zinc-700 text-zinc-900 dark:text-white shadow-xs'
-                      : 'text-zinc-500 hover:text-zinc-900 dark:hover:text-white'
-                  }`}
-                >
-                  ✨ Selección Asistida por IA
-                </button>
-                <button
-                  onClick={() => setBatchSelectionMode('manual')}
-                  className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
-                    batchSelectionMode === 'manual'
-                      ? 'bg-white dark:bg-zinc-700 text-zinc-900 dark:text-white shadow-xs'
-                      : 'text-zinc-500 hover:text-zinc-900 dark:hover:text-white'
-                  }`}
-                >
-                  📖 Selección Manual
-                </button>
-              </div>
-            )}
-          </div>
+            <div className="flex items-center gap-2 bg-zinc-100 dark:bg-zinc-800 p-1.5 rounded-2xl border border-zinc-200 dark:border-zinc-700">
+              <button
+                onClick={() => setStep2SubMode('ai_copilot')}
+                className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
+                  step2SubMode === 'ai_copilot'
+                    ? 'btn-hero-copper text-white shadow-xs font-black'
+                    : 'text-zinc-500 hover:text-zinc-900 dark:hover:text-white'
+                }`}
+              >
+                <Bot size={15} />
+                <span>Copiloto IA Interactivo</span>
+              </button>
 
-          {/* SEARCH & CATEGORY FILTERS */}
-          <div className="flex flex-col sm:flex-row gap-3">
-            <div className="relative flex-1">
-              <Search size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-zinc-400" />
-              <input
-                type="text"
-                placeholder="Buscar por plato, ingrediente (lentejas, pollo, merluza, calabacín)..."
-                value={recipeSearchQuery}
-                onChange={(e) => setRecipeSearchQuery(e.target.value)}
-                className="w-full pl-10 pr-4 py-2.5 rounded-2xl bg-zinc-50 dark:bg-zinc-800/80 border border-zinc-200 dark:border-zinc-700 text-xs font-medium text-zinc-800 dark:text-zinc-200 focus:outline-none"
-              />
+              <button
+                onClick={() => setStep2SubMode('manual_catalog')}
+                className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
+                  step2SubMode === 'manual_catalog'
+                    ? 'bg-white dark:bg-zinc-700 text-zinc-900 dark:text-white shadow-xs font-black'
+                    : 'text-zinc-500 hover:text-zinc-900 dark:hover:text-white'
+                }`}
+              >
+                <BookOpen size={15} />
+                <span>Catálogo de 15 Compendios</span>
+              </button>
             </div>
-
-            <select
-              value={recipeCategoryFilter}
-              onChange={(e) => setRecipeCategoryFilter(e.target.value)}
-              className="px-4 py-2.5 rounded-2xl bg-zinc-50 dark:bg-zinc-800/80 border border-zinc-200 dark:border-zinc-700 text-xs font-bold text-zinc-800 dark:text-zinc-200 focus:outline-none cursor-pointer"
-            >
-              <option value="all">Todas las Categorías (15 Compendios)</option>
-              <option value="carnes">Aves &amp; Carnes Tradicionales</option>
-              <option value="pescados">Pescados &amp; Mariscos de Lonja</option>
-              <option value="legumbres">Legumbres &amp; Cuchara</option>
-              <option value="verduras">Verduras &amp; Pistos de Huerta</option>
-              <option value="cremas">Sopas &amp; Cremas</option>
-              <option value="arroces_pastas">Arroces &amp; Pastas</option>
-              <option value="tapas">Tapas &amp; Entrantes</option>
-              <option value="masas">Masas &amp; Empanadas</option>
-              <option value="postres">Postres de Cuchara</option>
-            </select>
           </div>
 
-          {/* RECIPES GRID VIEW */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 max-h-[500px] overflow-y-auto pr-1">
-            {availableCarmenRecipes.map(recipe => {
-              const isSelectedSingle = projectMode === 'single_recipe' && selectedSingleRecipe?.id === recipe.id;
-              const isSelectedManual = projectMode === 'batch_cooking' && manuallySelectedRecipeIds.includes(recipe.id);
-
-              return (
-                <div
-                  key={recipe.id}
-                  onClick={() => {
-                    if (projectMode === 'single_recipe') {
-                      setSelectedSingleRecipe(recipe);
-                    } else if (batchSelectionMode === 'manual') {
-                      toggleManualRecipe(recipe.id);
-                    }
-                  }}
-                  className={`p-4 rounded-2xl border-2 cursor-pointer transition-all flex flex-col justify-between space-y-3 relative group overflow-hidden ${
-                    isSelectedSingle || isSelectedManual
-                      ? 'border-[#E07A5F] bg-[#E07A5F]/10 shadow-md ring-2 ring-[#E07A5F]/30'
-                      : 'border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 hover:border-zinc-300 dark:hover:border-zinc-700'
-                  }`}
-                >
-                  <div className="space-y-2">
-                    <div className="relative h-28 rounded-xl overflow-hidden">
-                      <img src={recipe.image} alt={recipe.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
-                      <span className="absolute top-2 right-2 text-[10px] font-black uppercase px-2 py-0.5 rounded-md bg-stone-950/80 text-amber-300 backdrop-blur-xs">
-                        {recipe.prepTimeFormatted}
-                      </span>
-                      <span className="absolute bottom-2 left-2 text-[9px] font-black uppercase px-2 py-0.5 rounded-md bg-stone-900/80 text-zinc-300">
-                        {recipe.station}
-                      </span>
-                    </div>
-
-                    <div>
-                      <span className="text-[10px] font-bold text-[#E07A5F] uppercase block">
-                        {recipe.category} · {recipe.sourceCompendium}
-                      </span>
-                      <strong className="text-xs font-black text-zinc-900 dark:text-white line-clamp-2 mt-0.5">
-                        {recipe.name}
-                      </strong>
-                    </div>
+          {/* ===================================================================== */}
+          {/* SUB-VIEW 1: AI COPILOT CHAT INTERFACE                                 */}
+          {/* ===================================================================== */}
+          {step2SubMode === 'ai_copilot' && (
+            <div className="space-y-4">
+              
+              {/* TOP ACTION BAR: INSTANT PROPOSAL GENERATOR */}
+              <div className="p-4 rounded-2xl bg-gradient-to-r from-[#E07A5F]/15 via-amber-500/10 to-emerald-500/10 border border-[#E07A5F]/30 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-xl bg-[#E07A5F] text-white flex items-center justify-center shrink-0 shadow-sm">
+                    <Wand2 size={20} />
                   </div>
-
-                  <div className="pt-2 border-t border-zinc-100 dark:border-zinc-800 flex items-center justify-between text-[11px]">
-                    <span className="text-zinc-400">{recipe.shelfLifeDaysFridge}d en nevera</span>
-                    {projectMode === 'single_recipe' ? (
-                      <span className={`font-bold ${isSelectedSingle ? 'text-[#E07A5F]' : 'text-zinc-500'}`}>
-                        {isSelectedSingle ? '✓ Seleccionada' : 'Elegir esta'}
-                      </span>
-                    ) : (
-                      <span className={`font-bold ${isSelectedManual ? 'text-[#E07A5F]' : 'text-zinc-500'}`}>
-                        {isSelectedManual ? '✓ En tu menú' : '+ Añadir'}
-                      </span>
-                    )}
+                  <div>
+                    <strong className="text-xs font-black text-zinc-900 dark:text-white block">
+                      Generador Inteligente de Menú Equilibrado (IA)
+                    </strong>
+                    <span className="text-[11px] text-zinc-500">
+                      Calcula platos y raciones óptimas para {peopleCount} personas y {daysCount} días.
+                    </span>
                   </div>
                 </div>
-              );
-            })}
-          </div>
+
+                <button
+                  onClick={handleApplyAIAutoProposal}
+                  disabled={isGenerating || isAiResponding}
+                  className="btn-hero-copper text-white text-xs font-black px-4 py-2.5 rounded-xl shadow-xs transition-all flex items-center justify-center gap-1.5 cursor-pointer disabled:opacity-50 hover:scale-[1.02]"
+                >
+                  {isGenerating ? <Loader2 size={15} className="animate-spin" /> : <Sparkles size={15} />}
+                  <span>Formular Propuesta Completa con IA</span>
+                </button>
+              </div>
+
+              {/* CHAT MESSAGES CONTAINER */}
+              <div className="h-[380px] overflow-y-auto rounded-2xl p-4 bg-zinc-50 dark:bg-zinc-900/60 border border-zinc-200 dark:border-zinc-800 space-y-4 text-xs">
+                {chatMessages.map((msg, index) => (
+                  <div 
+                    key={index}
+                    className={`flex gap-3 ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}
+                  >
+                    {msg.role === 'assistant' && (
+                      <div className="w-8 h-8 rounded-xl bg-[#E07A5F] text-white flex items-center justify-center shrink-0 font-bold shadow-xs mt-1">
+                        <Bot size={16} />
+                      </div>
+                    )}
+
+                    <div className={`max-w-[85%] rounded-2xl p-4 space-y-3 ${
+                      msg.role === 'user'
+                        ? 'bg-[#E07A5F] text-white font-medium ml-8 shadow-sm'
+                        : 'bg-white dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 text-zinc-800 dark:text-zinc-200 shadow-xs'
+                    }`}>
+                      <div className="whitespace-pre-line leading-relaxed">
+                        {msg.content}
+                      </div>
+
+                      {/* SUGGESTED RECIPE CARDS (IF ANY RETURNED BY AI) */}
+                      {msg.suggestedRecipes && msg.suggestedRecipes.length > 0 && (
+                        <div className="pt-2 border-t border-zinc-100 dark:border-zinc-700/60 space-y-2">
+                          <span className="text-[10px] font-black uppercase text-[#E07A5F] block">
+                            Platos de Carmen identificados en esta respuesta:
+                          </span>
+                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                            {msg.suggestedRecipes.map(id => {
+                              const rec = CARMEN_RECIPES_DATABASE.find(r => r.id === id);
+                              if (!rec) return null;
+                              return (
+                                <div key={rec.id} className="p-2.5 rounded-xl bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-700 flex items-center gap-2.5">
+                                  <img src={rec.image} alt={rec.name} className="w-10 h-10 rounded-lg object-cover" />
+                                  <div className="min-w-0 flex-1">
+                                    <strong className="text-[11px] font-bold text-zinc-900 dark:text-white block truncate">
+                                      {rec.name}
+                                    </strong>
+                                    <span className="text-[10px] text-zinc-400 block">{rec.prepTimeFormatted} · {rec.station}</span>
+                                  </div>
+                                </div>
+                              );
+                            })}
+                          </div>
+
+                          <button
+                            onClick={() => handleApplySuggestedRecipes(msg.suggestedRecipes!)}
+                            className="w-full py-2 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-stone-950 font-black text-xs transition-all flex items-center justify-center gap-1.5 cursor-pointer shadow-xs mt-2"
+                          >
+                            <CheckCircle2 size={14} />
+                            <span>Cargar estos {msg.suggestedRecipes.length} platos en mi menú</span>
+                          </button>
+                        </div>
+                      )}
+                    </div>
+
+                    {msg.role === 'user' && (
+                      <div className="w-8 h-8 rounded-xl bg-zinc-200 dark:bg-zinc-700 text-zinc-700 dark:text-zinc-200 flex items-center justify-center shrink-0 font-bold mt-1">
+                        <UserIcon size={16} />
+                      </div>
+                    )}
+                  </div>
+                ))}
+
+                {isAiResponding && (
+                  <div className="flex gap-3 justify-start items-center text-zinc-400 text-xs py-2">
+                    <div className="w-8 h-8 rounded-xl bg-[#E07A5F] text-white flex items-center justify-center shrink-0 font-bold shadow-xs">
+                      <Bot size={16} />
+                    </div>
+                    <div className="p-3 rounded-2xl bg-white dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 flex items-center gap-2">
+                      <Loader2 size={14} className="animate-spin text-[#E07A5F]" />
+                      <span>El Copiloto Culinario está analizando y calculando...</span>
+                    </div>
+                  </div>
+                )}
+                <div ref={chatBottomRef} />
+              </div>
+
+              {/* QUICK SUGGESTION PROMPT CHIPS */}
+              <div className="flex flex-wrap gap-2 pt-1">
+                <span className="text-[10px] font-bold text-zinc-400 flex items-center gap-1 self-center">
+                  Sugerencias:
+                </span>
+                {[
+                  '¿Cómo equilibrar carnes y pescados para 5 días?',
+                  'Proponme 4 platos tradicionales de Carmen sin gluten',
+                  'Quiero recetas de olla rápida para ahorrar tiempo',
+                  'Dime una variación ligera para las cenas'
+                ].map((chipText, i) => (
+                  <button
+                    key={i}
+                    onClick={() => handleSendChatMessage(chipText)}
+                    className="px-3 py-1 rounded-xl bg-zinc-100 dark:bg-zinc-800 hover:bg-zinc-200 dark:hover:bg-zinc-700 text-[11px] font-medium text-zinc-700 dark:text-zinc-300 transition-all cursor-pointer"
+                  >
+                    {chipText}
+                  </button>
+                ))}
+              </div>
+
+              {/* CHAT INPUT BAR */}
+              <div className="flex gap-2">
+                <input
+                  type="text"
+                  placeholder="Pregúntale a la IA (ej: 'Cámbiame el pollo por salmón', 'Ajusta raciones', '¿Cómo se conservan las lentejas?')..."
+                  value={chatInput}
+                  onChange={(e) => setChatInput(e.target.value)}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' && !e.shiftKey) {
+                      e.preventDefault();
+                      handleSendChatMessage();
+                    }
+                  }}
+                  className="flex-1 px-4 py-3 rounded-2xl bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 text-xs font-medium text-zinc-800 dark:text-zinc-200 focus:outline-none focus:ring-2 focus:ring-[#E07A5F]/40"
+                />
+
+                <button
+                  onClick={() => handleSendChatMessage()}
+                  disabled={!chatInput.trim() || isAiResponding}
+                  className="btn-hero-copper text-white px-5 py-3 rounded-2xl font-bold text-xs flex items-center gap-2 cursor-pointer shadow-md disabled:opacity-50 transition-all"
+                >
+                  <Send size={15} />
+                  <span className="hidden sm:inline">Enviar</span>
+                </button>
+              </div>
+
+            </div>
+          )}
+
+          {/* ===================================================================== */}
+          {/* SUB-VIEW 2: MANUAL CATALOG BROWSER                                    */}
+          {/* ===================================================================== */}
+          {step2SubMode === 'manual_catalog' && (
+            <div className="space-y-4">
+              
+              {/* SEARCH & CATEGORY FILTERS */}
+              <div className="flex flex-col sm:flex-row gap-3">
+                <div className="relative flex-1">
+                  <Search size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-zinc-400" />
+                  <input
+                    type="text"
+                    placeholder="Buscar por plato, ingrediente (lentejas, pollo, merluza, calabacín)..."
+                    value={recipeSearchQuery}
+                    onChange={(e) => setRecipeSearchQuery(e.target.value)}
+                    className="w-full pl-10 pr-4 py-2.5 rounded-2xl bg-zinc-50 dark:bg-zinc-800/80 border border-zinc-200 dark:border-zinc-700 text-xs font-medium text-zinc-800 dark:text-zinc-200 focus:outline-none"
+                  />
+                </div>
+
+                <select
+                  value={recipeCategoryFilter}
+                  onChange={(e) => setRecipeCategoryFilter(e.target.value)}
+                  className="px-4 py-2.5 rounded-2xl bg-zinc-50 dark:bg-zinc-800/80 border border-zinc-200 dark:border-zinc-700 text-xs font-bold text-zinc-800 dark:text-zinc-200 focus:outline-none cursor-pointer"
+                >
+                  <option value="all">Todas las Categorías (15 Compendios)</option>
+                  <option value="carnes">Aves &amp; Carnes Tradicionales</option>
+                  <option value="pescados">Pescados &amp; Mariscos de Lonja</option>
+                  <option value="legumbres">Legumbres &amp; Cuchara</option>
+                  <option value="verduras">Verduras &amp; Pistos de Huerta</option>
+                  <option value="cremas">Sopas &amp; Cremas</option>
+                  <option value="arroces_pastas">Arroces &amp; Pastas</option>
+                  <option value="tapas">Tapas &amp; Entrantes</option>
+                  <option value="masas">Masas &amp; Empanadas</option>
+                  <option value="postres">Postres de Cuchara</option>
+                </select>
+              </div>
+
+              {/* RECIPES GRID VIEW */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 max-h-[500px] overflow-y-auto pr-1">
+                {availableCarmenRecipes.map(recipe => {
+                  const isSelectedSingle = projectMode === 'single_recipe' && selectedSingleRecipe?.id === recipe.id;
+                  const isSelectedManual = projectMode === 'batch_cooking' && manuallySelectedRecipeIds.includes(recipe.id);
+
+                  return (
+                    <div
+                      key={recipe.id}
+                      onClick={() => {
+                        if (projectMode === 'single_recipe') {
+                          setSelectedSingleRecipe(recipe);
+                        } else {
+                          toggleManualRecipe(recipe.id);
+                        }
+                      }}
+                      className={`p-4 rounded-2xl border-2 cursor-pointer transition-all flex flex-col justify-between space-y-3 relative group overflow-hidden ${
+                        isSelectedSingle || isSelectedManual
+                          ? 'border-[#E07A5F] bg-[#E07A5F]/10 shadow-md ring-2 ring-[#E07A5F]/30'
+                          : 'border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 hover:border-zinc-300 dark:hover:border-zinc-700'
+                      }`}
+                    >
+                      <div className="space-y-2">
+                        <div className="relative h-28 rounded-xl overflow-hidden">
+                          <img src={recipe.image} alt={recipe.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                          <span className="absolute top-2 right-2 text-[10px] font-black uppercase px-2 py-0.5 rounded-md bg-stone-950/80 text-amber-300 backdrop-blur-xs">
+                            {recipe.prepTimeFormatted}
+                          </span>
+                          <span className="absolute bottom-2 left-2 text-[9px] font-black uppercase px-2 py-0.5 rounded-md bg-stone-900/80 text-zinc-300">
+                            {recipe.station}
+                          </span>
+                        </div>
+
+                        <div>
+                          <span className="text-[10px] font-bold text-[#E07A5F] uppercase block">
+                            {recipe.category} · {recipe.sourceCompendium}
+                          </span>
+                          <strong className="text-xs font-black text-zinc-900 dark:text-white line-clamp-2 mt-0.5">
+                            {recipe.name}
+                          </strong>
+                        </div>
+                      </div>
+
+                      <div className="pt-2 border-t border-zinc-100 dark:border-zinc-800 flex items-center justify-between text-[11px]">
+                        <span className="text-zinc-400">{recipe.shelfLifeDaysFridge}d en nevera</span>
+                        {projectMode === 'single_recipe' ? (
+                          <span className={`font-bold ${isSelectedSingle ? 'text-[#E07A5F]' : 'text-zinc-500'}`}>
+                            {isSelectedSingle ? '✓ Seleccionada' : 'Elegir esta'}
+                          </span>
+                        ) : (
+                          <span className={`font-bold ${isSelectedManual ? 'text-[#E07A5F]' : 'text-zinc-500'}`}>
+                            {isSelectedManual ? '✓ En tu menú' : '+ Añadir'}
+                          </span>
+                        )}
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+
+            </div>
+          )}
 
           {/* STEP 2 ACTIONS */}
           <div className="pt-4 flex items-center justify-between border-t border-zinc-100 dark:border-zinc-800">
@@ -756,9 +1045,7 @@ export function AIGeneratorView({
 
           </div>
 
-          {/* ===================================================================== */}
-          {/* THE MASTER BIFURCATION (COOK MYSELF vs HIRE CHEF CON/SIN COMPRA)      */}
-          {/* ===================================================================== */}
+          {/* MASTER BIFURCATION (COOK MYSELF vs HIRE CHEF CON/SIN COMPRA) */}
           <PlanActionBridge
             totalServings={generatedDishes.reduce((a, b) => a + b.servings, 0)}
             dishCount={generatedDishes.length}
@@ -775,7 +1062,7 @@ export function AIGeneratorView({
               className="px-4 py-2 rounded-xl text-xs font-bold text-zinc-500 hover:text-zinc-900 dark:hover:text-white flex items-center gap-1 cursor-pointer"
             >
               <ArrowLeft size={14} />
-              <span>Volver a Modificar Selección</span>
+              <span>Volver a Modificar con el Copiloto IA</span>
             </button>
           </div>
 

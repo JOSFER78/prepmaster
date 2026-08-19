@@ -207,6 +207,8 @@ Es mandatorio distinguir entre la alteración enzimática y la reacción inmune 
 
 ![Matriz Oficial de los 14 Alérgenos de Declaración Obligatoria según Reglamento UE 1169/2011](assets/iconos_14_alergenos_ue_1169_2011.svg)
 
+![Fotografía real de mesa con ingredientes representativos de los 14 alérgenos de declaración obligatoria según Reglamento UE 1169/2011](assets/foto_14_alergenos_ingredientes_reales.jpg)
+
 > [!NOTE]
 > **Contexto de Seguridad en Cocina Vegetal:**
 > La exclusión de lácteos (Alérgeno 07) no exime del control estricto de otros alérgenos de origen vegetal presentes en el Reglamento (UE) 1169/2011 (Soja 06, Frutos de cáscara 08, Sésamo 11, Apio 09, Mostaza 10 y Altramuces 13).

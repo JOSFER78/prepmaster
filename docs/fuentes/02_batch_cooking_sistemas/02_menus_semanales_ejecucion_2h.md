@@ -31,6 +31,9 @@ El protocolo **T-120** está diseñado para transformar la cocina en una estaci�
 ![Infografía Vertical Póster: Zonificación de Cocina y Arquitectura de 5 Estaciones TouChef](assets/infografia_vertical_zonificacion_5_estaciones.svg)
 > **Infografía Técnica Vertical TouChef:** Flujo espacial y concurrencia modular para la ejecución de menús semanales completos en 120 minutos sin paradas operativas.
 
+![Mise en Place Profesional Organizada por Estaciones de Corte y Preparación](assets/foto_mise_en_place_5_estaciones.jpg)
+> **Fotografía Real Operativa:** Estación de corte y mise en place con boles de trasvase e ingredientes clasificados para procesado continuo sin cuellos de botella.
+
 ---
 
 ## 2. MENÚ SEMANAL 1: "MEDITERRÁNEO INTEGRAL Y PROTEICO"
@@ -385,6 +388,9 @@ LISTA DE LA COMPRA CONSOLIDADA — MENÚ 2 CONFORT TRADICIONAL IBÉRICO
 
 ![Infografía Vertical Póster: Termodinámica del Abatimiento Térmico Cook & Chill TouChef](assets/infografia_vertical_abatimiento_cook_chill.svg)
 > **Infografía Técnica Vertical TouChef:** Curvas de abatimiento en baño de hielo 50/50 y control microbiológico del Punto Crítico de Control (PCC 4) para la conservación segura de raciones semanales.
+
+![Abatimiento Térmico Forzado en Baño de Agua Helada](assets/foto_bano_hielo_abatimiento_batch.jpg)
+> **Fotografía Real Operativa:** Enfriamiento acelerado por inmersión en baño de agua con hielo para atravesar la zona de peligro bacteriano en tiempo récord.
 
 ---
 

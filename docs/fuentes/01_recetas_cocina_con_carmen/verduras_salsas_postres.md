@@ -568,6 +568,11 @@ Las dos grandes salsas emulsionadas frías de la gastronomía española. Elabora
 3. **Emulsificación Gota a Gota:** Con una mano, sostener la aceitera vertiendo el AOVE en un **hilo finísimo (gota a gota)** mientras que con la otra mano se gira la maza del mortero en un movimiento circular continuo siempre en el mismo sentido.
 4. **Crecimiento de la Masa:** A medida que la emulsión "coge cuerpo" y emite el sonido característico de fricción espesa, el chorro de aceite puede ser ligeramente más continuo, sin superar nunca la capacidad de absorción de la masa. Finalizar con las gotas de zumo de limón para asentar y blanquear ligeramente la salsa.
 
+
+![Resultado Final y Emplatado](assets/emulsiones_frias_clasicas_mahonesa_tradiciona_03_resultado_final.jpg)
+
+---
+
 ### Protocolo de Conservación y Seguridad Alimentaria
 - **Cadena de Frío Estricta:** Almacenar inmediatamente en tarro cerrado hermético a **3 °C - 4 °C**.
 - **Vida Útil:** 

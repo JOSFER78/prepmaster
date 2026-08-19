@@ -461,6 +461,9 @@ Para anular radicalmente la contaminación cruzada entre matrices de distinto ni
 ![Infografía Vertical Póster: Código Cromático HACCP y Escala de Temperaturas Críticas TouChef](assets/infografia_vertical_haccp_tablas_color.svg)
 > **Infografía Técnica Vertical TouChef:** Guía visual de las 6 tablas de corte HDPE 500, patógenos diana, escala de metrología térmica (congelación, frío TouChef 0-3°C, peligro 10-65°C y pasteurización 75°C) y protocolo L+D.
 
+![Mise en Place y Zonificación de Tablas de Corte HACCP](assets/foto_mise_en_place_5_estaciones.jpg)
+> **Fotografía Real Operativa:** Disposición segregada de estaciones de corte y mise en place con recipientes independientes para neutralizar la contaminación cruzada en cocina.
+
 ### Especificaciones Técnicas del Material de Tablas
 1. **Composición:** Polietileno de Alta Densidad (**HDPE 500**) o Polipropileno virgen de grado alimentario (normativa FDA 21 CFR 177.1520 / Reglamento UE 10/2011).
 2. **Prohibición Expresa:** Tablas de madera no tratada para productos cárnicos o pescados crudos en entornos de manipulación industrial o batch semi-profesional.
