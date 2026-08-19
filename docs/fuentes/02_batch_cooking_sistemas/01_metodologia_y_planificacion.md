@@ -1,4 +1,10 @@
 # 🍳 MANUAL MAESTRO DE METODOLOGÍA DE BATCH COOKING, ARQUITECTURA DE PRODUCCIÓN Y ZONIFICACIÓN ERGONÓMICA DE COCINA
+
+> 📊 **Infografía Educativa TouChef:** [Ver Infografía Técnica](assets/infografia_tecnica_5_estaciones.jpg)
+
+![Infografía Educativa TouChef](assets/infografia_tecnica_5_estaciones.jpg)
+
+
 **Documento Técnico:** `02_batch_cooking_sistemas / 01_metodologia_y_planificacion.md`  
 **Autor:** Especialista en Batch Cooking y Organización Culinaria Eficiente — *TouChef / PrepMaster Engine*  
 **Versión:** 2.0.0 (Norma Profesional de Cocina de Alto Rendimiento)  

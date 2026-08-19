@@ -1,4 +1,10 @@
 # 🥗 TALLER 01 — Fundamentos de Cocina Saludable, Bioquímica Nutricional y Gastronomía Preventiva
+
+> 📊 **Infografía Educativa TouChef:** [Ver Infografía Técnica](assets/infografia_tecnica_plato_harvard.jpg)
+
+![Infografía Educativa TouChef](assets/infografia_tecnica_plato_harvard.jpg)
+
+
 > **TouChef Master Series — Manual Clínico-Culinario y Operativo**  
 > *Especialidad: Nutrición Humana, Metabolismo Energético, Microbiota y Técnicas Culinarias de Alta Retención Nutricional*
 

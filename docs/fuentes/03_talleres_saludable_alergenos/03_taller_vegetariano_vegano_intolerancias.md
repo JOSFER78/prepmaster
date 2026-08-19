@@ -1,4 +1,10 @@
 # 🥗 TALLER 03 — Nutrición Vegetariana, Vegana e Intolerancias Digestivas en Batch Cooking
+
+> 📊 **Infografía Educativa TouChef:** [Ver Infografía Técnica](assets/infografia_tecnica_14_alergenos_ue.jpg)
+
+![Infografía Educativa TouChef](assets/infografia_tecnica_14_alergenos_ue.jpg)
+
+
 > **TouChef Master Series — Manual Clínico-Culinario y Operativo**  
 > *Especialidad: Dietética Avanzada, Fisiopatología Digestiva y Alérgenos en Cocina de Rendimiento*
 

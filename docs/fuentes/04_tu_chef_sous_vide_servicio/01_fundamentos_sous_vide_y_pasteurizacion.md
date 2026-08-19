@@ -1,5 +1,11 @@
 # 🔬 TRATADO TÉCNICO, BIOFÍSICO Y MICROBIOLÓGICO DE COCCIÓN SOUS-VIDE Y PROCESOS DE PASTEURIZACIÓN
 
+> 📊 **Infografía Educativa TouChef:** [Ver Infografía Técnica](assets/infografia_tecnica_sous_vide_baldwin.jpg)
+
+![Infografía Educativa TouChef](assets/infografia_tecnica_sous_vide_baldwin.jpg)
+
+
+
 **Documento Técnico Oficial — Plataforma TouChef 2.0 & PrepMaster**  
 **Área:** Ingeniería de Procesos Culinarios, Bromatología y Seguridad Alimentaria Avanzada  
 **Código:** `TC-DOC-SV-001` | **Versión:** `2.4.0` | **Estado:** Aprobado para Producción  

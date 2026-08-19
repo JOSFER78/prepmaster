@@ -1,5 +1,11 @@
 # 🛡️ Protocolo Oficial APPCC / HACCP de Seguridad e Higiene Alimentaria en Sistemas Batch Cooking
 
+> 📊 **Infografía Educativa TouChef:** [Ver Infografía Técnica](assets/infografia_tecnica_abatimiento_cook_chill.jpg)
+
+![Infografía Educativa TouChef](assets/infografia_tecnica_abatimiento_cook_chill.jpg)
+
+
+
 > **Documento Técnico Oficial de Calidad y Seguridad Alimentaria — PrepMaster & TouChef Standard (HACCP-BC-06)**  
 > **Área:** Higiene Alimentaria, Microbiología Predictiva, Análisis de Peligros y Puntos Críticos de Control (APPCC / HACCP)  
 > **Marco Normativo:** Reglamento (CE) Nº 852/2004, Reglamento (CE) Nº 2073/2005 (Criterios microbiológicos), Codex Alimentarius (CXC 1-1969 rev. 2020), FDA Food Code 2022, Guías Técnicas AESAN y EFSA.  

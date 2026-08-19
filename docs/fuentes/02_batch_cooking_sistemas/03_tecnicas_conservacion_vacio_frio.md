@@ -1,5 +1,11 @@
 # 🧊 Ingeniería de Conservación en Batch Cooking: Termodinámica del Frío, Envasado al Vacío y Cinética de Degradación
 
+> 📊 **Infografía Educativa TouChef:** [Ver Infografía Técnica](assets/infografia_tecnica_abatimiento_cook_chill.jpg)
+
+![Infografía Educativa TouChef](assets/infografia_tecnica_abatimiento_cook_chill.jpg)
+
+
+
 > **Documento Técnico de Referencia — TouChef Process Engineering Standard (PES-03)**  
 > **Área:** Tecnología de los Alimentos, Sistemas Cook & Chill y Preservación Organoléptica  
 > **Destinatarios:** Ingenieros de Procesos Culinarios, Chefs Ejecutivos, Diseñadores de Menús Batch Cooking  

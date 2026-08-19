@@ -1,4 +1,10 @@
 # 🍳 PROTOCOLO OPERATIVO ESTÁNDAR (SOP): SERVICIO DE CHEF PRIVADO A DOMICILIO (2 HORAS)
+
+> 📊 **Infografía Educativa TouChef:** [Ver Infografía Técnica](assets/infografia_tecnica_sous_vide_baldwin.jpg)
+
+![Infografía Educativa TouChef](assets/infografia_tecnica_sous_vide_baldwin.jpg)
+
+
 **Plataforma:** TouChef 2.0 — Gastronomía de Precisión & Batch Cooking Sous-Vide  
 **Documento:** `SOP-OPS-02` | **Versión:** 2.4.0  
 **Área:** Operaciones Gastronómicas, Seguridad Alimentaria (HACCP) & Calidad de Servicio  
