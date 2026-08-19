@@ -170,6 +170,8 @@ La excelencia de un postre de cuchara artesano descansa sobre cinco pilares cien
 6. **Servicio Tradicional:**
    * En el momento de servir, espolvorear una lluvia fina y uniforme de canela molida con ayuda de un colador.
 
+![Resultado Final y Emplatado](assets/arroz_con_leche_cremoso_de_la_abuela_con_cane_03_resultado_final.jpg)
+
 ---
 
 ### 📦 Protocolo de Conservación y Batch Cooking
@@ -299,6 +301,8 @@ La excelencia de un postre de cuchara artesano descansa sobre cinco pilares cien
    * Pasar la punta de un cuchillo fino y flexible por el borde superior para despegarlo.
    * Colocar un plato hondo amplio sobre la flanera y voltear con un movimiento rápido y decidido. Dejar que el flan caiga por su propio peso bañado en su caramelo líquido.
 
+![Resultado Final y Emplatado](assets/flan_de_huevo_tradicional_al_bano_maria_con_c_03_resultado_final.jpg)
+
 ---
 
 ### 📦 Protocolo de Conservación y Batch Cooking
@@ -424,6 +428,8 @@ La excelencia de un postre de cuchara artesano descansa sobre cinco pilares cien
    * Colocar de inmediato una galleta María en el centro de cada cuenco para que absorba el vapor y quede tierna.
    * Dejar enfriar a temperatura ambiente durante 20 minutos y refrigerar un mínimo de 3 horas. Espolvorear con canela molida antes de servir.
 
+![Resultado Final y Emplatado](assets/natillas_caseras_de_yema_con_galleta_maria_y__03_resultado_final.jpg)
+
 ---
 
 ### 📦 Protocolo de Conservación y Batch Cooking
@@ -545,6 +551,8 @@ La excelencia de un postre de cuchara artesano descansa sobre cinco pilares cien
    * Espolvorear una capa delgada y uniforme de azúcar sobre toda la superficie (unos 10 g por cazuela).
    * Pasar la llama del soplete pastelero a unos 3-4 cm de distancia en círculos continuos (o aplicar la pala de hierro al rojo vivo) hasta que el azúcar burbujee, se licúe y cristalice en un tono caramelo dorado crujiente.
    * Dejar reposar 1 minuto a temperatura ambiente para que la película de caramelo solidifique como un cristal antes de hincar la cuchara.
+
+![Resultado Final y Emplatado](assets/crema_catalana_tradicional_con_azucar_quemado_03_resultado_final.jpg)
 
 ---
 
@@ -672,6 +680,8 @@ La excelencia de un postre de cuchara artesano descansa sobre cinco pilares cien
    * Dejar enfriar a temperatura ambiente y refrigerar durante un mínimo de 12 horas.
    * Para desmoldar, pasar una espátula fina por los laterales y volcar sobre el plato de servicio.
 
+![Resultado Final y Emplatado](assets/tocino_de_cielo_tradicional_de_jerez_03_resultado_final.jpg)
+
 ---
 
 ### 📦 Protocolo de Conservación y Batch Cooking
@@ -788,6 +798,8 @@ La excelencia de un postre de cuchara artesano descansa sobre cinco pilares cien
    * Llevar al frigorífico a 3°C durante un mínimo de **4 horas** (óptimo de un día para otro) para que la mousse adquiera cuerpo esponjoso y una temperatura refrescante.
 5. **Presentación:**
    * Decorar con una lluvia de ralladura de lima verde fresca y una hojita de hierbabuena en la coronación de la copa.
+
+![Resultado Final y Emplatado](assets/mousse_de_limon_cremosa_facil_y_rapida_03_resultado_final.jpg)
 
 ---
 
@@ -908,6 +920,8 @@ La excelencia de un postre de cuchara artesano descansa sobre cinco pilares cien
    * Pasar por el colador chino presionando con la maza para retirar todas las pepitas y obtener una salsa roja brillante y sedosa. Dejar enfriar en nevera.
 5. **Servicio y Pase:**
    * Bañar la superficie de cada panna cotta con dos cucharadas generosas de coulis frío antes de servir, decorando opcionalmente con un fruto rojo fresco entero.
+
+![Resultado Final y Emplatado](assets/panna_cotta_tradicional_de_vainilla_con_couli_03_resultado_final.jpg)
 
 ---
 
@@ -1034,6 +1048,8 @@ La excelencia de un postre de cuchara artesano descansa sobre cinco pilares cien
    * Cubrir toda la superficie con una capa generosa de azúcar blanquilla (10 g por cuenco).
    * Quemar con soplete o con la pala de hierro al rojo vivo hasta formar una costra tostada, crujiente y de color ámbar oscuro.
    * Servir de inmediato para disfrutar del contraste brutal entre el caramelo caliente crujiente y el arroz frío y untuoso.
+
+![Resultado Final y Emplatado](assets/arroz_con_leche_caramelizado_al_estilo_asturi_03_resultado_final.jpg)
 
 ---
 

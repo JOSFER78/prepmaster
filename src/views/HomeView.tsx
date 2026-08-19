@@ -48,6 +48,8 @@ interface HomeViewProps {
   onUpdateActiveProjectStatus: (status: BatchProject['status']) => void;
   onRateDish: (dishId: string, rating: number, isFavorite?: boolean) => void;
   onArchiveActiveBatch?: () => void;
+  onDeleteBatchProject?: (projectId: string) => void;
+  onClearAllBatchProjects?: () => void;
   onConsumePortion?: (dishId: string, count?: number) => void;
   onHireChefForBatch?: () => void;
   onRepeatChefBooking?: (booking: ChefBookingRequest) => void;
@@ -69,6 +71,8 @@ export function HomeView({
   onUpdateActiveProjectStatus,
   onRateDish,
   onArchiveActiveBatch,
+  onDeleteBatchProject,
+  onClearAllBatchProjects,
   onConsumePortion,
   onHireChefForBatch,
   onRepeatChefBooking,
@@ -257,10 +261,10 @@ export function HomeView({
                     </h2>
                   </div>
 
-                  <div className="flex items-center gap-2 self-start sm:self-center">
+                  <div className="flex flex-wrap items-center gap-2 self-start sm:self-center">
                     <button
                       onClick={() => onNavigate({ name: 'batch-session' })}
-                      className="btn-hero-copper text-white text-xs font-black px-4 py-2.5 rounded-xl shadow-xs transition-all flex items-center gap-1.5 active:scale-95 cursor-pointer"
+                      className="btn-hero-copper text-white text-xs font-black px-3.5 py-2.5 rounded-xl shadow-xs transition-all flex items-center gap-1.5 active:scale-95 cursor-pointer"
                     >
                       <Play size={14} fill="currentColor" />
                       <span>Cocinar Paso a Paso</span>
@@ -268,11 +272,37 @@ export function HomeView({
 
                     <button
                       onClick={() => onNavigate({ name: 'create-chef-request', preselectedPlanId: activeProject.id })}
-                      className="px-4 py-2.5 rounded-xl bg-amber-500/10 hover:bg-amber-500/20 text-amber-700 dark:text-amber-300 border border-amber-500/30 text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer"
+                      className="px-3.5 py-2.5 rounded-xl bg-amber-500/10 hover:bg-amber-500/20 text-amber-700 dark:text-amber-300 border border-amber-500/30 text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer"
                     >
                       <ChefHat size={14} className="text-amber-500" />
                       <span>Encargar a Chef</span>
                     </button>
+
+                    {onArchiveActiveBatch && (
+                      <button
+                        onClick={onArchiveActiveBatch}
+                        title="Finalizar sesión y guardar en historial de lotes"
+                        className="px-3 py-2.5 rounded-xl bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-800 dark:hover:bg-zinc-700 text-zinc-700 dark:text-zinc-300 border border-zinc-200 dark:border-zinc-700 text-xs font-bold transition-all flex items-center gap-1 cursor-pointer"
+                      >
+                        <Archive size={14} />
+                        <span>Parar / Archivar</span>
+                      </button>
+                    )}
+
+                    {onDeleteBatchProject && (
+                      <button
+                        onClick={() => {
+                          if (window.confirm('¿Deseas cancelar y borrar este lote activo de tu cuenta? Se restablecerá el panel a 0.')) {
+                            onDeleteBatchProject(activeProject.id);
+                          }
+                        }}
+                        title="Borrar completamente este lote y dejar la sesión a 0"
+                        className="px-3 py-2.5 rounded-xl bg-rose-500/10 hover:bg-rose-500/20 text-rose-600 dark:text-rose-400 border border-rose-500/30 text-xs font-bold transition-all flex items-center gap-1 cursor-pointer"
+                      >
+                        <AlertCircle size={14} />
+                        <span>Cancelar / Borrar Lote</span>
+                      </button>
+                    )}
                   </div>
                 </div>
 

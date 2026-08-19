@@ -22,8 +22,8 @@ graph LR
     C --> D[Paso 3: Emplatado & Toque Gourmet]
 ```
 
-![Guía Visual de Acabado Maillard y Regeneración Express](assets/guia_acabado_maillard_cliente.svg)
-*Figura 1.1: Guía visual para el cliente del acabado gastronómico en 4 pasos (Templado en bolsa a $55\text{–}60^\circ\text{C}$ + Secado + Marcado Maillard de 45 segundos por cara + Emplatado con jugos reducidos) y comparativa biofísica del gradiente cárnico (Cocción tradicional deshidratada vs. TouChef 98% punto óptimo de borde a borde). Trazabilidad: [Douglas Baldwin Sous-Vide Guide / Reacción de Maillard (140°C–165°C)](https://douglasbaldwin.com/sous-vide.html).*
+![Infografía Vertical de Experiencia de Cliente: Guía Maestra de Acabado Gastronómico en 4 Pasos](assets/infografia_vertical_guia_maillard_cliente.svg)
+*Figura 1.1: Infografía vertical educativa para el cliente con el protocolo de acabado gastronómico en 4 pasos (1. Templado en bolsa a $55\text{–}60^\circ\text{C}$ + 2. Secado con papel + 3. Sellado Maillard de 45s por lado + 4. Salseado & Emplatado), comparativa de corte transversal (Tradicional 45% gris vs. TouChef 98% rosado de borde a borde), semáforo de conservación (Verde D1-3, Amarillo D4-6, Rojo D7+ congelación) y secretos del chef. Trazabilidad: [Douglas Baldwin Sous-Vide Guide / Reacción de Maillard (140°C–165°C)](https://douglasbaldwin.com/sous-vide.html).*
 
 ![Corte transversal de carne cocinada a baja temperatura con punto rosado uniforme](assets/foto_corte_transversal_carne_sous_vide.jpg)
 *Fotografía 3.1: Resultado gourmet en casa: corte transversal con textura sedosa, jugosidad intacta y punto rosado homogéneo de borde a borde ($54.0^\circ\text{C}$) obtenido tras el templado y sellado de precisión.*

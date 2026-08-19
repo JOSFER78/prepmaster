@@ -201,6 +201,9 @@ Donde para *L. monocytogenes*: $T_{\text{ref}} = 70^\circ\text{C}$, $D_{70} \app
 ![Curva de Abatimiento Térmico Cook & Chill APPCC](assets/curva_abatimiento_cook_chill.svg)
 > **Procedencia Técnica & Validación Bromatológica:** Curva de control para el Punto Crítico de Control (PCC 4) según Reglamento CE 852/2004 y directrices FDA Food Code para enfriamiento rápido forzado en matrices alimentarias densas.
 
+![Infografía Vertical Póster: Termodinámica del Abatimiento Térmico y Curvas PCC 4 TouChef](assets/infografia_vertical_abatimiento_cook_chill.svg)
+> **Infografía Técnica Vertical TouChef:** Cinética de enfriamiento rápido en baño de hielo 50/50, mapa de patógenos en Zona de Peligro (65°C a 10°C) y protocolo de 5 pasos con tapado diferido.
+
 ### 3. Protocolos de Abatimiento por Entorno
 
 #### A. Entorno Profesional / Industrial (Abatidor de Temperatura)
@@ -454,6 +457,9 @@ Para anular radicalmente la contaminación cruzada entre matrices de distinto ni
 
 ![Código Cromático Internacional de Tablas de Corte HACCP](assets/tabla_haccp_codigos_color.svg)
 > **Procedencia Técnica & Prevención de Riesgos Biológicos:** Estándar internacional de codificación cromática para anulación de contaminación cruzada según directrices HACCP / APPCC y especificaciones de material HDPE 500 (FDA 21 CFR 177.1520 / Reglamento UE 10/2011).
+
+![Infografía Vertical Póster: Código Cromático HACCP y Escala de Temperaturas Críticas TouChef](assets/infografia_vertical_haccp_tablas_color.svg)
+> **Infografía Técnica Vertical TouChef:** Guía visual de las 6 tablas de corte HDPE 500, patógenos diana, escala de metrología térmica (congelación, frío TouChef 0-3°C, peligro 10-65°C y pasteurización 75°C) y protocolo L+D.
 
 ### Especificaciones Técnicas del Material de Tablas
 1. **Composición:** Polietileno de Alta Densidad (**HDPE 500**) o Polipropileno virgen de grado alimentario (normativa FDA 21 CFR 177.1520 / Reglamento UE 10/2011).

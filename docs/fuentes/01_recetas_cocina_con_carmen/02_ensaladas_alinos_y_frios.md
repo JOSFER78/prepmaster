@@ -174,6 +174,8 @@ La excelencia en los aliños y platos fríos tradicionales se sustenta sobre sei
 6. **Reposo y Maduración Térmica:**
    * Tapar el bol con film transparente o tapa hermética y refrigerar a 3-4°C durante un mínimo de **2 horas** antes de servir.
 
+![Resultado Final y Emplatado](assets/ensalada_campera_tradicional_de_patata_atun_h_03_resultado_final.jpg)
+
 ---
 
 ### 📦 Protocolo de Conservación y Batch Cooking
@@ -297,6 +299,8 @@ La excelencia en los aliños y platos fríos tradicionales se sustenta sobre sei
 5. **Maceración en Frío:**
    * Llevar al frigorífico a 3-4°C durante **1 hora** antes de llevar a la mesa para que todos los sabores se armonicen.
 
+![Resultado Final y Emplatado](assets/pipirrana_andaluza_tradicional_con_tomate_pep_03_resultado_final.jpg)
+
 ---
 
 ### 📦 Protocolo de Conservación y Batch Cooking
@@ -415,6 +419,8 @@ La excelencia en los aliños y platos fríos tradicionales se sustenta sobre sei
    * Verter la vinagreta con los jugos por encima asegurando que impregne toda la verdura.
    * Disponer los lomos de melva de Andalucía por encima sin desmigar para mantener una presentación pulcra.
    * Terminar con unas escamas de sal Maldon sobre la melva y un hilo extra de AOVE en crudo.
+
+![Resultado Final y Emplatado](assets/ensalada_de_pimientos_asados_al_horno_con_mel_03_resultado_final.jpg)
 
 ---
 
@@ -542,6 +548,8 @@ La excelencia en los aliños y platos fríos tradicionales se sustenta sobre sei
    * Remover con movimientos suaves de abajo hacia arriba para que todos los elementos queden bañados de manera uniforme.
    * Tapar y refrigerar durante un mínimo de **2 horas** a 3°C antes de servir.
 
+![Resultado Final y Emplatado](assets/salpicon_de_marisco_tradicional_con_pulpo_gam_03_resultado_final.jpg)
+
 ---
 
 ### 📦 Protocolo de Conservación y Batch Cooking
@@ -666,6 +674,8 @@ La excelencia en los aliños y platos fríos tradicionales se sustenta sobre sei
 6. **Reposo Térmico:**
    * Refrigerar a 3-4°C cubierta con campana o film (sin tocar la mayonesa) durante al menos **3 horas** antes del servicio.
 
+![Resultado Final y Emplatado](assets/ensaladilla_rusa_tradicional_de_carmen_con_ma_03_resultado_final.jpg)
+
 ---
 
 ### 📦 Protocolo de Conservación y Batch Cooking
@@ -785,6 +795,8 @@ La excelencia en los aliños y platos fríos tradicionales se sustenta sobre sei
 5. **Reposo y Asentado:**
    * Refrigerar durante **1 hora** a 3-4°C para servir refrescante.
 
+![Resultado Final y Emplatado](assets/ensalada_de_pasta_de_verano_con_atun_maiz_y_s_03_resultado_final.jpg)
+
 ---
 
 ### 📦 Protocolo de Conservación y Batch Cooking
@@ -899,6 +911,8 @@ La excelencia en los aliños y platos fríos tradicionales se sustenta sobre sei
    * Añadir por encima los huevos cocidos troceados.
    * Dejar reposar en el frigorífico a 3-4°C durante **30 minutos** antes de consumir para que la legumbre absorba la acidez y las notas especiadas.
 
+![Resultado Final y Emplatado](assets/ensalada_de_garbanzos_veraniega_con_verduras__03_resultado_final.jpg)
+
 ---
 
 ### 📦 Protocolo de Conservación y Batch Cooking
@@ -1005,6 +1019,8 @@ La excelencia en los aliños y platos fríos tradicionales se sustenta sobre sei
    * Colocar un filete de anchoa del Cantábrico sobre cada cuarto de cogollo frío (y una tira de pimiento del piquillo al lado).
    * Rociar inmediatamente todo el refrito templado con los ajos dorados por encima de los cogollos con ayuda de una cuchara sopera.
    * Espolvorear unas escamas de flor de sal exclusivamente sobre las zonas del cogollo sin anchoa.
+
+![Resultado Final y Emplatado](assets/cogollos_de_tudela_al_ajillo_con_anchoas_del__03_resultado_final.jpg)
 
 ---
 
@@ -1132,6 +1148,8 @@ La excelencia en los aliños y platos fríos tradicionales se sustenta sobre sei
    * Repetir las capas hasta terminar el pescado.
    * Cubrir completamente con los 200 ml de AOVE asegurando que ningún lomo quede expuesto al aire (evita la oxidación y el enranciado).
 
+![Resultado Final y Emplatado](assets/boquerones_en_vinagre_tradicionales_de_carmen_03_resultado_final.jpg)
+
 ---
 
 ### 📦 Protocolo de Conservación y Batch Cooking
@@ -1258,6 +1276,8 @@ La excelencia en los aliños y platos fríos tradicionales se sustenta sobre sei
 6. **Reposo Térmico:**
    * Refrigerar tapado a 3-4°C durante **1 hora** antes de llevar a la mesa.
 
+![Resultado Final y Emplatado](assets/ensalada_de_arroz_de_verano_refrescante_y_nut_03_resultado_final.jpg)
+
 ---
 
 ### 📦 Protocolo de Conservación y Batch Cooking
@@ -1366,6 +1386,8 @@ La excelencia en los aliños y platos fríos tradicionales se sustenta sobre sei
    * Regar generosamente toda la fuente con los 70 ml de AOVE Picual de cosecha temprana.
    * Frotar el orégano seco silvestre entre las palmas de las manos sobre el plato para liberar los aceites esenciales aromáticos.
    * Terminar con las escamas de sal Maldon restantes sobre los lomos de ventresca y el tomate.
+
+![Resultado Final y Emplatado](assets/ensalada_de_tomate_con_ventresca_cebolleta_y__03_resultado_final.jpg)
 
 ---
 

@@ -203,6 +203,8 @@ Para alcanzar la maestría en la cocción de legumbres según la sabiduría trad
    * Cocinar a fuego muy suave durante 10-12 minutos más hasta que la lenteja y la patata estén como mantequilla y el caldo haya adquirido una textura ligada y densa.
    * Probar el punto de sal y rectificar si es necesario. Apagar el fuego y **dejar reposar 15 minutos tapado** antes de servir.
 
+![Resultado Final y Emplatado](assets/lentejas_pardinas_con_chorizo_costilla_y_el_m_03_resultado_final.jpg)
+
 ---
 
 ### 📦 Protocolo de Conservación y Batch Cooking
@@ -340,6 +342,8 @@ Para alcanzar la maestría en la cocción de legumbres según la sabiduría trad
    * Agitar la cazuela por las asas con movimientos circulares lentos durante 3 minutos: el almidón superficial de las fabes emulsionará de inmediato con el colágeno del lacón y el azafrán, creando una crema dorada densa.
    * Dejar reposar 20 minutos antes de emplatar.
 
+![Resultado Final y Emplatado](assets/fabada_rapida_casera_con_compango_asturiano_03_resultado_final.jpg)
+
 ---
 
 ### 📦 Protocolo de Conservación y Batch Cooking
@@ -467,6 +471,8 @@ Para alcanzar la maestría en la cocción de legumbres según la sabiduría trad
    * Decorar con las claras de huevo duro picadas en cubitos pequeños.
    * Reposar 10 minutos antes de servir.
 
+![Resultado Final y Emplatado](assets/potaje_de_garbanzos_con_bacalao_y_espinacas_f_03_resultado_final.jpg)
+
 ---
 
 ### 📦 Protocolo de Conservación y Batch Cooking
@@ -568,6 +574,8 @@ Para alcanzar la maestría en la cocción de legumbres según la sabiduría trad
 
 ---
 
+![Resultado Final y Emplatado](assets/cocido_andaluz_tradicional_con_su_pringa_de_t_03_resultado_final.jpg)
+
 ## 5. 🫘 Alubias Blancas Estofadas con Verduras de la Huerta y Panceta Ibérica
 *Categoría: Estofado Campesino / Guiso Suave y Untuoso*
 
@@ -652,6 +660,8 @@ Para alcanzar la maestría en la cocción de legumbres según la sabiduría trad
    * Cocinar todo junto a fuego muy suave durante 10 minutos más para integrar los sabores. Añadir la sal en este momento final.
 
 ---
+
+![Resultado Final y Emplatado](assets/alubias_blancas_estofadas_con_verduras_de_la__03_resultado_final.jpg)
 
 ## 6. 🔥 Garbanzos con Callos y Morro a la Madrileña
 *Categoría: Casquería Clásica / Concentrado de Colágeno y Tradición Tabernera*
@@ -739,6 +749,8 @@ Para alcanzar la maestría en la cocción de legumbres según la sabiduría trad
 
 ---
 
+![Resultado Final y Emplatado](assets/garbanzos_con_callos_y_morro_a_la_madrilena_03_resultado_final.jpg)
+
 ## 7. 👑 Judiones de la Granja con Oreja y Chorizo
 *Categoría: Gran Legumbre Señorial / Textura Mantecosa Suprema*
 
@@ -825,6 +837,8 @@ Para alcanzar la maestría en la cocción de legumbres según la sabiduría trad
 
 ---
 
+![Resultado Final y Emplatado](assets/judiones_de_la_granja_con_oreja_y_chorizo_03_resultado_final.jpg)
+
 ## 8. 🍠 Potaje de Lentejas Castellanas Vegetarianas con Boniato y Verduras
 *Categoría: Cuchara Saludable 100% Vegetal / Cocina de Huerta y Otoño*
 
@@ -910,6 +924,8 @@ Para alcanzar la maestría en la cocción de legumbres según la sabiduría trad
    * Rectificar de sal y dejar reposar 10 minutos antes de servir.
 
 ---
+
+![Resultado Final y Emplatado](assets/potaje_de_lentejas_castellanas_vegetarianas_c_03_resultado_final.jpg)
 
 ## 📊 Tabla Comparativa Maestra: Rendimientos, Tiempos, Costes y Métodos de Cocción
 

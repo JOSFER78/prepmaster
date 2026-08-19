@@ -25,6 +25,8 @@ graph TD
 
 El modelo del Plato de Alimentación Saludable, desarrollado por la Escuela de Salud Pública de Harvard (*Harvard T.H. Chan School of Public Health*), constituye el estándar clínico contemporáneo para la formulación de menús equilibrados, superando definitivamente las deficiencias de la pirámide nutricional tradicional.
 
+![Infografía Vertical del Método del Plato Harvard TouChef: Distribución 50-25-25, AOVE e Hidratación](assets/infografia_vertical_plato_harvard_touchef.svg)
+
 ![Esquema Oficial del Plato para Comer Saludable de Harvard HSPH](assets/plato_para_comer_saludable_harvard.svg)
 
 ![Plato real elaborado según el Método Harvard con salmón a la plancha, quinoa integral, verduras variadas y aguacate](assets/foto_plato_harvard_real_elaborado.jpg)
@@ -219,6 +221,8 @@ $$\text{Carga Glucémica (CG)} = \frac{\text{Índice Glucémico (IG)} \times \te
 ### 2.3. Ingeniería del Almidón Resistente Tipo 3 (RS3 - Almidón Retrógrado)
 
 El almidón se compone de dos polisacáridos: **amilosa** (cadenas lineales unidas por enlaces $\alpha\text{-}(1,4)$) y **amilopectina** (cadenas ramificadas con enlaces $\alpha\text{-}(1,6)$).
+
+![Infografía Vertical de Retrogradación del Almidón RS3 y Síntesis Colónica de Butirato TouChef](assets/infografia_vertical_microbiota_almidon_rs3.svg)
 
 ![Diagrama de Retrogradación Térmica del Almidón RS3 y Síntesis Colónica de AGCC](assets/almidon_resistente_rs3_microbiota.svg)
 

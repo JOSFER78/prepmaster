@@ -170,6 +170,9 @@ Para que una sesión de 2 horas sea fluida y carezca de estrés operativo, el es
 ![Esquema de Zonificación Ergonómica y Flujo Operativo de 5 Estaciones](assets/esquema_zonificacion_cocina_5_estaciones.svg)
 > **Procedencia Técnica & Diagrama de Planta:** Arquitectura de producción TouChef basada en el principio industrial de *Marcha Hacia Adelante* (Reglamento CE 852/2004) y optimización ergonómica del triángulo de trabajo culinario.
 
+![Infografía Vertical Póster: Zonificación de Cocina en 5 Estaciones y Marcha Hacia Adelante TouChef](assets/infografia_vertical_zonificacion_5_estaciones.svg)
+> **Infografía Técnica Vertical TouChef:** Póster educativo de arquitectura de flujo continuo sin retroceso (Corte ➔ Fuegos ➔ Horno ➔ Robot ➔ Abatimiento) y concurrencia modular en 120 minutos.
+
 ---
 
 ### 3.1. Detalle Operativo de las 5 Estaciones de Trabajo

@@ -48,10 +48,16 @@ import { HouseholdMemoryCard } from '../components/HouseholdMemoryCard';
 import { APPROVED_CHEFS } from '../lib/chefsData';
 import { saveChefProfile } from '../services/chefService';
 
+import { BatchProject } from '../types';
+
 interface ProfileViewProps {
   onPeopleCountChange?: (count: number) => void;
   onNavigateToChefPortal?: () => void;
   onOpenChefOnboarding?: () => void;
+  activeProject?: BatchProject | null;
+  onArchiveActiveBatch?: () => void;
+  onDeleteActiveBatch?: (projectId: string) => void;
+  onClearAllBatchProjects?: () => void;
 }
 
 const initialEquipmentCatalog: KitchenEquipmentItem[] = [
@@ -190,7 +196,15 @@ const availableSupermarkets = [
   'Mercado Local / Frutería'
 ];
 
-export function ProfileView({ onPeopleCountChange, onNavigateToChefPortal, onOpenChefOnboarding }: ProfileViewProps) {
+export function ProfileView({ 
+  onPeopleCountChange, 
+  onNavigateToChefPortal, 
+  onOpenChefOnboarding,
+  activeProject,
+  onArchiveActiveBatch,
+  onDeleteActiveBatch,
+  onClearAllBatchProjects
+}: ProfileViewProps) {
   const [user, setUser] = useState<User | null>(null);
   const [activeTab, setActiveTab] = useState<'kitchen' | 'household' | 'shopping' | 'chef_contract' | 'account'>('kitchen');
   const [saving, setSaving] = useState(false);
@@ -987,6 +1001,74 @@ export function ProfileView({ onPeopleCountChange, onNavigateToChefPortal, onOpe
                   value={user?.email || 'modo_invitado@touchef.local'}
                   className="w-full bg-zinc-100 dark:bg-zinc-800/50 border border-zinc-200 dark:border-zinc-700 rounded-xl p-2.5 text-xs text-zinc-500 cursor-not-allowed"
                 />
+              </div>
+            </div>
+          </div>
+
+          {/* GESTIÓN DE LOTES Y ESTADO EN FIRESTORE */}
+          <div className="space-y-3 pt-4 border-t border-zinc-100 dark:border-zinc-800">
+            <div className="flex items-center justify-between">
+              <div>
+                <h4 className="font-bold text-xs uppercase tracking-wider text-zinc-400">
+                  Lotes de Cocina &amp; Estado de Sesión (Firestore)
+                </h4>
+                <p className="text-xs text-zinc-500">
+                  Controla, archiva o elimina la sesión activa de tu cuenta para dejar la base de datos limpia a 0.
+                </p>
+              </div>
+            </div>
+
+            <div className="p-4 rounded-2xl bg-zinc-50 dark:bg-zinc-800/60 border border-zinc-200 dark:border-zinc-700 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
+              <div>
+                <span className="text-[10px] uppercase font-bold text-zinc-400 block">Lote Activo Actual:</span>
+                <strong className="text-xs font-black text-zinc-900 dark:text-white">
+                  {activeProject ? activeProject.title : 'Ninguno (Sesión en 0 · Sin lote activo)'}
+                </strong>
+                {activeProject && (
+                  <span className="text-[11px] text-zinc-500 block">
+                    {activeProject.totalServings} raciones · Estado: {activeProject.status}
+                  </span>
+                )}
+              </div>
+
+              <div className="flex flex-wrap items-center gap-2">
+                {activeProject && onArchiveActiveBatch && (
+                  <button
+                    type="button"
+                    onClick={onArchiveActiveBatch}
+                    className="px-3 py-1.5 rounded-xl bg-zinc-200 dark:bg-zinc-700 hover:bg-zinc-300 text-zinc-800 dark:text-zinc-200 font-bold transition-all cursor-pointer"
+                  >
+                    Archivar Lote
+                  </button>
+                )}
+
+                {activeProject && onDeleteActiveBatch && (
+                  <button
+                    type="button"
+                    onClick={() => {
+                      if (window.confirm('¿Deseas cancelar y borrar este lote activo de Firebase?')) {
+                        onDeleteActiveBatch(activeProject.id);
+                      }
+                    }}
+                    className="px-3 py-1.5 rounded-xl bg-rose-500/10 hover:bg-rose-500/20 text-rose-600 dark:text-rose-400 border border-rose-500/30 font-bold transition-all cursor-pointer"
+                  >
+                    Borrar Lote Activo
+                  </button>
+                )}
+
+                {onClearAllBatchProjects && (
+                  <button
+                    type="button"
+                    onClick={() => {
+                      if (window.confirm('¿Restablecer y borrar TODOS los lotes de tu cuenta para dejar Firebase a 0?')) {
+                        onClearAllBatchProjects();
+                      }
+                    }}
+                    className="px-3 py-1.5 rounded-xl bg-stone-900 dark:bg-zinc-700 text-white hover:bg-black font-bold transition-all cursor-pointer"
+                  >
+                    Reset Todos los Lotes a 0
+                  </button>
+                )}
               </div>
             </div>
           </div>

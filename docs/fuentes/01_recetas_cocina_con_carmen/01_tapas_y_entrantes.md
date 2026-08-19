@@ -142,6 +142,8 @@ La excelencia en los entrantes tradicionales se sustenta sobre cinco principios 
    * Freír en tandas pequeñas (máximo 4-5 unidades a la vez) durante 2 a 2,5 minutos, volteándolas con cuidado para un dorado uniforme.
    * Retirar con espumadera y escurrir sobre papel absorbente durante 1 minuto antes de servir.
 
+![Resultado Final y Emplatado](assets/croquetas_de_jamon_iberico_cremosas_de_la_abu_03_resultado_final.jpg)
+
 ---
 
 ### 📦 Protocolo de Conservación y Batch Cooking
@@ -254,6 +256,8 @@ La excelencia en los entrantes tradicionales se sustenta sobre cinco principios 
    * Formar croquetas ovaladas de 35 g. Pasar por harina, huevo batido y pan rallado.
    * Freír en AOVE a 180°C durante 2-3 minutos en tandas de 4 unidades hasta obtener un color dorado avellana. Escurrir sobre papel absorbente.
 
+![Resultado Final y Emplatado](assets/croquetas_de_pollo_asado_y_huevo_duro_03_resultado_final.jpg)
+
 ---
 
 ### 📦 Protocolo de Conservación y Batch Cooking
@@ -363,6 +367,8 @@ La excelencia en los entrantes tradicionales se sustenta sobre cinco principios 
    * Alisar la superficie en una fuente de servir, cubrir con una capa fina de la mayonesa restante, decorar con tiras de pimiento morrón, aceitunas y la yema cocida rallada con un colador fino.
    * Refrigerar tapada con film durante al menos **3 horas** antes de consumir.
 
+![Resultado Final y Emplatado](assets/ensaladilla_rusa_tradicional_de_carmen_con_ma_03_resultado_final.jpg)
+
 ---
 
 ### 📦 Protocolo de Conservación y Batch Cooking
@@ -467,6 +473,8 @@ La excelencia en los entrantes tradicionales se sustenta sobre cinco principios 
 5. **Emplatado y Servicio:**
    * Escurrir sobre papel absorbente, sazonar inmediatamente con sal marina gruesa y salsear generosamente con la salsa brava bien caliente por encima.
 
+![Resultado Final y Emplatado](assets/patatas_bravas_con_salsa_brava_autentica_pica_03_resultado_final.jpg)
+
 ---
 
 ### 📦 Protocolo de Conservación y Batch Cooking
@@ -555,6 +563,8 @@ La excelencia en los entrantes tradicionales se sustenta sobre cinco principios 
    * En un bol amplio, verter las patatas frías, espolvorear el perejil fresco picado y añadir el alioli.
    * Mezclar con movimientos envolventes suaves para impregnar todos los cubos sin romperlos.
    * Dejar reposar en nevera durante 1 hora antes de servir para amalgamar los sabores.
+
+![Resultado Final y Emplatado](assets/patatas_alioli_tradicionales_al_mortero_03_resultado_final.jpg)
 
 ---
 
@@ -659,6 +669,8 @@ La excelencia en los entrantes tradicionales se sustenta sobre cinco principios 
    * **Opción Fritura Tradicional:** Freír en abundante AOVE a **180°C** durante 2-3 minutos, volteando una vez hasta que la masa sufle con pequeñas burbujas crujientes y dore. Escurrir en papel absorbente.
    * **Opción Horno Saludable:** Disponer en bandeja con papel sulfurizado, pincelar con huevo batido y hornear a **200°C** con calor arriba y abajo durante **18 a 20 minutos** hasta que adquieran un tono dorado brillante.
 
+![Resultado Final y Emplatado](assets/empanadillas_caseras_de_atun_tomate_y_huevo_d_03_resultado_final.jpg)
+
 ---
 
 ### 📦 Protocolo de Conservación y Batch Cooking
@@ -752,6 +764,8 @@ La excelencia en los entrantes tradicionales se sustenta sobre cinco principios 
 5. **Reposo:**
    * Deslizar a un plato llano y dejar reposar 5 minutos antes de cortar.
 
+![Resultado Final y Emplatado](assets/tortilla_espanola_jugosa_con_cebolla_pochada_03_resultado_final.jpg)
+
 ---
 
 ### 📦 Protocolo de Conservación y Batch Cooking
@@ -839,6 +853,8 @@ La excelencia en los entrantes tradicionales se sustenta sobre cinco principios 
 3. **Escurrido Inmediato:**
    * Retirar con espumadera y colocar sobre rejilla (preferible a papel para que el vapor inferior no ablande la base). Servir al instante crujientes y humeantes.
 
+![Resultado Final y Emplatado](assets/tortillitas_de_camarones_gambas_crujientes_03_resultado_final.jpg)
+
 ---
 
 ### 📦 Protocolo de Conservación y Batch Cooking
@@ -922,6 +938,8 @@ La excelencia en los entrantes tradicionales se sustenta sobre cinco principios 
    * Rallar la yema reservada por encima a través de un colador fino para crear un efecto terciopelo de mimosa.
    * Coronar con una tira de pimiento morrón y media aceituna.
    * Refrigerar 1 hora antes de servir.
+
+![Resultado Final y Emplatado](assets/huevos_rellenos_de_atun_y_yema_con_gratinado__03_resultado_final.jpg)
 
 ---
 
@@ -1010,6 +1028,8 @@ La excelencia en los entrantes tradicionales se sustenta sobre cinco principios 
    * Calentar el AOVE en sartén honda a **170°C - 175°C** (no más caliente para que el lomo interior se cocine a la perfección antes de que el pan se dore en exceso).
    * Freír los flamenquines durante **4 a 5 minutos**, volteándolos regularmente para un dorado uniforme.
    * Escurrir sobre papel absorbente y servir cortados en rodajas diagonales acompañados de patatas fritas y ensalada fresca.
+
+![Resultado Final y Emplatado](assets/flamenquines_cordobeses_caseros_de_lomo_y_jam_03_resultado_final.jpg)
 
 ---
 
@@ -1100,6 +1120,8 @@ La excelencia en los entrantes tradicionales se sustenta sobre cinco principios 
    * Cuando el rebozado esté inflado, crujiente y dorado, retirar con espumadera a una bandeja con papel absorbente.
 4. **Servicio:**
    * Servir de inmediato bien calientes acompañados de gajos de limón fresco y salsa alioli o mayonesa casera.
+
+![Resultado Final y Emplatado](assets/calamares_a_la_romana_crujientes_y_tiernos_03_resultado_final.jpg)
 
 ---
 

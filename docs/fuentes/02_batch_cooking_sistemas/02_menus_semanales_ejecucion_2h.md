@@ -28,6 +28,9 @@ El protocolo **T-120** está diseñado para transformar la cocina en una estaci�
 - [ ] **Hervidor de agua lleno** o cazo auxiliar para disponer de agua hirviendo inmediata.
 - [ ] **Horno conectado a $200^\circ\text{C}$ con ventilador** en el instante $T=0:00$.
 
+![Infografía Vertical Póster: Zonificación de Cocina y Arquitectura de 5 Estaciones TouChef](assets/infografia_vertical_zonificacion_5_estaciones.svg)
+> **Infografía Técnica Vertical TouChef:** Flujo espacial y concurrencia modular para la ejecución de menús semanales completos en 120 minutos sin paradas operativas.
+
 ---
 
 ## 2. MENÚ SEMANAL 1: "MEDITERRÁNEO INTEGRAL Y PROTEICO"
@@ -156,6 +159,9 @@ LISTA DE LA COMPRA CONSOLIDADA — MENÚ 1 MEDITERRÁNEO INTEGRAL
 ├── 01:57 • Almacenar en el refrigerador en las baldas correspondientes (Salmón y pollo en balda fría central; verduras y cremas en balda superior).
 └── 02:00 • Limpieza final: Bayeta con desinfectante en bancadas y cierre del lavavajillas. FIN DE SESIÓN.
 ```
+
+![Infografía Vertical Póster: Cronograma Maestro de Ejecución en 2 Horas TouChef](assets/infografia_vertical_menu_ejecucion_2h.svg)
+> **Infografía Técnica Vertical TouChef:** Cronograma visual paso a paso minuto a minuto (0 a 120 min), asignación de 5 estaciones concurrentes y las 4 reglas de oro del protocolo T-120 para completar 10 servicios semanales sin paradas operativas.
 
 ![Horno Convectivo Multizona con Bandejas de Asado en Paralelo](assets/foto_asado_multizona_horno_bandejas.jpg)
 > **Fotografía Real Operativa:** Bandejas de asado simultáneo por niveles con verduras densas y proteínas protegidas para aprovechamiento térmico óptimo del horno convectivo.
@@ -376,6 +382,9 @@ LISTA DE LA COMPRA CONSOLIDADA — MENÚ 2 CONFORT TRADICIONAL IBÉRICO
 | **Granos cocidos (Quinoa, Arroz basmati)** | 4 días | 1 mes | Salteado en sartén a fuego vivo con unas gotas de AOVE (recupera grano suelto). |
 | **Patatas cocidas en trozos / guisadas** | 3 a 4 días | ❌ NO congelar (el almidón cristaliza y se vuelve arenoso) | Microondas o fuego suave sin remover bruscamente para no romper el tubérculo. |
 | **Huevos duros cocidos con cáscara** | 7 días | ❌ NO congelar | Consumo frío directo tras pelar. |
+
+![Infografía Vertical Póster: Termodinámica del Abatimiento Térmico Cook & Chill TouChef](assets/infografia_vertical_abatimiento_cook_chill.svg)
+> **Infografía Técnica Vertical TouChef:** Curvas de abatimiento en baño de hielo 50/50 y control microbiológico del Punto Crítico de Control (PCC 4) para la conservación segura de raciones semanales.
 
 ---
 

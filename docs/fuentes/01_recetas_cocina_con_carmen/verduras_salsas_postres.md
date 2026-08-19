@@ -91,6 +91,8 @@ Guarnición y plato principal emblemático de la huerta manchega. Elaborado medi
 5. **Guisado y Reducción del Tomate:** Añadir el tomate triturado (500 g), el azúcar (8 g), la sal restante (3 g) y la pimienta negra (1 g). Bajar a fuego lento (chup-chup suave, aprox. 90-95 °C), tapar parcialmente y dejar cocer durante 20-25 minutos. Remover cada 5 minutos para evitar que el tomate se adhiera al fondo.
 6. **Punto Final de Reducción:** Destapar los últimos 5 minutos para que el agua de vegetación evapore por completo y el aceite flote ligeramente en la superficie con un brillo rojizo característico. Retirar del fuego y reposar 10 minutos antes de servir o abatir.
 
+![Resultado Final y Emplatado](assets/pisto_manchego_tradicional_03_resultado_final.jpg)
+
 ### Protocolo de Conservación, Envasado y Vida Útil
 - **Abatimiento:** Extender en bandeja gastronorm de acero inoxidable y abatir a <10 °C en <90 minutos.
 - **Envasado al Vacío:** Envasar en bolsas termosellables de 90 micras al **95% de vacío** (o 100% si se usa cámara de vacío profesional con sensor de líquidos fríos).
@@ -166,6 +168,8 @@ Elaboración clásica de verduras de temporada cocinadas por separado al vapor/e
 5. **Ligazón y Emulsión:** Verter los 350 g de caldo de cocción caliente poco a poco, batiendo constantemente hasta obtener una salsa ligera, sedosa y brillante.
 6. **Ensamblado y Glaseado de Verduras:** Añadir todas las verduras cocidas escurridas y los espárragos blancos en trozos. Mover la cazuela con movimientos de vaivén circulares (vaivén del pil-pil) a fuego mínimo durante 4-5 minutos para que los jugos se fundan y las verduras absorban la salsa. Rectificar de sal si es necesario (el jamón ya aporta salinidad).
 
+![Resultado Final y Emplatado](assets/menestra_de_verduras_tudelana_con_jamon_iberi_03_resultado_final.jpg)
+
 ### Protocolo de Conservación, Envasado y Vida Útil
 - **Abatimiento:** Abatir rápidamente a <10 °C en <60 minutos.
 - **Envasado al Vacío:** Envasar en bolsas de 90 micras con **vacío controlado al 85%** para no aplastar las yemas de espárrago ni los corazones de alcachofa.
@@ -233,6 +237,8 @@ Fusión de la receta tradicional andaluza de vigilia (majado de pan frito, ajo, 
 5. **Adición de Garbanzos y Caldo:** Añadir los 500 g de garbanzos cocidos y los 200 g de caldo de verduras. Dejar cocinar a fuego suave durante 10 minutos para que las legumbres absorban el fondo especiado.
 6. **Toque de Crema y Mantecado:** Verter los 120 g de nata líquida (o leche entera), remover suavemente con movimientos envolventes y dejar cocer a fuego lento durante 4-5 minutos más hasta que la salsa ligue y adquiera una textura aterciopelada cremosa. Rectificar de sal y pimienta negra.
 
+![Resultado Final y Emplatado](assets/espinacas_con_garbanzos_al_estilo_sevillano_y_03_resultado_final.jpg)
+
 ### Protocolo de Conservación, Envasado y Vida Útil
 - **Abatimiento:** Abatimiento a <10 °C en <90 minutos.
 - **Envasado al Vacío:** Bolsas de 90 micras al **95% de vacío**.
@@ -295,6 +301,8 @@ Guarnición reina de la cocina tradicional andaluza y española. Patatas cortada
 4. **Comprobación de Ternura:** Cuando la patata esté completamente tierna y se corte fácilmente con el canto de la espátula de madera, retirar la tapa.
 5. **Golpe de Fuego y Rustido:** Subir el fuego a medio-alto (170 °C) durante los últimos 4-5 minutos sin remover en exceso, permitiendo que algunas patatas y cebollas tomen un sutil tono dorado y tostado en los bordes.
 6. **Escurrido del Exceso de Grasa:** Retirar la sartén del fuego. Inclinar y retirar el exceso de aceite con un cazo (este aceite aromatizado se reserva para sofritos o tortillas). Rociar con los 10 g de vinagre de vino sobre el fondo caliente (evaporará de inmediato dejando solo el aroma) y espolvorear el perejil picado fresco.
+
+![Resultado Final y Emplatado](assets/patatas_a_lo_pobre_con_pimientos_tricolor_y_c_03_resultado_final.jpg)
 
 ### Protocolo de Conservación, Envasado y Vida Útil
 - **Abatimiento:** Extender en una sola capa en bandeja gastronorm y enfriar a <10 °C en <45 minutos.
@@ -364,6 +372,8 @@ El pilar maestro de toda la cocina mediterránea tradicional. Concentrado denso 
 5. **Reducción y Caramelización del Tomate:** Volcar de inmediato los 500 g de tomate triturado y los 3 g de sal restantes. Bajar el fuego al mínimo y dejar cocer durante 25 minutos removiendo con frecuencia y raspando el fondo para integrar los azúcares que caramelizan.
 6. **Punto Óptimo de Concentrado:** El sofrito estará listo cuando el aceite se separe nítidamente de la masa vegetal concentrada, el tomate haya perdido toda su acidez ácida acuosa y la mezcla tenga una consistencia espesa untable color caoba oscuro. Retirar el laurel y enfriar.
 
+![Resultado Final y Emplatado](assets/sofrito_madre_multiusos_de_carmen_03_resultado_final.jpg)
+
 ### Protocolo de Conservación, Envasado y Vida Útil
 - **Porcionado Batch Cooking:** Fraccionar en porciones estándar de **100 g o 150 g** (equivalente a la base para 4 comensales).
 - **Envasado al Vacío:** Bolsas de vacío al **100% de vacío** en cámara, o tarros de cristal herméticos esterilizados.
@@ -425,6 +435,8 @@ Salsa de tomate tradicional andaluza frita lentamente en aceite de oliva virgen 
 4. **Cocción a Fuego Lento y Fritura:** Subir a fuego medio hasta que comience a hervir con fuerza. En ese instante, tapar parcialmente y bajar a fuego mínimo (chup-chup regular, 92-95 °C).
 5. **Reducción de Volumen (Concentración):** Dejar reducir durante 45-50 minutos removiendo cada 8 minutos para raspar el fondo. El volumen total debe reducirse aproximadamente en un 55-60%, pasando de una consistencia líquida y acuosa a una crema espesa, densa y brillante.
 6. **Punto de Fritura y Emulsión:** En los últimos 5 minutos, el aceite libre debe subir y emulsionarse al batir enérgicamente con la cuchara. Probar y rectificar de sal o azúcar si el tomate fuese excesivamente ácido. Pasar por pasapurés si se desea una textura 100% fina de restaurante o dejar rústico al estilo Carmen.
+
+![Resultado Final y Emplatado](assets/salsa_de_tomate_frito_casero_reducido_03_resultado_final.jpg)
 
 ### Protocolo de Conservación, Envasado y Vida Útil
 - **Envasado al Vacío / Tarros:** Envasar en caliente (>85 °C) en tarros de cristal esterilizados cerrados al vacío por inversión térmica, o abatir a <10 °C y envasar en bolsas de vacío de 90 micras al 100%.
@@ -488,6 +500,8 @@ La técnica maestra de la bechamel tradicional española para croquetas cremosas
 4. **Cocción y Gelatinización del Almidón:** Bajar a fuego medio-suave. Cocinar la salsa sin dejar de remover con la varilla (pasando especialmente por la base y los bordes del cazo) durante **10 a 12 minutos**. La amilosa y amilopectina de la harina deben gelatinizar por completo para espesar y eliminar cualquier resto de textura harinosa.
 5. **Sazonado y Emulsión Final:** Añadir los 7 g de sal, los 1.5 g de nuez moscada recién rallada y los 0.8 g de pimienta blanca. Probar y batir fuera del fuego durante 1 minuto adicional para ganar brillo y sedosidad aterciopelada.
 
+![Resultado Final y Emplatado](assets/salsa_bechamel_perfecta_sedosa_sin_grumos_03_resultado_final.jpg)
+
 ### Protocolo de Conservación, Envasado y Vida Útil
 - **Protección Film a Piel:** Para reposo inmediato, cubrir la superficie en contacto directo con film plástico alimentario para evitar la formación de costra láctea.
 - **Abatimiento:** Abatir a <10 °C en <60 minutos.
@@ -538,6 +552,8 @@ Las dos grandes salsas emulsionadas frías de la gastronomía española. Elabora
 ### Paso a Paso de Ejecución Técnica
 
 ![Técnica de Elaboración](assets/emulsiones_frias_clasicas_mahonesa_tradiciona_02_elaboracion.jpg)
+
+![Resultado Final y Emplatado](assets/emulsiones_frias_clasicas_mahonesa_tradiciona_03_resultado_final.jpg)
 
 #### A. Mahonesa Perfecta Inmulsionable (Técnica Batidora de Mano sin Corte)
 1. **Regla de Temperaturas:** El huevo y el aceite deben estar exactamente a la **misma temperatura (ambiente, aprox. 20-22 °C)** para evitar tensiones interfaciales que provoquen el corte de la emulsión.
@@ -617,6 +633,8 @@ Elaboración tradicional de arroz con leche de grano hinchado y meloso mediante 
 6. **Mantecado Final:** Retirar la cazuela del fuego. Añadir los 40 g de mantequilla fría cortada en dados pequeños. Remover enérgicamente durante 1 minuto hasta que la mantequilla se emulsione completamente en el arroz con leche, otorgándole un brillo espectacular y una textura ultra untuosa.
 7. **Emplatado y Enfriado:** Verter en cuencos individuales de barro o cristal. Dejar enfriar a temperatura ambiente cubierto con papel sulfurizado para evitar costra seca y pasar a refrigeración a 3 °C.
 
+![Resultado Final y Emplatado](assets/arroz_con_leche_cremoso_de_la_abuela_03_resultado_final.jpg)
+
 ### Protocolo de Conservación y Regeneración
 - **Vida Útil:** 
   - Refrigeración (3 °C): 5 a 6 días en recipientes cerrados.
@@ -682,6 +700,8 @@ El postre más canónico de la repostería casera. Coagulación térmica lenta d
 6. **Cocción a Baja Temperatura:** Introducir en el horno precalentado a **160 °C (calor arriba y abajo sin ventilador)** durante **45 a 50 minutos** (para flaneras individuales) o **65-70 minutos** (para flanera grande). El flan estará listo cuando al pinchar el centro con un palillo salga limpio y el centro tenga un ligero temblor de gelatina firme.
 7. **Enfriado y Reposo Obligatorio:** Sacar del baño maría, dejar enfriar a temperatura ambiente durante 1 hora y refrigerar en nevera a 3 °C durante un **mínimo de 4 a 6 horas (idealmente 12 horas)** antes de desmoldar para que el caramelo se licúe y la estructura gelifique a la perfección.
 
+![Resultado Final y Emplatado](assets/flan_de_huevo_tradicional_al_bano_maria_con_c_03_resultado_final.jpg)
+
 ### Protocolo de Conservación y Servicio
 - **Vida Útil:** 
   - Refrigeración (3 °C): 7 a 9 días en las flaneras tapadas herméticamente.
@@ -742,6 +762,8 @@ Postre de cuchara por excelencia. Crema inglesa espesada por la coagulación de 
 5. **Napeado de la Cuchara:** Remover de manera constante y continua con la varilla o cuchara de madera dibujando ochos y raspando bien las esquinas del fondo. Cocinar durante **5 a 7 minutos**. La crema espesará progresivamente hasta adquirir una consistencia cremosa y aterciopelada que cubrirá (napeará) el dorso de la cuchara. **Evitar que rompa a hervir borbotón violento** (si sobrepasa los 88 °C la yema podría coagular en grumos).
 6. **Emplatado y Disposición de la Galleta:** Retirar de inmediato del fuego para cortar la inercia térmica. Verter rápidamente en los cuencos individuales.
 7. **Coronación Clásica:** Colocar inmediatamente una galleta María flotando en el centro de cada cuenco (se hidratará con el calor de la crema volviéndose tierna) y espolvorear la canela de Ceilán en polvo sobre la superficie. Dejar enfriar a temperatura ambiente y luego reposar en refrigeración a 3 °C un mínimo de 2 horas antes de servir.
+
+![Resultado Final y Emplatado](assets/natillas_caseras_de_yema_con_galleta_maria_y__03_resultado_final.jpg)
 
 ### Protocolo de Conservación y Degustación
 - **Vida Útil:** 

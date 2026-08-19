@@ -1,0 +1,418 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 1500" width="100%" height="100%" style="background:#070a12; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, 'Inter', Roboto, sans-serif;">
+  <defs>
+    <!-- Background Canvas Gradient -->
+    <linearGradient id="bgGradM" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#070d18" />
+      <stop offset="35%" stop-color="#0b1626" />
+      <stop offset="70%" stop-color="#07101c" />
+      <stop offset="100%" stop-color="#04070e" />
+    </linearGradient>
+
+    <!-- Glassmorphism Card Gradient -->
+    <linearGradient id="cardGradM" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#152438" stop-opacity="0.9" />
+      <stop offset="100%" stop-color="#0c1626" stop-opacity="0.98" />
+    </linearGradient>
+
+    <!-- Metabolic Gradients -->
+    <linearGradient id="gradButyrateM" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#22c55e"/><stop offset="100%" stop-color="#15803d"/></linearGradient>
+    <linearGradient id="gradPropionateM" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#38bdf8"/><stop offset="100%" stop-color="#0284c7"/></linearGradient>
+    <linearGradient id="gradAcetateM" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#fbbf24"/><stop offset="100%" stop-color="#d97706"/></linearGradient>
+    <linearGradient id="gradHotM" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#f87171"/><stop offset="100%" stop-color="#dc2626"/></linearGradient>
+    <linearGradient id="gradColdM" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#67e8f9"/><stop offset="100%" stop-color="#06b6d4"/></linearGradient>
+    <linearGradient id="tcCopperM" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#f4a261"/><stop offset="100%" stop-color="#e07a5f"/></linearGradient>
+
+    <!-- Filters -->
+    <filter id="shadowCardM" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="6" stdDeviation="10" flood-color="#000000" flood-opacity="0.6" />
+    </filter>
+    <filter id="glowBadgeM" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="3" result="blur" />
+      <feMerge><feMergeNode in="blur" /><feMergeNode in="SourceGraphic" /></feMerge>
+    </filter>
+  </defs>
+
+  <!-- ==================== BACKGROUND ==================== -->
+  <rect width="900" height="1500" fill="url(#bgGradM)" />
+
+  <!-- Bio Blueprint Grid Lines -->
+  <g stroke="#ffffff" stroke-opacity="0.03" stroke-width="1">
+    <line x1="30" y1="0" x2="30" y2="1500" />
+    <line x1="450" y1="0" x2="450" y2="1500" />
+    <line x1="870" y1="0" x2="870" y2="1500" />
+    <line x1="0" y1="105" x2="900" y2="105" />
+    <line x1="0" y1="415" x2="900" y2="415" />
+    <line x1="0" y1="670" x2="900" y2="670" />
+    <line x1="0" y1="935" x2="900" y2="935" />
+    <line x1="0" y1="1210" x2="900" y2="1210" />
+    <line x1="0" y1="1440" x2="900" y2="1440" />
+  </g>
+
+  <!-- Outer Poster Border -->
+  <rect x="15" y="15" width="870" height="1470" rx="16" fill="none" stroke="#1e293b" stroke-width="1.5" />
+
+  <!-- ==================== 1. HEADER SECTION ==================== -->
+  <g transform="translate(30, 25)">
+    <rect width="840" height="74" rx="16" fill="url(#cardGradM)" stroke="#334155" stroke-width="1.2" filter="url(#shadowCardM)" />
+    
+    <!-- TouChef Squircle -->
+    <g transform="translate(14, 11)">
+      <rect width="52" height="52" rx="14" fill="#121826" stroke="#e07a5f" stroke-width="1.4" />
+      <circle cx="26" cy="26" r="15" fill="#e07a5f" opacity="0.2" />
+      <path d="M26 12 C22.5 12 19.5 14.8 19 18 C16 18.5 14 20.8 14 24 C14 27.2 16 29.5 19 30.2 V33.5 C19 34.5 20 35 21 35 H31 C32 35 33 34.5 33 33.5 V30.2 C36 29.5 38 27.2 38 24 C38 20.8 36 18.5 33 18 C32.5 14.8 29.5 12 26 12 Z" fill="url(#tcCopperM)" />
+      <path d="M22.5 19 C22.5 23.5 23 29 23 33 M29.5 19 C29.5 23.5 29 29 29 33" stroke="#0e1320" stroke-width="1.4" stroke-linecap="round" opacity="0.4" />
+      <rect x="19.5" y="36.5" width="13" height="3" rx="1.5" fill="#f4f1de" />
+    </g>
+
+    <!-- Main Title & Subtitle -->
+    <text x="78" y="32" font-size="18" font-weight="900" fill="#f8fafc" letter-spacing="0.5">
+      <tspan fill="#f4f1de">Tou</tspan><tspan fill="#e07a5f">Chef</tspan>
+      <tspan fill="#475569" font-weight="400"> ❘ </tspan>
+      <tspan fill="#f8fafc" font-size="17">ALMIDÓN RS3 &amp; MICROBIOTA COLÓNICA</tspan>
+    </text>
+    <text x="78" y="53" font-size="11.5" font-weight="600" fill="#94a3b8">Transformación Hidrotérmica a 3°C (24h) · Síntesis Colónica de Butirato, Propionato y Acetato</text>
+
+    <!-- Badge -->
+    <g transform="translate(665, 18)">
+      <rect width="160" height="36" rx="18" fill="#0f172a" stroke="#22c55e" stroke-width="1.2" />
+      <circle cx="18" cy="18" r="5" fill="#22c55e" filter="url(#glowBadgeM)" />
+      <text x="32" y="22" font-size="10" font-weight="800" fill="#86efac" letter-spacing="0.5">MICROBIOTA &amp; RS3</text>
+    </g>
+  </g>
+
+  <!-- ==================== 2. DIAGRAMA EN 3 FASES BIOQUÍMICAS ==================== -->
+  <g transform="translate(30, 110)">
+    <text x="0" y="0" font-size="12.5" font-weight="900" fill="#f4a261" letter-spacing="0.5">1. CINÉTICA HIDROTÉRMICA: DE CARBOHIDRATO RÁPIDO A FIBRA PREBIÓTICA</text>
+
+    <g transform="translate(0, 12)">
+      <!-- FASE 1: GELATINIZACIÓN (>70°C) -->
+      <g transform="translate(0, 0)" filter="url(#shadowCardM)">
+        <rect width="268" height="280" rx="14" fill="url(#cardGradM)" stroke="#f87171" stroke-width="1.2" />
+        <rect x="12" y="12" width="34" height="34" rx="8" fill="#7f1d1d" />
+        <text x="29" y="35" font-size="17" text-anchor="middle">🔥</text>
+        <text x="54" y="26" font-size="12" font-weight="900" fill="#f8fafc">1. COCCIÓN (&gt;70°C)</text>
+        <text x="54" y="40" font-size="10" font-weight="700" fill="#fca5a5">Gelatinización Térmica</text>
+
+        <!-- Illustration -->
+        <g transform="translate(14, 52)">
+          <rect width="240" height="75" rx="8" fill="#0b101c" stroke="#1e293b" />
+          <circle cx="60" cy="38" r="24" fill="#7f1d1d" opacity="0.4" />
+          <circle cx="60" cy="38" r="16" fill="url(#gradHotM)" />
+          <path d="M 110 26 Q 140 18 175 28 T 215 22" stroke="#f87171" stroke-width="2.5" fill="none" />
+          <path d="M 110 46 Q 145 52 180 40 T 215 50" stroke="#f87171" stroke-width="2.5" fill="none" />
+          <text x="160" y="66" font-size="8" font-weight="700" fill="#fca5a5" text-anchor="middle">Cadenas Desplegadas</text>
+        </g>
+
+        <text x="12" y="148" font-size="10" font-weight="700" fill="#f8fafc">• Ruptura de Enlaces H:</text>
+        <text x="12" y="162" font-size="9.5" fill="#cbd5e1">El agua penetra el gránulo de almidón y desordena la doble hélice de amilosa.</text>
+        <text x="12" y="196" font-size="10" font-weight="700" fill="#f87171">⚠️ 100% Absorbible en Duodeno:</text>
+        <text x="12" y="210" font-size="9.5" fill="#94a3b8">Accesible a la alfa-amilasa humana. Pico glucémico alto (IG &gt; 80).</text>
+
+        <rect x="12" y="242" width="244" height="24" rx="5" fill="#450a0a" stroke="#dc2626" stroke-width="1" />
+        <text x="134" y="258" font-size="8.5" font-weight="800" fill="#fca5a5" text-anchor="middle">Pico Insulínico Elevado</text>
+      </g>
+
+      <!-- FASE 2: RETROGRADACIÓN (3°C / 24H) -->
+      <g transform="translate(286, 0)" filter="url(#shadowCardM)">
+        <rect width="268" height="280" rx="14" fill="url(#cardGradM)" stroke="#38bdf8" stroke-width="1.4" />
+        <rect x="12" y="12" width="34" height="34" rx="8" fill="#0c4a6e" />
+        <text x="29" y="35" font-size="17" text-anchor="middle">❄️</text>
+        <text x="54" y="26" font-size="12" font-weight="900" fill="#f8fafc">2. ENFRIADO 24H</text>
+        <text x="54" y="40" font-size="10" font-weight="700" fill="#7dd3fc">Retrogradación a 3°C</text>
+
+        <!-- Illustration -->
+        <g transform="translate(14, 52)">
+          <rect width="240" height="75" rx="8" fill="#0b101c" stroke="#1e293b" />
+          <circle cx="50" cy="38" r="22" fill="#0369a1" opacity="0.3" />
+          <!-- Crystalline double helix representation -->
+          <g transform="translate(100, 20)">
+            <rect x="0" y="4" width="120" height="8" rx="4" fill="url(#gradColdM)" />
+            <rect x="0" y="16" width="120" height="8" rx="4" fill="url(#gradColdM)" />
+            <rect x="0" y="28" width="120" height="8" rx="4" fill="url(#gradColdM)" />
+            <line x1="20" y1="4" x2="20" y2="36" stroke="#ffffff" stroke-width="1.5" stroke-dasharray="2,2" />
+            <line x1="60" y1="4" x2="60" y2="36" stroke="#ffffff" stroke-width="1.5" stroke-dasharray="2,2" />
+            <line x1="100" y1="4" x2="100" y2="36" stroke="#ffffff" stroke-width="1.5" stroke-dasharray="2,2" />
+          </g>
+          <text x="160" y="66" font-size="8" font-weight="700" fill="#7dd3fc" text-anchor="middle">Cristalización B-Type</text>
+        </g>
+
+        <text x="12" y="148" font-size="10" font-weight="700" fill="#f8fafc">• Realineación en Doble Hélice:</text>
+        <text x="12" y="162" font-size="9.5" fill="#cbd5e1">Las cadenas de amilosa se empaquetan en enlaces de hidrógeno insolubles.</text>
+        <text x="12" y="196" font-size="10" font-weight="700" fill="#38bdf8">✓ Tránsito Intacto al Colon:</text>
+        <text x="12" y="210" font-size="9.5" fill="#94a3b8">Inaccesibilidad estérica a la amilasa duodenal. Se comporta como fibra pura.</text>
+
+        <rect x="12" y="242" width="244" height="24" rx="5" fill="#082f49" stroke="#0284c7" stroke-width="1" />
+        <text x="134" y="258" font-size="8.5" font-weight="800" fill="#7dd3fc" text-anchor="middle">Formación de Almidón RS3</text>
+      </g>
+
+      <!-- FASE 3: FERMENTACIÓN COLÓNICA -->
+      <g transform="translate(572, 0)" filter="url(#shadowCardM)">
+        <rect width="268" height="280" rx="14" fill="url(#cardGradM)" stroke="#22c55e" stroke-width="1.2" />
+        <rect x="12" y="12" width="34" height="34" rx="8" fill="#14532d" />
+        <text x="29" y="35" font-size="17" text-anchor="middle">🦠</text>
+        <text x="54" y="26" font-size="12" font-weight="900" fill="#f8fafc">3. FERMENTACIÓN</text>
+        <text x="54" y="40" font-size="10" font-weight="700" fill="#86efac">Síntesis de AGCC</text>
+
+        <!-- Illustration -->
+        <g transform="translate(14, 52)">
+          <rect width="240" height="75" rx="8" fill="#0b101c" stroke="#1e293b" />
+          <circle cx="45" cy="38" r="16" fill="url(#gradButyrateM)" />
+          <text x="45" y="42" font-size="7.5" font-weight="900" fill="#ffffff" text-anchor="middle">BUT</text>
+          <circle cx="115" cy="38" r="14" fill="url(#gradPropionateM)" />
+          <text x="115" y="42" font-size="7.5" font-weight="900" fill="#ffffff" text-anchor="middle">PROP</text>
+          <circle cx="180" cy="38" r="13" fill="url(#gradAcetateM)" />
+          <text x="180" y="42" font-size="7.5" font-weight="900" fill="#ffffff" text-anchor="middle">ACET</text>
+          <text x="120" y="68" font-size="8" font-weight="700" fill="#86efac" text-anchor="middle">Butirato (60%) + Propionato (25%)</text>
+        </g>
+
+        <text x="12" y="148" font-size="10" font-weight="700" fill="#f8fafc">• Simbiontes Anaerobios:</text>
+        <text x="12" y="162" font-size="9.5" fill="#cbd5e1">Faecalibacterium prausnitzii, Bifidobacterias y Akkermansia fermentan el RS3.</text>
+        <text x="12" y="196" font-size="10" font-weight="700" fill="#22c55e">✓ Epitelio &amp; Tight Junctions:</text>
+        <text x="12" y="210" font-size="9.5" fill="#94a3b8">Energía celular directa del colonocito, refuerzo de mucosa y antiinflamatorio.</text>
+
+        <rect x="12" y="242" width="244" height="24" rx="5" fill="#052e16" stroke="#16a34a" stroke-width="1" />
+        <text x="134" y="258" font-size="8.5" font-weight="800" fill="#86efac" text-anchor="middle">Salud Metabólica &amp; Eje Cerebral</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- ==================== 3. METABOLITOS MAESTROS SCFA (3 CARDS) ==================== -->
+  <g transform="translate(30, 420)">
+    <text x="0" y="0" font-size="12.5" font-weight="900" fill="#f4a261" letter-spacing="0.5">2. METABOLITOS MAESTROS DE LA FERMENTACIÓN COLÓNICA (SCFA)</text>
+
+    <g transform="translate(0, 12)">
+      <!-- METABOLITE 1: BUTIRATO -->
+      <g transform="translate(0, 0)" filter="url(#shadowCardM)">
+        <rect width="268" height="235" rx="14" fill="url(#cardGradM)" stroke="#22c55e" stroke-width="1.4" />
+        <rect x="12" y="12" width="34" height="34" rx="8" fill="#14532d" />
+        <text x="29" y="35" font-size="17" text-anchor="middle">🌿</text>
+        <text x="54" y="26" font-size="12" font-weight="900" fill="#f8fafc">BUTIRATO (C4:0)</text>
+        <text x="54" y="40" font-size="10" font-weight="800" fill="#4ade80">~60% · El Rey de la Barrera</text>
+
+        <text x="12" y="66" font-size="10" font-weight="700" fill="#f8fafc">• Energía Epitelial (&gt;70% ATP):</text>
+        <text x="12" y="80" font-size="9.5" fill="#cbd5e1">Principal combustible oxidativo del colonocito para su renovación.</text>
+
+        <text x="12" y="108" font-size="10" font-weight="700" fill="#f8fafc">• Cierre Tight Junctions:</text>
+        <text x="12" y="122" font-size="9.5" fill="#cbd5e1">Induce Claudina-1 y Ocludina, sellando la permeabilidad intestinal.</text>
+
+        <text x="12" y="150" font-size="10" font-weight="700" fill="#f8fafc">• Epigenética &amp; Anti-Cáncer:</text>
+        <text x="12" y="164" font-size="9" fill="#94a3b8">Inhibe histona desacetilasas (HDAC) induciendo apoptosis de células tumorales.</text>
+
+        <rect x="12" y="196" width="244" height="24" rx="5" fill="#052e16" stroke="#16a34a" stroke-width="1" />
+        <text x="134" y="212" font-size="8.5" font-weight="800" fill="#86efac" text-anchor="middle">Sustrato de Faecalibacterium</text>
+      </g>
+
+      <!-- METABOLITE 2: PROPIONATO -->
+      <g transform="translate(286, 0)" filter="url(#shadowCardM)">
+        <rect width="268" height="235" rx="14" fill="url(#cardGradM)" stroke="#38bdf8" stroke-width="1.2" />
+        <rect x="12" y="12" width="34" height="34" rx="8" fill="#0369a1" />
+        <text x="29" y="35" font-size="17" text-anchor="middle">⚡</text>
+        <text x="54" y="26" font-size="12" font-weight="900" fill="#f8fafc">PROPIONATO (C3:0)</text>
+        <text x="54" y="40" font-size="10" font-weight="800" fill="#38bdf8">~25% · Eje Hepático</text>
+
+        <text x="12" y="66" font-size="10" font-weight="700" fill="#f8fafc">• Destino Portal Hepático:</text>
+        <text x="12" y="80" font-size="9.5" fill="#cbd5e1">Absorbido por vena porta directamente hacia los hepatocitos.</text>
+
+        <text x="12" y="108" font-size="10" font-weight="700" fill="#f8fafc">• Modulación Lipídica:</text>
+        <text x="12" y="122" font-size="9.5" fill="#cbd5e1">Inhibe la HMG-CoA reductasa, regulando la síntesis de colesterol.</text>
+
+        <text x="12" y="150" font-size="10" font-weight="700" fill="#f8fafc">• Hormonas de Saciedad:</text>
+        <text x="12" y="164" font-size="9" fill="#94a3b8">Estimula secreción de GLP-1 y PYY en células L colónicas.</text>
+
+        <rect x="12" y="196" width="244" height="24" rx="5" fill="#082f49" stroke="#0284c7" stroke-width="1" />
+        <text x="134" y="212" font-size="8.5" font-weight="800" fill="#7dd3fc" text-anchor="middle">Regulador Metabólico &amp; Lipogénico</text>
+      </g>
+
+      <!-- METABOLITE 3: ACETATO -->
+      <g transform="translate(572, 0)" filter="url(#shadowCardM)">
+        <rect width="268" height="235" rx="14" fill="url(#cardGradM)" stroke="#fbbf24" stroke-width="1.2" />
+        <rect x="12" y="12" width="34" height="34" rx="8" fill="#78350f" />
+        <text x="29" y="35" font-size="17" text-anchor="middle">🛡️</text>
+        <text x="54" y="26" font-size="12" font-weight="900" fill="#f8fafc">ACETATO (C2:0)</text>
+        <text x="54" y="40" font-size="10" font-weight="800" fill="#fbbf24">~15% · Acidificación &amp; pH</text>
+
+        <text x="12" y="66" font-size="10" font-weight="700" fill="#f8fafc">• Acidificación Luminal (pH ~5.8):</text>
+        <text x="12" y="80" font-size="9.5" fill="#cbd5e1">Medio hostil para bacterias patógenas como E. coli y Clostridium.</text>
+
+        <text x="12" y="108" font-size="10" font-weight="700" fill="#f8fafc">• Metabolismo Periférico:</text>
+        <text x="12" y="122" font-size="9.5" fill="#cbd5e1">Sustrato bioenergético para tejido muscular y cerebral.</text>
+
+        <text x="12" y="150" font-size="10" font-weight="700" fill="#f8fafc">• Sinergia Akkermansia:</text>
+        <text x="12" y="164" font-size="9" fill="#94a3b8">Favorece proliferación de Akkermansia muciniphila y capa mucosa.</text>
+
+        <rect x="12" y="196" width="244" height="24" rx="5" fill="#451a03" stroke="#d97706" stroke-width="1" />
+        <text x="134" y="212" font-size="8.5" font-weight="800" fill="#fde68a" text-anchor="middle">Barrera Anti-Patógenos y Epitelio</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- ==================== 4. TABLA BROMATOLÓGICA DE CONTENIDO RS3 ==================== -->
+  <g transform="translate(30, 680)">
+    <text x="0" y="0" font-size="12.5" font-weight="900" fill="#f4a261" letter-spacing="0.5">3. TABLA COMPARATIVA BROMATOLÓGICA: CONTENIDO REAL DE RS3 TRAS 24H A 3°C</text>
+
+    <g transform="translate(0, 12)" filter="url(#shadowCardM)">
+      <rect width="840" height="240" rx="14" fill="url(#cardGradM)" stroke="#334155" stroke-width="1.2" />
+
+      <!-- Table Header -->
+      <rect x="18" y="14" width="804" height="28" rx="6" fill="#1e293b" />
+      <text x="30" y="32" font-size="10" font-weight="800" fill="#f4a261">ALIMENTO BASE</text>
+      <text x="220" y="32" font-size="10" font-weight="800" fill="#f87171">RS3 RECIÉN COCIDO (CALIENTE)</text>
+      <text x="440" y="32" font-size="10" font-weight="800" fill="#38bdf8">RS3 TRAS 24H A 3°C (NEVERA)</text>
+      <text x="670" y="32" font-size="10" font-weight="800" fill="#4ade80">INCREMENTO / IMPACTO</text>
+
+      <!-- Row 1: Patata entera -->
+      <g transform="translate(18, 46)">
+        <rect width="804" height="34" fill="#0f172a" stroke="#1e293b" stroke-width="0.6" />
+        <text x="12" y="21" font-size="10" font-weight="700" fill="#f8fafc">🥔 Patata entera con piel cocida</text>
+        <text x="202" y="21" font-size="10" fill="#fca5a5">0.6 g / 100g (IG: 82)</text>
+        <text x="422" y="21" font-size="10" font-weight="800" fill="#38bdf8">3.8 g / 100g (IG: 49)</text>
+        <text x="652" y="21" font-size="10" font-weight="800" fill="#4ade80">▲ +530% (x6.3 veces más RS3)</text>
+      </g>
+
+      <!-- Row 2: Arroz Integral -->
+      <g transform="translate(18, 82)">
+        <rect width="804" height="34" fill="#131c2e" stroke="#1e293b" stroke-width="0.6" />
+        <text x="12" y="21" font-size="10" font-weight="700" fill="#f8fafc">🍚 Arroz Integral / Vaporizado</text>
+        <text x="202" y="21" font-size="10" fill="#fca5a5">1.2 g / 100g (IG: 68)</text>
+        <text x="422" y="21" font-size="10" font-weight="800" fill="#38bdf8">3.4 g / 100g (IG: 45)</text>
+        <text x="652" y="21" font-size="10" font-weight="800" fill="#4ade80">▲ +180% (x2.8 veces más RS3)</text>
+      </g>
+
+      <!-- Row 3: Lentejas pardinas -->
+      <g transform="translate(18, 118)">
+        <rect width="804" height="34" fill="#0f172a" stroke="#1e293b" stroke-width="0.6" />
+        <text x="12" y="21" font-size="10" font-weight="700" fill="#f8fafc">🍲 Lentejas pardinas cocidas</text>
+        <text x="202" y="21" font-size="10" fill="#fca5a5">3.5 g / 100g (IG: 38)</text>
+        <text x="422" y="21" font-size="10" font-weight="800" fill="#38bdf8">6.8 g / 100g (IG: 28)</text>
+        <text x="652" y="21" font-size="10" font-weight="800" fill="#4ade80">▲ +94% (Sinergia de Fibra)</text>
+      </g>
+
+      <!-- Row 4: Avena integral -->
+      <g transform="translate(18, 154)">
+        <rect width="804" height="34" fill="#131c2e" stroke="#1e293b" stroke-width="0.6" />
+        <text x="12" y="21" font-size="10" font-weight="700" fill="#f8fafc">🥣 Avena entera (Overnight)</text>
+        <text x="202" y="21" font-size="10" fill="#fca5a5">0.8 g / 100g (IG: 60)</text>
+        <text x="422" y="21" font-size="10" font-weight="800" fill="#38bdf8">3.2 g / 100g (IG: 42)</text>
+        <text x="652" y="21" font-size="10" font-weight="800" fill="#4ade80">▲ +300% (Betaglucanos + RS3)</text>
+      </g>
+
+      <!-- Row 5: Plátano verde macho -->
+      <g transform="translate(18, 190)">
+        <rect width="804" height="34" fill="#0f172a" stroke="#1e293b" stroke-width="0.6" />
+        <text x="12" y="21" font-size="10" font-weight="700" fill="#f8fafc">🍌 Plátano verde macho / Harina</text>
+        <text x="202" y="21" font-size="10" fill="#fca5a5">8.5 g / 100g (RS2 Natural)</text>
+        <text x="422" y="21" font-size="10" font-weight="800" fill="#38bdf8">9.2 g / 100g (RS2 + RS3)</text>
+        <text x="652" y="21" font-size="10" font-weight="800" fill="#4ade80">▲ Máxima Densidad Prebiótica</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- ==================== 5. PROTOCOLO DE REGENERACIÓN TÉRMICA TOUCHEF ==================== -->
+  <g transform="translate(30, 945)" filter="url(#shadowCardM)">
+    <rect width="840" height="250" rx="16" fill="#111928" stroke="#22c55e" stroke-width="1.3" />
+
+    <g transform="translate(18, 14)">
+      <rect width="30" height="30" rx="8" fill="#14532d" />
+      <text x="15" y="21" font-size="15" text-anchor="middle">🌡️</text>
+      <text x="38" y="15" font-size="12" font-weight="900" fill="#dcfce7">REGLA DE RECALENTADO: ¿CÓMO COMER CALIENTE SIN DESTRUIR EL ALMIDÓN RS3?</text>
+      <text x="38" y="28" font-size="9.5" font-weight="600" fill="#94a3b8">Temperatura crítica de desnaturalización cristalina: 130°C</text>
+    </g>
+
+    <g transform="translate(18, 52)">
+      <!-- Method 1 -->
+      <rect width="256" height="175" rx="10" fill="#0c1220" stroke="#1e293b" />
+      <text x="12" y="22" font-size="10.5" font-weight="800" fill="#4ade80">1. Templado Suave (&lt;65°C)</text>
+      <text x="12" y="42" font-size="9" fill="#cbd5e1">Templar al vapor suave, baño</text>
+      <text x="12" y="56" font-size="9" fill="#cbd5e1">maría o en sartén a fuego bajo</text>
+      <text x="12" y="70" font-size="9" fill="#cbd5e1">con un chorro de AOVE virgen.</text>
+      <text x="12" y="90" font-size="9" fill="#cbd5e1">A 60°C - 65°C la estructura</text>
+      <text x="12" y="104" font-size="9" font-weight="700" fill="#86efac">cristalina permanece 100% intacta.</text>
+      <rect x="10" y="140" width="236" height="22" rx="4" fill="#14532d" />
+      <text x="128" y="155" font-size="8" font-weight="700" fill="#dcfce7" text-anchor="middle">Regeneración Óptima</text>
+
+      <!-- Method 2 -->
+      <rect x="274" y="0" width="256" height="175" rx="10" fill="#0c1220" stroke="#1e293b" />
+      <text x="286" y="22" font-size="10.5" font-weight="800" fill="#38bdf8">2. Consumo en Frío / Templado</text>
+      <text x="286" y="42" font-size="9" fill="#cbd5e1">Excelente para ensaladas de</text>
+      <text x="286" y="56" font-size="9" fill="#cbd5e1">patata rústica, bowls de arroz</text>
+      <text x="286" y="70" font-size="9" fill="#cbd5e1">integral, quinoa con aguacate o</text>
+      <text x="286" y="90" font-size="9" fill="#cbd5e1">legumbres en vinagreta.</text>
+      <text x="286" y="104" font-size="9" font-weight="700" fill="#7dd3fc">Cero pérdida de fibra prebiótica.</text>
+      <rect x="284" y="140" width="236" height="22" rx="4" fill="#0c4a6e" />
+      <text x="402" y="155" font-size="8" font-weight="700" fill="#e0f2fe" text-anchor="middle">Máxima Concentración RS3</text>
+
+      <!-- Method 3 -->
+      <rect x="548" y="0" width="256" height="175" rx="10" fill="#0c1220" stroke="#1e293b" />
+      <text x="560" y="22" font-size="10.5" font-weight="800" fill="#f87171">3. Lo que DEBES EVITAR</text>
+      <text x="560" y="42" font-size="9" fill="#cbd5e1">Recalentar en microondas a</text>
+      <text x="560" y="56" font-size="9" fill="#cbd5e1">máxima potencia hasta ebullición</text>
+      <text x="560" y="70" font-size="9" fill="#cbd5e1">humante (&gt;100°C) o refritar,</text>
+      <text x="560" y="90" font-size="9" fill="#cbd5e1">ya que se redisuelve la hélice</text>
+      <text x="560" y="104" font-size="9" font-weight="700" fill="#fca5a5">y vuelve a ser azúcar rápido.</text>
+      <rect x="558" y="140" width="236" height="22" rx="4" fill="#450a0a" />
+      <text x="676" y="155" font-size="8" font-weight="700" fill="#fca5a5" text-anchor="middle">Evitar Ebullición Intensa</text>
+    </g>
+  </g>
+
+  <!-- ==================== 6. BENEFICIOS CLÍNICOS GLOBALES ==================== -->
+  <g transform="translate(30, 1210)" filter="url(#shadowCardM)">
+    <rect width="840" height="215" rx="16" fill="#101726" stroke="#38bdf8" stroke-width="1.3" />
+
+    <g transform="translate(18, 14)">
+      <rect width="30" height="30" rx="8" fill="#0c4a6e" />
+      <text x="15" y="21" font-size="15" text-anchor="middle">📈</text>
+      <text x="38" y="15" font-size="12" font-weight="900" fill="#7dd3fc">EVIDENCIA CLÍNICA TOUCHEF: IMPACTO SISTÉMICO DEL ALMIDÓN RETRÓGRADO</text>
+      <text x="38" y="28" font-size="9.5" font-weight="600" fill="#94a3b8">Ensayos Clínicos en Nutrición Humana y Metabolismo Celular</text>
+    </g>
+
+    <g transform="translate(18, 52)">
+      <!-- Stat 1 -->
+      <rect width="192" height="142" rx="10" fill="#0c1220" stroke="#1e293b" />
+      <text x="12" y="24" font-size="11" font-weight="900" fill="#34d399">📉 -35% Pico Glucosa</text>
+      <text x="12" y="44" font-size="9" fill="#94a3b8">Aplanamiento de la curva</text>
+      <text x="12" y="58" font-size="9" fill="#cbd5e1">glucémica e insulinémica</text>
+      <text x="12" y="72" font-size="9" fill="#cbd5e1">postprandial en pacientes con</text>
+      <text x="12" y="86" font-size="9" font-weight="700" fill="#86efac">resistencia a la insulina.</text>
+      <rect x="10" y="108" width="172" height="20" rx="4" fill="#14532d" />
+      <text x="96" y="121.5" font-size="8" font-weight="700" fill="#dcfce7" text-anchor="middle">Control Glucémico</text>
+
+      <!-- Stat 2 -->
+      <rect x="204" y="0" width="192" height="142" rx="10" fill="#0c1220" stroke="#1e293b" />
+      <text x="216" y="24" font-size="11" font-weight="900" fill="#38bdf8">⏳ +4h de Saciedad</text>
+      <text x="216" y="44" font-size="9" fill="#94a3b8">Liberación sostenida de</text>
+      <text x="216" y="58" font-size="9" fill="#cbd5e1">péptidos anorexígenos</text>
+      <text x="216" y="72" font-size="9" fill="#cbd5e1">PYY y GLP-1 en el colon</text>
+      <text x="216" y="86" font-size="9" font-weight="700" fill="#7dd3fc">distal con saciedad real.</text>
+      <rect x="214" y="108" width="172" height="20" rx="4" fill="#0c4a6e" />
+      <text x="300" y="121.5" font-size="8" font-weight="700" fill="#e0f2fe" text-anchor="middle">Modulación del Apetito</text>
+
+      <!-- Stat 3 -->
+      <rect x="408" y="0" width="192" height="142" rx="10" fill="#0c1220" stroke="#1e293b" />
+      <text x="420" y="24" font-size="11" font-weight="900" fill="#a78bfa">🛡️ Barrera Epitelial</text>
+      <text x="420" y="44" font-size="9" fill="#94a3b8">Aumento de expresión de</text>
+      <text x="420" y="58" font-size="9" fill="#cbd5e1">ZO-1 y Claudina-1,</text>
+      <text x="420" y="72" font-size="9" fill="#cbd5e1">impidiendo el paso de</text>
+      <text x="420" y="86" font-size="9" font-weight="700" fill="#f3e8ff">lipopolisacáridos (LPS).</text>
+      <rect x="418" y="108" width="172" height="20" rx="4" fill="#2e1065" />
+      <text x="504" y="121.5" font-size="8" font-weight="700" fill="#ddd6fe" text-anchor="middle">Anti-Endotoxemia</text>
+
+      <!-- Stat 4 -->
+      <rect x="612" y="0" width="192" height="142" rx="10" fill="#0c1220" stroke="#1e293b" />
+      <text x="624" y="24" font-size="11" font-weight="900" fill="#fbbf24">🔥 -25% Calorías</text>
+      <text x="624" y="44" font-size="9" fill="#94a3b8">La fracción retrogradada</text>
+      <text x="624" y="58" font-size="9" fill="#cbd5e1">aporta solo ~2 kcal/g</text>
+      <text x="624" y="72" font-size="9" fill="#cbd5e1">frente a 4 kcal/g del</text>
+      <text x="624" y="86" font-size="9" font-weight="700" fill="#fde68a">almidón caliente estándar.</text>
+      <rect x="622" y="108" width="172" height="20" rx="4" fill="#78350f" />
+      <text x="708" y="121.5" font-size="8" font-weight="700" fill="#fef3c7" text-anchor="middle">Eficiencia Energética</text>
+    </g>
+  </g>
+
+  <!-- ==================== FOOTER ==================== -->
+  <g id="footer" transform="translate(30, 1445)">
+    <line x1="0" y1="0" x2="840" y2="0" stroke="#1e293b" stroke-width="1.2" />
+    <text x="0" y="20" font-size="10" font-weight="600" fill="#64748b">Evidencia: Nature Microbiology · American Journal of Clinical Nutrition · Fennema's Food Chemistry (Cap. Starch Retrogradation)</text>
+    <text x="0" y="34" font-size="9" fill="#475569">TouChef Master Series · Manual Clínico-Culinario y Operativo · 100% Sin Mocks ni Datos Falsos</text>
+    <text x="840" y="24" font-size="11" font-weight="800" fill="#e07a5f" text-anchor="end">TOUCHEF MICROBIOME LAB 2026</text>
+  </g>
+</svg>

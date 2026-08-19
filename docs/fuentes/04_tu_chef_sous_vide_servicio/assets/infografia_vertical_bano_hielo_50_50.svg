@@ -1,0 +1,319 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 1500" width="100%" height="100%">
+  <defs>
+    <!-- Background Gradient -->
+    <linearGradient id="bgGrad4" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#070a12" />
+      <stop offset="35%" stop-color="#091528" />
+      <stop offset="75%" stop-color="#0f172a" />
+      <stop offset="100%" stop-color="#05070d" />
+    </linearGradient>
+
+    <!-- Card Background Gradient -->
+    <linearGradient id="cardGrad4" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1e293b" stop-opacity="0.8" />
+      <stop offset="100%" stop-color="#0f172a" stop-opacity="0.95" />
+    </linearGradient>
+
+    <!-- TouChef Copper Gradient -->
+    <linearGradient id="tcCopperGrad4" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F4A261" />
+      <stop offset="100%" stop-color="#E07A5F" />
+    </linearGradient>
+
+    <!-- Chilling Curve Gradient -->
+    <linearGradient id="gradChill" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f43f5e" />
+      <stop offset="30%" stop-color="#f59e0b" />
+      <stop offset="65%" stop-color="#0284c7" />
+      <stop offset="100%" stop-color="#38bdf8" />
+    </linearGradient>
+
+    <!-- Slow Cooling Gradient (Failure) -->
+    <linearGradient id="gradSlow" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ef4444" />
+      <stop offset="100%" stop-color="#7f1d1d" />
+    </linearGradient>
+
+    <filter id="glowChill" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="3" result="blur" />
+      <feMerge><feMergeNode in="blur" /><feMergeNode in="SourceGraphic" /></feMerge>
+    </filter>
+    <filter id="cardShadow4" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#000000" flood-opacity="0.6" />
+    </filter>
+  </defs>
+
+  <style>
+    .header-title { font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Inter', Roboto, sans-serif; font-size: 23px; font-weight: 800; fill: #F4F1DE; letter-spacing: 0.5px; }
+    .header-sub { font-family: 'Segoe UI', sans-serif; font-size: 13px; font-weight: 500; fill: #94a3b8; }
+    .badge-mono { font-family: 'JetBrains Mono', 'Fira Code', Consolas, monospace; font-size: 11px; font-weight: 700; }
+    .sec-title { font-family: 'Segoe UI', sans-serif; font-size: 15px; font-weight: 700; fill: #f8fafc; letter-spacing: 0.3px; }
+    .body-txt { font-family: 'Segoe UI', sans-serif; font-size: 12px; fill: #cbd5e1; line-height: 1.5; }
+    .formula-txt { font-family: 'Cambria Math', 'Times New Roman', serif; font-size: 14px; font-style: italic; fill: #38bdf8; }
+    .axis-label { font-family: 'Segoe UI', sans-serif; font-size: 12px; font-weight: 600; fill: #94a3b8; }
+    .tick-mono { font-family: 'JetBrains Mono', monospace; font-size: 11px; fill: #64748b; }
+    .card-title { font-family: 'Segoe UI', sans-serif; font-size: 13px; font-weight: 700; fill: #f1f5f9; }
+    .grid-line { stroke: #1e293b; stroke-width: 1; stroke-dasharray: 4 4; }
+    .axis-line { stroke: #334155; stroke-width: 1.5; }
+  </style>
+
+  <!-- Canvas Background -->
+  <rect width="900" height="1500" fill="url(#bgGrad4)" />
+
+  <!-- Outer Poster Border -->
+  <rect x="18" y="18" width="864" height="1464" rx="16" fill="none" stroke="#1e293b" stroke-width="1.5" />
+
+  <!-- ==================== HEADER SECTION ==================== -->
+  <g transform="translate(36, 36)">
+    <!-- TouChef Official Isotype Squircle -->
+    <rect x="0" y="0" width="56" height="56" rx="16" fill="#141824" stroke="rgba(255, 255, 255, 0.15)" stroke-width="1.2" />
+    <circle cx="28" cy="28" r="16" fill="#E07A5F" opacity="0.22" />
+    <!-- Chef Toque Icon -->
+    <path d="M28 13 C24 13 21 16 20.5 19.5 C17.5 20 15.5 22.5 15.5 26 C15.5 29.5 17.5 32 20.5 32.8 V36.5 C20.5 37.5 21.5 38 22.5 38 H33.5 C34.5 38 35.5 37.5 35.5 36.5 V32.8 C38.5 32 40.5 29.5 40.5 26 C40.5 22.5 38.5 20 35.5 19.5 C35 16 32 13 28 13 Z" fill="url(#tcCopperGrad4)" />
+    <path d="M24 21 C24 26 24.5 32 24.5 36.5 M32 21 C32 26 31.5 32 31.5 36.5" stroke="#0E0F12" stroke-width="1.5" stroke-linecap="round" opacity="0.35" />
+    <rect x="21" y="39.5" width="14" height="3.5" rx="1.7" fill="#F4F1DE" />
+
+    <!-- Wordmark & Titles -->
+    <text x="72" y="25" class="header-title">
+      <tspan fill="#F4F1DE" font-weight="900">Tou</tspan><tspan fill="#E07A5F" font-weight="700">Chef</tspan>
+      <tspan fill="#475569" font-weight="400"> ❘ </tspan>
+      <tspan fill="#F4F1DE" font-size="20" font-weight="800">PROTOCOLO DE ABATIMIENTO 50/50</tspan>
+    </text>
+    <text x="72" y="47" class="header-sub">Biofísica del Choque Térmico Bifásico &amp; Regla de los 90 Minutos (Cook-Chill)</text>
+
+    <!-- Top Badges -->
+    <g transform="translate(630, 10)">
+      <rect x="0" y="0" width="198" height="28" rx="14" fill="#065f46" fill-opacity="0.35" stroke="#10b981" stroke-width="1" />
+      <circle cx="14" cy="14" r="4.5" fill="#10b981" />
+      <text x="26" y="18" class="badge-mono" fill="#34d399">REGLA 90 MIN · ACMSF</text>
+    </g>
+  </g>
+
+  <!-- ==================== SECCIÓN 1: TERMODINÁMICA BIFÁSICA (¿POR QUÉ EL HIELO SOLO FRACASA?) ==================== -->
+  <g transform="translate(36, 115)" filter="url(#cardShadow4)">
+    <rect width="828" height="175" rx="12" fill="url(#cardGrad4)" stroke="#334155" stroke-width="1" />
+    <text x="20" y="26" class="sec-title" fill="#38bdf8">1. DINÁMICA DE FLUIDOS BIFÁSICA: SOLO HIELO VS. MEZCLA 50/50 + SAL</text>
+
+    <!-- Comparison Left: Solo Hielo (Error) -->
+    <g transform="translate(20, 38)">
+      <rect width="380" height="118" rx="8" fill="#1c0e11" stroke="#ef4444" stroke-width="1" />
+      <text x="14" y="22" class="card-title" fill="#f87171">❌ ERROR CRÍTICO: SOLO CUBOS DE HIELO</text>
+      <text x="14" y="44" class="tick-mono" fill="#fca5a5">Coeficiente Convectivo: <tspan font-weight="700">h ≈ 50 W/m²·K</tspan></text>
+      <text x="14" y="64" class="body-txt" font-size="11" fill="#cbd5e1">Los cubos generan aire intersticial aislante y contacto microscópico puntual.</text>
+      <text x="14" y="84" class="body-txt" font-size="11" fill="#f87171" font-weight="700">Enfriamiento lento (&gt; 3 a 5 horas): Permite germinación masiva de esporas.</text>
+    </g>
+
+    <!-- Comparison Right: 50/50 + Sal (TouChef Standard) -->
+    <g transform="translate(420, 38)">
+      <rect width="388" height="118" rx="8" fill="#06281e" stroke="#10b981" stroke-width="1" />
+      <text x="14" y="22" class="card-title" fill="#34d399">✔ ESTÁNDAR TOUCHEF: 50% AGUA + 50% HIELO + SAL</text>
+      <text x="14" y="44" class="tick-mono" fill="#a7f3d0">Coeficiente Convectivo: <tspan font-weight="700" fill="#34d399">h ≥ 2.500 W/m²·K (50× mayor)</tspan></text>
+      <text x="14" y="64" class="body-txt" font-size="11" fill="#cbd5e1">Contacto líquido total + calor latente de fusión (ΔH = 334 kJ/kg).</text>
+      <text x="14" y="84" class="body-txt" font-size="11" fill="#34d399" font-weight="700">Abatimiento a ≤ 4.0°C en &lt; 20-45 min (corta en seco la cocción residual).</text>
+    </g>
+  </g>
+
+  <!-- ==================== SECCIÓN 2: CURVA DE ABATIMIENTO VS ZONA DE PELIGRO ==================== -->
+  <g transform="translate(36, 305)" filter="url(#cardShadow4)">
+    <rect width="828" height="530" rx="12" fill="url(#cardGrad4)" stroke="#334155" stroke-width="1" />
+
+    <!-- Chart Header -->
+    <g transform="translate(24, 22)">
+      <text x="0" y="16" class="sec-title" fill="#F4F1DE">2. CURVA DE DESCENSO TÉRMICO Y CRUCE DE LA ZONA DE GERMINACIÓN</text>
+      <text x="0" y="34" class="body-txt" fill="#94a3b8">Temperatura en el núcleo geométrico (°C) vs tiempo de abatimiento (minutos)</text>
+      
+      <!-- Legends -->
+      <g transform="translate(420, 0)">
+        <rect x="0" y="0" width="180" height="26" rx="6" fill="#065f46" fill-opacity="0.35" stroke="#10b981" stroke-width="1" />
+        <circle cx="12" cy="13" r="4" fill="#10b981" />
+        <text x="22" y="17" class="badge-mono" fill="#34d399">TouChef Baño 50/50 (&lt;25')</text>
+
+        <rect x="190" y="0" width="180" height="26" rx="6" fill="#7f1d1d" fill-opacity="0.35" stroke="#ef4444" stroke-width="1" />
+        <circle cx="202" cy="13" r="4" fill="#ef4444" />
+        <text x="212" y="17" class="badge-mono" fill="#fca5a5">Aire / Frigo Sat. (&gt;180')</text>
+      </g>
+    </g>
+
+    <!-- Canvas Plot Area: X: 80 to 760 (width 680), Y: 90 to 440 (height 350) -->
+    <g transform="translate(20, 15)">
+      <!-- Critical Zone Shading (50°C to 35°C) -->
+      <rect x="80" y="191" width="680" height="69" fill="#ef4444" fill-opacity="0.12" />
+      <line x1="80" y1="191" x2="760" y2="191" stroke="#f87171" stroke-width="1" stroke-dasharray="4 4" />
+      <line x1="80" y1="260" x2="760" y2="260" stroke="#f87171" stroke-width="1" stroke-dasharray="4 4" />
+      <text x="750" y="208" class="badge-mono" fill="#f87171" text-anchor="end">ZONA CRÍTICA GERMINACIÓN C. perfringens (50°C → 35°C)</text>
+      <text x="750" y="224" class="tick-mono" fill="#fca5a5" text-anchor="end">Tiempo de duplicación celular: apenas 7.1 a 10 minutos</text>
+
+      <!-- Y-Axis Grid Lines & Ticks -->
+      <line x1="80" y1="100" x2="760" y2="100" class="axis-line" />
+      <text x="70" y="104" class="tick-mono" text-anchor="end">70.0°C</text>
+
+      <line x1="80" y1="146" x2="760" y2="146" class="grid-line" />
+      <text x="70" y="150" class="tick-mono" text-anchor="end">60.0°C</text>
+
+      <line x1="80" y1="191" x2="760" y2="191" class="grid-line" />
+      <text x="70" y="195" class="tick-mono" text-anchor="end" fill="#f87171" font-weight="700">50.0°C</text>
+
+      <line x1="80" y1="260" x2="760" y2="260" class="grid-line" />
+      <text x="70" y="264" class="tick-mono" text-anchor="end" fill="#f87171" font-weight="700">35.0°C</text>
+
+      <line x1="80" y1="328" x2="760" y2="328" class="grid-line" />
+      <text x="70" y="332" class="tick-mono" text-anchor="end">20.0°C</text>
+
+      <line x1="80" y1="402" x2="760" y2="402" class="axis-line" stroke="#10b981" />
+      <text x="70" y="406" class="tick-mono" text-anchor="end" fill="#34d399" font-weight="700">≤ 4.0°C</text>
+
+      <line x1="80" y1="420" x2="760" y2="420" class="axis-line" />
+      <text x="70" y="424" class="tick-mono" text-anchor="end">0.0°C</text>
+
+      <!-- X-Axis Ticks (Minutes) -->
+      <line x1="80" y1="420" x2="80" y2="100" class="grid-line" />
+      <text x="80" y="442" class="tick-mono" text-anchor="middle">0'</text>
+
+      <line x1="193" y1="420" x2="193" y2="100" class="grid-line" />
+      <text x="193" y="442" class="tick-mono" text-anchor="middle">20'</text>
+
+      <line x1="307" y1="420" x2="307" y2="100" class="grid-line" />
+      <text x="307" y="442" class="tick-mono" text-anchor="middle">40'</text>
+
+      <line x1="420" y1="420" x2="420" y2="100" class="grid-line" />
+      <text x="420" y="442" class="tick-mono" text-anchor="middle">60' (1h)</text>
+
+      <line x1="590" y1="420" x2="590" y2="100" class="axis-line" stroke="#f59e0b" stroke-dasharray="6 4" />
+      <text x="590" y="442" class="tick-mono" text-anchor="middle" fill="#fbbf24" font-weight="700">90' LÍMITE P0</text>
+
+      <line x1="760" y1="420" x2="760" y2="100" class="grid-line" />
+      <text x="760" y="442" class="tick-mono" text-anchor="middle">120' (2h)</text>
+
+      <text x="420" y="468" class="axis-label" text-anchor="middle">TIEMPO TRANSCURRIDO DE ABATIMIENTO (minutos)</text>
+      <text x="20" y="80" class="axis-label">TEMPERATURA (°C)</text>
+
+      <!-- ================= CURVES ================= -->
+      <!-- TouChef 50/50 Fast Curve: Starts (80, 125/65°C), 10m(137, 210/45°C), 18m(182, 310/24°C), 25m(222, 402/4°C), 35m(278, 415/1°C) -->
+      <path d="M 80 125 Q 137 230 182 310 T 222 402 T 278 415 L 760 415" fill="none" stroke="url(#gradChill)" stroke-width="4.5" filter="url(#glowChill)" />
+
+      <!-- Slow Fridge Curve: Starts (80, 125), 30m(250, 160), 60m(420, 200), 90m(590, 240), 120m(760, 290) -->
+      <path d="M 80 125 Q 250 160 420 200 T 590 240 T 760 290" fill="none" stroke="url(#gradSlow)" stroke-width="3" stroke-dasharray="6 4" />
+
+      <!-- Annotations -->
+      <circle cx="222" cy="402" r="7" fill="#38bdf8" stroke="#0f172a" stroke-width="2" />
+      <rect x="235" y="380" width="130" height="24" rx="4" fill="#0369a1" stroke="#38bdf8" />
+      <text x="300" y="396" class="badge-mono" fill="#ffffff" text-anchor="middle">≤ 4.0°C en 25 min</text>
+
+      <circle cx="590" cy="240" r="5" fill="#ef4444" />
+      <rect x="600" y="225" width="150" height="24" rx="4" fill="#7f1d1d" stroke="#ef4444" />
+      <text x="675" y="241" class="badge-mono" fill="#fca5a5" text-anchor="middle">Frigo: 38°C (PELIGRO)</text>
+    </g>
+  </g>
+
+  <!-- ==================== SECCIÓN 3: TABLA DE TIEMPOS POR GEOMETRÍA ==================== -->
+  <g transform="translate(36, 850)" filter="url(#cardShadow4)">
+    <rect width="828" height="260" rx="12" fill="url(#cardGrad4)" stroke="#334155" stroke-width="1" />
+    <text x="24" y="26" class="sec-title" fill="#F4A261">3. TABLA DE TIEMPOS DE ABATIMIENTO EN BAÑO 50/50 AGITADO (0.5°C A ≤ 4.0°C)</text>
+
+    <g transform="translate(24, 40)">
+      <rect x="0" y="0" width="780" height="30" rx="6" fill="#0f172a" stroke="#1e293b" />
+      <text x="15" y="20" class="tick-mono" fill="#94a3b8" font-weight="700">GROSOR (mm)</text>
+      <text x="140" y="20" class="tick-mono" fill="#38bdf8" font-weight="700">PLACA PLANA / LOSA (Filetes/Lomos)</text>
+      <text x="440" y="20" class="tick-mono" fill="#f59e0b" font-weight="700">CILINDRO / REDONDO (Rulos)</text>
+      <text x="660" y="20" class="tick-mono" fill="#34d399" font-weight="700">ESFERA (Albóndigas)</text>
+
+      <!-- Row 1: 10 mm -->
+      <rect x="0" y="34" width="780" height="24" fill="#1e293b" fill-opacity="0.3" />
+      <text x="15" y="50" class="tick-mono" fill="#f8fafc" font-weight="700">10 mm</text>
+      <text x="140" y="50" class="tick-mono" fill="#38bdf8">7 min</text>
+      <text x="440" y="50" class="tick-mono" fill="#cbd5e1">5 min</text>
+      <text x="660" y="50" class="tick-mono" fill="#cbd5e1">4 min</text>
+
+      <!-- Row 2: 20 mm -->
+      <rect x="0" y="60" width="780" height="24" fill="#0f172a" fill-opacity="0.4" />
+      <text x="15" y="76" class="tick-mono" fill="#f8fafc" font-weight="700">20 mm</text>
+      <text x="140" y="76" class="tick-mono" fill="#38bdf8">22 min</text>
+      <text x="440" y="76" class="tick-mono" fill="#cbd5e1">15 min</text>
+      <text x="660" y="76" class="tick-mono" fill="#cbd5e1">11 min</text>
+
+      <!-- Row 3: 30 mm -->
+      <rect x="0" y="86" width="780" height="24" fill="#1e293b" fill-opacity="0.3" />
+      <text x="15" y="102" class="tick-mono" fill="#f8fafc" font-weight="700">30 mm</text>
+      <text x="140" y="102" class="tick-mono" fill="#38bdf8">45 min</text>
+      <text x="440" y="102" class="tick-mono" fill="#cbd5e1">30 min</text>
+      <text x="660" y="102" class="tick-mono" fill="#cbd5e1">22 min</text>
+
+      <!-- Row 4: 40 mm -->
+      <rect x="0" y="112" width="780" height="24" fill="#0f172a" fill-opacity="0.4" />
+      <text x="15" y="128" class="tick-mono" fill="#f8fafc" font-weight="700">40 mm</text>
+      <text x="140" y="128" class="tick-mono" fill="#34d399" font-weight="700">70 min (&lt; 90 min - Conforme)</text>
+      <text x="440" y="128" class="tick-mono" fill="#cbd5e1">48 min</text>
+      <text x="660" y="128" class="tick-mono" fill="#cbd5e1">35 min</text>
+
+      <!-- Row 5: 50 mm (Warning) -->
+      <rect x="0" y="138" width="780" height="24" fill="#1e293b" fill-opacity="0.3" />
+      <text x="15" y="154" class="tick-mono" fill="#f8fafc" font-weight="700">50 mm</text>
+      <text x="140" y="154" class="tick-mono" fill="#f59e0b" font-weight="700">100 min (Dividir corte en dos)</text>
+      <text x="440" y="154" class="tick-mono" fill="#cbd5e1">65 min</text>
+      <text x="660" y="154" class="tick-mono" fill="#cbd5e1">50 min</text>
+
+      <!-- Row 6: 60 mm (Alert) -->
+      <rect x="0" y="164" width="780" height="24" fill="#0f172a" fill-opacity="0.4" />
+      <text x="15" y="180" class="tick-mono" fill="#f8fafc" font-weight="700">60 mm</text>
+      <text x="140" y="180" class="tick-mono" fill="#ef4444" font-weight="700">140 min (NO Conforme Cook-Chill)</text>
+      <text x="440" y="180" class="tick-mono" fill="#f59e0b">90 min</text>
+      <text x="660" y="180" class="tick-mono" fill="#cbd5e1">65 min</text>
+    </g>
+  </g>
+
+  <!-- ==================== SECCIÓN 4: MATRIZ DE VIDA ÚTIL POST-ABATIMIENTO ==================== -->
+  <g transform="translate(36, 1125)" filter="url(#cardShadow4)">
+    <rect width="828" height="305" rx="12" fill="url(#cardGrad4)" stroke="#334155" stroke-width="1" />
+    <text x="24" y="26" class="sec-title" fill="#38bdf8">4. MATRIZ DE VIDA ÚTIL Y REGÍMENES DE ALMACENAMIENTO SEGURO</text>
+
+    <g transform="translate(24, 38)">
+      <!-- Regime 1: Room temp (Forbidden) -->
+      <rect x="0" y="0" width="185" height="105" rx="6" fill="#1c0e11" stroke="#ef4444" stroke-width="0.8" />
+      <text x="10" y="18" class="badge-mono" fill="#f87171">T &gt; 10.0°C (Ambiente)</text>
+      <text x="10" y="40" class="card-title" font-size="14" fill="#ef4444">VIDA ÚTIL: 0 HORAS</text>
+      <text x="10" y="62" class="body-txt" font-size="11">PROHIBIDO. Riesgo inminente de toxigénesis botulínica.</text>
+      <text x="10" y="86" class="tick-mono" fill="#f87171">Germinación en &lt; 2 horas</text>
+
+      <!-- Regime 2: Standard Fridge -->
+      <rect x="198" y="0" width="185" height="105" rx="6" fill="#0b1120" stroke="#f59e0b" stroke-width="0.8" />
+      <text x="208" y="18" class="badge-mono" fill="#fbbf24">T = +4.0°C a +7.0°C</text>
+      <text x="208" y="40" class="card-title" font-size="14" fill="#fbbf24">MÁXIMO 10 DÍAS</text>
+      <text x="208" y="62" class="body-txt" font-size="11">Nevera doméstica estándar. Cumplir regla 6D/7D.</text>
+      <text x="208" y="86" class="tick-mono" fill="#fbbf24">Abatimiento &lt; 90 min</text>
+
+      <!-- Regime 3: Controlled Cold -->
+      <rect x="396" y="0" width="185" height="105" rx="6" fill="#06281e" stroke="#10b981" stroke-width="0.8" />
+      <text x="406" y="18" class="badge-mono" fill="#34d399">T = +1.5°C a +2.5°C</text>
+      <text x="406" y="40" class="card-title" font-size="14" fill="#34d399">HASTA 28 DÍAS</text>
+      <text x="406" y="62" class="body-txt" font-size="11">Control por datalogger continuo. Inhibe C. botulinum II.</text>
+      <text x="406" y="86" class="tick-mono" fill="#34d399">Inocuidad certificada</text>
+
+      <!-- Regime 4: Deep Freeze -->
+      <rect x="594" y="0" width="185" height="105" rx="6" fill="#081a36" stroke="#38bdf8" stroke-width="0.8" />
+      <text x="604" y="18" class="badge-mono" fill="#38bdf8">T ≤ -18.0°C (Congelador)</text>
+      <text x="604" y="40" class="card-title" font-size="14" fill="#38bdf8">HASTA 12 MESES</text>
+      <text x="604" y="62" class="body-txt" font-size="11">Detención metabólica microbiológica absoluta.</text>
+      <text x="604" y="86" class="tick-mono" fill="#38bdf8">Estabilidad sensorial</text>
+    </g>
+
+    <!-- Bottom Advisory -->
+    <g transform="translate(24, 160)">
+      <rect x="0" y="0" width="780" height="115" rx="6" fill="#0b1120" stroke="#1e293b" />
+      <text x="14" y="22" class="card-title" font-size="12" fill="#F4A261">REGLA OPERATIVA INQUEBRANTABLE TOUCHEF (P0):</text>
+      <text x="14" y="46" class="body-txt">Todo corte destinado a almacenamiento refrigerado &gt; 48 horas <tspan fill="#f43f5e" font-weight="700">no debe superar 45 mm de grosor</tspan>.</text>
+      <text x="14" y="68" class="body-txt">Si el centro tarda &gt; 90 min en bajar a ≤ 4.0°C, el producto queda descartado para Cook-Chill diferido y debe consumirse en el día.</text>
+      <text x="14" y="90" class="tick-mono" fill="#38bdf8">Formulación óptima del baño: 50% agua fría + 50% hielo en escama + 200 g sal marina gruesa por cada 10L.</text>
+    </g>
+  </g>
+
+  <!-- ==================== FOOTER ==================== -->
+  <g transform="translate(36, 1450)">
+    <line x1="0" y1="0" x2="828" y2="0" stroke="#1e293b" stroke-width="1.2" />
+    <text x="0" y="24" class="tick-mono" fill="#64748b" font-size="10">
+      TOUCHEF SAFETY LAB · DOC: TC-INF-SV-04 · VER: 2.4.0 · ESTÁNDAR: UK ACMSF COOK-CHILL / BALDWIN CHILLING SCIENCE / FDA FOOD CODE
+    </text>
+    <text x="828" y="24" class="tick-mono" fill="#E07A5F" font-size="10" font-weight="700" text-anchor="end">
+      SEGURIDAD ALIMENTARIA © 2026
+    </text>
+  </g>
+</svg>

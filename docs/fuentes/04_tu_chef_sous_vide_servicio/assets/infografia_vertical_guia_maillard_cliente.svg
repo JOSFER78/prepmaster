@@ -1,0 +1,281 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 1500" width="100%" height="100%">
+  <defs>
+    <!-- Background Gradient -->
+    <linearGradient id="bgGrad5" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#070a12" />
+      <stop offset="35%" stop-color="#19110d" />
+      <stop offset="75%" stop-color="#0f172a" />
+      <stop offset="100%" stop-color="#05070d" />
+    </linearGradient>
+
+    <!-- Card Background Gradient -->
+    <linearGradient id="cardGrad5" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#241711" stop-opacity="0.85" />
+      <stop offset="100%" stop-color="#140b07" stop-opacity="0.95" />
+    </linearGradient>
+
+    <!-- TouChef Copper Gradient -->
+    <linearGradient id="tcCopperGrad5" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F4A261" />
+      <stop offset="100%" stop-color="#E07A5F" />
+    </linearGradient>
+
+    <!-- Ember & Fire Gradients -->
+    <linearGradient id="fireGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#ea580c" />
+      <stop offset="50%" stop-color="#f97316" />
+      <stop offset="100%" stop-color="#fbbf24" />
+    </linearGradient>
+
+    <!-- Meat Gradients: Traditional vs TouChef Sous-Vide -->
+    <linearGradient id="meatTrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#4a3728" />
+      <stop offset="20%" stop-color="#6b5344" />
+      <stop offset="38%" stop-color="#9a6b5a" />
+      <stop offset="50%" stop-color="#dc2626" />
+      <stop offset="62%" stop-color="#9a6b5a" />
+      <stop offset="80%" stop-color="#6b5344" />
+      <stop offset="100%" stop-color="#4a3728" />
+    </linearGradient>
+
+    <linearGradient id="meatSousVide" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#3e2312" />
+      <stop offset="2%" stop-color="#854d0e" />
+      <stop offset="4%" stop-color="#e11d48" />
+      <stop offset="50%" stop-color="#f43f5e" />
+      <stop offset="96%" stop-color="#e11d48" />
+      <stop offset="98%" stop-color="#854d0e" />
+      <stop offset="100%" stop-color="#3e2312" />
+    </linearGradient>
+
+    <filter id="cardShadow5" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#000000" flood-opacity="0.6" />
+    </filter>
+  </defs>
+
+  <style>
+    .header-title { font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Inter', Roboto, sans-serif; font-size: 23px; font-weight: 800; fill: #F4F1DE; letter-spacing: 0.5px; }
+    .header-sub { font-family: 'Segoe UI', sans-serif; font-size: 13px; font-weight: 500; fill: #d97706; }
+    .badge-mono { font-family: 'JetBrains Mono', 'Fira Code', Consolas, monospace; font-size: 11px; font-weight: 700; }
+    .sec-title { font-family: 'Segoe UI', sans-serif; font-size: 15px; font-weight: 700; fill: #f8fafc; letter-spacing: 0.3px; }
+    .body-txt { font-family: 'Segoe UI', sans-serif; font-size: 12px; fill: #cbd5e1; line-height: 1.45; }
+    .tick-mono { font-family: 'JetBrains Mono', monospace; font-size: 11px; fill: #64748b; }
+    .card-title { font-family: 'Segoe UI', sans-serif; font-size: 13px; font-weight: 700; fill: #f1f5f9; }
+    .step-num { font-family: 'JetBrains Mono', monospace; font-size: 14px; font-weight: 800; fill: #ffffff; }
+  </style>
+
+  <!-- Canvas Background -->
+  <rect width="900" height="1500" fill="url(#bgGrad5)" />
+
+  <!-- Outer Poster Border -->
+  <rect x="18" y="18" width="864" height="1464" rx="16" fill="none" stroke="#291e16" stroke-width="1.5" />
+
+  <!-- ==================== HEADER SECTION ==================== -->
+  <g transform="translate(36, 36)">
+    <!-- TouChef Official Isotype Squircle -->
+    <rect x="0" y="0" width="56" height="56" rx="16" fill="#141824" stroke="rgba(255, 255, 255, 0.15)" stroke-width="1.2" />
+    <circle cx="28" cy="28" r="16" fill="#E07A5F" opacity="0.22" />
+    <!-- Chef Toque Icon -->
+    <path d="M28 13 C24 13 21 16 20.5 19.5 C17.5 20 15.5 22.5 15.5 26 C15.5 29.5 17.5 32 20.5 32.8 V36.5 C20.5 37.5 21.5 38 22.5 38 H33.5 C34.5 38 35.5 37.5 35.5 36.5 V32.8 C38.5 32 40.5 29.5 40.5 26 C40.5 22.5 38.5 20 35.5 19.5 C35 16 32 13 28 13 Z" fill="url(#tcCopperGrad5)" />
+    <path d="M24 21 C24 26 24.5 32 24.5 36.5 M32 21 C32 26 31.5 32 31.5 36.5" stroke="#0E0F12" stroke-width="1.5" stroke-linecap="round" opacity="0.35" />
+    <rect x="21" y="39.5" width="14" height="3.5" rx="1.7" fill="#F4F1DE" />
+
+    <!-- Wordmark & Titles -->
+    <text x="72" y="25" class="header-title">
+      <tspan fill="#F4F1DE" font-weight="900">Tou</tspan><tspan fill="#E07A5F" font-weight="700">Chef</tspan>
+      <tspan fill="#475569" font-weight="400"> ❘ </tspan>
+      <tspan fill="#F4F1DE" font-size="20" font-weight="800">GUÍA DE ACABADO GASTRONÓMICO</tspan>
+    </text>
+    <text x="72" y="47" class="header-sub">Tu Menú de Restaurante Michelin en Casa en 4 Sencillos Pasos (5 Minutos)</text>
+
+    <!-- Top Badges -->
+    <g transform="translate(630, 10)">
+      <rect x="0" y="0" width="198" height="28" rx="14" fill="#78350f" fill-opacity="0.35" stroke="#f59e0b" stroke-width="1" />
+      <circle cx="14" cy="14" r="4.5" fill="#f59e0b" />
+      <text x="26" y="18" class="badge-mono" fill="#fbbf24">ALTA COCINA EN 5 MIN</text>
+    </g>
+  </g>
+
+  <!-- ==================== SECCIÓN 1: EL FLUJO MAESTRO EN 4 PASOS ==================== -->
+  <g transform="translate(36, 115)" filter="url(#cardShadow5)">
+    <rect width="828" height="385" rx="12" fill="url(#cardGrad5)" stroke="#3f2719" stroke-width="1" />
+    <text x="20" y="26" class="sec-title" fill="#fbbf24">1. PROTOCOLO DE ACABADO MAESTRO EN 4 PASOS SECUENCIALES</text>
+
+    <!-- Step 1 Card -->
+    <g transform="translate(20, 40)">
+      <rect width="788" height="72" rx="8" fill="#120c09" stroke="#2c1a10" />
+      <circle cx="28" cy="36" r="16" fill="#0284c7" />
+      <text x="28" y="41" class="step-num" text-anchor="middle">1</text>
+      
+      <text x="56" y="24" class="card-title" fill="#38bdf8">PASO 1: ♨️ TEMPLADO EN BOLSA (4 A 5 MINUTOS)</text>
+      <text x="56" y="46" class="body-txt">Sumerge la bolsa cerrada en un bol o cazo con agua caliente del grifo (<tspan fill="#38bdf8" font-weight="700">55°C - 60°C</tspan>, no hace falta hervir). Despierta la temperatura interior suavemente sin recocinar.</text>
+      
+      <rect x="680" y="22" width="95" height="26" rx="6" fill="#0369a1" fill-opacity="0.3" stroke="#38bdf8" stroke-width="1" />
+      <text x="727" y="39" class="badge-mono" fill="#38bdf8" text-anchor="middle">4-5 min</text>
+    </g>
+
+    <!-- Step 2 Card -->
+    <g transform="translate(20, 122)">
+      <rect width="788" height="72" rx="8" fill="#120c09" stroke="#2c1a10" />
+      <circle cx="28" cy="36" r="16" fill="#0d9488" />
+      <text x="28" y="41" class="step-num" text-anchor="middle">2</text>
+      
+      <text x="56" y="24" class="card-title" fill="#2dd4bf">PASO 2: 🧻 SECADO IMPECABLE CON PAPEL (15 SEGUNDOS)</text>
+      <text x="56" y="46" class="body-txt">Abre la bolsa, reserva los jugos en un vasito y <tspan fill="#2dd4bf" font-weight="700">seca la superficie de la carne con papel de cocina</tspan>. El agua superficial roba energía y frena el dorado Maillard.</text>
+      
+      <rect x="680" y="22" width="95" height="26" rx="6" fill="#115e59" fill-opacity="0.3" stroke="#2dd4bf" stroke-width="1" />
+      <text x="727" y="39" class="badge-mono" fill="#2dd4bf" text-anchor="middle">15 seg</text>
+    </g>
+
+    <!-- Step 3 Card -->
+    <g transform="translate(20, 204)">
+      <rect width="788" height="72" rx="8" fill="#120c09" stroke="#2c1a10" />
+      <circle cx="28" cy="36" r="16" fill="#ea580c" />
+      <text x="28" y="41" class="step-num" text-anchor="middle">3</text>
+      
+      <text x="56" y="24" class="card-title" fill="#fb923c">PASO 3: 🔥 MARCADO MAILLARD EXPRESS (45 SEGUNDOS POR LADO)</text>
+      <text x="56" y="46" class="body-txt">Sartén de hierro o pesada humeante con 1 cdta AOVE y nuez de mantequilla espumosa. <tspan fill="#fb923c" font-weight="700">45s por cara exactos</tspan> (*arrosé* con romero para corteza crujiente).</text>
+      
+      <rect x="680" y="22" width="95" height="26" rx="6" fill="#9a3412" fill-opacity="0.3" stroke="#fb923c" stroke-width="1" />
+      <text x="727" y="39" class="badge-mono" fill="#fb923c" text-anchor="middle">45s / cara</text>
+    </g>
+
+    <!-- Step 4 Card -->
+    <g transform="translate(20, 286)">
+      <rect width="788" height="72" rx="8" fill="#120c09" stroke="#2c1a10" />
+      <circle cx="28" cy="36" r="16" fill="#10b981" />
+      <text x="28" y="41" class="step-num" text-anchor="middle">4</text>
+      
+      <text x="56" y="24" class="card-title" fill="#34d399">PASO 4: 🍽️ SALSEADO &amp; EMPLATADO GOURMET (60 SEGUNDOS)</text>
+      <text x="56" y="46" class="body-txt">Pasa la carne a tabla, corta al bies, corona con escamas de sal Maldon y <tspan fill="#34d399" font-weight="700">riega generosamente con los jugos calientes</tspan> reservados de la bolsa. ¡A la mesa!</text>
+      
+      <rect x="680" y="22" width="95" height="26" rx="6" fill="#065f46" fill-opacity="0.3" stroke="#34d399" stroke-width="1" />
+      <text x="727" y="39" class="badge-mono" fill="#34d399" text-anchor="middle">60 seg</text>
+    </g>
+  </g>
+
+  <!-- ==================== SECCIÓN 2: COMPARATIVA BIOFÍSICA DE CORTE TRANSVERSAL ==================== -->
+  <g transform="translate(36, 515)" filter="url(#cardShadow5)">
+    <rect width="828" height="340" rx="12" fill="url(#cardGrad5)" stroke="#3f2719" stroke-width="1" />
+    <text x="20" y="26" class="sec-title" fill="#F4F1DE">2. COMPARATIVA BIOFÍSICA DE CORTE TRANSVERSAL (SECCIÓN CÁRNICA)</text>
+
+    <!-- Traditional Cooking (Left) -->
+    <g transform="translate(20, 42)">
+      <rect width="380" height="275" rx="8" fill="#120c09" stroke="#ef4444" stroke-width="0.8" />
+      <text x="14" y="24" class="card-title" fill="#f87171">COCCIÓN TRADICIONAL (Sartén Directa)</text>
+
+      <!-- Meat Cross-Section Bar Traditional -->
+      <rect x="14" y="38" width="352" height="65" rx="6" fill="url(#meatTrad)" stroke="#000000" stroke-width="1" />
+      <line x1="140" y1="38" x2="140" y2="103" stroke="#ffffff" stroke-dasharray="3 3" opacity="0.6" />
+      <line x1="240" y1="38" x2="240" y2="103" stroke="#ffffff" stroke-dasharray="3 3" opacity="0.6" />
+      <text x="190" y="74" class="badge-mono" fill="#ffffff" font-size="10" text-anchor="middle">Rosa 15%</text>
+      <text x="77" y="74" class="badge-mono" fill="#fca5a5" font-size="9" text-anchor="middle">Gris Seco (42%)</text>
+      <text x="303" y="74" class="badge-mono" fill="#fca5a5" font-size="9" text-anchor="middle">Gris Seco (43%)</text>
+
+      <!-- Bullets Traditional -->
+      <g transform="translate(14, 120)">
+        <text x="0" y="16" class="tick-mono" fill="#ef4444">❌ Gradiente térmico violento (anillo gris 45%)</text>
+        <text x="0" y="36" class="tick-mono" fill="#ef4444">❌ Desnaturalización de Actina (Drip loss &gt; 25%)</text>
+        <text x="0" y="56" class="tick-mono" fill="#ef4444">❌ Centro poco hecho vs bordes resecados</text>
+        <text x="0" y="76" class="tick-mono" fill="#ef4444">❌ Difícil control del punto en el hogar</text>
+        <text x="0" y="100" class="tick-mono" fill="#94a3b8">Merma de peso total: -25% a -32%</text>
+      </g>
+    </g>
+
+    <!-- TouChef Sous-Vide (Right) -->
+    <g transform="translate(420, 42)">
+      <rect width="388" height="275" rx="8" fill="#120c09" stroke="#10b981" stroke-width="0.8" />
+      <text x="14" y="24" class="card-title" fill="#34d399">TOUCHEF SOUS-VIDE + MAILLARD 45s</text>
+
+      <!-- Meat Cross-Section Bar TouChef -->
+      <rect x="14" y="38" width="360" height="65" rx="6" fill="url(#meatSousVide)" stroke="#000000" stroke-width="1" />
+      <text x="194" y="74" class="badge-mono" fill="#ffffff" font-size="12" font-weight="800" text-anchor="middle">98% PUNTO ROSADO EDGE-TO-EDGE</text>
+      <text x="22" y="74" class="badge-mono" fill="#fbbf24" font-size="8" text-anchor="middle">1mm</text>
+      <text x="366" y="74" class="badge-mono" fill="#fbbf24" font-size="8" text-anchor="middle">1mm</text>
+
+      <!-- Bullets TouChef -->
+      <g transform="translate(14, 120)">
+        <text x="0" y="16" class="tick-mono" fill="#34d399">✔ Costra Maillard milimétrica crujiente (1 mm)</text>
+        <text x="0" y="36" class="tick-mono" fill="#34d399">✔ Retención del 100% de jugos y terneza</text>
+        <text x="0" y="56" class="tick-mono" fill="#34d399">✔ Temperatura idéntica de borde a borde (54°C)</text>
+        <text x="0" y="76" class="tick-mono" fill="#34d399">✔ Acabado perfecto garantizado en 5 minutos</text>
+        <text x="0" y="100" class="tick-mono" fill="#38bdf8" font-weight="700">Merma de cocción: apenas 4% a 6%</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- ==================== SECCIÓN 3: SEMÁFORO DE CONSERVACIÓN ==================== -->
+  <g transform="translate(36, 870)" filter="url(#cardShadow5)">
+    <rect width="828" height="240" rx="12" fill="url(#cardGrad5)" stroke="#3f2719" stroke-width="1" />
+    <text x="20" y="26" class="sec-title" fill="#F4A261">3. SEMÁFORO DE CONSUMO Y CONSERVACIÓN EN EL HOGAR (2°C A 4°C)</text>
+
+    <g transform="translate(20, 38)">
+      <!-- Green Badge Card -->
+      <rect x="0" y="0" width="255" height="180" rx="8" fill="#06281e" stroke="#10b981" stroke-width="0.8" />
+      <circle cx="22" cy="22" r="10" fill="#10b981" />
+      <text x="40" y="26" class="card-title" fill="#34d399">🟢 DÍAS 1, 2 Y 3 (Prioritario)</text>
+      <text x="14" y="52" class="tick-mono" fill="#a7f3d0" font-weight="700">PESCADOS &amp; VERDURAS FINAS</text>
+      <text x="14" y="74" class="body-txt" font-size="11">Salmón, merluza, bacalao, mariscos, ensaladas templadas y hojas verdes.</text>
+      <text x="14" y="116" class="tick-mono" fill="#94a3b8">Ubicación recomendada:</text>
+      <text x="14" y="136" class="tick-mono" fill="#34d399">Estante inferior (1°C - 3°C)</text>
+
+      <!-- Yellow Badge Card -->
+      <rect x="266" y="0" width="255" height="180" rx="8" fill="#291a08" stroke="#f59e0b" stroke-width="0.8" />
+      <circle cx="288" cy="22" r="10" fill="#f59e0b" />
+      <text x="306" y="26" class="card-title" fill="#fbbf24">🟡 DÍAS 4, 5 Y 6 (Medio)</text>
+      <text x="280" y="52" class="tick-mono" fill="#fde68a" font-weight="700">CARNES, AVES &amp; GUISOS</text>
+      <text x="280" y="74" class="body-txt" font-size="11">Solomillos, pechugas de pollo, guisos tradicionales melosos y legumbres.</text>
+      <text x="280" y="116" class="tick-mono" fill="#94a3b8">Ubicación recomendada:</text>
+      <text x="280" y="136" class="tick-mono" fill="#fbbf24">Estante medio (3°C - 4°C)</text>
+
+      <!-- Red Badge Card -->
+      <rect x="533" y="0" width="255" height="180" rx="8" fill="#1c0e11" stroke="#ef4444" stroke-width="0.8" />
+      <circle cx="555" cy="22" r="10" fill="#ef4444" />
+      <text x="573" y="26" class="card-title" fill="#f87171">🔴 DÍA 7+ (Congelador)</text>
+      <text x="547" y="52" class="tick-mono" fill="#fca5a5" font-weight="700">CONGELACIÓN DIRECTA</text>
+      <text x="547" y="74" class="body-txt" font-size="11">Si no vas a consumir un plato antes del día 6, pasa la bolsa al congelador (-18°C).</text>
+      <text x="547" y="116" class="tick-mono" fill="#94a3b8">Regeneración directa:</text>
+      <text x="547" y="136" class="tick-mono" fill="#38bdf8">Agua caliente 12 min a 60°C</text>
+    </g>
+  </g>
+
+  <!-- ==================== SECCIÓN 4: CONSEJOS PRO DEL CHEF ==================== -->
+  <g transform="translate(36, 1125)" filter="url(#cardShadow5)">
+    <rect width="828" height="305" rx="12" fill="url(#cardGrad5)" stroke="#3f2719" stroke-width="1" />
+    <text x="20" y="26" class="sec-title" fill="#38bdf8">4. SECRETOS DEL CHEF PARA UNA EXPERIENCIA GASTRONÓMICA PERFECTA</text>
+
+    <g transform="translate(20, 38)">
+      <!-- Tip 1 -->
+      <rect x="0" y="0" width="380" height="105" rx="6" fill="#120c09" stroke="#f59e0b" stroke-width="0.8" />
+      <text x="12" y="22" class="badge-mono" fill="#fbbf24">💡 SALSAS: BRILLO Y NAPEADO</text>
+      <text x="12" y="44" class="body-txt" font-size="11">Introduce la bolsita de salsa en el mismo agua del templado de la carne. Al calentar 1 minuto, el colágeno natural se licuará con un brillo espectacular.</text>
+      <text x="12" y="86" class="tick-mono" fill="#fbbf24">Corta la esquina y úsala como manga pastelera.</text>
+
+      <!-- Tip 2 -->
+      <rect x="400" y="0" width="388" height="105" rx="6" fill="#120c09" stroke="#ef4444" stroke-width="0.8" />
+      <text x="12" y="22" class="badge-mono" fill="#f87171">⚠️ PROHIBIDO MICROONDAS EN BOLSA</text>
+      <text x="12" y="44" class="body-txt" font-size="11">Nunca calientes bolsas cerradas al vacío en el microondas: el vapor inflará la bolsa hasta estallar. Para microondas, corta y vierte en plato hondo.</text>
+      <text x="12" y="86" class="tick-mono" fill="#f87171">Pescados delicados: usar SIEMPRE baño caliente.</text>
+
+      <!-- Tip 3 & 4 Full Width Row -->
+      <g transform="translate(0, 120)">
+        <rect x="0" y="0" width="788" height="120" rx="6" fill="#120c09" stroke="#10b981" stroke-width="0.8" />
+        <text x="14" y="24" class="card-title" fill="#34d399">EL TOQUE FINAL MICHELIN EN TU PLATO:</text>
+        <text x="14" y="48" class="body-txt">Termina siempre carnes y pescados con unas escamas de <tspan fill="#34d399" font-weight="700">Flor de Sal Maldon</tspan>, un hilo fino de AOVE de cosecha temprana en crudo y hierbas frescas (cebollino o perifollo). Sirve en platos precalentados para mantener la temperatura.</text>
+        <text x="14" y="76" class="tick-mono" fill="#cbd5e1">Bolsas BPA Free multicapa certificadas hasta 115°C · Inocuidad y sabor 100% preservados.</text>
+        <text x="14" y="98" class="tick-mono" fill="#34d399">Trazabilidad QR en cada etiqueta para acceder a vídeos de acabado y recetas recomendadas.</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- ==================== FOOTER ==================== -->
+  <g transform="translate(36, 1450)">
+    <line x1="0" y1="0" x2="828" y2="0" stroke="#291e16" stroke-width="1.2" />
+    <text x="0" y="24" class="tick-mono" fill="#64748b" font-size="10">
+      TOUCHEF CLIENT EXPERIENCE · DOC: TC-INF-SV-05 · VER: 2.4.0 · ASISTENCIA GOURMET &amp; APP TOUCHEF
+    </text>
+    <text x="828" y="24" class="tick-mono" fill="#E07A5F" font-size="10" font-weight="700" text-anchor="end">
+      EXPERIENCIA GASTRONÓMICA © 2026
+    </text>
+  </g>
+</svg>

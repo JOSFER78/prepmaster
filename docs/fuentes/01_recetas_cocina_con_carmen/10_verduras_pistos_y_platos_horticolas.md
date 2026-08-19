@@ -152,6 +152,8 @@ El tratamiento de las verduras y hortalizas en la cocina tradicional española c
    * El pisto estará terminado cuando el tomate haya cambiado de rojo brillante a un tono granate intenso, el aceite comience a asomar suavemente por los bordes y el agua libre se haya evaporado por completo. Probar de sal y rectificar.
    * Dejar reposar fuera del fuego 15 minutos antes de servir para asentar sabores.
 
+![Resultado Final y Emplatado](assets/pisto_manchego_tradicional_con_pochado_escalo_03_resultado_final.jpg)
+
 ---
 
 ### 📦 Protocolo de Conservación y Batch Cooking
@@ -263,6 +265,8 @@ El tratamiento de las verduras y hortalizas en la cocina tradicional española c
    * Napar la superficie con la bechamel caliente y espolvorear el queso rallado por encima.
    * Introducir en el horno a **200°C en posición grill (a media altura) durante 10-12 minutos**, hasta que la costra esté dorada, burbujeante y crujiente.
 
+![Resultado Final y Emplatado](assets/berenjenas_rellenas_de_carne_picada_gratinada_03_resultado_final.jpg)
+
 ---
 
 ### 📦 Protocolo de Conservación y Batch Cooking
@@ -364,6 +368,8 @@ El tratamiento de las verduras y hortalizas en la cocina tradicional española c
    * Rellenar copiosamente con la mezcla de atún y verduras.
    * Cubrir la superficie con la mezcla de quesos rallados.
    * Hornear a **200°C con calor arriba y abajo + grill durante 12-14 minutos**, hasta que el queso esté completamente fundido y con manchas doradas crujientes.
+
+![Resultado Final y Emplatado](assets/calabacines_rellenos_de_atun_huevo_y_verduras_03_resultado_final.jpg)
 
 ---
 
@@ -487,6 +493,8 @@ El tratamiento de las verduras y hortalizas en la cocina tradicional española c
    * Mover la cazuela con movimientos de vaivén circulares durante **4-5 minutos** a fuego lento para que la salsa nape y perfume cada verdura.
    * Espolvorear abundante perejil fresco picado y servir de inmediato.
 
+![Resultado Final y Emplatado](assets/menestra_de_verduras_tudelana_con_jamon_iberi_03_resultado_final.jpg)
+
 ---
 
 ### 📦 Protocolo de Conservación y Batch Cooking
@@ -595,6 +603,8 @@ El tratamiento de las verduras y hortalizas en la cocina tradicional española c
    * Cocinar a fuego lento durante **8-10 minutos**, realizando movimientos envolventes con la cuchara para que los garbanzos absorban los sabores sin romperse y la salsa espese hasta una consistencia untuosa.
    * Probar de sal y vinagre, rectificando según preferencia. Servir caliente acompañado de triángulos de pan frito crujiente.
 
+![Resultado Final y Emplatado](assets/espinacas_con_garbanzos_al_estilo_sevillano_y_03_resultado_final.jpg)
+
 ---
 
 ### 📦 Protocolo de Conservación y Batch Cooking
@@ -683,6 +693,8 @@ El tratamiento de las verduras y hortalizas en la cocina tradicional española c
 4. **Escurrido y Servicio:**
    * Con ayuda de una espumadera, extraer las patatas a lo pobre escurriendo el exceso de aceite sobre la sartén (este aceite perfumado se reserva para tortillas o sofritos posteriores).
    * Servir en fuente caliente, coronando si se desea con dos huevos fritos camperos de yema líquida o taquitos de jamón.
+
+![Resultado Final y Emplatado](assets/patatas_a_lo_pobre_con_pimientos_y_cebolla_co_03_resultado_final.jpg)
 
 ---
 
@@ -776,6 +788,8 @@ El tratamiento de las verduras y hortalizas en la cocina tradicional española c
    * Apagar el fuego e incorporar inmediatamente los 120 g de jamón ibérico. Remover con el calor residual durante 30 segundos (el calor fundirá la grasa entreverada sin resecar la carne).
    * Servir de inmediato en platos llanos con un toque de pimienta negra y unas escamas de sal marina.
 
+![Resultado Final y Emplatado](assets/alcachofas_salteadas_con_jamon_iberico_y_ajos_03_resultado_final.jpg)
+
 ---
 
 ### 📦 Protocolo de Conservación y Batch Cooking
@@ -864,6 +878,8 @@ El tratamiento de las verduras y hortalizas en la cocina tradicional española c
    * Verter el refrito ajoarriero humeante sobre los ramilletes de coliflor en la fuente.
    * Espolvorear perejil fresco picado y servir caliente.
 
+![Resultado Final y Emplatado](assets/coliflor_al_ajoarriero_con_pimenton_de_la_ver_03_resultado_final.jpg)
+
 ---
 
 ### 📦 Protocolo de Conservación y Batch Cooking
@@ -950,6 +966,8 @@ El tratamiento de las verduras y hortalizas en la cocina tradicional española c
    * Dejar hervir a fuego vivo durante **3-4 minutos** hasta que el alcohol se evapore por completo y el vino se reduzca formando una salsita densa, emulsionada con el aceite y los jugos naturales del hongo.
 4. **Acabado con Perejil:**
    * Apagar el fuego, espolvorear copiosamente el perejil fresco picado y mezclar. Servir inmediatamente bien caliente en la propia cazuela de barro.
+
+![Resultado Final y Emplatado](assets/champinones_al_ajillo_con_vino_blanco_y_perej_03_resultado_final.jpg)
 
 ---
 
@@ -1038,6 +1056,8 @@ El tratamiento de las verduras y hortalizas en la cocina tradicional española c
    * Añadir los 350 g de salsa de tomate frito casero a la cazuela. Cocinar a fuego medio-bajo durante 4 minutos para integrar con el sofrito de cebolla y jamón.
    * Incorporar las judías verdes escurridas. Mezclar con suavidad y cocinar a fuego lento durante **5-6 minutos**, permitiendo que las judías se impregnen del tomate y absorban todos los sabores.
    * Probar el punto de sal y pimienta, y servir caliente.
+
+![Resultado Final y Emplatado](assets/judias_verdes_con_tomate_frito_casero_y_taqui_03_resultado_final.jpg)
 
 ---
 
@@ -1155,6 +1175,8 @@ El tratamiento de las verduras y hortalizas en la cocina tradicional española c
 4. **Atemperado y Desmoldado:**
    * Retirar del horno y dejar templar dentro del molde durante 15 minutos.
    * Desmoldar tirando de los extremos del papel de horno. Se puede servir tibio o completamente frío cortado en rebanadas gruesas.
+
+![Resultado Final y Emplatado](assets/pastel_de_verduras_al_horno_con_queso_de_cabr_03_resultado_final.jpg)
 
 ---
 

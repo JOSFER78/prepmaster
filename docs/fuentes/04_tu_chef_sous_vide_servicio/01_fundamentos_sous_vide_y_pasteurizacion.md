@@ -126,8 +126,8 @@ $$\frac{T_{\text{centro}} - T_{\text{baño}}}{T_{\text{inicial}} - T_{\text{bañ
 > $$t \propto \frac{L^2}{\alpha}$$
 > **Duplicar el grosor de una pieza (ej. de 25 mm a 50 mm) cuadruplica ($4\times$) el tiempo de calentamiento.**
 
-![Curvas de Penetración Térmica en Núcleo según Modelo de Fourier de Baldwin](assets/curvas_penetracion_termica_baldwin.svg)
-*Figura 1.1: Curvas de penetración térmica en el centro geométrico para losas planas de matriz cárnica ($10\text{ mm}$ a $70\text{ mm}$) a $55.0^\circ\text{C}$, $60.0^\circ\text{C}$ y $65.0^\circ\text{C}$ basadas en la solución analítica de la ecuación de Fourier ($t \propto L^2 / \alpha$). Trazabilidad científica y matemática: [Douglas Baldwin, IJGFS (2012)](https://doi.org/10.1016/j.ijgfs.2011.11.002) / [USDA-FSIS Pathogen Modeling Program](https://www.fsis.usda.gov).*
+![Infografía Vertical Técnica: Curvas de Penetración Térmica según Modelo Fourier-Baldwin](assets/infografia_vertical_curvas_baldwin_fourier.svg)
+*Figura 1.1: Infografía vertical técnica con las curvas de penetración térmica en el centro geométrico para losas planas de matriz cárnica ($10\text{ mm}$ a $70\text{ mm}$) a $55.0^\circ\text{C}$, $60.0^\circ\text{C}$ y $65.0^\circ\text{C}$ basadas en la solución analítica de la ecuación de Fourier ($t \propto L^2 / \alpha$), número de Biot ($Bi \gg 1$) y umbral límite para Cook-Chill ($45\text{ mm}$). Trazabilidad científica: [Douglas Baldwin, IJGFS (2012)](https://doi.org/10.1016/j.ijgfs.2011.11.002) / [USDA-FSIS Pathogen Modeling Program](https://www.fsis.usda.gov).*
 
 ---
 
@@ -335,8 +335,8 @@ Donde $n$ es el número de reducciones decimales exigidas por la autoridad sanit
 - **Estándar $7D$ ($7\text{ log}_{10}$ / $99.99999\%$ de inactivación):**  
   Exigido por la USDA-FSIS (Directiva 9 CFR § 381.150) para *Salmonella spp.* en todas las carnes de ave, debido a su mayor prevalencia inicial y gravedad toxiinfecciosa.
 
-![Cinética de Inactivación Logarítmica 6D / 7D y Valores D y z](assets/tabla_cinetica_inactivacion_6d_7d.svg)
-*Figura 2.1: Esquema cuantitativo de reducción logarítmica de Salmonella spp. (7D) y Listeria monocytogenes (6D) a 60.0°C con matriz cinetica de valores $D_T$ por temperatura ($55^\circ\text{C}$ a $70^\circ\text{C}$), sensibilidad térmica ($z$) e integral de letalidad acumulada ($P$). Trazabilidad oficial: [FDA Food Code Annex 3 (Public Health Reasons)](https://www.fda.gov/food/fda-food-code/food-code-2022) / [USDA FSIS 9 CFR § 381.150 Lethality Standards](https://www.ecfr.gov).*
+![Infografía Vertical Cuantitativa: Cinética de Pasteurización 6D / 7D y Valores D y z](assets/infografia_vertical_pasteurizacion_6d_7d.svg)
+*Figura 2.1: Infografía vertical de microbiología predictiva con la cinética log-lineal de Bigelow para Salmonella spp. (7D en aves de corral) y Listeria monocytogenes (6D en vacuno/pescados) a $60.0^\circ\text{C}$, matriz de valores $D_T$ y $z$ por temperatura ($55^\circ\text{C}$ a $70^\circ\text{C}$), integral de letalidad acumulada ($P$) y tecnología de obstáculos de Leistner. Trazabilidad oficial: [FDA Food Code Annex 3 (Public Health Reasons)](https://www.fda.gov/food/fda-food-code/food-code-2022) / [USDA FSIS 9 CFR § 381.150 Lethality Standards](https://www.ecfr.gov).*
 
 ---
 
@@ -507,8 +507,8 @@ El mayor riesgo biológico en los procesos *Cook-Chill* (Cocinar y Enfriar) no r
 
 > **ALERTA DE DISEÑO OPERATIVO:** Todo corte destinado a *Cook-Chill* con almacenamiento en frío superior a 48 horas **no debe superar un grosor máximo de 45 mm**. Si la pieza mide $\ge 50\text{ mm}$, debe porcionarse antes del envasado o abatirse en abatidor de temperatura profesional de chorro criogénico.
 
-![Protocolo de Abatimiento Térmico Forzado en Baño de Agua y Hielo 50/50](assets/protocolo_bano_hielo_50_50_abatimiento.svg)
-*Figura 4.1: Biofísica del enfriamiento forzado en baño bifásico de agua y hielo al 50/50 ($h \ge 2.500\text{ W}/(\text{m}^2\cdot\text{K})$), regla de los 90 minutos para cruzar la zona de peligro ($54.4^\circ\text{C} \to 4.0^\circ\text{C}$) y prevención de germinación de esporas de Clostridium perfringens y Clostridium botulinum. Trazabilidad científica: [UK ACMSF Guidelines on Cook-Chill Systems](https://acmsf.food.gov.uk) / [Douglas Baldwin Chilling Calculations](https://douglasbaldwin.com/sous-vide.html#Chilling).*
+![Infografía Vertical Técnica: Protocolo de Choque Térmico y Abatimiento Express en Baño de Hielo 50/50](assets/infografia_vertical_bano_hielo_50_50.svg)
+*Figura 4.1: Infografía vertical técnica con la biofísica del enfriamiento forzado en baño bifásico de agua y hielo al 50/50 ($h \ge 2.500\text{ W}/(\text{m}^2\cdot\text{K})$), regla de los 90 minutos para cruzar la zona crítica ($50.0^\circ\text{C} \to 35.0^\circ\text{C}$ de C. perfringens), tabla de tiempos por geometría (losa, cilindro, esfera) y matriz de vida útil en frío. Trazabilidad científica: [UK ACMSF Guidelines on Cook-Chill Systems](https://acmsf.food.gov.uk) / [Douglas Baldwin Chilling Calculations](https://douglasbaldwin.com/sous-vide.html#Chilling).*
 
 ![Baño de choque térmico con agua y hielo para abatimiento rápido de bolsas sous-vide](assets/foto_bano_choque_termico_hielo_bolsas.jpg)
 *Fotografía 1.4: Baño de choque térmico real con agua y abundante hielo en dispersión bifásica, manteniendo una temperatura de $0.5^\circ\text{C}$ para disipar inmediatamente el calor residual de las bolsas termoselladas.*

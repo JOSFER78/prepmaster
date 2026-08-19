@@ -171,6 +171,8 @@ Para alcanzar la perfección en arroces secos, melosos, caldosos y fideuás cruj
    * Rectificar de sal si fuera necesario. Apagar el fuego exactamente al minuto **16**.
    * Espolvorear con perejil fresco recién picado. Dejar reposar la cazuela destapada únicamente durante **2-3 minutos** antes de servir en platos hondos atemperados con un generoso cucharón de caldo aromático.
 
+![Resultado Final y Emplatado](assets/arroz_caldoso_marinero_con_rape_gambones_y_me_03_resultado_final.jpg)
+
 ---
 
 ### 📦 Protocolo de Conservación y Batch Cooking
@@ -297,6 +299,8 @@ Para alcanzar la perfección en arroces secos, melosos, caldosos y fideuás cruj
    * En el minuto 17, retirar la rama de romero. Si se desea un *socarrat* crujiente, avivar el fuego al máximo durante **60-90 segundos** escuchando el crepitar seco del grano en el fondo (cuando huela a tostado noble sin humo negro, apagar de inmediato).
    * Cubrir la paella con un paño de cocina de algodón limpio y dejar reposar durante **5 minutos** antes de servir en la mesa.
 
+![Resultado Final y Emplatado](assets/arroz_con_costillejas_de_cerdo_iberico_alcach_03_resultado_final.jpg)
+
 ---
 
 ### 📦 Protocolo de Conservación y Batch Cooking
@@ -415,6 +419,8 @@ Para alcanzar la perfección en arroces secos, melosos, caldosos y fideuás cruj
 6. **Socarrat Final y Reposo:**
    * Subir el fuego a tope durante el último minuto para caramelizar el fondo de almidón y grasa (*socarrat*). Cuando el chasquido cambie a un chisporroteo seco y rítmico, apagar el fuego.
    * Tapar con paño limpio o papel vegetal y dejar reposar durante **5 minutos** innegociables antes de emplatar.
+
+![Resultado Final y Emplatado](assets/paella_mixta_tradicional_de_pollo_conejo_cala_03_resultado_final.jpg)
 
 ---
 
@@ -539,6 +545,8 @@ Para alcanzar la perfección en arroces secos, melosos, caldosos y fideuás cruj
    * Reposar **5 minutos** tapado con papel o paño limpio.
    * Servir la paella al centro y acompañar con el mortero de alioli casero fresco.
 
+![Resultado Final y Emplatado](assets/arroz_a_banda_tradicional_con_salmorreta_y_al_03_resultado_final.jpg)
+
 ---
 
 ### 📦 Protocolo de Conservación y Batch Cooking
@@ -655,6 +663,8 @@ Para alcanzar la perfección en arroces secos, melosos, caldosos y fideuás cruj
    * Reposar cubierto con un paño de algodón durante **5 minutos**.
    * Servir en la propia paella con puntos de alioli suave sobre la superficie.
 
+![Resultado Final y Emplatado](assets/arroz_negro_con_sepia_en_su_tinta_y_habitas_t_03_resultado_final.jpg)
+
 ---
 
 ### 📦 Protocolo de Conservación y Batch Cooking
@@ -764,6 +774,8 @@ Para alcanzar la perfección en arroces secos, melosos, caldosos y fideuás cruj
    * Retirar del horno cuando los fideos estén erizados y crujientes en la superficie.
    * Dejar reposar **2 minutos** antes de servir acompañada con alioli.
 
+![Resultado Final y Emplatado](assets/fideua_marinera_de_fideo_fino_crujiente_con_r_03_resultado_final.jpg)
+
 ---
 
 ### 📦 Protocolo de Conservación y Batch Cooking
@@ -872,6 +884,8 @@ Para alcanzar la perfección en arroces secos, melosos, caldosos y fideuás cruj
    * Tras 20 minutos, comprobar que el caldo se ha consumido por completo y el grano luce seco, suelto y con costra dorada superior.
    * Sacar la cazuela del horno y dejar reposar durante **5 minutos** antes de servir en la mesa.
 
+![Resultado Final y Emplatado](assets/arroz_al_horno_tradicional_valenciano_con_cos_03_resultado_final.jpg)
+
 ---
 
 ### 📦 Protocolo de Conservación y Batch Cooking
@@ -977,6 +991,8 @@ Para alcanzar la perfección en arroces secos, melosos, caldosos y fideuás cruj
    * Apagar el fuego exactamente en el minuto **16**.
    * Espolvorear con perejil fresco picado. Dejar reposar durante **3 minutos** tapado.
    * Servir en platos hondos: el arroz debe quedar suntuoso, untuoso y fluido (*meloso*).
+
+![Resultado Final y Emplatado](assets/arroz_meloso_con_bacalao_y_coliflor_03_resultado_final.jpg)
 
 ---
 

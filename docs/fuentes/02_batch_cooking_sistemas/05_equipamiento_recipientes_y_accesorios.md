@@ -70,6 +70,9 @@ graph LR
 ![Contenedores Herméticos de Vidrio Borosilicato para Batch Cooking](assets/foto_tuppers_vidrio_borosilicato_preparados.jpg)
 > **Fotografía Real Operativa:** Recipientes modulares de vidrio borosilicato 3.3 con cierres herméticos de 4 clips y junta perimetral de silicona para aislamiento biológico completo.
 
+![Infografía Vertical Póster: Ingeniería de Recipientes, Polímeros y Roner TouChef](assets/infografia_vertical_equipamiento_recipientes.svg)
+> **Infografía Técnica Vertical TouChef:** Comparativa de materiales (Borosilicato 3.3 vs Tritán vs PP-05), estructura multicapa PA/PE/EVOH y equipamiento de precisión sous-vide y metrología.
+
 ---
 
 ### 1.2. Polímeros Alimentarios Certificados: Polipropileno (PP-05) y Copolíester Tritán
@@ -252,6 +255,9 @@ PROCESO EN CÁMARA DE CAMPANA:
 
 ![Envasadora de Campana Profesional de Grado Culinario](assets/foto_envasadora_campana_profesional.jpg)
 > **Fotografía Real Operativa:** Envasadora de campana profesional de alta precisión despresurizando bolsas lisas con matrices cárnicas y salsas para cocción al vacío sous-vide y conservación prolongada.
+
+![Infografía Vertical Póster: Tecnología y Física del Envasado al Vacío TouChef](assets/infografia_vertical_tecnologia_vacio.svg)
+> **Infografía Técnica Vertical TouChef:** Comparativa de presiones residuales (Campana 2 mbar vs Externa 250 mbar), ebullición en frío y tabla de extensión de vida útil para batch cooking.
 
 #### Ebullición en Frío: Ecuación de Clausius-Clapeyron y Control del Punto de Ebullición
 La relación entre la presión en la cámara y el punto de ebullición del agua se rige por la ecuación de Clausius-Clapeyron:

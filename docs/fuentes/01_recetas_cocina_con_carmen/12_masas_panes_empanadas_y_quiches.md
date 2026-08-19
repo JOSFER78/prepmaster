@@ -132,6 +132,8 @@ El arte de las masas horneadas representa la cúspide de la alquimia en la cocin
 
 ![Técnica de Elaboración](assets/masa_de_empanada_gallega_tradicional_con_rell_02_elaboracion.jpg)
 
+![Resultado Final y Emplatado](assets/masa_de_empanada_gallega_tradicional_con_rell_03_resultado_final.jpg)
+
 #### Fase 1: El Sofrito Aromático y la Extracción del Aceite
 1. **Pochado Lento:** En una sartén amplia, calentar los 120 ml de AOVE a fuego medio. Añadir los ajos laminados y, en cuanto empiecen a "bailar" sin dorarse, incorporar la cebolla en juliana, el pimiento rojo y el pimiento verde con una pizca de sal.
 2. **Confitado:** Bajar el fuego a potencia media-baja y pochar tapado durante **25 a 30 minutos**, removiendo cada 5 minutos. La verdura debe quedar completamente tierna, transparente y reducida, sin quemarse.
@@ -236,6 +238,8 @@ El arte de las masas horneadas representa la cúspide de la alquimia en la cocin
 
 ![Técnica de Elaboración](assets/masa_de_pizza_casera_crujiente_de_larga_ferme_02_elaboracion.jpg)
 
+![Resultado Final y Emplatado](assets/masa_de_pizza_casera_crujiente_de_larga_ferme_03_resultado_final.jpg)
+
 #### Fase 1: Autólisis y Amasado Suave
 1. **Autólisis Inicial:** En un bol grande, mezclar los 500 g de harina con 300 ml del agua fría (reservar 30 ml). Remover con una cuchara durante 2 minutos hasta que no quede harina seca. Tapar y dejar reposar **30 minutos**. Esta técnica relaja la proteína y reduce drásticamente el tiempo de amasado manual.
 2. **Adición de la Levadura:** Disolver los 2 g de levadura fresca en los 30 ml de agua restante e incorporarla a la masa autolítica. Amasar dentro del bol pellizcando y doblando la masa sobre sí misma durante 3 minutos.
@@ -334,6 +338,8 @@ El arte de las masas horneadas representa la cúspide de la alquimia en la cocin
 ### 👨‍🍳 Paso a Paso Técnico y Minucioso
 
 ![Técnica de Elaboración](assets/masa_quebrada_brisa_casera_para_tartas_salada_02_elaboracion.jpg)
+
+![Resultado Final y Emplatado](assets/masa_quebrada_brisa_casera_para_tartas_salada_03_resultado_final.jpg)
 
 #### Fase 1: El Arenado (*Sablage*)
 1. **Tamizado de Secos:** En el bol frío, tamizar los 250 g de harina junto con los 5 g de sal y los 3 g de azúcar.
@@ -447,6 +453,8 @@ El arte de las masas horneadas representa la cúspide de la alquimia en la cocin
 6. **Atemperado y Corte:**
    * Dejar reposar la quiche dentro del molde sobre una rejilla durante al menos **20 minutos** antes de desmoldar y cortar en cuñas. Servir tibia.
 
+![Resultado Final y Emplatado](assets/quiche_lorraine_tradicional_con_bacon_ahumado_03_resultado_final.jpg)
+
 ---
 
 ### 📦 Protocolo de Conservación y Batch Cooking
@@ -521,6 +529,8 @@ El arte de las masas horneadas representa la cúspide de la alquimia en la cocin
 ### 👨‍🍳 Paso a Paso Técnico y Minucioso
 
 ![Técnica de Elaboración](assets/pan_casero_facil_sin_amasado_en_cocotte_pyrex_02_elaboracion.jpg)
+
+![Resultado Final y Emplatado](assets/pan_casero_facil_sin_amasado_en_cocotte_pyrex_03_resultado_final.jpg)
 
 #### Fase 1: Mezclado Simple y Reposo Inicial
 1. **Disolución:** En el bol grande, verter los 380 ml de agua tibia y disolver los 3 g de levadura fresca con los dedos.
@@ -629,6 +639,8 @@ El arte de las masas horneadas representa la cúspide de la alquimia en la cocin
 ### 👨‍🍳 Paso a Paso Técnico y Minucioso
 
 ![Técnica de Elaboración](assets/masa_para_empanadillas_fritas_y_al_horno_oble_02_elaboracion.jpg)
+
+![Resultado Final y Emplatado](assets/masa_para_empanadillas_fritas_y_al_horno_oble_03_resultado_final.jpg)
 
 #### Fase 1: El Escaldado de la Grasa y el Amasado
 1. **Infusión y Escaldado Térmico:** En un cazo pequeño, calentar los 60 ml de AOVE con el diente de ajo entero a fuego medio hasta que el ajo empiece a dorarse. Retirar el ajo. Añadir al cazo los 40 g de manteca de cerdo, los 75 ml de vino blanco, los 60 ml de agua y los 6 g de sal. Llevar a ebullición suave y apagar el fuego en cuanto la manteca se funda.
@@ -758,6 +770,8 @@ El arte de las masas horneadas representa la cúspide de la alquimia en la cocin
    * Hornear a **195°C con calor arriba y abajo** (posición media-baja) durante **40 a 45 minutos**, hasta que adquiera un color dorado caoba y la base esté completamente crujiente.
    * Dejar templar 20 minutos antes de servir para que el queso fundido no se desborde al cortar.
 
+![Resultado Final y Emplatado](assets/empanada_de_pollo_asado_cebolla_caramelizada__03_resultado_final.jpg)
+
 ---
 
 ### 📦 Protocolo de Conservación y Batch Cooking
@@ -855,6 +869,8 @@ El arte de las masas horneadas representa la cúspide de la alquimia en la cocin
    * Hornear durante **25 a 30 minutos** en la guía intermedia, hasta que el hojaldre haya subido en finas capas crujientes y muestre un tono dorado uniforme y brillante.
 5. **Servicio:**
    * Dejar reposar 10 minutos sobre una rejilla para que el hojaldre asiente su crujiente. Cortar con cuchillo de sierra en porciones generosas.
+
+![Resultado Final y Emplatado](assets/hojaldre_relleno_de_espinacas_frescas_queso_f_03_resultado_final.jpg)
 
 ---
 

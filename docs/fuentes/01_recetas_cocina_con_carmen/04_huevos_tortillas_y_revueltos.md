@@ -153,6 +153,8 @@ La maestría de Carmen en las elaboraciones con huevo descansa sobre cinco princ
 6. **Reposo y Servicio:**
    * Deslizar al plato de servicio. Dejar reposar **3 minutos** antes de cortar para que los jugos internos se asienten y no se desparrame en exceso al primer corte.
 
+![Resultado Final y Emplatado](assets/tortilla_espanola_de_patatas_jugosa_con_cebol_03_resultado_final.jpg)
+
 ---
 
 ### 📦 Protocolo de Conservación y Batch Cooking
@@ -236,6 +238,8 @@ La maestría de Carmen en las elaboraciones con huevo descansa sobre cinco princ
    * Cocinar durante **2 minutos y medio**, perfilando los bordes con espátula.
    * Dar la vuelta con plato llano y cuajar la otra cara durante **2 minutos**.
 5. **Servicio:** Servir templada o a temperatura ambiente en porciones triangulares generosas.
+
+![Resultado Final y Emplatado](assets/tortilla_paisana_tradicional_con_chorizo_guis_03_resultado_final.jpg)
 
 ---
 
@@ -331,6 +335,8 @@ La maestría de Carmen en las elaboraciones con huevo descansa sobre cinco princ
    * **El Punto Crítico de Carmen:** Retirar la cazuela en el instante exacto en que la clara haya perdido la transparencia y se vuelva blanca lechosa, pero la yema siga completamente líquida y brillante. Tener en cuenta que el barro conserva el calor residual y seguirá cocinando el huevo 1-2 minutos fuera del horno.
 5. **Toque Final:** Espolvorear un giro de pimienta negra recién molida y servir inmediatamente con abundante pan de pueblo.
 
+![Resultado Final y Emplatado](assets/huevos_a_la_flamenca_tradicionales_en_cazuela_03_resultado_final.jpg)
+
 ---
 
 ### 📦 Protocolo de Batch Cooking
@@ -408,6 +414,8 @@ La maestría de Carmen en las elaboraciones con huevo descansa sobre cinco princ
    * Añadir unas escamas de sal marina sobre las yemas.
    * **El Corte de Carmen:** Con dos cuchillos de mesa o cuchara y tenedor, realizar 3 o 4 cortes rápidos cruzados en directo sobre las yemas, permitiendo que la salsa líquida fluya e impregne cada lasca de patata y jamón. Servir inmediatamente con pan crujiente.
 
+![Resultado Final y Emplatado](assets/huevos_rotos_con_jamon_iberico_y_patatas_pana_03_resultado_final.jpg)
+
 ---
 
 ### 📦 Conservación y Batch Cooking
@@ -484,6 +492,8 @@ La maestría de Carmen en las elaboraciones con huevo descansa sobre cinco princ
    * Parar el cocinado cuando el huevo presente un aspecto cremoso, brillante y húmedo, similar a una crema pastelera salada (*baveuse*).
 5. **Servicio Inmediato:** Volcar de inmediato sobre tostas de pan de masa madre frotadas con ajo y aceite.
 
+![Resultado Final y Emplatado](assets/revuelto_de_setas_silvestres_gambas_al_ajillo_03_resultado_final.jpg)
+
 ---
 
 ### 📦 Conservación y Batch Cooking
@@ -557,6 +567,8 @@ La maestría de Carmen en las elaboraciones con huevo descansa sobre cinco princ
    * Verter la mezcla y cuajar durante **1 minuto y medio** por el primer lado.
    * Dar la vuelta con plato llano y cuajar **1 minuto** por el segundo lado para que quede tierna, jugosa y de un verde brillante y apetitoso.
 
+![Resultado Final y Emplatado](assets/tortilla_de_espinacas_frescas_pinones_y_pasas_03_resultado_final.jpg)
+
 ---
 
 ### 📦 Conservación y Batch Cooking
@@ -629,6 +641,8 @@ La maestría de Carmen en las elaboraciones con huevo descansa sobre cinco princ
    * Verter la mezcla. Mover en vaivén rápido y redondear los bordes durante **1 minuto**.
    * Dar la vuelta y cuajar por el otro lado durante apenas **45-60 segundos**.
    * Debe quedar con un aspecto abombado, dorado por fuera y extraordinariamente jugosa (*babé*) por dentro.
+
+![Resultado Final y Emplatado](assets/tortilla_de_bacalao_desmigado_con_pimientos_y_03_resultado_final.jpg)
 
 ---
 
@@ -719,6 +733,8 @@ La maestría de Carmen en las elaboraciones con huevo descansa sobre cinco princ
    * Espolvorear por encima el queso rallado y rallar la yema cocida reservada con un rallador fino.
    * Gratinar en el horno precalentado a **220°C (con grill superior)** durante **6 a 8 minutos** hasta que la superficie esté dorada, burbujeante y crujiente. Servir calientes.
 
+![Resultado Final y Emplatado](assets/huevos_rellenos_de_atun_y_yema_gratinados_con_03_resultado_final.jpg)
+
 ---
 
 ### 📦 Conservación y Batch Cooking
@@ -796,6 +812,8 @@ La maestría de Carmen en las elaboraciones con huevo descansa sobre cinco princ
    * Cocinar durante **3 a 4 minutos**. Los huevos tontos absorberán el caldo perfumado, aumentando de volumen y volviéndose extremadamente jugosos y tiernos por dentro sin deshacerse.
 5. **Servicio:** Servir en plato hondo con 3-4 huevos tontos por persona y unos cazos del caldo reconfortante.
 
+![Resultado Final y Emplatado](assets/huevos_tontos_tradicionales_de_la_abuela_03_resultado_final.jpg)
+
 ---
 
 ### 📦 Conservación y Batch Cooking
@@ -872,6 +890,8 @@ La maestría de Carmen en las elaboraciones con huevo descansa sobre cinco princ
    * Retirar del fuego mientras el huevo aún esté jugoso, brillante y semicuajado (*no debe secarse*).
 4. **Servicio y Coronación:**
    * Emplatar al instante. Coronar con el cuarto restante de patatas paja crujientes reservadas (para garantizar el doble contraste de texturas) y espolvorear con perejil fresco picado.
+
+![Resultado Final y Emplatado](assets/revuelto_gramajo_tradicional_con_jamon_y_pata_03_resultado_final.jpg)
 
 ---
 
@@ -956,6 +976,8 @@ La maestría de Carmen en las elaboraciones con huevo descansa sobre cinco princ
 5. **Montaje y Degustación:**
    * Servir una generosa base de pisto manchego caliente en platos hondos o cazuelitas de barro.
    * Coronar con 2 huevos fritos recién hechos sobre cada ración y un toque de sal en escamas. Acompañar con abundante pan de hogaza para mojar.
+
+![Resultado Final y Emplatado](assets/pisto_manchego_con_huevos_fritos_con_puntilla_03_resultado_final.jpg)
 
 ---
 

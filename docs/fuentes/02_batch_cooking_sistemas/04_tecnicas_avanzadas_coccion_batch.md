@@ -104,6 +104,9 @@ $$\dot{Q} = h \cdot A \cdot (T_{superficie} - T_{baño})$$
 ![Escaldado Estratificado y Abatimiento Inmediato en Baño de Hielo](assets/foto_bano_hielo_abatimiento_batch.jpg)
 > **Fotografía Real Operativa:** Proceso de fijación de clorofila y cese instantáneo de cocción mediante inmersión dinámica en baño de agua con hielo tras escaldado cronometrado.
 
+![Infografía Vertical Póster: Termodinámica del Abatimiento Térmico Cook & Chill TouChef](assets/infografia_vertical_abatimiento_cook_chill.svg)
+> **Infografía Técnica Vertical TouChef:** Cinética del choque térmico en baño de hielo 50/50, evasión de la zona de peligro bromatológico y protocolo de 5 pasos con tapado diferido.
+
 ---
 
 ### 1.5. Matriz Maestra de Blanqueado Estratificado por Especies Vegetales
@@ -705,6 +708,9 @@ graph TD
 ![Curva de Abatimiento Térmico Cook & Chill: Protocolo TouChef vs Caída Espontánea](assets/curva_abatimiento_cook_chill.svg)
 > **Procedencia Técnica & Termodinámica Aplicada:** Curva cinética de enfriamiento forzado vs descenso espontáneo en aire estático ($k_{aire}=0.024\text{ W/m}\cdot\text{K}$) conforme a estándares de ingeniería culinaria PES-04.
 
+![Infografía Vertical Póster: Termodinámica del Abatimiento y Cook & Chill TouChef](assets/infografia_vertical_abatimiento_cook_chill.svg)
+> **Infografía Técnica Vertical TouChef:** Parámetros de choque térmico 50/50 con sal gruesa, evasión de la Zona de Peligro en <45 min y protocolo de tapado diferido anti-condensación.
+
 #### Parámetros Críticos de Seguridad Alimentaria
 * **Zona de Peligro Microbiológico:** Rango de **$+65^\circ\text{C}$ a $+10^\circ\text{C}$**, donde las bacterias patógenas duplican su población cada $15-20\,\text{minutos}$.
 * **Estándar TouChef (Superior a la norma APPCC europea):**
@@ -775,6 +781,9 @@ Esta matriz consolida las variables termodinámicas y operativas de todas las t�
 | **Hortalizas Nobles (Alcachofas/Puerros)** | Confitado a Baja Temperatura | $75^\circ\text{C}$ constante ($75\,\text{min}$) en AOVE Monovarietal | Enfriamiento estático sumergido hasta $10^\circ\text{C}$ | Tarro de cristal cubierto totalmente de AOVE | Marcado en plancha caliente por la cara del corte | $15 - 21\text{ días}$ |
 | **Salsas Madre y Fondos Maillard** | Desglasado + Reducción a Glace ($30^\circ\,\text{Brix}$) | Reducción a fuego lento + Xantana $0.1\%$ | Dosificación en moldes + Congelación a $-24^\circ\text{C}$ | Cubos sólidos en bolsa zip al vacío | Directo congelado a sartén caliente (*Drop & Go* en $60\,\text{s}$) | $6\text{ meses}$ ($-18^\circ\text{C}$) |
 | **Verduras Salteadas de Alta Turgencia** | Wok Flash a Alta Temperatura | $T > 220^\circ\text{C}$ en tandas de $300\,\text{g}$ ($90\,\text{s}$) | Bandeja GN perforada con tiro de aire | Tupper hermético vidrio con papel secante base | Golpe de sartén a fuego máximo $45\,\text{s}$ sin tapar | $6 - 7\text{ días}$ |
+
+![Infografía Vertical Póster: Ingeniería de Equipamiento, Recipientes y Roner Sous-Vide TouChef](assets/infografia_vertical_equipamiento_recipientes.svg)
+> **Infografía Técnica Vertical TouChef:** Suite de equipamiento para batch cooking avanzado: recipientes de vidrio borosilicato 3.3, bolsas multicapa PA/PE/EVOH, termometría digital y precisión sous-vide.
 
 ---
 

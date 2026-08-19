@@ -150,6 +150,8 @@ En la alta cocina doméstica y tradicional transmitida por **Cocina con Carmen**
    * Retirar la cazuela unos segundos del foco de calor directo para bajar la temperatura a 100°C. Añadir los 4 g de pimentón dulce de la Vera y remover durante 30 segundos continuos para que libere sus aromas esenciales sin quemarse (el pimentón quemado amarga irreversiblemente).
    * Devolver al fuego mínimo 1 minuto más, retirar la hoja de laurel y apagar el fuego. Dejar enfriar por completo a temperatura ambiente antes de envasar.
 
+![Resultado Final y Emplatado](assets/sofrito_madre_universal_de_carmen_base_dorada_03_resultado_final.jpg)
+
 ---
 
 ### 📦 Protocolo de Conservación y Batch Cooking
@@ -233,6 +235,8 @@ En la alta cocina doméstica y tradicional transmitida por **Cocina con Carmen**
    * Añadir la albahaca u orégano en los últimos 2 minutos de reposo fuera del fuego.
    * Si se desea una textura ultra fina de restaurante, pasar por un pasapurés o colador chino (evitar batidora eléctrica a alta velocidad para no incorporar aire y no decolorar el rojo intenso a naranja).
 
+![Resultado Final y Emplatado](assets/salsa_de_tomate_frito_casero_reducido_y_conce_03_resultado_final.jpg)
+
 ---
 
 ### 📦 Protocolo de Conservación y Batch Cooking
@@ -315,6 +319,8 @@ En la alta cocina doméstica y tradicional transmitida por **Cocina con Carmen**
    * Mantener a fuego medio-bajo dejando hervir a fuego muy lento durante **8-10 minutos**, removiendo periódicamente para que el almidón gelifique plenamente.
    * Incorporar la sal, la pimienta blanca y la nuez moscada recién rallada en el último minuto. Retirar del fuego.
 
+![Resultado Final y Emplatado](assets/salsa_bechamel_perfecta_y_sedosa_sin_grumos_03_resultado_final.jpg)
+
 ---
 
 ### 📦 Protocolo de Conservación y Regeneración
@@ -396,6 +402,8 @@ En la alta cocina doméstica y tradicional transmitida por **Cocina con Carmen**
    * A medida que la emulsión atrapa el aceite, la salsa irá blanqueando y ganando un cuerpo extraordinario. Cuando haya tomado consistencia, el aceite puede verterse en un hilo muy fino y continuo sin dejar de remover.
    * La salsa estará lista cuando adquiera una textura semejante a una mantequilla pomada brillante y emita un sonido denso al ser batida.
 
+![Resultado Final y Emplatado](assets/salsa_alioli_casera_tradicional_al_mortero_em_03_resultado_final.jpg)
+
 ---
 
 ### 📦 Protocolo de Conservación y Seguridad Alimentaria
@@ -460,6 +468,8 @@ En la alta cocina doméstica y tradicional transmitida por **Cocina con Carmen**
 3. **Ligado Final:**
    * Cuando la mitad inferior esté totalmente emulsionada, inclinar suavemente el cabezal y comenzar a subirlo muy despacio hacia la superficie para integrar el aceite restante durante 5 segundos.
    * Probar de sal y acidez, rectificar si fuera necesario con unas gotas más de limón y dar dos pulsaciones finales.
+
+![Resultado Final y Emplatado](assets/mayonesa_casera_con_toque_de_limon_por_inmers_03_resultado_final.jpg)
 
 ---
 
@@ -534,6 +544,8 @@ En la alta cocina doméstica y tradicional transmitida por **Cocina con Carmen**
    * Añadir el resto del perejil fresco picado y la sal en el último minuto.
 5. **Servicio con Pescados:**
    * Si se preparan lomos de merluza o almejas, colocarlos directamente en la salsa los últimos 4 minutos de cocción, moviendo la cazuela en vaivén circular continuo para que la gelatina del pescado emulsione la salsa a la perfección.
+
+![Resultado Final y Emplatado](assets/salsa_verde_tradicional_para_pescados_y_maris_03_resultado_final.jpg)
 
 ---
 
@@ -612,6 +624,8 @@ En la alta cocina doméstica y tradicional transmitida por **Cocina con Carmen**
 5. **Colado y Textura de Terciopelo:**
    * Pasar la salsa por un colador chino o estameña apretando bien las verduras con la maza para extraer todo el jugo concentrado. Probar de sal y pimienta.
 
+![Resultado Final y Emplatado](assets/salsa_espanola_oscura_reducida_para_carnes_y__03_resultado_final.jpg)
+
 ---
 
 ### 📦 Protocolo de Conservación y Batch Cooking
@@ -624,7 +638,7 @@ En la alta cocina doméstica y tradicional transmitida por **Cocina con Carmen**
 ## 8. 🌶️ Salsa Brava Casera Auténtica con Pimentón de la Vera
 *Categoría: Salsa Caliente Emulsionada / Clásico de Taberna Madrileña*
 
-![️ Salsa Brava Casera Auténtica con Pimentón de la Vera](assets/salsa_brava_casera_autentica_con_pimenton_de__portada.jpg)
+![Salsa Brava Casera Auténtica con Pimentón de la Vera](assets/salsa_brava_casera_autentica_con_pimenton_de__portada.jpg)
 
 > 📺 **Vídeo Oficial de Elaboración:** [Ver en YouTube: Mejillones en Salsa Picante | Salsa Brava | Receta muy Sencilla y Deliciosa](https://www.youtube.com/watch?v=Q2UG8WFg7Us)
 
@@ -683,6 +697,8 @@ En la alta cocina doméstica y tradicional transmitida por **Cocina con Carmen**
    * Regresar al fuego medio-bajo y cocinar durante **8-10 minutos**, dejando que la salsa espese y adquiera una textura brillante y sedosa.
 4. **Triturado y Colado Fino:**
    * Pasar la salsa por el vaso de la batidora o procesador de alimentos a alta potencia durante 1 minuto hasta obtener una crema lisa. Colar por colador fino para retirar cualquier impureza.
+
+![Resultado Final y Emplatado](assets/salsa_brava_casera_autentica_con_pimenton_de__03_resultado_final.jpg)
 
 ---
 
@@ -767,6 +783,8 @@ En la alta cocina doméstica y tradicional transmitida por **Cocina con Carmen**
 4. **Técnica de Fritura Andaluza Posterior:**
    * Escurrir los trozos de adobo en un colador durante 15 minutos; secar ligeramente con papel absorbente. Pasar por harina especial de pescado o harina de garbanzo y freír en abundante AOVE bien caliente (180°C) durante 2 minutos hasta conseguir una costra crujiente exterior y un interior jugoso.
 
+![Resultado Final y Emplatado](assets/adobo_andaluz_tradicional_para_bienmesabe_car_03_resultado_final.jpg)
+
 ---
 
 ### 📦 Protocolo de Conservación
@@ -845,6 +863,8 @@ En la alta cocina doméstica y tradicional transmitida por **Cocina con Carmen**
 4. **Filtrado y Desgrasado en Frío:**
    * Colar el caldo por un colador chino cubierto con una estameña o paño de hilo húmedo, dejando caer el líquido por gravedad sin machacar los huesos para que no enturbie.
    * Dejar enfriar a temperatura ambiente y luego refrigerar en nevera durante **12 horas**. La grasa subirá a la superficie y formará una costra sólida blanca fácil de retirar con una cuchara, dejando un fondo 100% desgrasado y gelatinoso como un flan.
+
+![Resultado Final y Emplatado](assets/fondo_oscuro_de_carne_casero_tostado_y_gelati_03_resultado_final.jpg)
 
 ---
 
@@ -936,6 +956,8 @@ En la alta cocina doméstica y tradicional transmitida por **Cocina con Carmen**
 5. **Filtrado Escrupuloso:**
    * Retirar del fuego y colar pasando el caldo por un colador chino con gasa o estameña sin triturar ni aplastar las espinas para evitar sedimentos arenosos y turbidez.
 
+![Resultado Final y Emplatado](assets/fumet_rojo_de_pescado_y_marisco_concentrado_c_03_resultado_final.jpg)
+
 ---
 
 ### 📦 Protocolo de Conservación y Batch Cooking
@@ -1010,6 +1032,8 @@ En la alta cocina doméstica y tradicional transmitida por **Cocina con Carmen**
 5. **Filtrado y Clarificación:**
    * Retirar los sólidos con una araña o pinzas. Pasar el caldo por un colador chino forrado con gasa de algodón húmeda.
    * Probar de sal y rectificar. Dejar enfriar y desengrasar en frío al día siguiente retirando la fina capa de grasa solidificada superior.
+
+![Resultado Final y Emplatado](assets/caldo_de_pollo_de_corral_y_hueso_de_jamon_tra_03_resultado_final.jpg)
 
 ---
 

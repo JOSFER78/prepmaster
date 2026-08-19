@@ -25,6 +25,8 @@ graph TD
 
 El **Reglamento (UE) nº 1169/2011** sobre la información alimentaria facilitada al consumidor establece la obligatoriedad jurídica de declarar de forma clara, destacada y tipográficamente diferenciada la presencia de 14 sustancias o productos que causan alergias o intolerancias (Anexo II), tanto en alimentos envasados como en alimentos servidos en restauración colectiva y servicios de chef a domicilio.
 
+![Infografía Vertical Póster de los 14 Alérgenos de la UE y Dosis de Referencia VITAL 3.0 TouChef](assets/infografia_vertical_14_alergenos_ue.svg)
+
 ![Matriz Oficial de los 14 Alérgenos de Declaración Obligatoria según Reglamento UE 1169/2011](assets/iconos_14_alergenos_ue_1169_2011.svg)
 
 ![Fotografía real de mesa con ingredientes representativos de los 14 alérgenos de declaración obligatoria según Reglamento UE 1169/2011](assets/foto_14_alergenos_ingredientes_reales.jpg)
@@ -314,6 +316,8 @@ graph TD
 ## 4. Masterclass Sin Gluten: Harinas Alternativas e Hidrocoloides Aglutinantes
 
 La panificación tradicional se fundamenta en la red viscoelástica formada por la hidratación de dos proteínas del trigo: la **glutenina** (que aporta resistencia y elasticidad a la tracción) y la **gliadina** (que aporta viscosidad y extensibilidad), permitiendo retener las bolsas de gas $CO_2$ generadas por la levadura (*Saccharomyces cerevisiae*).
+
+![Infografía Vertical de Biomimética del Gluten e Hidrocoloides Aglutinantes TouChef](assets/infografia_vertical_sin_gluten_hidrocoloides.svg)
 
 ![Esquema de Red Reológica y Biomimética de Hidrocoloides Sin Gluten](assets/matriz_hidrocoloides_sin_gluten.svg)
 

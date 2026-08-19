@@ -1,0 +1,369 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1650" width="100%" height="100%" style="background:#090d16; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;">
+  <defs>
+    <!-- Background Gradient -->
+    <radialGradient id="bgVertical1" cx="50%" cy="20%" r="90%">
+      <stop offset="0%" stop-color="#131d31"/>
+      <stop offset="60%" stop-color="#090d16"/>
+      <stop offset="100%" stop-color="#04060a"/>
+    </radialGradient>
+
+    <!-- Card Gradients -->
+    <linearGradient id="st1CardGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#0284c7" stop-opacity="0.22"/>
+      <stop offset="100%" stop-color="#082f49" stop-opacity="0.10"/>
+    </linearGradient>
+    <linearGradient id="st2CardGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ea580c" stop-opacity="0.22"/>
+      <stop offset="100%" stop-color="#431407" stop-opacity="0.10"/>
+    </linearGradient>
+    <linearGradient id="st3CardGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#e11d48" stop-opacity="0.22"/>
+      <stop offset="100%" stop-color="#4c0519" stop-opacity="0.10"/>
+    </linearGradient>
+    <linearGradient id="st4CardGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#9333ea" stop-opacity="0.22"/>
+      <stop offset="100%" stop-color="#3b0764" stop-opacity="0.10"/>
+    </linearGradient>
+    <linearGradient id="st5CardGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#059669" stop-opacity="0.25"/>
+      <stop offset="100%" stop-color="#022c22" stop-opacity="0.12"/>
+    </linearGradient>
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fbbf24"/>
+      <stop offset="100%" stop-color="#d97706"/>
+    </linearGradient>
+
+    <!-- Filters -->
+    <filter id="shadowV1" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="6" stdDeviation="8" flood-color="#000" flood-opacity="0.6"/>
+    </filter>
+    <filter id="glowBadge" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="4" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background Base -->
+  <rect width="1000" height="1650" fill="url(#bgVertical1)"/>
+  <rect width="996" height="1646" x="2" y="2" fill="none" stroke="#1e293b" stroke-width="2" rx="20"/>
+
+  <!-- ==================== HEADER SECTION ==================== -->
+  <g transform="translate(50, 45)">
+    <!-- TouChef Brand Logo & Badge -->
+    <g transform="translate(0, 0)">
+      <rect x="0" y="0" width="56" height="56" rx="12" fill="#0f172a" stroke="#38bdf8" stroke-width="2"/>
+      <path d="M14 20 L28 10 L42 20 L42 40 L28 48 L14 40 Z" fill="none" stroke="#38bdf8" stroke-width="2"/>
+      <path d="M28 10 L28 48 M14 20 L42 40 M14 40 L42 20" stroke="#0ea5e9" stroke-width="1.2"/>
+      <circle cx="28" cy="28" r="5" fill="#f59e0b"/>
+    </g>
+
+    <!-- Title & Brand Text -->
+    <text x="72" y="22" fill="#38bdf8" font-size="13" font-weight="800" letter-spacing="2.5">TOUCHEF • INGENIERÍA GASTRONÓMICA</text>
+    <text x="72" y="46" fill="#ffffff" font-size="24" font-weight="800" letter-spacing="0.5">ZONIFICACIÓN Y ARQUITECTURA DE 5 ESTACIONES</text>
+    <text x="72" y="66" fill="#94a3b8" font-size="13" font-weight="400">Flujo Continuo sin Retroceso (Marcha Hacia Adelante) y Concurrencia de 120 Minutos</text>
+
+    <!-- Badge Batch Master -->
+    <g transform="translate(740, 6)">
+      <rect width="160" height="42" rx="21" fill="#032b43" stroke="#0284c7" stroke-width="1.5"/>
+      <circle cx="22" cy="21" r="8" fill="#0284c7"/>
+      <text x="22" y="25" fill="#fff" font-size="11" font-weight="800" text-anchor="middle">5E</text>
+      <text x="92" y="26" fill="#7dd3fc" font-size="12" font-weight="700" text-anchor="middle">SISTEMA LINEAL</text>
+    </g>
+  </g>
+
+  <!-- ==================== FLOW BANNER (MARCHA HACIA ADELANTE) ==================== -->
+  <g transform="translate(50, 140)" filter="url(#shadowV1)">
+    <rect width="900" height="64" rx="14" fill="#0d1527" stroke="#1e293b" stroke-width="1.5"/>
+    
+    <text x="25" y="27" fill="#f59e0b" font-size="11" font-weight="800" letter-spacing="1">PRINCIPIO BROMATOLÓGICO DE MARCHA HACIA ADELANTE (CODEX ALIMENTARIUS)</text>
+    
+    <!-- Flow steps pills -->
+    <g transform="translate(25, 36)">
+      <text x="0" y="15" fill="#38bdf8" font-size="11" font-weight="700">1. Corte / Sucio</text>
+      <text x="115" y="15" fill="#64748b" font-size="12">➔</text>
+      <text x="135" y="15" fill="#fb923c" font-size="11" font-weight="700">2. Fuego / Placa</text>
+      <text x="255" y="15" fill="#64748b" font-size="12">➔</text>
+      <text x="275" y="15" fill="#f43f5e" font-size="11" font-weight="700">3. Horno Convectivo</text>
+      <text x="425" y="15" fill="#64748b" font-size="12">➔</text>
+      <text x="445" y="15" fill="#c084fc" font-size="11" font-weight="700">4. Robot / Triturado</text>
+      <text x="595" y="15" fill="#64748b" font-size="12">➔</text>
+      <text x="615" y="15" fill="#34d399" font-size="11" font-weight="700">5. Abatimiento / Frío</text>
+    </g>
+
+    <!-- Zero Cross-Contamination Pill -->
+    <rect x="765" y="14" width="120" height="36" rx="8" fill="#064e3b" stroke="#10b981" stroke-width="1"/>
+    <text x="825" y="36" fill="#6ee7b7" font-size="10.5" font-weight="800" text-anchor="middle">✓ CERO RETROCESO</text>
+  </g>
+
+  <!-- ==================== 5 STATIONS DETAILED CARDS ==================== -->
+
+  <!-- 1. ESTACIÓN 1: CORTE Y MISE EN PLACE -->
+  <g transform="translate(50, 224)" filter="url(#shadowV1)">
+    <rect width="900" height="215" rx="14" fill="url(#st1CardGrad)" stroke="#0284c7" stroke-width="1.5"/>
+    
+    <!-- Header banner -->
+    <path d="M 0 14 C 0 6.27, 6.27 0, 14 0 L 886 0 C 893.73 0, 900 6.27, 900 14 L 900 42 L 0 42 Z" fill="#0369a1"/>
+    <circle cx="24" cy="21" r="12" fill="#082f49"/>
+    <text x="24" y="26" fill="#38bdf8" font-size="12" font-weight="900" text-anchor="middle">1</text>
+    <text x="46" y="26" fill="#ffffff" font-size="15" font-weight="800">ESTACIÓN 1: CORTE Y MISE EN PLACE (PREPARATION HUB)</text>
+    
+    <rect x="730" y="9" width="155" height="24" rx="6" fill="#0c4a6e"/>
+    <text x="807" y="25" fill="#7dd3fc" font-size="10.5" font-weight="700" text-anchor="middle">⏱️ T-00:00 A 00:20 (FASE 1)</text>
+
+    <!-- Content 3 Columns -->
+    <!-- Col 1: Equipamiento -->
+    <g transform="translate(25, 60)">
+      <text x="0" y="0" fill="#38bdf8" font-size="12" font-weight="800">🛠️ EQUIPAMIENTO CLAVE</text>
+      <text x="0" y="22" fill="#e0f2fe" font-size="11.5">• Tablas HDPE 500 (Codificación Color)</text>
+      <text x="0" y="42" fill="#e0f2fe" font-size="11.5">• Cuchillo Chef 20cm + Puntilla + Pelador</text>
+      <text x="0" y="62" fill="#e0f2fe" font-size="11.5">• Báscula digital de precisión (0.1 g)</text>
+      <text x="0" y="82" fill="#e0f2fe" font-size="11.5">• Mandolina profesional con guante anticorte</text>
+      <text x="0" y="102" fill="#e0f2fe" font-size="11.5">• Contenedores GN 1/3 e Inox para reservas</text>
+      <text x="0" y="122" fill="#e0f2fe" font-size="11.5">• Bol de residuos y mermas (Compost/Caldos)</text>
+    </g>
+
+    <!-- Col 2: Operaciones & Protocolo -->
+    <g transform="translate(340, 60)">
+      <text x="0" y="0" fill="#38bdf8" font-size="12" font-weight="800">⚙️ PROTOCOLO OPERATIVO</text>
+      <text x="0" y="22" fill="#cbd5e1" font-size="11.5">• Lavado y desinfección en agua clorada (50ppm)</text>
+      <text x="0" y="42" fill="#cbd5e1" font-size="11.5">• Corte masivo previo por familias botánicas</text>
+      <text x="0" y="62" fill="#cbd5e1" font-size="11.5">• Calibración milimétrica (mirepoix, brunoise)</text>
+      <text x="0" y="82" fill="#cbd5e1" font-size="11.5">• Separación estricta vegetal crudo vs cárnico</text>
+      <text x="0" y="102" fill="#cbd5e1" font-size="11.5">• Pesaje consolidado según recetas</text>
+      <text x="0" y="122" fill="#cbd5e1" font-size="11.5">• Bayeta húmeda antideslizante bajo tabla</text>
+    </g>
+
+    <!-- Col 3: Métricas de Eficiencia -->
+    <g transform="translate(650, 60)">
+      <rect width="225" height="135" rx="10" fill="#082f49" stroke="#0284c7" stroke-width="1"/>
+      <text x="15" y="22" fill="#7dd3fc" font-size="11" font-weight="800">📊 MÉTRICAS DE RENDIMIENTO</text>
+      <text x="15" y="44" fill="#ffffff" font-size="11">Velocidad Prep: <tspan fill="#38bdf8" font-weight="700">100% corte en 20'</tspan></text>
+      <text x="15" y="66" fill="#ffffff" font-size="11">Merma Controlada: <tspan fill="#38bdf8" font-weight="700">&lt; 8% peso</tspan></text>
+      <text x="15" y="88" fill="#ffffff" font-size="11">Contaminación Cruzada: <tspan fill="#34d399" font-weight="700">0%</tspan></text>
+      <rect x="15" y="98" width="195" height="24" rx="5" fill="#0369a1"/>
+      <text x="112" y="114" fill="#ffffff" font-size="10" font-weight="800" text-anchor="middle">OBJETIVO: PIPELINE SIN PARADAS</text>
+    </g>
+  </g>
+
+  <!-- 2. ESTACIÓN 2: FUEGOS Y PLACA DE COCCIÓN -->
+  <g transform="translate(50, 459)" filter="url(#shadowV1)">
+    <rect width="900" height="215" rx="14" fill="url(#st2CardGrad)" stroke="#ea580c" stroke-width="1.5"/>
+    
+    <path d="M 0 14 C 0 6.27, 6.27 0, 14 0 L 886 0 C 893.73 0, 900 6.27, 900 14 L 900 42 L 0 42 Z" fill="#c2410c"/>
+    <circle cx="24" cy="21" r="12" fill="#431407"/>
+    <text x="24" y="26" fill="#fb923c" font-size="12" font-weight="900" text-anchor="middle">2</text>
+    <text x="46" y="26" fill="#ffffff" font-size="15" font-weight="800">ESTACIÓN 2: FUEGOS Y PLACA TÉRMICA (THERMAL TOP HUB)</text>
+    
+    <rect x="730" y="9" width="155" height="24" rx="6" fill="#7c2d12"/>
+    <text x="807" y="25" fill="#fdba74" font-size="10.5" font-weight="700" text-anchor="middle">⏱️ T-00:20 A 01:10 (FASE 2)</text>
+
+    <!-- Content 3 Columns -->
+    <g transform="translate(25, 60)">
+      <text x="0" y="0" fill="#fb923c" font-size="12" font-weight="800">🛠️ EQUIPAMIENTO CLAVE</text>
+      <text x="0" y="22" fill="#ffedd5" font-size="11.5">• Olla superrápida a presión (100 kPa / 120°C)</text>
+      <text x="0" y="42" fill="#ffedd5" font-size="11.5">• Olla alta para blanqueado/escaldado (8L)</text>
+      <text x="0" y="62" fill="#ffedd5" font-size="11.5">• Sartén sauté de acero inoxidable multicapa</text>
+      <text x="0" y="82" fill="#ffedd5" font-size="11.5">• Wok de acero al carbono (Wok Hei 220°C)</text>
+      <text x="0" y="102" fill="#ffedd5" font-size="11.5">• Espumaderas de araña y pinzas chef</text>
+      <text x="0" y="122" fill="#ffedd5" font-size="11.5">• Termómetro de aguja con lectura rápida</text>
+    </g>
+
+    <g transform="translate(340, 60)">
+      <text x="0" y="0" fill="#fb923c" font-size="12" font-weight="800">⚙️ PROTOCOLO OPERATIVO</text>
+      <text x="0" y="22" fill="#cbd5e1" font-size="11.5">• Blanqueado escalonado en agua con sal 3%</text>
+      <text x="0" y="42" fill="#cbd5e1" font-size="11.5">• Cocción de legumbres/caldos en autoclave</text>
+      <text x="0" y="62" fill="#cbd5e1" font-size="11.5">• Salteados vivos en tandas de &lt; 20% capacidad</text>
+      <text x="0" y="82" fill="#cbd5e1" font-size="11.5">• Desglasado técnico de fondos de cocción</text>
+      <text x="0" y="102" fill="#cbd5e1" font-size="11.5">• Punto de ebullición mantenido constante</text>
+      <text x="0" y="122" fill="#cbd5e1" font-size="11.5">• Control de calor por inducción programada</text>
+    </g>
+
+    <g transform="translate(650, 60)">
+      <rect width="225" height="135" rx="10" fill="#431407" stroke="#ea580c" stroke-width="1"/>
+      <text x="15" y="22" fill="#fdba74" font-size="11" font-weight="800">📊 CARGA TÉRMICA SIMULTÁNEA</text>
+      <text x="15" y="44" fill="#ffffff" font-size="11">Fuego 1: <tspan fill="#fb923c" font-weight="700">Olla Presión (Guiso)</tspan></text>
+      <text x="15" y="66" fill="#ffffff" font-size="11">Fuego 2: <tspan fill="#fb923c" font-weight="700">Agua Blanqueado 100°C</tspan></text>
+      <text x="15" y="88" fill="#ffffff" font-size="11">Fuego 3: <tspan fill="#fb923c" font-weight="700">Sauté / Sofrito Base</tspan></text>
+      <rect x="15" y="98" width="195" height="24" rx="5" fill="#ea580c"/>
+      <text x="112" y="114" fill="#ffffff" font-size="10" font-weight="800" text-anchor="middle">CONCURRENCIA: 3 FOCOS VIVOS</text>
+    </g>
+  </g>
+
+  <!-- 3. ESTACIÓN 3: HORNO CONVECTIVO MULTIZONA -->
+  <g transform="translate(50, 694)" filter="url(#shadowV1)">
+    <rect width="900" height="215" rx="14" fill="url(#st3CardGrad)" stroke="#e11d48" stroke-width="1.5"/>
+    
+    <path d="M 0 14 C 0 6.27, 6.27 0, 14 0 L 886 0 C 893.73 0, 900 6.27, 900 14 L 900 42 L 0 42 Z" fill="#be123c"/>
+    <circle cx="24" cy="21" r="12" fill="#4c0519"/>
+    <text x="24" y="26" fill="#f43f5e" font-size="12" font-weight="900" text-anchor="middle">3</text>
+    <text x="46" y="26" fill="#ffffff" font-size="15" font-weight="800">ESTACIÓN 3: HORNO CONVECTIVO MULTIZONA (ROASTING MATRIX)</text>
+    
+    <rect x="730" y="9" width="155" height="24" rx="6" fill="#881337"/>
+    <text x="807" y="25" fill="#fda4af" font-size="10.5" font-weight="700" text-anchor="middle">⏱️ T-00:15 A 01:15 (FASE 2)</text>
+
+    <g transform="translate(25, 60)">
+      <text x="0" y="0" fill="#f43f5e" font-size="12" font-weight="800">🛠️ EQUIPAMIENTO CLAVE</text>
+      <text x="0" y="22" fill="#ffe4e6" font-size="11.5">• Horno con convección forzada y aireación 3D</text>
+      <text x="0" y="42" fill="#ffe4e6" font-size="11.5">• 3 Bandejas GN 1/1 de aluminio perforado</text>
+      <text x="0" y="62" fill="#ffe4e6" font-size="11.5">• Tapetes de silicona platino (Silpat -40 a +260°C)</text>
+      <text x="0" y="82" fill="#ffe4e6" font-size="11.5">• Papel sulfurizado siliconado doble cara</text>
+      <text x="0" y="102" fill="#ffe4e6" font-size="11.5">• Rejilla de asado para circulación de aire</text>
+      <text x="0" y="122" fill="#ffe4e6" font-size="11.5">• Guantes térmicos de aramida (resistencia 350°C)</text>
+    </g>
+
+    <g transform="translate(340, 60)">
+      <text x="0" y="0" fill="#f43f5e" font-size="12" font-weight="800">⚙️ ESTRATIFICACIÓN POR NIVELES</text>
+      <text x="0" y="22" fill="#cbd5e1" font-size="11.5">• <tspan fill="#fda4af" font-weight="700">NIVEL 1 (Base - 200°C):</tspan> Raíces y tubérculos densos</text>
+      <text x="0" y="42" fill="#cbd5e1" font-size="11.5">• <tspan fill="#fda4af" font-weight="700">NIVEL 2 (Medio - 185°C):</tspan> Crucíferas y verduras tiernas</text>
+      <text x="0" y="62" fill="#cbd5e1" font-size="11.5">• <tspan fill="#fda4af" font-weight="700">NIVEL 3 (Alto - 165°C):</tspan> Proteínas y pescados</text>
+      <text x="0" y="82" fill="#cbd5e1" font-size="11.5">• Distribución uniespesor sin solapamientos</text>
+      <text x="0" y="102" fill="#cbd5e1" font-size="11.5">• Emulsión ligera de AOVE (2% masa total)</text>
+      <text x="0" y="122" fill="#cbd5e1" font-size="11.5">• Reacción de Maillard homogénea sin tostado amargo</text>
+    </g>
+
+    <g transform="translate(650, 60)">
+      <rect width="225" height="135" rx="10" fill="#4c0519" stroke="#e11d48" stroke-width="1"/>
+      <text x="15" y="22" fill="#fda4af" font-size="11" font-weight="800">📊 MATRIZ MULTI-BANDEJA</text>
+      <text x="15" y="44" fill="#ffffff" font-size="11">Capacidad: <tspan fill="#f43f5e" font-weight="700">Hasta 4.5 kg alimento</tspan></text>
+      <text x="15" y="66" fill="#ffffff" font-size="11">Energía Horno: <tspan fill="#f43f5e" font-weight="700">1 solo calentamiento</tspan></text>
+      <text x="15" y="88" fill="#ffffff" font-size="11">Uniformidad: <tspan fill="#34d399" font-weight="700">Delta T &lt; 5°C</tspan></text>
+      <rect x="15" y="98" width="195" height="24" rx="5" fill="#e11d48"/>
+      <text x="112" y="114" fill="#ffffff" font-size="10" font-weight="800" text-anchor="middle">EFICIENCIA ENERGÉTICA MÁXIMA</text>
+    </g>
+  </g>
+
+  <!-- 4. ESTACIÓN 4: ROBOT Y PROCESAMIENTO -->
+  <g transform="translate(50, 929)" filter="url(#shadowV1)">
+    <rect width="900" height="215" rx="14" fill="url(#st4CardGrad)" stroke="#9333ea" stroke-width="1.5"/>
+    
+    <path d="M 0 14 C 0 6.27, 6.27 0, 14 0 L 886 0 C 893.73 0, 900 6.27, 900 14 L 900 42 L 0 42 Z" fill="#7e22ce"/>
+    <circle cx="24" cy="21" r="12" fill="#3b0764"/>
+    <text x="24" y="26" fill="#c084fc" font-size="12" font-weight="900" text-anchor="middle">4</text>
+    <text x="46" y="26" fill="#ffffff" font-size="15" font-weight="800">ESTACIÓN 4: ROBOT Y PROCESADO (PROCESSING UNIT)</text>
+    
+    <rect x="730" y="9" width="155" height="24" rx="6" fill="#581c87"/>
+    <text x="807" y="25" fill="#e9d5ff" font-size="10.5" font-weight="700" text-anchor="middle">⏱️ T-00:30 A 01:00 (FASE 2)</text>
+
+    <g transform="translate(25, 60)">
+      <text x="0" y="0" fill="#c084fc" font-size="12" font-weight="800">🛠️ EQUIPAMIENTO CLAVE</text>
+      <text x="0" y="22" fill="#f3e8ff" font-size="11.5">• Robot multifunción con control térmico y cuchillas</text>
+      <text x="0" y="42" fill="#f3e8ff" font-size="11.5">• Batidora de inmersión industrial de alta potencia</text>
+      <text x="0" y="62" fill="#f3e8ff" font-size="11.5">• Vaso triturador de acero inox de 2.2L</text>
+      <text x="0" y="82" fill="#f3e8ff" font-size="11.5">• Emulsionador de salsas y vinagretas</text>
+      <text x="0" y="102" fill="#f3e8ff" font-size="11.5">• Espátulas de silicona de alta flexibilidad</text>
+      <text x="0" y="122" fill="#f3e8ff" font-size="11.5">• Bandejas de silicona para congelación en cubos</text>
+    </g>
+
+    <g transform="translate(340, 60)">
+      <text x="0" y="0" fill="#c084fc" font-size="12" font-weight="800">⚙️ PROTOCOLO OPERATIVO</text>
+      <text x="0" y="22" fill="#cbd5e1" font-size="11.5">• Triturado térmico continuo sin enfriamientos</text>
+      <text x="0" y="42" fill="#cbd5e1" font-size="11.5">• Emulsión de cremas finas (sedosidad coloidal)</text>
+      <text x="0" y="62" fill="#cbd5e1" font-size="11.5">• Sofritos automatizados a 100-120°C con giro inverso</text>
+      <text x="0" y="82" fill="#cbd5e1" font-size="11.5">• Elaboración de pestos, vinagretas y salsas madre</text>
+      <text x="0" y="102" fill="#cbd5e1" font-size="11.5">• Porcionado de caldos concentrados en cubos</text>
+      <text x="0" y="122" fill="#cbd5e1" font-size="11.5">• Autolimpieza rápida inmediata con agua y jabón</text>
+    </g>
+
+    <g transform="translate(650, 60)">
+      <rect width="225" height="135" rx="10" fill="#3b0764" stroke="#9333ea" stroke-width="1"/>
+      <text x="15" y="22" fill="#e9d5ff" font-size="11" font-weight="800">📊 TAREAS AUTOMÁTICAS</text>
+      <text x="15" y="44" fill="#ffffff" font-size="11">Cremas Finas: <tspan fill="#c084fc" font-weight="700">100% homogéneas</tspan></text>
+      <text x="15" y="66" fill="#ffffff" font-size="11">Salsas Madre: <tspan fill="#c084fc" font-weight="700">Concentrado 4x</tspan></text>
+      <text x="15" y="88" fill="#ffffff" font-size="11">Supervisión: <tspan fill="#34d399" font-weight="700">0% intervención manual</tspan></text>
+      <rect x="15" y="98" width="195" height="24" rx="5" fill="#9333ea"/>
+      <text x="112" y="114" fill="#ffffff" font-size="10" font-weight="800" text-anchor="middle">TIEMPO LIBERADO PARA CORTE</text>
+    </g>
+  </g>
+
+  <!-- 5. ESTACIÓN 5: ABATIMIENTO, PORCIONADO Y ENVASADO -->
+  <g transform="translate(50, 1164)" filter="url(#shadowV1)">
+    <rect width="900" height="215" rx="14" fill="url(#st5CardGrad)" stroke="#059669" stroke-width="1.5"/>
+    
+    <path d="M 0 14 C 0 6.27, 6.27 0, 14 0 L 886 0 C 893.73 0, 900 6.27, 900 14 L 900 42 L 0 42 Z" fill="#047857"/>
+    <circle cx="24" cy="21" r="12" fill="#022c22"/>
+    <text x="24" y="26" fill="#34d399" font-size="12" font-weight="900" text-anchor="middle">5</text>
+    <text x="46" y="26" fill="#ffffff" font-size="15" font-weight="800">ESTACIÓN 5: ABATIMIENTO, PORCIONADO Y SEGURIDAD (SAFETY &amp; PACKAGING)</text>
+    
+    <rect x="730" y="9" width="155" height="24" rx="6" fill="#064e3b"/>
+    <text x="807" y="25" fill="#a7f3d0" font-size="10.5" font-weight="700" text-anchor="middle">⏱️ T-01:15 A 02:00 (FASE 3)</text>
+
+    <g transform="translate(25, 60)">
+      <text x="0" y="0" fill="#34d399" font-size="12" font-weight="800">🛠️ EQUIPAMIENTO CLAVE</text>
+      <text x="0" y="22" fill="#d1fae5" font-size="11.5">• Baño de hielo 50/50 con agua y sal marina</text>
+      <text x="0" y="42" fill="#d1fae5" font-size="11.5">• Recipientes de vidrio borosilicato 3.3 herméticos</text>
+      <text x="0" y="62" fill="#d1fae5" font-size="11.5">• Envasadora de vacío (Campana 2mbar / Externa)</text>
+      <text x="0" y="82" fill="#d1fae5" font-size="11.5">• Bolsas multicapa coextruidas (PA/PE/EVOH)</text>
+      <text x="0" y="102" fill="#d1fae5" font-size="11.5">• Rotuladora de etiquetas térmicas hidrosolubles</text>
+      <text x="0" y="122" fill="#d1fae5" font-size="11.5">• Termómetro de infrarrojos y sonda de inmersión</text>
+    </g>
+
+    <g transform="translate(340, 60)">
+      <text x="0" y="0" fill="#34d399" font-size="12" font-weight="800">⚙️ PROTOCOLO COOK &amp; CHILL (PCC 4)</text>
+      <text x="0" y="22" fill="#cbd5e1" font-size="11.5">• Choque térmico inmediato: 75°C ➔ &lt;10°C en &lt;60 min</text>
+      <text x="0" y="42" fill="#cbd5e1" font-size="11.5">• Tapado diferido a 20°C para evitar condensación</text>
+      <text x="0" y="62" fill="#cbd5e1" font-size="11.5">• Envasado al vacío anóxico para frenar oxidación</text>
+      <text x="0" y="82" fill="#cbd5e1" font-size="11.5">• Rotulado FIFO obligatorio (Plato, Fecha, Caducidad)</text>
+      <text x="0" y="102" fill="#cbd5e1" font-size="11.5">• Almacenamiento en balda fría estricta (0°C a 3°C)</text>
+      <text x="0" y="122" fill="#cbd5e1" font-size="11.5">• Congelación plana rápida (-18°C a -24°C)</text>
+    </g>
+
+    <g transform="translate(650, 60)">
+      <rect width="225" height="135" rx="10" fill="#022c22" stroke="#059669" stroke-width="1"/>
+      <text x="15" y="22" fill="#a7f3d0" font-size="11" font-weight="800">📊 CONTROL BROMATOLÓGICO</text>
+      <text x="15" y="44" fill="#ffffff" font-size="11">Zona Peligro: <tspan fill="#34d399" font-weight="700">Evadida en &lt;45 min</tspan></text>
+      <text x="15" y="66" fill="#ffffff" font-size="11">Vida Útil Nevera: <tspan fill="#34d399" font-weight="700">5 a 8 días garantizados</tspan></text>
+      <text x="15" y="88" fill="#ffffff" font-size="11">Vida Congelador: <tspan fill="#34d399" font-weight="700">3 a 6 meses óptimos</tspan></text>
+      <rect x="15" y="98" width="195" height="24" rx="5" fill="#059669"/>
+      <text x="112" y="114" fill="#ffffff" font-size="10" font-weight="800" text-anchor="middle">SEGURIDAD HACCP TOTAL</text>
+    </g>
+  </g>
+
+  <!-- ==================== FOOTER RULES OF GOLD ==================== -->
+  <g transform="translate(50, 1400)" filter="url(#shadowV1)">
+    <rect width="900" height="200" rx="14" fill="#0d1527" stroke="#334155" stroke-width="1.5"/>
+    
+    <text x="30" y="32" fill="#f59e0b" font-size="14" font-weight="800" letter-spacing="1">🏆 LAS 4 NORMAS DE ORO DEL OPERADOR TOUCHEF EN SESIONES BATCH</text>
+    <line x1="30" y1="44" x2="870" y2="44" stroke="#1e293b" stroke-width="1.5"/>
+
+    <!-- 4 Rule Pills Grid -->
+    <!-- Rule 1 -->
+    <g transform="translate(30, 60)">
+      <rect width="405" height="55" rx="8" fill="#111c33" stroke="#0284c7" stroke-width="1"/>
+      <circle cx="25" cy="27" r="14" fill="#0369a1"/>
+      <text x="25" y="32" fill="#fff" font-size="12" font-weight="800" text-anchor="middle">1</text>
+      <text x="50" y="24" fill="#7dd3fc" font-size="11.5" font-weight="700">CERO RETROCESO ESPACIAL</text>
+      <text x="50" y="42" fill="#94a3b8" font-size="10.5">El alimento jamás regresa a una estación de menor higiene.</text>
+    </g>
+
+    <!-- Rule 2 -->
+    <g transform="translate(465, 60)">
+      <rect width="405" height="55" rx="8" fill="#111c33" stroke="#ea580c" stroke-width="1"/>
+      <circle cx="25" cy="27" r="14" fill="#c2410c"/>
+      <text x="25" y="32" fill="#fff" font-size="12" font-weight="800" text-anchor="middle">2</text>
+      <text x="50" y="24" fill="#fdba74" font-size="11.5" font-weight="700">MÁXIMO PARALELISMO TÉRMICO</text>
+      <text x="50" y="42" fill="#94a3b8" font-size="10.5">Horno + Placa + Robot operan simultáneamente al 100%.</text>
+    </g>
+
+    <!-- Rule 3 -->
+    <g transform="translate(30, 125)">
+      <rect width="405" height="55" rx="8" fill="#111c33" stroke="#9333ea" stroke-width="1"/>
+      <circle cx="25" cy="27" r="14" fill="#7e22ce"/>
+      <text x="25" y="32" fill="#fff" font-size="12" font-weight="800" text-anchor="middle">3</text>
+      <text x="50" y="24" fill="#e9d5ff" font-size="11.5" font-weight="700">LIMPIEZA DINÁMICA KAIZEN</text>
+      <text x="50" y="42" fill="#94a3b8" font-size="10.5">Clean as You Go: Estación que termina, estación desinfectada.</text>
+    </g>
+
+    <!-- Rule 4 -->
+    <g transform="translate(465, 125)">
+      <rect width="405" height="55" rx="8" fill="#111c33" stroke="#059669" stroke-width="1"/>
+      <circle cx="25" cy="27" r="14" fill="#047857"/>
+      <text x="25" y="32" fill="#fff" font-size="12" font-weight="800" text-anchor="middle">4</text>
+      <text x="50" y="24" fill="#a7f3d0" font-size="11.5" font-weight="700">ABATIMIENTO INMEDIATO PCC 4</text>
+      <text x="50" y="42" fill="#94a3b8" font-size="10.5">Prohibido dejar enfriar a temperatura ambiente.</text>
+    </g>
+  </g>
+
+</svg>

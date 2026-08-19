@@ -68,7 +68,7 @@ Una de las joyas cumbre de la cocina marinera: lomos gruesos de merluza cocinado
 - **Gluten** (Harina de trigo para ligar el roux rubio; sustituible por almidón de maíz)
 - **Sulfitos** (Vino blanco / fino)
 
-### 🛒 Ingredientes Precisos (g / ml / unidades)
+### ⚖️ Ingredientes Exactos
 
 ![Ingredientes y Mise en Place](assets/merluza_en_salsa_verde_tradicional_con_almeja_01_ingredientes.jpg)
 | Ingrediente | Cantidad Exacta | Notas de Selección y Corte |
@@ -92,7 +92,7 @@ Una de las joyas cumbre de la cocina marinera: lomos gruesos de merluza cocinado
 - Espátula de madera o silicona.
 - Tapa hermética para la cazuela.
 
-### 👨‍🍳 Paso a Paso Culinario Exhaustivo
+### 👨‍🍳 Paso a Paso Técnico y Minucioso
 
 ![Técnica de Elaboración](assets/merluza_en_salsa_verde_tradicional_con_almeja_02_elaboracion.jpg)
 1. **Purga de almejas:** Disponer las almejas en un cuenco con abundante agua fría y 35 g de sal por litro durante al menos 1 hora para expulsar cualquier resto de arena. Escurrir y enjuagar con agua fría corriente.
@@ -106,6 +106,8 @@ Una de las joyas cumbre de la cocina marinera: lomos gruesos de merluza cocinado
    - Tapar la cazuela herméticamente y mantener a fuego medio-bajo durante 4 minutos exactos.
 7. **Adición de gambas y ligado por vaivén:** Destapar; comprobar que las almejas han abierto (descartar las que permanezcan cerradas). Añadir los cuerpos de las gambas peladas. Mover la cazuela con movimientos circulares en vaivén sobre el fuego para que la gelatina de la merluza y el jugo de las almejas emulsionen la salsa.
 8. **Punto final y reposo:** Apagar el fuego cuando el centro de la merluza alcance 52-54°C (aspecto blanco nacarado y láminas que se separan con leve presión). Espolvorear el resto del perejil fresco por encima, reposar 2 minutos tapado fuera del fuego y servir de inmediato.
+
+![Resultado Final y Emplatado](assets/merluza_en_salsa_verde_tradicional_con_almeja_03_resultado_final.jpg)
 
 ### 🧊 Conservación y Seguridad en Batch Cooking
 - **Refrigeración (3-4°C):** Hasta 48 horas en recipiente hermético de vidrio cubierto por su propia salsa.
@@ -156,7 +158,7 @@ Guiso emblemático de arrieros y pescadores de la ribera navarra y vasca, perfec
 - *Libre de gluten de forma natural (verificar pimentón puro y tomate sin espesantes)*
 - *Libre de lácteos y huevo*
 
-### 🛒 Ingredientes Precisos (g / ml / unidades)
+### ⚖️ Ingredientes Exactos
 
 ![Ingredientes y Mise en Place](assets/bacalao_al_ajoarriero_tradicional_con_pimient_01_ingredientes.jpg)
 | Ingrediente | Cantidad Exacta | Notas de Selección y Corte |
@@ -179,7 +181,7 @@ Guiso emblemático de arrieros y pescadores de la ribera navarra y vasca, perfec
 - Espumadera y cuchara de madera.
 - Escurridor para el bacalao.
 
-### 👨‍🍳 Paso a Paso Culinario Exhaustivo
+### 👨‍🍳 Paso a Paso Técnico y Minucioso
 
 ![Técnica de Elaboración](assets/bacalao_al_ajoarriero_tradicional_con_pimient_02_elaboracion.jpg)
 1. **Desalado y secado del bacalao:** Desalar el bacalao cambiando el agua cada 8 horas en frigorífico durante 48 horas. Escurrir muy bien y desmigar en lascas o tiras medianas de unos 3-4 cm con las manos, retirando cualquier espina residual. Secar con paño limpio.
@@ -189,6 +191,8 @@ Guiso emblemático de arrieros y pescadores de la ribera navarra y vasca, perfec
 5. **Ensamblaje y ligado final:** Reincorporar el bacalao confitado, los ajos y todo el jugo de gelatina que haya soltado en el plato.
 6. **Cocción integrada:** Mantener a fuego muy suave durante 5-6 minutos, realizando movimientos circulares y de vaivén con la cazuela para que el aceite, el tomate y la gelatina del bacalao liguen en una textura untuosa y homogénea.
 7. **Punto y reposo:** Rectificar de sal si fuera necesario. Retirar del fuego y dejar reposar 10 minutos tapado antes de degustar con pan rústico.
+
+![Resultado Final y Emplatado](assets/bacalao_al_ajoarriero_tradicional_con_pimient_03_resultado_final.jpg)
 
 ### 🧊 Conservación y Seguridad en Batch Cooking
 - **Refrigeración (3-4°C):** Excelente para Batch Cooking. Se conserva en perfecto estado hasta **4 días** en recipiente hermético de vidrio. De hecho, tras 24 horas los sabores del pimiento, el ajo y el bacalao se redondean exponencialmente.
@@ -238,7 +242,7 @@ El gran clásico de la cocina de vigilia andaluza y española. Carmen utiliza un
 - **Gluten** (Rebanada de pan del majado; sustituible por pan sin gluten o almendras tostadas)
 - **Huevo** (Huevo cocido picado de guarnición tradicional; opcional)
 
-### 🛒 Ingredientes Precisos (g / ml / unidades)
+### ⚖️ Ingredientes Exactos
 
 ![Ingredientes y Mise en Place](assets/potaje_de_garbanzos_con_bacalao_y_espinacas_f_01_ingredientes.jpg)
 | Ingrediente | Cantidad Exacta | Notas de Selección y Corte |
@@ -264,7 +268,7 @@ El gran clásico de la cocina de vigilia andaluza y española. Carmen utiliza un
 - Mortero tradicional de piedra/cerámica (o vaso de batidora).
 - Espumadera y cucharón de servicio.
 
-### 👨‍🍳 Paso a Paso Culinario Exhaustivo
+### 👨‍🍳 Paso a Paso Técnico y Minucioso
 
 ![Técnica de Elaboración](assets/potaje_de_garbanzos_con_bacalao_y_espinacas_f_02_elaboracion.jpg)
 1. **Remojo y cocción inicial de garbanzos:** Tras 12 horas de remojo en agua templada con una pizca de bicarbonato o sal, escurrir los garbanzos. Poner en la olla 1,4 litros de agua o caldo suave con las 2 hojas de laurel y media cebolla. Llevar a ebullición. **Regla de oro:** Introducir siempre los garbanzos cuando el agua esté hirviendo a borbotones para evitar que queden duros (hollejo encallado). Cocer a fuego lento espumando las impurezas durante 1 hora (o 20-25 minutos en olla a presión rápida).
@@ -277,6 +281,8 @@ El gran clásico de la cocina de vigilia andaluza y española. Carmen utiliza un
 5. **Incorporación de espinacas:** Añadir las espinacas frescas cortadas a la olla. Aunque ocupen mucho volumen inicial, reducirán y se integrarán en apenas 3-4 minutos de cocción suave.
 6. **Punto final del bacalao:** Incorporar los tacos de bacalao desalado sumergiéndolos suavemente entre los garbanzos. Cocinar a fuego muy lento durante solo 4 minutos. El calor del guiso cocinará el bacalao a la perfección sin resecarlo ni romper sus lascas.
 7. **Reposo y presentación:** Apagar el fuego, rectificar de sal, añadir el huevo duro picado por encima y dejar reposar 15 minutos antes de servir.
+
+![Resultado Final y Emplatado](assets/potaje_de_garbanzos_con_bacalao_y_espinacas_f_03_resultado_final.jpg)
 
 ### 🧊 Conservación y Seguridad en Batch Cooking
 - **Refrigeración (3-4°C):** Excepcional para Batch Cooking. Aguanta de **3 a 4 días**. El caldo espesa con el reposo gracias a los almidones de la legumbre.
@@ -327,7 +333,7 @@ El guiso marinero por excelencia del mar Cantábrico. El secreto de Carmen radic
 - *Libre de gluten de forma natural*
 - *Libre de lácteos, huevos y crustáceos*
 
-### 🛒 Ingredientes Precisos (g / ml / unidades)
+### ⚖️ Ingredientes Exactos
 
 ![Ingredientes y Mise en Place](assets/marmitako_tradicional_de_bonito_del_norte_con_01_ingredientes.jpg)
 | Ingrediente | Cantidad Exacta | Notas de Selección y Corte |
@@ -352,7 +358,7 @@ El guiso marinero por excelencia del mar Cantábrico. El secreto de Carmen radic
 - Cuchillo puntilla para chascar patatas.
 - Tabla de corte y espátula de madera.
 
-### 👨‍🍳 Paso a Paso Culinario Exhaustivo
+### 👨‍🍳 Paso a Paso Técnico y Minucioso
 
 ![Técnica de Elaboración](assets/marmitako_tradicional_de_bonito_del_norte_con_02_elaboracion.jpg)
 1. **Técnica de chascado de la patata:** Pelar las patatas y lavarlas. Introducir el cuchillo de puntilla 1 cm y tirar haciendo palanca para romper ("chascar" o "cascar") el trozo con un chasquido seco. Este corte irregular expone las celdas de almidón abiertas, lo que espesará el caldo de forma natural sin necesidad de añadir harinas.
@@ -367,6 +373,8 @@ El guiso marinero por excelencia del mar Cantábrico. El secreto de Carmen radic
    - Tapar la cazuela herméticamente y dejar reposar durante **4 a 5 minutos exactos** fuera del fuego.
    - El calor residual de la marmita cocinará el bonito hasta alcanzar una temperatura interna de 52-55°C: jugoso, rosado en el corazón y sin la textura seca/estropajosa que produce hervirlo.
 7. **Servicio:** Espolvorear con perejil fresco picado y servir en plato hondo.
+
+![Resultado Final y Emplatado](assets/marmitako_tradicional_de_bonito_del_norte_con_03_resultado_final.jpg)
 
 ### 🧊 Conservación y Seguridad en Batch Cooking
 - **Refrigeración (3-4°C):** **Máximo 48 horas**. La patata guisada sufre un proceso de retrogradación del almidón que puede alterar levemente su textura a partir del tercer día, volviéndose arenosa.
@@ -416,7 +424,7 @@ Guiso de salsa negra aterciopelada, profunda y brillante, donde la dulzura de la
 - **Sulfitos** (Vino blanco o vino fino)
 - *Libre de gluten de forma natural (si no se añade pan ni harina para espesar)*
 
-### 🛒 Ingredientes Precisos (g / ml / unidades)
+### ⚖️ Ingredientes Exactos
 
 ![Ingredientes y Mise en Place](assets/calamares_en_su_tinta_caseros_con_arroz_blanc_01_ingredientes.jpg)
 | Ingrediente | Cantidad Exacta | Notas de Selección y Corte |
@@ -438,7 +446,7 @@ Guiso de salsa negra aterciopelada, profunda y brillante, donde la dulzura de la
 - Batidora de brazo o vaso americano (para colar y refinar la salsa).
 - Colador chino de malla fina.
 
-### 👨‍🍳 Paso a Paso Culinario Exhaustivo
+### 👨‍🍳 Paso a Paso Técnico y Minucioso
 
 ![Técnica de Elaboración](assets/calamares_en_su_tinta_caseros_con_arroz_blanc_02_elaboracion.jpg)
 1. **Limpieza del calamar:** Limpiar los calamares retirando la pluma transparente, tripas y boca. Conservar la piel fina si se desea mayor sabor o pelar para acabado blanco. Cortar los tubos en anillas de 1,5 cm de grosor y los tentáculos en 2-3 piezas. Secar meticulosamente con papel de cocina.
@@ -448,6 +456,8 @@ Guiso de salsa negra aterciopelada, profunda y brillante, donde la dulzura de la
 5. **Triturado y refinado de la salsa (Toque Maestro de Carmen):** Pasar todo el sofrito negro por el vaso batidor junto con 150 ml de caldo de pescado. Triturar a máxima potencia durante 1 minuto y pasar por el colador chino de vuelta a la cazuela. Quedará una salsa negra de textura aterciopelada y brillante, sin tropezones de verdura.
 6. **Cocción lenta del calamar:** Incorporar los calamares sellados y los jugos que soltaron a la salsa negra colada. Añadir el resto del caldo de pescado si la salsa estuviera muy densa. Tapar y guisar a fuego suave durante 30-35 minutos, hasta que el calamar esté tierno como mantequilla (comprobar pinchando con tenedor).
 7. **Guarnición y emplatado:** Servir caliente acompañado de moldes de arroz blanco recién cocido con un toque de ajo sofrito.
+
+![Resultado Final y Emplatado](assets/calamares_en_su_tinta_caseros_con_arroz_blanc_03_resultado_final.jpg)
 
 ### 🧊 Conservación y Seguridad en Batch Cooking
 - **Refrigeración (3-4°C):** **Hasta 4 días**. Es uno de los mejores platos para preparar con antelación, ya que la tinta y el sofrito maduran ganando complejidad y perdiendo cualquier aspereza.
@@ -498,7 +508,7 @@ La apoteosis del arroz de costa andaluz: grano en su punto exacto de suspensión
 - **Moluscos** (Mejillones de roca o almejas)
 - *Libre de gluten de forma natural*
 
-### 🛒 Ingredientes Precisos (g / ml / unidades)
+### ⚖️ Ingredientes Exactos
 
 ![Ingredientes y Mise en Place](assets/arroz_caldoso_marinero_con_rape_gambones_y_me_01_ingredientes.jpg)
 | Ingrediente | Cantidad Exacta | Notas de Selección y Corte |
@@ -523,7 +533,7 @@ La apoteosis del arroz de costa andaluz: grano en su punto exacto de suspensión
 - Cazo para mantener el caldo a punto de hervor continuo.
 - Pinzas y espumadera.
 
-### 👨‍🍳 Paso a Paso Culinario Exhaustivo
+### 👨‍🍳 Paso a Paso Técnico y Minucioso
 
 ![Técnica de Elaboración](assets/arroz_caldoso_marinero_con_rape_gambones_y_me_02_elaboracion.jpg)
 1. **Extracción aromática del marisco:** En la cazuela con los 60 ml de AOVE a fuego fuerte, marcar los gambones enteros durante 1 minuto por cada lado. Retirar a un plato. En el mismo aceite, sofreír los dados de rape durante 1 minuto y retirar junto a los gambones para evitar sobrecocinarlos.
@@ -537,6 +547,8 @@ La apoteosis del arroz de costa andaluz: grano en su punto exacto de suspensión
    - En el **minuto 12** de cocción, incorporar los mejillones limpios crudos (se abrirán directamente con el vapor del arroz) y los dados de rape marcados.
    - En el **minuto 14**, colocar los gambones en la parte superior.
 6. **Reposo y textura caldosa:** Apagar el fuego exactamente a los **15-16 minutos** de cocción (el arroz debe tener un punto crujiente milimétrico en su núcleo). Dejar reposar destapado durante 2-3 minutos. El arroz terminará de cocinarse con el calor residual, quedando con un grano entero, suelto y rodeado de un caldo untuoso y aromático.
+
+![Resultado Final y Emplatado](assets/arroz_caldoso_marinero_con_rape_gambones_y_me_03_resultado_final.jpg)
 
 ### 🧊 Conservación y Seguridad en Batch Cooking
 - **Conservación:** **PLATO DE CONSUMO INMEDIATO**. Los arroces caldosos NO son aptos para el Batch Cooking tradicional ya que el grano continúa absorbiendo caldo indefinidamente, pasando de caldoso a pastoso y perdiendo su textura en pocas horas.
@@ -586,7 +598,7 @@ La versión inteligente y accesible de Carmen para disfrutar de una fabada subli
 ### ⚠️ Declaración de Alérgenos (Reglamento UE 1169/2011)
 - *Libre de alérgenos mayores (Comprobar que el compango [morcilla/chorizo] no contenga trazas de gluten o lactosa según fabricante artesanal)*
 
-### 🛒 Ingredientes Precisos (g / ml / unidades)
+### ⚖️ Ingredientes Exactos
 
 ![Ingredientes y Mise en Place](assets/fabada_rapida_casera_de_carmen_con_compango_a_01_ingredientes.jpg)
 | Ingrediente | Cantidad Exacta | Notas de Selección y Corte |
@@ -609,7 +621,7 @@ La versión inteligente y accesible de Carmen para disfrutar de una fabada subli
 - Colador grande para enjuagar las fabes de conserva.
 - Tenedor o pasapurés para triturar parte de la legumbre.
 
-### 👨‍🍳 Paso a Paso Culinario Exhaustivo
+### 👨‍🍳 Paso a Paso Técnico y Minucioso
 
 ![Técnica de Elaboración](assets/fabada_rapida_casera_de_carmen_con_compango_a_02_elaboracion.jpg)
 1. **Tratamiento de las alubias cocidas:** Volcar los botes de fabes en un colador grande y lavarlas bajo el grifo de agua fría con chorro muy suave para retirar el líquido de gobierno (gelatina de conservación) sin romper la piel. Escurrir delicadamente.
@@ -620,6 +632,8 @@ La versión inteligente y accesible de Carmen para disfrutar de una fabada subli
 6. **El truco de Carmen para espesar el caldo:** Retirar en una taza 3 cucharadas de fabes con un poco de caldo. Aplastarlas concienzudamente con un tenedor hasta formar un puré denso y devolverlo a la cazuela.
 7. **El "Chup-chup" final:** Cocer todo junto a fuego muy lento durante 10-12 minutos destapado, moviendo la cazuela en círculos para que el almidón del puré ligue con la grasa del compango creando un caldo denso, untuoso y aterciopelado.
 8. **Reposo:** Retirar del fuego y dejar reposar 10-15 minutos antes de servir el compango cortado en rodajas sobre los platos.
+
+![Resultado Final y Emplatado](assets/fabada_rapida_casera_de_carmen_con_compango_a_03_resultado_final.jpg)
 
 ### 🧊 Conservación y Seguridad en Batch Cooking
 - **Refrigeración (3-4°C):** **Hasta 4 días**. Guiso perfecto para Batch Cooking. Al enfriar la grasa solidifica en la superficie, lo que permite retirarla fácilmente con una cuchara si se desea desgrasar aún más antes de recalentar.
@@ -668,7 +682,7 @@ Un aperitivo o entrante marinero de alta alcurnia: almejas carnosas abiertas al 
 - **Gluten** (Harina de trigo para ligazón; reemplazable por harina de arroz o almidón de maíz)
 - **Sulfitos** (Vino blanco / fino)
 
-### 🛒 Ingredientes Precisos (g / ml / unidades)
+### ⚖️ Ingredientes Exactos
 
 ![Ingredientes y Mise en Place](assets/almejas_a_la_marinera_tradicionales_con_vino__01_ingredientes.jpg)
 | Ingrediente | Cantidad Exacta | Notas de Selección y Corte |
@@ -690,7 +704,7 @@ Un aperitivo o entrante marinero de alta alcurnia: almejas carnosas abiertas al 
 - Cuenco hondo para el remojo con sal.
 - Cuchara de madera y espumadera.
 
-### 👨‍🍳 Paso a Paso Culinario Exhaustivo
+### 👨‍🍳 Paso a Paso Técnico y Minucioso
 
 ![Técnica de Elaboración](assets/almejas_a_la_marinera_tradicionales_con_vino__02_elaboracion.jpg)
 1. **Desarenado meticuloso:** Sumergir las almejas en 1 litro de agua fría con 35 g de sal gorda durante mínimo 2 horas en la nevera, cambiando el agua a mitad de tiempo. Enjuagar con cuidado bajo el grifo.
@@ -704,6 +718,8 @@ Un aperitivo o entrante marinero de alta alcurnia: almejas carnosas abiertas al 
    - Cocinar al vapor durante **2 a 3 minutos**.
 6. **Emulsión y selección:** Destapar la cazuela; retirar de inmediato del fuego en cuanto la mayoría de las almejas estén abiertas. Desechar cualquier almeja que haya quedado completamente cerrada.
 7. **Toque final:** Mover la cazuela en círculos para que el agua de mar liberada por las almejas se fusione con la salsa de pimentón. Espolvorear abundante perejil fresco picado y servir inmediatamente en cazuela caliente.
+
+![Resultado Final y Emplatado](assets/almejas_a_la_marinera_tradicionales_con_vino__03_resultado_final.jpg)
 
 ### 🧊 Conservación y Seguridad en Batch Cooking
 - **Conservación:** **Consumo prioritario en el momento**. Las almejas recalentadas tienden a encogerse y volverse correosas como goma.
@@ -754,7 +770,7 @@ Un guiso tradicional de cuchara de los pueblos costeros andaluces. La sepia (o j
 - **Sulfitos** (Vino blanco)
 - *Libre de gluten de forma natural*
 
-### 🛒 Ingredientes Precisos (g / ml / unidades)
+### ⚖️ Ingredientes Exactos
 
 ![Ingredientes y Mise en Place](assets/guiso_marinero_de_sepia_con_patatas_y_guisant_01_ingredientes.jpg)
 | Ingrediente | Cantidad Exacta | Notas de Selección y Corte |
@@ -779,7 +795,7 @@ Un guiso tradicional de cuchara de los pueblos costeros andaluces. La sepia (o j
 - Cuchillo cebollero y cuchillo de puntilla.
 - Cucharón y espátula.
 
-### 👨‍🍳 Paso a Paso Culinario Exhaustivo
+### 👨‍🍳 Paso a Paso Técnico y Minucioso
 
 ![Técnica de Elaboración](assets/guiso_marinero_de_sepia_con_patatas_y_guisant_02_elaboracion.jpg)
 1. **Preparación y dorado de la sepia:** Secar concienzudamente los trozos de sepia con papel absorbente. Calentar la cazuela a fuego vivo con 2 cucharadas de AOVE. Añadir la sepia y dorar durante 3-4 minutos hasta que evapore el agua que desprende y empiece a adquirir tono dorado. Retirar y reservar en un plato.
@@ -790,6 +806,8 @@ Un guiso tradicional de cuchara de los pueblos costeros andaluces. La sepia (o j
 6. **Cocción conjunta:** Verter el resto del fumet caliente (unos 450 ml, hasta cubrir las patatas a ras). Llevar a hervor suave, tapar y cocer durante **20 minutos** a fuego lento.
 7. **Guisantes y punto final:** En los **últimos 5 minutos** de cocción, añadir los guisantes tiernos. Probar y rectificar de sal y pimienta. Las patatas deben estar untuosas y la sepia tiernísima.
 8. **Reposo:** Apagar el fuego, reposar 10 minutos tapado para que el almidón termine de ligar el caldo en una textura sedosa.
+
+![Resultado Final y Emplatado](assets/guiso_marinero_de_sepia_con_patatas_y_guisant_03_resultado_final.jpg)
 
 ### 🧊 Conservación y Seguridad en Batch Cooking
 - **Refrigeración (3-4°C):** **Hasta 48-72 horas**. Al igual que con el marmitako, la presencia de patata desaconseja superar los 3 días de nevera.

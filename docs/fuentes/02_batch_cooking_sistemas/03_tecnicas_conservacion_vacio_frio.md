@@ -162,6 +162,9 @@ El envasado al vacío (*Vacuum Packaging*) consiste en la evacuación forzada de
 ![Envasadora Externa Sellando Bolsas Gofradas de Vacío](assets/foto_envasado_vacio_bolsas_gofradas.jpg)
 > **Fotografía Real Operativa:** Envasadora de aspiración externa sellando bolsas gofradas texturizadas de alta barrera para porciones secas y congelación rápida.
 
+![Infografía Vertical Póster: Tecnología y Física del Envasado al Vacío TouChef](assets/infografia_vertical_tecnologia_vacio.svg)
+> **Infografía Técnica Vertical TouChef:** Comparativa exhaustiva de campana isobárica (2 mbar) vs aspiración externa (250 mbar), física de Clausius-Clapeyron y estructura de barrera polimérica PA/PE/EVOH.
+
 ---
 
 ### 2.2. Materiales de Barrera y Fisiología de Polímeros
@@ -203,6 +206,9 @@ Para alimentos deformables por presión negativa (pastas cocidas, hojas verdes, 
   - Alta tenacidad mecánica, resistencia al impacto y transparencia óptica.
   - Válvula de silicona platino unidireccional con sellador labial dinámico.
 * **Protocolo de Vacío Rígido:** La bomba extrae el aire a través de la válvula superior hasta que la membrana elástica central cede y colapsa hacia el interior, indicando un vacío manométrico efectivo de $\sim -500\,\text{mbar}$ a $-700\,\text{mbar}$.
+
+![Infografía Vertical Póster: Ciencia de Materiales y Recipientes TouChef](assets/infografia_vertical_equipamiento_recipientes.svg)
+> **Infografía Técnica Vertical TouChef:** Comparativa físico-química de recipientes (Borosilicato 3.3, Tritán y PP-05), ciencia de polímeros PA/PE/EVOH y equipamiento de precisión térmica.
 
 ---
 
@@ -263,6 +269,9 @@ gantt
 
 ![Curva de Abatimiento Térmico Cook & Chill: Baño de Hielo vs Temperatura Ambiente](assets/curva_abatimiento_cook_chill.svg)
 > **Procedencia Técnica & Termodinámica de Transferencia de Calor:** Modelo de enfriamiento por convección forzada en baño criogénico ($k=0.58\text{ W/m}\cdot\text{K}$) conforme a directrices de seguridad microbiológica Codex Alimentarius CAC/GL 21-1997.
+
+![Infografía Vertical Póster: Cinética del Abatimiento Térmico y Choque 50/50 TouChef](assets/infografia_vertical_abatimiento_cook_chill.svg)
+> **Infografía Técnica Vertical TouChef:** Parámetros críticos de choque térmico en baño de hielo 50/50 con sal gruesa, mapa de patógenos en Zona de Peligro y protocolo de 5 pasos con tapado diferido.
 
 ### 4.1. La Zona de Peligro de Temperatura (ZPT / Danger Zone)
 

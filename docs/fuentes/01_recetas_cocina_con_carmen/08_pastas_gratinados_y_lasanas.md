@@ -169,6 +169,8 @@ La excelencia en los gratinados y pastas tradicionales se fundamenta en cinco pr
    * Introducir en el horno precalentado a **200°C con calor arriba y abajo durante 10 minutos**, y posteriormente encender el **gratinador a 220°C durante 6-8 minutos** hasta lograr una costra dorada con burbujeo periférico y puntos tostados crujientes.
    * Dejar reposar fuera del horno durante **5 minutos antes de servir**.
 
+![Resultado Final y Emplatado](assets/macarrones_gratinados_de_la_abuela_con_choriz_03_resultado_final.jpg)
+
 ---
 
 ### 📦 Protocolo de Conservación y Batch Cooking
@@ -319,6 +321,8 @@ La excelencia en los gratinados y pastas tradicionales se fundamenta en cinco pr
    * Activar el gratinador a **220°C durante 5-7 minutos** hasta obtener un tono dorado caoba con burbujeo activo.
    * **REPOSO SAGRADO:** Retirar del horno y dejar reposar sobre una rejilla durante **15 minutos** antes de porcionar. Este reposo permite que las proteínas y grasas lácteas cohesionen la lasaña, logrando cortes limpios de alta pastelería salada.
 
+![Resultado Final y Emplatado](assets/lasana_casera_tradicional_bolonesa_de_carne_y_03_resultado_final.jpg)
+
 ---
 
 ### 📦 Protocolo de Conservación y Batch Cooking
@@ -461,6 +465,8 @@ La excelencia en los gratinados y pastas tradicionales se fundamenta en cinco pr
    * Hornear a **190°C durante 15 minutos** y gratinar a **220°C durante 5-6 minutos** hasta obtener un dorado uniforme con costra crujiente.
    * Reposar 10 minutos antes de servir en mesa con paleta ancha.
 
+![Resultado Final y Emplatado](assets/canelones_tradicionales_de_fiesta_rellenos_de_03_resultado_final.jpg)
+
 ---
 
 ### 📦 Protocolo de Conservación y Batch Cooking
@@ -581,6 +587,8 @@ La excelencia en los gratinados y pastas tradicionales se fundamenta en cinco pr
 5. **Emplatado Inmediato:**
    * Servir inmediatamente haciendo un nido alto con las pinzas en platos hondos atemperados.
    * Coronar con el guanciale crujiente reservado, una lluvia adicional de Pecorino y un golpe final de pimienta negra recién molida. Servir al instante.
+
+![Resultado Final y Emplatado](assets/espaguetis_a_la_carbonara_tradicional_al_huev_03_resultado_final.jpg)
 
 ---
 
@@ -707,6 +715,8 @@ La excelencia en los gratinados y pastas tradicionales se fundamenta en cinco pr
    * Cubrir toda la lasaña con la bechamel y espolvorear el queso rallado.
    * Hornear a **190°C durante 20 minutos** y gratinar a **220°C durante 5 minutos** hasta que el queso esté fundido y dorado.
    * Reposar 10 minutos antes de cortar.
+
+![Resultado Final y Emplatado](assets/lasana_de_atun_huevos_duros_y_pimientos_asado_03_resultado_final.jpg)
 
 ---
 
@@ -837,6 +847,8 @@ La excelencia en los gratinados y pastas tradicionales se fundamenta en cinco pr
    * Volcar la pasta en una sartén amplia con abundante salsa boloñesa caliente y 3-4 cucharadas del agua de cocción. Saltear durante 1 minuto a fuego medio para que la salsa penetre en la pasta.
    * Servir en platos hondos con una lluvia copiosa de Parmigiano Reggiano.
 
+![Resultado Final y Emplatado](assets/pasta_con_salsa_bolonesa_tradicional_de_larga_03_resultado_final.jpg)
+
 ---
 
 ### 📦 Protocolo de Conservación y Batch Cooking
@@ -950,6 +962,8 @@ La excelencia en los gratinados y pastas tradicionales se fundamenta en cinco pr
 
 5. **Servicio:**
    * Emplatar al momento en platos hondos calientes, coronando con los ajitos crujientes y un extra de perejil picado.
+
+![Resultado Final y Emplatado](assets/espaguetis_con_gambas_al_ajillo_y_guindilla_03_resultado_final.jpg)
 
 ---
 
@@ -1070,6 +1084,8 @@ La excelencia en los gratinados y pastas tradicionales se fundamenta en cinco pr
    * Cubrir completamente con la bechamel y espolvorear el queso rallado y los dados de mantequilla.
    * Hornear a **190°C durante 15 minutos** y gratinar a **220°C durante 5 minutos** hasta que la costra esté dorada y crujiente.
    * Reposar 8 minutos antes de servir.
+
+![Resultado Final y Emplatado](assets/canelones_de_espinacas_ricotta_requeson_y_pin_03_resultado_final.jpg)
 
 ---
 

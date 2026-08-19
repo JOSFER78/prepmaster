@@ -64,6 +64,8 @@ La repostería casera tradicional de **Cocina con Carmen** representa la sabidur
 5. **Horneado Perfecto:** Verter la masa en el molde. Hornear a 180°C en la rejilla central durante 35-40 minutos. No abrir la puerta antes del minuto 30. Comprobar la cocción pinchando con brocheta en el centro (debe salir limpia y seca).
 6. **Desmoldado:** Dejar templar 10 minutos dentro del molde, desmoldar sobre rejilla metálica y enfriar por completo.
 
+![Resultado Final y Emplatado](assets/bizcocho_de_yogur_esponjoso_1_2_3_tradicional_03_resultado_final.jpg)
+
 ### 📦 Conservación y Batch Cooking
 * **Temperatura Ambiente:** Guardar tapado con campana de cristal o en bolsa zip hermética durante **5 días** tierno y jugoso.
 * **Congelación:** Cortar en porciones individuales, envolver en film y congelar a -18°C hasta **3 meses**. Descongelar 30 min a temperatura ambiente o 20s en microondas.
@@ -124,6 +126,8 @@ La repostería casera tradicional de **Cocina con Carmen** representa la sabidur
 
 ---
 
+![Resultado Final y Emplatado](assets/tarta_de_la_abuela_tradicional_de_galletas_cr_03_resultado_final.jpg)
+
 ## 🧀 3. Tarta de Queso Tradicional al Horno de la Abuela
 *Categoría: Tartas al Horno / Corazón Cremoso y Superficie Dorada*
 
@@ -162,6 +166,8 @@ La repostería casera tradicional de **Cocina con Carmen** representa la sabidur
 
 ---
 
+![Resultado Final y Emplatado](assets/tarta_de_queso_tradicional_al_horno_de_la_abu_03_resultado_final.jpg)
+
 ## 🥖 4. Torrijas Tradicionales de Leche y Miel de Carmen
 *Categoría: Dulces de Sartén / Semana Santa y Fiestas Tradicionales*
 
@@ -199,6 +205,8 @@ La repostería casera tradicional de **Cocina con Carmen** representa la sabidur
 4. **Escurrido y Enmelado:** Escurrir sobre papel absorbente 30 segundos y pasar inmediatamente por la miel rebajada tibia (o rebozar en la mezcla de azúcar y canela molida).
 
 ---
+
+![Resultado Final y Emplatado](assets/torrijas_tradicionales_de_leche_y_miel_de_car_03_resultado_final.jpg)
 
 ## 🥛 5. Leche Frita Cremosa Tradicional
 *Categoría: Dulces de Sartén / Clásico Inolvidable de la Abuela*
@@ -240,6 +248,8 @@ La repostería casera tradicional de **Cocina con Carmen** representa la sabidur
 
 ---
 
+![Resultado Final y Emplatado](assets/leche_frita_cremosa_tradicional_03_resultado_final.jpg)
+
 ## 🥧 6. Tarta de Manzana Casera con Crema y Base de Hojaldre
 *Categoría: Tartas Clásicas / Textura Hojaldrada y Frutal*
 
@@ -264,6 +274,8 @@ La repostería casera tradicional de **Cocina con Carmen** representa la sabidur
 3. **Horneado y Brillo:** Hornear a 195°C durante 30-35 minutos hasta que el hojaldre esté inflado y dorado y la manzana tierna. Calentar la mermelada con el agua y pintar generosamente la superficie caliente con un pincel.
 
 ---
+
+![Resultado Final y Emplatado](assets/tarta_de_manzana_casera_con_crema_y_base_de_h_03_resultado_final.jpg)
 
 ## 🧁 7. Magdalenas Caseras de Pueblo con Copete y Azúcar
 *Categoría: Repostería Tradicional de Desayuno*
@@ -295,6 +307,8 @@ La repostería casera tradicional de **Cocina con Carmen** representa la sabidur
 
 ---
 
+![Resultado Final y Emplatado](assets/magdalenas_caseras_de_pueblo_con_copete_y_azu_03_resultado_final.jpg)
+
 ## 🥯 8. Rosquillas de Anís Caseras de la Abuela
 *Categoría: Dulces Tradicionales de Sartén*
 
@@ -323,6 +337,8 @@ La repostería casera tradicional de **Cocina con Carmen** representa la sabidur
 3. **Fritura:** Freír en AOVE a 170°C hasta que se doren uniformemente e hinchen. Rebozar calientes en azúcar común.
 
 ---
+
+![Resultado Final y Emplatado](assets/rosquillas_de_anis_caseras_de_la_abuela_03_resultado_final.jpg)
 
 ## 📊 Matriz Comparativa Maestra de Repostería y Dulces
 

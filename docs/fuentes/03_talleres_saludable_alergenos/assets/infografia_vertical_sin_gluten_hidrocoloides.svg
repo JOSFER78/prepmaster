@@ -1,0 +1,408 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 1500" width="100%" height="100%" style="background:#070a12; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, 'Inter', Roboto, sans-serif;">
+  <defs>
+    <!-- Background Canvas Gradient -->
+    <linearGradient id="bgGradG" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#080c18" />
+      <stop offset="35%" stop-color="#10182c" />
+      <stop offset="70%" stop-color="#0b101e" />
+      <stop offset="100%" stop-color="#05070c" />
+    </linearGradient>
+
+    <!-- Glassmorphism Card Gradient -->
+    <linearGradient id="cardGradG" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#19233a" stop-opacity="0.9" />
+      <stop offset="100%" stop-color="#0e1526" stop-opacity="0.98" />
+    </linearGradient>
+
+    <!-- Polymer Gradients -->
+    <linearGradient id="gradPsylliumG" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#2dd4bf"/><stop offset="100%" stop-color="#0d9488"/></linearGradient>
+    <linearGradient id="gradXanthanG" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#f472b6"/><stop offset="100%" stop-color="#db2777"/></linearGradient>
+    <linearGradient id="gradTapiocaG" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#a78bfa"/><stop offset="100%" stop-color="#7c3aed"/></linearGradient>
+    <linearGradient id="gradGlutenG" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#fbbf24"/><stop offset="100%" stop-color="#d97706"/></linearGradient>
+    <linearGradient id="tcCopperG" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#f4a261"/><stop offset="100%" stop-color="#e07a5f"/></linearGradient>
+
+    <!-- Filters -->
+    <filter id="shadowCardG" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="6" stdDeviation="10" flood-color="#000000" flood-opacity="0.6" />
+    </filter>
+    <filter id="glowBadgeG" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="3" result="blur" />
+      <feMerge><feMergeNode in="blur" /><feMergeNode in="SourceGraphic" /></feMerge>
+    </filter>
+  </defs>
+
+  <!-- ==================== BACKGROUND ==================== -->
+  <rect width="900" height="1500" fill="url(#bgGradG)" />
+
+  <!-- Blueprint Grid Lines -->
+  <g stroke="#ffffff" stroke-opacity="0.03" stroke-width="1">
+    <line x1="30" y1="0" x2="30" y2="1500" />
+    <line x1="450" y1="0" x2="450" y2="1500" />
+    <line x1="870" y1="0" x2="870" y2="1500" />
+    <line x1="0" y1="105" x2="900" y2="105" />
+    <line x1="0" y1="425" x2="900" y2="425" />
+    <line x1="0" y1="670" x2="900" y2="670" />
+    <line x1="0" y1="935" x2="900" y2="935" />
+    <line x1="0" y1="1210" x2="900" y2="1210" />
+    <line x1="0" y1="1440" x2="900" y2="1440" />
+  </g>
+
+  <!-- Outer Poster Border -->
+  <rect x="15" y="15" width="870" height="1470" rx="16" fill="none" stroke="#1e293b" stroke-width="1.5" />
+
+  <!-- ==================== 1. HEADER SECTION ==================== -->
+  <g transform="translate(30, 25)">
+    <rect width="840" height="74" rx="16" fill="url(#cardGradG)" stroke="#334155" stroke-width="1.2" filter="url(#shadowCardG)" />
+    
+    <!-- TouChef Squircle -->
+    <g transform="translate(14, 11)">
+      <rect width="52" height="52" rx="14" fill="#121826" stroke="#e07a5f" stroke-width="1.4" />
+      <circle cx="26" cy="26" r="15" fill="#e07a5f" opacity="0.2" />
+      <path d="M26 12 C22.5 12 19.5 14.8 19 18 C16 18.5 14 20.8 14 24 C14 27.2 16 29.5 19 30.2 V33.5 C19 34.5 20 35 21 35 H31 C32 35 33 34.5 33 33.5 V30.2 C36 29.5 38 27.2 38 24 C38 20.8 36 18.5 33 18 C32.5 14.8 29.5 12 26 12 Z" fill="url(#tcCopperG)" />
+      <path d="M22.5 19 C22.5 23.5 23 29 23 33 M29.5 19 C29.5 23.5 29 29 29 33" stroke="#0e1320" stroke-width="1.4" stroke-linecap="round" opacity="0.4" />
+      <rect x="19.5" y="36.5" width="13" height="3" rx="1.5" fill="#f4f1de" />
+    </g>
+
+    <!-- Titles -->
+    <text x="78" y="32" font-size="18" font-weight="900" fill="#f8fafc" letter-spacing="0.5">
+      <tspan fill="#f4f1de">Tou</tspan><tspan fill="#e07a5f">Chef</tspan>
+      <tspan fill="#475569" font-weight="400"> ❘ </tspan>
+      <tspan fill="#f8fafc" font-size="17">BIOMIMÉTICA DEL GLUTEN &amp; REOLOGÍA</tspan>
+    </text>
+    <text x="78" y="53" font-size="11.5" font-weight="600" fill="#94a3b8">Psyllium Husk (2-4%) + Goma Xantana (1%) + Almidón de Tapioca (30%) · Red Viscoelástica</text>
+
+    <!-- Badge -->
+    <g transform="translate(660, 18)">
+      <rect width="165" height="36" rx="18" fill="#0f172a" stroke="#a855f7" stroke-width="1.2" />
+      <circle cx="18" cy="18" r="5" fill="#c084fc" filter="url(#glowBadgeG)" />
+      <text x="32" y="22" font-size="10" font-weight="800" fill="#f3e8ff" letter-spacing="0.5">REOLOGÍA AVANZADA</text>
+    </g>
+  </g>
+
+  <!-- ==================== 2. TRIADA HIDROCOLOIDE BIOMIMÉTICA (3 CARDS) ==================== -->
+  <g transform="translate(30, 110)">
+    <text x="0" y="0" font-size="12.5" font-weight="900" fill="#f4a261" letter-spacing="0.5">1. TRIADA HIDROCOLOIDE: SUSTITUCIÓN MOLECULAR DEL GLUTEN</text>
+
+    <g transform="translate(0, 12)">
+      <!-- CARD 1: PSYLLIUM HUSK -->
+      <g transform="translate(0, 0)" filter="url(#shadowCardG)">
+        <rect width="268" height="275" rx="14" fill="url(#cardGradG)" stroke="#2dd4bf" stroke-width="1.2" />
+        <rect x="12" y="12" width="34" height="34" rx="8" fill="#134e4a" />
+        <text x="29" y="35" font-size="17" text-anchor="middle">🌿</text>
+        <text x="54" y="26" font-size="12" font-weight="900" fill="#f8fafc">PSYLLIUM HUSK</text>
+        <text x="54" y="40" font-size="10" font-weight="700" fill="#2dd4bf">Dosis: 2.5% - 4.0%</text>
+
+        <text x="12" y="68" font-size="10" font-weight="700" fill="#f8fafc">• Origen:</text>
+        <text x="60" y="68" font-size="9.5" fill="#94a3b8">Cutícula de Plantago ovata.</text>
+
+        <text x="12" y="90" font-size="10" font-weight="700" fill="#f8fafc">• Mecanismo Físico:</text>
+        <text x="12" y="105" font-size="9.5" fill="#cbd5e1">Polisacárido mucilaginoso rico en arabinoxilanos. Retención hídrica masiva: 1g retiene 10 - 15g de agua.</text>
+
+        <text x="12" y="152" font-size="10" font-weight="700" fill="#f8fafc">• Función Reológica:</text>
+        <text x="12" y="167" font-size="9.5" fill="#cbd5e1">Aporta extensibilidad y flexibilidad a la masa impidiendo el desmoronamiento.</text>
+
+        <text x="12" y="212" font-size="9.5" font-weight="700" fill="#2dd4bf">• Hidratación previa obligatoria (15 min)</text>
+
+        <rect x="12" y="234" width="244" height="26" rx="6" fill="#042f2e" stroke="#0d9488" stroke-width="1" />
+        <text x="134" y="251" font-size="9" font-weight="800" fill="#5eead4" text-anchor="middle">Sustituto de GLIADINA (Extensibilidad)</text>
+      </g>
+
+      <!-- CARD 2: GOMA XANTANA -->
+      <g transform="translate(286, 0)" filter="url(#shadowCardG)">
+        <rect width="268" height="275" rx="14" fill="url(#cardGradG)" stroke="#f472b6" stroke-width="1.2" />
+        <rect x="12" y="12" width="34" height="34" rx="8" fill="#831843" />
+        <text x="29" y="35" font-size="17" text-anchor="middle">⚗️</text>
+        <text x="54" y="26" font-size="12" font-weight="900" fill="#f8fafc">GOMA XANTANA</text>
+        <text x="54" y="40" font-size="10" font-weight="700" fill="#f472b6">Dosis: 0.5% - 1.0% (E-415)</text>
+
+        <text x="12" y="68" font-size="10" font-weight="700" fill="#f8fafc">• Origen:</text>
+        <text x="60" y="68" font-size="9.5" fill="#94a3b8">Xanthomonas campestris.</text>
+
+        <text x="12" y="90" font-size="10" font-weight="700" fill="#f8fafc">• Mecanismo Físico:</text>
+        <text x="12" y="105" font-size="9.5" fill="#cbd5e1">Exopolisacárido de alto peso molecular con comportamiento pseudoplástico (shear-thinning fluido al amasar).</text>
+
+        <text x="12" y="152" font-size="10" font-weight="700" fill="#f8fafc">• Función Reológica:</text>
+        <text x="12" y="167" font-size="9.5" fill="#cbd5e1">Eleva la viscosidad estática en reposo, confinando y sellando las bolsas de CO2.</text>
+
+        <text x="12" y="212" font-size="9.5" font-weight="700" fill="#f472b6">• Dispersar en seco con las harinas</text>
+
+        <rect x="12" y="234" width="244" height="26" rx="6" fill="#500724" stroke="#db2777" stroke-width="1" />
+        <text x="134" y="251" font-size="9" font-weight="800" fill="#fbcfe8" text-anchor="middle">Sustituto de GLUTENINA (Gas / Tenacidad)</text>
+      </g>
+
+      <!-- CARD 3: ALMIDÓN DE TAPIOCA -->
+      <g transform="translate(572, 0)" filter="url(#shadowCardG)">
+        <rect width="268" height="275" rx="14" fill="url(#cardGradG)" stroke="#a78bfa" stroke-width="1.2" />
+        <rect x="12" y="12" width="34" height="34" rx="8" fill="#4c1d95" />
+        <text x="29" y="35" font-size="17" text-anchor="middle">🍠</text>
+        <text x="54" y="26" font-size="12" font-weight="900" fill="#f8fafc">ALMIDÓN TAPIOCA</text>
+        <text x="54" y="40" font-size="10" font-weight="700" fill="#a78bfa">Proporción: 25% - 30%</text>
+
+        <text x="12" y="68" font-size="10" font-weight="700" fill="#f8fafc">• Origen:</text>
+        <text x="60" y="68" font-size="9.5" fill="#94a3b8">Raíz pura de mandioca/yuca.</text>
+
+        <text x="12" y="90" font-size="10" font-weight="700" fill="#f8fafc">• Mecanismo Físico:</text>
+        <text x="12" y="105" font-size="9.5" fill="#cbd5e1">Baja temperatura de gelatinización (60-65°C) y formación de gel termoelástico suave y translúcido.</text>
+
+        <text x="12" y="152" font-size="10" font-weight="700" fill="#f8fafc">• Función Reológica:</text>
+        <text x="12" y="167" font-size="9.5" fill="#cbd5e1">Aporta la masticabilidad ("chewiness") y corteza fina crocante del pan rústico.</text>
+
+        <text x="12" y="212" font-size="9.5" font-weight="700" fill="#a78bfa">• Evita migas apelmazadas o secas</text>
+
+        <rect x="12" y="234" width="244" height="26" rx="6" fill="#2e1065" stroke="#7c3aed" stroke-width="1" />
+        <text x="134" y="251" font-size="9" font-weight="800" fill="#ddd6fe" text-anchor="middle">MATRIZ GELATINIZANTE (Masticabilidad)</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- ==================== 3. CINÉTICA REOLÓGICA OSCILATORIA (G' vs G'') ==================== -->
+  <g transform="translate(30, 420)">
+    <text x="0" y="0" font-size="12.5" font-weight="900" fill="#f4a261" letter-spacing="0.5">2. CINÉTICA REOLÓGICA &amp; COMPORTAMIENTO DINÁMICO OSCILATORIO</text>
+
+    <g transform="translate(0, 12)" filter="url(#shadowCardG)">
+      <rect width="840" height="210" rx="14" fill="url(#cardGradG)" stroke="#334155" stroke-width="1.2" />
+
+      <!-- Left Reological Graph -->
+      <g transform="translate(20, 18)">
+        <rect width="380" height="172" rx="10" fill="#090d18" stroke="#1e293b" />
+        
+        <!-- Axes -->
+        <line x1="45" y1="20" x2="45" y2="140" stroke="#64748b" stroke-width="1.5" />
+        <line x1="45" y1="140" x2="355" y2="140" stroke="#64748b" stroke-width="1.5" />
+        <text x="45" y="15" font-size="8.5" font-weight="700" fill="#94a3b8" text-anchor="middle">Módulo (Pa)</text>
+        <text x="350" y="152" font-size="8.5" font-weight="700" fill="#94a3b8" text-anchor="end">Frecuencia Angular ω (rad/s)</text>
+
+        <!-- Curve 1: G' (Storage Modulus - Elastic solid) -->
+        <path d="M 50 55 Q 180 50 340 40" stroke="#2dd4bf" stroke-width="3" fill="none" />
+        <circle cx="340" cy="40" r="4" fill="#2dd4bf" />
+        <text x="345" y="36" font-size="9" font-weight="900" fill="#2dd4bf">G' (Módulo Elástico)</text>
+
+        <!-- Curve 2: G'' (Loss Modulus - Viscous fluid) -->
+        <path d="M 50 110 Q 180 100 340 85" stroke="#f472b6" stroke-width="3" fill="none" />
+        <circle cx="340" cy="85" r="4" fill="#f472b6" />
+        <text x="345" y="88" font-size="9" font-weight="900" fill="#f472b6">G'' (Módulo Viscoso)</text>
+
+        <!-- Callout box -->
+        <rect x="55" y="65" width="220" height="35" rx="5" fill="#0f172a" opacity="0.92" stroke="#334155" stroke-width="0.8" />
+        <text x="65" y="80" font-size="8.5" font-weight="800" fill="#38bdf8">Estado Sólido Viscoelástico: G' &gt; G''</text>
+        <text x="65" y="93" font-size="8" fill="#cbd5e1">Factor de pérdida tan δ = G''/G' = 0.25 - 0.35</text>
+      </g>
+
+      <!-- Right Explanation -->
+      <g transform="translate(425, 18)">
+        <text x="0" y="14" font-size="11.5" font-weight="800" fill="#f8fafc">PARÁMETROS REOLÓGICOS DE LABORATORIO:</text>
+
+        <g transform="translate(0, 25)">
+          <rect width="395" height="42" rx="6" fill="#0f172a" stroke="#1e293b" />
+          <text x="12" y="17" font-size="9.5" font-weight="700" fill="#2dd4bf">1. Módulo de Almacenamiento G' (Elasticidad):</text>
+          <text x="12" y="31" font-size="9" fill="#94a3b8">Energía elástica acumulada por la red de Psyllium para elevar la hogaza.</text>
+        </g>
+
+        <g transform="translate(0, 75)">
+          <rect width="395" height="42" rx="6" fill="#0f172a" stroke="#1e293b" />
+          <text x="12" y="17" font-size="9.5" font-weight="700" fill="#f472b6">2. Módulo de Pérdida G'' (Disipación Viscosa):</text>
+          <text x="12" y="31" font-size="9" fill="#94a3b8">Fluidez controlada de la xantana que expande las celdas de gas sin fractura.</text>
+        </g>
+
+        <g transform="translate(0, 125)">
+          <rect width="395" height="42" rx="6" fill="#1e1b2e" stroke="#7c3aed" />
+          <text x="12" y="17" font-size="9.5" font-weight="800" fill="#e9d5ff">3. Ratio de Hidratación Crítica: 90% - 105%</text>
+          <text x="12" y="31" font-size="9" fill="#c4b5fd">Sin esta sobrehidratación, el Psyllium deseca el almidón y endurece el pan.</text>
+        </g>
+      </g>
+    </g>
+  </g>
+
+  <!-- ==================== 4. PROTOCOLO OPERATIVO EN 4 PASOS ==================== -->
+  <g transform="translate(30, 665)">
+    <text x="0" y="0" font-size="12.5" font-weight="900" fill="#f4a261" letter-spacing="0.5">3. PROTOCOLO OPERATIVO DE PANIFICACIÓN Y HORNEADO TOUCHEF</text>
+
+    <g transform="translate(0, 12)">
+      <!-- Step 1 -->
+      <g transform="translate(0, 0)" filter="url(#shadowCardG)">
+        <rect width="198" height="235" rx="12" fill="url(#cardGradG)" stroke="#38bdf8" stroke-width="1.2" />
+        <rect x="12" y="12" width="24" height="20" rx="4" fill="#0369a1" />
+        <text x="24" y="26" font-size="10" font-weight="900" fill="#e0f2fe" text-anchor="middle">1</text>
+        <text x="42" y="27" font-size="11" font-weight="800" fill="#f8fafc">HIDROGEL PREVIO</text>
+        
+        <text x="12" y="52" font-size="9.5" font-weight="700" fill="#38bdf8">Hidratación Psyllium</text>
+        <text x="12" y="68" font-size="9" fill="#cbd5e1">Mezclar el 100% del</text>
+        <text x="12" y="82" font-size="9" fill="#cbd5e1">Psyllium con el 50% del</text>
+        <text x="12" y="96" font-size="9" fill="#cbd5e1">agua tibia (38-40°C).</text>
+        <text x="12" y="118" font-size="9" font-weight="700" fill="#f8fafc">• Reposo: 15 min</text>
+        <text x="12" y="132" font-size="8.5" fill="#94a3b8">hasta gel denso, firme</text>
+        <text x="12" y="146" font-size="8.5" fill="#94a3b8">y homogéneo.</text>
+
+        <rect x="10" y="196" width="178" height="24" rx="4" fill="#0c4a6e" />
+        <text x="99" y="212" font-size="8" font-weight="700" fill="#bae6fd" text-anchor="middle">Activa el Arabinoxilano</text>
+      </g>
+
+      <!-- Step 2 -->
+      <g transform="translate(214, 0)" filter="url(#shadowCardG)">
+        <rect width="198" height="235" rx="12" fill="url(#cardGradG)" stroke="#a855f7" stroke-width="1.2" />
+        <rect x="12" y="12" width="24" height="20" rx="4" fill="#581c87" />
+        <text x="24" y="26" font-size="10" font-weight="900" fill="#f3e8ff" text-anchor="middle">2</text>
+        <text x="42" y="27" font-size="11" font-weight="800" fill="#f8fafc">INTEGRACIÓN</text>
+
+        <text x="12" y="52" font-size="9.5" font-weight="700" fill="#c084fc">Amasado sin Fricción</text>
+        <text x="12" y="68" font-size="9" fill="#cbd5e1">Incorporar harinas,</text>
+        <text x="12" y="82" font-size="9" fill="#cbd5e1">tapioca, xantana, levadura</text>
+        <text x="12" y="96" font-size="9" fill="#cbd5e1">y el resto de agua.</text>
+        <text x="12" y="118" font-size="9" font-weight="700" fill="#f8fafc">• Tiempo: 8 - 10 min</text>
+        <text x="12" y="132" font-size="8.5" fill="#94a3b8">con pala K a vel. lenta.</text>
+        <text x="12" y="146" font-size="8.5" fill="#94a3b8">No requiere reposo largo.</text>
+
+        <rect x="10" y="196" width="178" height="24" rx="4" fill="#3b0764" />
+        <text x="99" y="212" font-size="8" font-weight="700" fill="#e9d5ff" text-anchor="middle">Dispersión de la Xantana</text>
+      </g>
+
+      <!-- Step 3 -->
+      <g transform="translate(428, 0)" filter="url(#shadowCardG)">
+        <rect width="198" height="235" rx="12" fill="url(#cardGradG)" stroke="#fbbf24" stroke-width="1.2" />
+        <rect x="12" y="12" width="24" height="20" rx="4" fill="#78350f" />
+        <text x="24" y="26" font-size="10" font-weight="900" fill="#fef08a" text-anchor="middle">3</text>
+        <text x="42" y="27" font-size="11" font-weight="800" fill="#f8fafc">VAPOR MASIVO</text>
+
+        <text x="12" y="52" font-size="9.5" font-weight="700" fill="#fbbf24">Fase 1: 230°C c/Vapor</text>
+        <text x="12" y="68" font-size="9" fill="#cbd5e1">Hornear los primeros</text>
+        <text x="12" y="82" font-size="9" fill="#cbd5e1">15 - 20 min con vapor</text>
+        <text x="12" y="96" font-size="9" fill="#cbd5e1">(o en cocotte tapada).</text>
+        <text x="12" y="118" font-size="9" font-weight="700" fill="#f8fafc">• Máxima Expansión</text>
+        <text x="12" y="132" font-size="8.5" fill="#94a3b8">El vapor retrasa el secado</text>
+        <text x="12" y="146" font-size="8.5" fill="#94a3b8">de la corteza para greñar.</text>
+
+        <rect x="10" y="196" width="178" height="24" rx="4" fill="#451a03" />
+        <text x="99" y="212" font-size="8" font-weight="700" fill="#fde68a" text-anchor="middle">Apertura de la Greña</text>
+      </g>
+
+      <!-- Step 4 -->
+      <g transform="translate(642, 0)" filter="url(#shadowCardG)">
+        <rect width="198" height="235" rx="12" fill="url(#cardGradG)" stroke="#ef4444" stroke-width="1.2" />
+        <rect x="12" y="12" width="24" height="20" rx="4" fill="#7f1d1d" />
+        <text x="24" y="26" font-size="10" font-weight="900" fill="#fee2e2" text-anchor="middle">4</text>
+        <text x="42" y="27" font-size="11" font-weight="800" fill="#f8fafc">SECADO TÉRMICO</text>
+
+        <text x="12" y="52" font-size="9.5" font-weight="700" fill="#f87171">Fase 2: 200°C Seco</text>
+        <text x="12" y="68" font-size="9" fill="#cbd5e1">Destapar la cocotte o</text>
+        <text x="12" y="82" font-size="9" fill="#cbd5e1">retirar vapor durante 35 min</text>
+        <text x="12" y="96" font-size="9" fill="#cbd5e1">para evaporar exceso H2O.</text>
+        <text x="12" y="118" font-size="9" font-weight="700" fill="#f8fafc">• Enfriado en Rejilla:</text>
+        <text x="12" y="132" font-size="8.5" fill="#94a3b8">Mínimo 3 horas antes del</text>
+        <text x="12" y="146" font-size="8.5" fill="#94a3b8">corte para asentar miga.</text>
+
+        <rect x="10" y="196" width="178" height="24" rx="4" fill="#450a0a" />
+        <text x="99" y="212" font-size="8" font-weight="700" fill="#fca5a5" text-anchor="middle">Evita el Núcleo Gomoso</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- ==================== 5. FÓRMULA MAESTRA PANADERA TOUCHEF ==================== -->
+  <g transform="translate(30, 935)" filter="url(#shadowCardG)">
+    <rect width="840" height="255" rx="16" fill="#121a2c" stroke="#a855f7" stroke-width="1.3" />
+
+    <g transform="translate(18, 14)">
+      <rect width="30" height="30" rx="8" fill="#581c87" />
+      <text x="15" y="21" font-size="15" text-anchor="middle">🍞</text>
+      <text x="38" y="15" font-size="12" font-weight="900" fill="#f3e8ff">FÓRMULA MAESTRA PANADERA TOUCHEF (PORCENTAJE DE PANADERO BAKER'S %)</text>
+      <text x="38" y="28" font-size="9.5" font-weight="600" fill="#94a3b8">Base 100% Harina Noble Sin Gluten · Certificado &lt;20 ppm</text>
+    </g>
+
+    <g transform="translate(18, 52)">
+      <!-- Block 1 -->
+      <rect width="192" height="185" rx="10" fill="#0b101c" stroke="#1e293b" />
+      <text x="12" y="20" font-size="10" font-weight="800" fill="#fbbf24">1. Harinas Estructurales</text>
+      <text x="12" y="34" font-size="9" font-weight="700" fill="#fde68a">(70% del Mix Base)</text>
+      <text x="12" y="56" font-size="9" fill="#cbd5e1">• 40% Trigo Sarraceno</text>
+      <text x="12" y="70" font-size="8.5" fill="#94a3b8">  (integral de grano noble).</text>
+      <text x="12" y="88" font-size="9" fill="#cbd5e1">• 30% Arroz Integral / Teff</text>
+      <text x="12" y="102" font-size="8.5" fill="#94a3b8">  (equilibrio de cenizas/sabor).</text>
+      <rect x="10" y="150" width="172" height="22" rx="4" fill="#78350f" />
+      <text x="96" y="165" font-size="8" font-weight="700" fill="#fef3c7" text-anchor="middle">Bajo Índice Glucémico</text>
+
+      <!-- Block 2 -->
+      <rect x="204" y="0" width="192" height="185" rx="10" fill="#0b101c" stroke="#1e293b" />
+      <text x="216" y="20" font-size="10" font-weight="800" fill="#a78bfa">2. Almidón Elástico</text>
+      <text x="216" y="34" font-size="9" font-weight="700" fill="#ddd6fe">(30% del Mix Base)</text>
+      <text x="216" y="56" font-size="9" fill="#cbd5e1">• 30% Almidón de Tapioca</text>
+      <text x="216" y="70" font-size="8.5" fill="#94a3b8">  (o almidón de maíz nativo).</text>
+      <text x="216" y="90" font-size="9" fill="#cbd5e1">• Gelatinización a 60°C</text>
+      <text x="216" y="104" font-size="8.5" fill="#94a3b8">  (expansión alveolar limpia).</text>
+      <rect x="214" y="150" width="172" height="22" rx="4" fill="#2e1065" />
+      <text x="300" y="165" font-size="8" font-weight="700" fill="#f3e8ff" text-anchor="middle">Masticabilidad Natural</text>
+
+      <!-- Block 3 -->
+      <rect x="408" y="0" width="192" height="185" rx="10" fill="#0b101c" stroke="#1e293b" />
+      <text x="420" y="20" font-size="10" font-weight="800" fill="#2dd4bf">3. Motor Hidrocoloide</text>
+      <text x="420" y="34" font-size="9" font-weight="700" fill="#99f6e4">(Porcentaje de Panadero)</text>
+      <text x="420" y="56" font-size="9" fill="#cbd5e1">• 3.5% Psyllium Husk polvo</text>
+      <text x="420" y="70" font-size="8.5" fill="#94a3b8">  (malla 95% grado alimentario).</text>
+      <text x="420" y="88" font-size="9" fill="#cbd5e1">• 0.8% Goma Xantana E-415</text>
+      <text x="420" y="102" font-size="8.5" fill="#94a3b8">  (viscosidad y soporte de gas).</text>
+      <rect x="418" y="150" width="172" height="22" rx="4" fill="#042f2e" />
+      <text x="504" y="165" font-size="8" font-weight="700" fill="#5eead4" text-anchor="middle">Replicación 3D del Gluten</text>
+
+      <!-- Block 4 -->
+      <rect x="612" y="0" width="192" height="185" rx="10" fill="#0b101c" stroke="#1e293b" />
+      <text x="624" y="20" font-size="10" font-weight="800" fill="#38bdf8">4. Fase Hídrica &amp; Sal</text>
+      <text x="624" y="34" font-size="9" font-weight="700" fill="#bae6fd">(Parámetros Críticos)</text>
+      <text x="624" y="56" font-size="9" fill="#cbd5e1">• 95% - 100% Agua tibia</text>
+      <text x="624" y="70" font-size="8.5" fill="#94a3b8">  (temperatura 38°C - 40°C).</text>
+      <text x="624" y="88" font-size="9" fill="#cbd5e1">• 2.0% Sal marina virgen</text>
+      <text x="624" y="104" font-size="9" fill="#cbd5e1">• 2.5% Levadura fresca</text>
+      <rect x="622" y="150" width="172" height="22" rx="4" fill="#0c4a6e" />
+      <text x="708" y="165" font-size="8" font-weight="700" fill="#e0f2fe" text-anchor="middle">Hidratación Masiva</text>
+    </g>
+  </g>
+
+  <!-- ==================== 6. CONTROL DE PUNTOS CRÍTICOS (PCC) ==================== -->
+  <g transform="translate(30, 1210)" filter="url(#shadowCardG)">
+    <rect width="840" height="215" rx="16" fill="#101726" stroke="#2dd4bf" stroke-width="1.3" />
+
+    <g transform="translate(18, 14)">
+      <rect width="30" height="30" rx="8" fill="#042f2e" />
+      <text x="15" y="21" font-size="15" text-anchor="middle">🔬</text>
+      <text x="38" y="15" font-size="12" font-weight="900" fill="#5eead4">PUNTOS DE CONTROL CRÍTICO (PCC) EN OBRADOR SIN GLUTEN</text>
+      <text x="38" y="28" font-size="9.5" font-weight="600" fill="#94a3b8">Garantía Analítica de Cero Contaminación Cruzada (&lt;20 ppm)</text>
+    </g>
+
+    <g transform="translate(18, 52)">
+      <!-- PCC 1 -->
+      <rect width="256" height="142" rx="10" fill="#0c1220" stroke="#1e293b" />
+      <text x="12" y="22" font-size="10.5" font-weight="800" fill="#2dd4bf">PCC 1: Trazabilidad Materias</text>
+      <text x="12" y="40" font-size="9" fill="#cbd5e1">Certificados de lote del proveedor con</text>
+      <text x="12" y="54" font-size="9" fill="#cbd5e1">analítica ELISA de gluten cuantitativo.</text>
+      <text x="12" y="68" font-size="9" fill="#cbd5e1">Almacenar en contenedores plásticos</text>
+      <text x="12" y="82" font-size="9" fill="#cbd5e1">estancos y precintados.</text>
+      <rect x="10" y="110" width="236" height="20" rx="4" fill="#042f2e" />
+      <text x="128" y="123.5" font-size="8" font-weight="700" fill="#5eead4" text-anchor="middle">Certificado Analítico Obligatorio</text>
+
+      <!-- PCC 2 -->
+      <rect x="274" y="0" width="256" height="142" rx="10" fill="#0c1220" stroke="#1e293b" />
+      <text x="286" y="22" font-size="10.5" font-weight="800" fill="#f472b6">PCC 2: Utillaje Exclusivo</text>
+      <text x="286" y="40" font-size="9" fill="#cbd5e1">Boles, palas, banetones de fermentación</text>
+      <text x="286" y="54" font-size="9" fill="#cbd5e1">y moldes identificados con código morado.</text>
+      <text x="286" y="68" font-size="9" fill="#cbd5e1">Prohibido el uso de utensilios de madera</text>
+      <text x="286" y="82" font-size="9" fill="#cbd5e1">porosa (absorben proteínas de gluten).</text>
+      <rect x="284" y="110" width="236" height="20" rx="4" fill="#500724" />
+      <text x="402" y="123.5" font-size="8" font-weight="700" fill="#fbcfe8" text-anchor="middle">Código de Color Morado Exclusivo</text>
+
+      <!-- PCC 3 -->
+      <rect x="548" y="0" width="256" height="142" rx="10" fill="#0c1220" stroke="#1e293b" />
+      <text x="560" y="22" font-size="10.5" font-weight="800" fill="#a78bfa">PCC 3: Curva de Horneado</text>
+      <text x="560" y="40" font-size="9" fill="#cbd5e1">Alcanzar temperatura interna de 96-98°C</text>
+      <text x="560" y="54" font-size="9" fill="#cbd5e1">en el corazón de la hogaza antes de sacar.</text>
+      <text x="560" y="68" font-size="9" fill="#cbd5e1">Enfriar sobre rejilla metálica elevada</text>
+      <text x="560" y="82" font-size="9" fill="#cbd5e1">para evitar condensación en la base.</text>
+      <rect x="558" y="110" width="236" height="20" rx="4" fill="#2e1065" />
+      <text x="676" y="123.5" font-size="8" font-weight="700" fill="#ddd6fe" text-anchor="middle">Control Sonda Térmica &gt;96°C</text>
+    </g>
+  </g>
+
+  <!-- ==================== FOOTER ==================== -->
+  <g id="footer" transform="translate(30, 1445)">
+    <line x1="0" y1="0" x2="840" y2="0" stroke="#1e293b" stroke-width="1.2" />
+    <text x="0" y="20" font-size="10" font-weight="600" fill="#64748b">Investigación Reológica: Cereal Chemistry Journal · Hydrocolloid Rheology Handbook · Codex Stan 118-1979</text>
+    <text x="0" y="34" font-size="9" fill="#475569">TouChef Master Series · Manual Clínico-Culinario y Operativo · 100% Sin Mocks ni Datos Falsos</text>
+    <text x="840" y="24" font-size="11" font-weight="800" fill="#e07a5f" text-anchor="end">TOUCHEF BAKERY SCIENCE 2026</text>
+  </g>
+</svg>

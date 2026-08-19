@@ -136,6 +136,8 @@ La cocina de guiso y cazuela representa el patrimonio gastronómico más reconfo
 6. **Acabado y Reposo:**
    * Espolvorear la clara de huevo picada y unas hojas de perejil fresco. Apagar el fuego y dejar reposar tapado un mínimo de 20 minutos antes de servir.
 
+![Resultado Final y Emplatado](assets/pollo_en_pepitoria_tradicional_03_resultado_final.jpg)
+
 ---
 
 ### 📦 Protocolo de Conservación y Batch Cooking
@@ -254,6 +256,8 @@ La cocina de guiso y cazuela representa el patrimonio gastronómico más reconfo
    * *(Paso opcional estilo Carmen):* Retirar el laurel y triturar la salsa con batidora para lograr una textura aterciopelada de color anaranjado brillante, devolviéndola a la cazuela.
    * Introducir las albóndigas reservadas con sus jugos en la salsa. Cocinar tapado a fuego muy suave (*chup-chup*) durante 15 minutos, moviendo la cazuela con vaivén para que la gelatina de la carne ligue la salsa.
 
+![Resultado Final y Emplatado](assets/albondigas_en_salsa_de_la_abuela_03_resultado_final.jpg)
+
 ---
 
 ### 📦 Protocolo de Conservación y Batch Cooking
@@ -360,6 +364,8 @@ La cocina de guiso y cazuela representa el patrimonio gastronómico más reconfo
 4. **Incorporación de la Jardinera Fresca:**
    * Destapar la cazuela, comprobar la ternura de la carne (debe ceder ante la presión de un tenedor).
    * Añadir las judías verdes y los guisantes. Cocinar destapado a fuego suave durante 12-15 minutos más para que las verduras queden al dente, conserven su color verde vivo y la salsa espese hasta napar el dorso de la cuchara. Ajustar de sal.
+
+![Resultado Final y Emplatado](assets/ternera_guisada_a_la_jardinera_03_resultado_final.jpg)
 
 ---
 
@@ -472,6 +478,8 @@ La cocina de guiso y cazuela representa el patrimonio gastronómico más reconfo
    * Devolver la salsa colada a la cazuela limpia y reducir a fuego medio durante 8-10 minutos hasta que adquiera textura de jarabe y nape la cuchara con un brillo intenso.
    * Reintegrar las carrilleras a la salsa reducida y glasearlas a fuego mínimo durante 3 minutos, bañándolas continuamente con la cuchara.
 
+![Resultado Final y Emplatado](assets/carrilleras_de_cerdo_iberico_en_salsa_al_vino_03_resultado_final.jpg)
+
 ---
 
 ### 📦 Protocolo de Conservación y Batch Cooking
@@ -580,6 +588,8 @@ La cocina de guiso y cazuela representa el patrimonio gastronómico más reconfo
    * Cocinar todo a fuego lento durante 15-18 minutos más, hasta que las lentejas y las patatas estén tiernas como mantequilla. Probar el punto de sal y rectificar si fuera necesario.
    * Reposar 15 minutos con la cazuela apagada antes de servir.
 
+![Resultado Final y Emplatado](assets/lentejas_pardinas_con_chorizo_y_costilla_de_c_03_resultado_final.jpg)
+
 ---
 
 ### 📦 Protocolo de Conservación y Batch Cooking
@@ -685,6 +695,8 @@ La cocina de guiso y cazuela representa el patrimonio gastronómico más reconfo
    * Cocinar destapado o semi-tapado durante 20-25 minutos, hasta que la patata esté blanda al pincharla.
    * Mover la cazuela en vaivén circular durante los últimos 5 minutos para emulsionar el caldo con el almidón, logrando una salsa untuosa y trabada.
 
+![Resultado Final y Emplatado](assets/estofado_de_magro_de_cerdo_con_patatas_chasca_03_resultado_final.jpg)
+
 ---
 
 ### 📦 Protocolo de Conservación y Batch Cooking
@@ -780,6 +792,8 @@ La cocina de guiso y cazuela representa el patrimonio gastronómico más reconfo
    * Dejar hervir a borbotones durante 3 minutos hasta evaporar el alcohol.
    * Añadir los 60 ml de caldo o agua caliente, bajar el fuego y cocinar 5 minutos moviendo la sartén en vaivén circular para que el colágeno del pollo y el AOVE emulsionen creando una salsa dorada, untuosa y brillante.
    * Espolvorear con perejil fresco recién picado y servir caliente.
+
+![Resultado Final y Emplatado](assets/pollo_al_ajillo_tradicional_03_resultado_final.jpg)
 
 ---
 
@@ -885,6 +899,8 @@ La cocina de guiso y cazuela representa el patrimonio gastronómico más reconfo
    * Remover con vaivén para que el majado ligue con el aceite y el caldo formando una salsa rústica envolvente.
    * Tapar y cocinar a fuego suave durante 20-25 minutos, hasta que la carne esté tierna pero jugosa sin resecarse.
    * Destapar los últimos 5 minutos para que la salsa reduzca y espese al punto óptimo. Dejar reposar 10 minutos antes de servir.
+
+![Resultado Final y Emplatado](assets/conejo_al_ajillo_y_romero_en_cazadora_salsa_r_03_resultado_final.jpg)
 
 ---
 

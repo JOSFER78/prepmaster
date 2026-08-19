@@ -25,6 +25,8 @@ graph TD
 
 El diseño de menús basados en plantas (*Plant-Based Nutrition*) en sistemas de producción por lotes (*Batch Cooking*) no consiste en suprimir ingredientes de origen animal, sino en **reconfigurar la densidad nutricional y la cinética de absorción de macro y micronutrientes**.
 
+![Infografía Vertical de Proteína Vegetal Completa y Protocolos Low-FODMAP TouChef](assets/infografia_vertical_proteina_vegetal_fodmap.svg)
+
 ![Bowl completo vegetariano y vegano de proteína completa con legumbres, quinoa real, aguacate, semillas y vegetales frescos](assets/foto_plato_vegano_proteina_completa.jpg)
 
 ### 1.1. Estrategia de Aminoácidos Limitantes y Calidad Proteica
@@ -201,6 +203,8 @@ La proteína texturizada se produce mediante extrusión termoplástica de harina
 
 Es mandatorio distinguir entre la alteración enzimática y la reacción inmune para garantizar la seguridad clínica en la cocina.
 
+![Infografía Vertical Póster de los 14 Alérgenos de la UE y Dosis de Referencia VITAL 3.0 TouChef](assets/infografia_vertical_14_alergenos_ue.svg)
+
 ![Matriz Oficial de los 14 Alérgenos de Declaración Obligatoria según Reglamento UE 1169/2011](assets/iconos_14_alergenos_ue_1169_2011.svg)
 
 > [!NOTE]
@@ -259,6 +263,8 @@ flowchart TD
 ## 4. Dieta Baja en FODMAPs e Intolerancia a la Fructosa y a la Histamina
 
 Las patologías funcionales digestivas (Síndrome de Intestino Irritable — SII/IBS, Sobrecrecimiento Bacteriano en Intestino Delgado — SIBO, y Déficit de DAO/Histaminosis) requieren técnicas culinarias especializadas para que una dieta vegetal sea terapéutica y tolerada.
+
+![Infografía Vertical del Protocolo Culinario Low-FODMAP y Balance Proteico TouChef](assets/infografia_vertical_proteina_vegetal_fodmap.svg)
 
 ```
        ┌────────────────────────────────────────────────────────────┐

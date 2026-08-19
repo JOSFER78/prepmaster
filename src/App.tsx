@@ -54,7 +54,8 @@ import {
 } from './services/bookingService';
 import { 
   subscribeToUserBatchProjects, 
-  saveBatchProject 
+  saveBatchProject,
+  deleteBatchProject
 } from './services/batchProjectService';
 
 export default function App() {
@@ -125,6 +126,23 @@ export default function App() {
         saveBatchProject(currentUser.uid, p).catch(console.error);
       });
     }
+  };
+
+  const handleDeleteBatchProject = async (projectId: string) => {
+    const updated = batchProjects.filter(p => p.id !== projectId);
+    setBatchProjects(updated);
+    if (currentUser) {
+      await deleteBatchProject(currentUser.uid, projectId);
+    }
+  };
+
+  const handleClearAllBatchProjects = async () => {
+    if (currentUser) {
+      for (const p of batchProjects) {
+        await deleteBatchProject(currentUser.uid, p.id);
+      }
+    }
+    setBatchProjects([]);
   };
 
   const handleSaveChefBookings = (updated: ChefBookingRequest[]) => {
@@ -419,6 +437,8 @@ export default function App() {
               onUpdateActiveProjectStatus={handleUpdateActiveProjectStatus}
               onRateDish={handleRateDish}
               onArchiveActiveBatch={() => handleUpdateActiveProjectStatus('archived')}
+              onDeleteBatchProject={handleDeleteBatchProject}
+              onClearAllBatchProjects={handleClearAllBatchProjects}
               onConsumePortion={handleConsumePortion}
               onHireChefForBatch={handleOpenChefBookingForActiveProject}
               onRepeatChefBooking={handleRepeatBooking}
@@ -438,6 +458,10 @@ export default function App() {
               }} 
               onOpenChefOnboarding={() => setIsChefOnboardingOpen(true)}
               onNavigateToChefPortal={() => setCurrentView({ name: 'chef-portal' })}
+              activeProject={activeProject}
+              onArchiveActiveBatch={() => handleUpdateActiveProjectStatus('archived')}
+              onDeleteActiveBatch={handleDeleteBatchProject}
+              onClearAllBatchProjects={handleClearAllBatchProjects}
             />
           )}
 

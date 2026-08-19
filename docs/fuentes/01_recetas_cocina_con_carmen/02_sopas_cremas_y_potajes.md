@@ -158,6 +158,8 @@ La cocina de sopas, cremas y potajes constituye el alma más profunda de la gast
 6. **Montaje y Presentación:**
    * Servir en cuencos hondos de barro o porcelana fría. Disponer en el centro una generosa corona de huevo duro picado y los taquitos de jamón ibérico. Rematar con unas gotas de AOVE virgen extra virgen en crudo.
 
+![Resultado Final y Emplatado](assets/salmorejo_cordobes_tradicional_de_carmen_03_resultado_final.jpg)
+
 ---
 
 ### 📦 Protocolo de Conservación y Batch Cooking
@@ -282,6 +284,8 @@ La cocina de sopas, cremas y potajes constituye el alma más profunda de la gast
 6. **Servicio:**
    * Servir en vasos de cristal fino o cuencos fríos, acompañando en platillos laterales los tropezones de hortalizas y costrones de pan.
 
+![Resultado Final y Emplatado](assets/gazpacho_andaluz_tradicional_03_resultado_final.jpg)
+
 ---
 
 ### 📦 Protocolo de Conservación y Batch Cooking
@@ -401,6 +405,8 @@ La cocina de sopas, cremas y potajes constituye el alma más profunda de la gast
    * Pelar las uvas moscatel, abrirlas por la mitad con puntilla y retirar las semillas interiores.
    * Servir el ajoblanco bien frío en plato hondo, colocar en el centro 4-6 mitades de uva moscatel y unas gotas de aceite verde en superficie.
 
+![Resultado Final y Emplatado](assets/ajoblanco_malagueno_tradicional_con_uvas_mosc_03_resultado_final.jpg)
+
 ---
 
 ### 📦 Protocolo de Conservación y Batch Cooking
@@ -519,6 +525,8 @@ La cocina de sopas, cremas y potajes constituye el alma más profunda de la gast
 
 6. **Servicio:**
    * Servir de inmediato en cuencos de barro refractario, asegurando que cada comensal reciba su huevo escalfado intacto en el centro para romperlo con la cuchara en la mesa.
+
+![Resultado Final y Emplatado](assets/sopa_de_ajo_castellana_tradicional_con_huevo__03_resultado_final.jpg)
 
 ---
 
@@ -642,6 +650,8 @@ La cocina de sopas, cremas y potajes constituye el alma más profunda de la gast
    * Verter el caldo hirviendo con los fideos directamente sobre el picadillo.
    * Coronar de inmediato con una ramita fresca de hierbabuena sumergida parcialmente. El calor del caldo liberará al instante los aceites esenciales mentolados.
 
+![Resultado Final y Emplatado](assets/sopa_de_picadillo_andaluza_con_fideos_pollo_j_03_resultado_final.jpg)
+
 ---
 
 ### 📦 Protocolo de Conservación y Batch Cooking
@@ -758,6 +768,8 @@ La cocina de sopas, cremas y potajes constituye el alma más profunda de la gast
 
 5. **Servicio:**
    * Servir caliente o templada en cuencos hondos. Decorar con un hilo de AOVE virgen extra y unos costrones de pan frito crujiente o semillas tostadas.
+
+![Resultado Final y Emplatado](assets/crema_de_calabacin_aterciopelada_de_carmen_co_03_resultado_final.jpg)
 
 ---
 
@@ -884,6 +896,8 @@ La cocina de sopas, cremas y potajes constituye el alma más profunda de la gast
 
 6. **Presentación:**
    * Servir la crema humeante en cuencos anchos. Disponer un hilo circular de leche de coco o AOVE y coronar en el centro con una cucharada del crujiente de semillas tostadas.
+
+![Resultado Final y Emplatado](assets/crema_de_calabaza_asada_con_crujiente_de_semi_03_resultado_final.jpg)
 
 ---
 
@@ -1023,6 +1037,8 @@ La cocina de sopas, cremas y potajes constituye el alma más profunda de la gast
    * Apagar el fuego. Probar y rectificar de sal si fuera necesario.
    * Disponer los gajos de huevo duro en la superficie. Dejar reposar tapado 15-20 minutos antes de servir para asentar todos los sabores.
 
+![Resultado Final y Emplatado](assets/potaje_de_vigilia_tradicional_garbanzos_con_b_03_resultado_final.jpg)
+
 ---
 
 ### 📦 Protocolo de Conservación y Batch Cooking
@@ -1161,6 +1177,8 @@ La cocina de sopas, cremas y potajes constituye el alma más profunda de la gast
 
 6. **Servicio Festivo:**
    * Espolvorear perejil fresco recién picado y servir humeante en soperas individuales o platos hondos, asegurando un reparto equilibrado de rape, almejas y langostinos.
+
+![Resultado Final y Emplatado](assets/sopa_de_marisco_y_pescado_festiva_de_carmen_03_resultado_final.jpg)
 
 ---
 
