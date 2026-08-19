@@ -465,131 +465,62 @@ export function ProfileView({ onPeopleCountChange, onNavigateToChefPortal, onOpe
   return (
     <div className="space-y-6 animate-fade-in pb-16 text-zinc-900 dark:text-zinc-100 max-w-5xl mx-auto">
       
-      {/* COMMERCIAL USER HERO CARD */}
-      <div className="bg-white dark:bg-zinc-900 rounded-3xl border border-zinc-200 dark:border-zinc-800 p-5 sm:p-7 shadow-xs">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-          
-          <div className="flex items-center gap-4">
-            <div className="relative">
-              <div className="w-16 h-16 rounded-2xl bg-[#E07A5F] text-white flex items-center justify-center font-black text-xl shadow-md shrink-0 overflow-hidden">
-                {user?.photoURL ? (
-                  <img src={user.photoURL} alt={user.displayName || 'Avatar'} className="w-full h-full object-cover" />
-                ) : (
-                  <ChefHat size={32} />
-                )}
-              </div>
-              <span className="absolute -bottom-1 -right-1 w-5 h-5 rounded-full bg-[#E07A5F] border-2 border-white dark:border-zinc-900 flex items-center justify-center text-[10px] text-white font-bold">
-                ✓
-              </span>
-            </div>
-
-            <div>
-              <div className="flex flex-wrap items-center gap-2">
-                <h1 className="text-xl font-black text-zinc-900 dark:text-white leading-tight">
-                  {displayName || 'Mi Cocina & Ajustes del Hogar'}
-                </h1>
-                {isVerifiedChef ? (
-                  <span className="text-[10px] font-black px-2.5 py-0.5 rounded-full bg-amber-500/20 text-amber-600 dark:text-amber-300 border border-amber-500/30 uppercase tracking-wider flex items-center gap-1">
-                    <Award size={12} /> Chef Profesional Homologado
-                  </span>
-                ) : (
-                  <span className="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-[#E07A5F]/10 text-[#E07A5F] dark:text-[#F4A261] border border-[#E07A5F]/20 uppercase tracking-wider">
-                    Configuración del Hogar
-                  </span>
-                )}
-              </div>
-              
-              <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-0.5">
-                {user ? `Cuenta activa: ${user.email}` : 'Modo Local / Invitado'} • Sincronización en la Nube
-              </p>
-
-              {/* DISCRETE BECOME-A-CHEF / PRO ACCESS BUTTON */}
-              <div className="mt-2.5 flex flex-wrap items-center gap-2">
-                {isVerifiedChef ? (
-                  <button
-                    type="button"
-                    onClick={onNavigateToChefPortal}
-                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-amber-500/15 text-amber-600 dark:text-amber-300 hover:bg-amber-500/25 border border-amber-500/30 text-xs font-bold transition-all cursor-pointer"
-                    title="Acceder a mi panel de chef"
-                  >
-                    <Award size={13} className="text-amber-500" />
-                    <span>Panel de Cocinero Verificado · Ver Portal Pro →</span>
-                  </button>
-                ) : (
-                  <button
-                    type="button"
-                    onClick={() => {
-                      if (onOpenChefOnboarding) {
-                        onOpenChefOnboarding();
-                      } else {
-                        setActiveTab('chef_contract');
-                      }
-                    }}
-                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-amber-500/10 hover:bg-amber-500/20 text-amber-700 dark:text-amber-300 border border-amber-500/30 text-xs font-bold transition-all cursor-pointer shadow-2xs group"
-                    title="Darse de alta como cocinero profesional"
-                  >
-                    <ChefHat size={14} className="text-amber-500 group-hover:rotate-12 transition-transform" />
-                    <span>¿Quieres cocinar en hogares? Conviértete en Cocinero →</span>
-                  </button>
-                )}
-              </div>
-            </div>
-          </div>
-
-          <div className="flex items-center gap-2.5 self-end sm:self-center">
+      {/* TABS & ACTIONS HEADER (ULTRA-COMPACT SINGLE ROW) */}
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 pb-3 border-b border-zinc-200 dark:border-zinc-800">
+        
+        {/* Tabs Switcher */}
+        <div className="flex items-center gap-1.5 overflow-x-auto pb-1 md:pb-0 hide-scrollbar">
+          {[
+            { id: 'kitchen' as const, label: '🍳 Mi Cocina & Equipamiento' },
+            { id: 'household' as const, label: '👨‍👩‍👧‍👦 Hogar & Comensales' },
+            { id: 'shopping' as const, label: '🛒 Supermercados & Hábitos' },
+            { id: 'account' as const, label: '👤 Mi Cuenta & Seguridad' },
+            ...(isVerifiedChef ? [{ id: 'chef_contract' as const, label: '📜 Mi Contrato de Chef' }] : [])
+          ].map(t => (
             <button
-              onClick={handleSaveProfile}
-              disabled={saving}
-              className="btn-hero-copper text-white text-xs font-black px-5 py-2.5 rounded-xl shadow-sm transition-all flex items-center gap-2 active:scale-95 disabled:opacity-50 cursor-pointer"
+              key={t.id}
+              onClick={() => setActiveTab(t.id)}
+              className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all whitespace-nowrap cursor-pointer ${
+                activeTab === t.id
+                  ? 'btn-hero-copper text-white shadow-xs'
+                  : 'bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white'
+              }`}
             >
-              {saving ? <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" /> : <Save size={15} />}
-              <span>{saving ? 'Guardando...' : 'Guardar Cambios'}</span>
+              {t.label}
             </button>
-
-            {user && (
-              <button
-                onClick={handleLogout}
-                className="px-3 py-2 rounded-xl bg-rose-500/10 hover:bg-rose-500/20 text-rose-600 dark:text-rose-400 border border-rose-500/20 transition-all active:scale-95 text-xs font-bold flex items-center gap-1.5 cursor-pointer"
-                title="Cerrar Sesión"
-              >
-                <LogOut size={14} />
-                <span>Cerrar Sesión</span>
-              </button>
-            )}
-          </div>
-
+          ))}
         </div>
 
-        {savedToast && (
-          <div className="mt-4 p-3 bg-emerald-500/15 border border-emerald-500/30 rounded-xl text-emerald-600 dark:text-emerald-400 text-xs font-bold flex items-center gap-2 animate-in fade-in">
-            <CheckCircle2 size={16} />
-            <span>¡Configuración y datos actualizados correctamente!</span>
-          </div>
-        )}
+        {/* Action Buttons: Guardar Cambios + Cerrar Sesión */}
+        <div className="flex items-center gap-2 shrink-0 self-end md:self-auto">
+          <button
+            onClick={handleSaveProfile}
+            disabled={saving}
+            className="btn-hero-copper text-white text-xs font-black px-4 py-2 rounded-xl shadow-xs transition-all flex items-center gap-1.5 active:scale-95 disabled:opacity-50 cursor-pointer"
+          >
+            {saving ? <div className="w-3.5 h-3.5 border-2 border-white border-t-transparent rounded-full animate-spin" /> : <Save size={14} />}
+            <span>{saving ? 'Guardando...' : 'Guardar Cambios'}</span>
+          </button>
+
+          {user && (
+            <button
+              onClick={handleLogout}
+              className="p-2 rounded-xl bg-zinc-100 dark:bg-zinc-800 hover:bg-rose-500/15 text-zinc-600 dark:text-zinc-400 hover:text-rose-600 dark:hover:text-rose-400 border border-zinc-200 dark:border-zinc-700 transition-all active:scale-95 text-xs font-bold flex items-center justify-center cursor-pointer"
+              title="Cerrar Sesión"
+            >
+              <LogOut size={14} />
+            </button>
+          )}
+        </div>
+
       </div>
 
-      {/* TABS SWITCHER */}
-      <div className="flex items-center gap-2 border-b border-zinc-200 dark:border-zinc-800 pb-2 overflow-x-auto">
-        {[
-          { id: 'kitchen' as const, label: '🍳 Mi Cocina & Equipamiento' },
-          { id: 'household' as const, label: '👨‍👩‍👧‍👦 Hogar & Comensales' },
-          { id: 'shopping' as const, label: '🛒 Supermercados & Hábitos' },
-          { id: 'account' as const, label: '👤 Mi Cuenta & Seguridad' },
-          ...(isVerifiedChef ? [{ id: 'chef_contract' as const, label: '📜 Mi Contrato de Chef' }] : [])
-        ].map(t => (
-          <button
-            key={t.id}
-            onClick={() => setActiveTab(t.id)}
-            className={`px-4 py-2 rounded-xl text-xs font-bold transition-all whitespace-nowrap cursor-pointer ${
-              activeTab === t.id
-                ? 'btn-hero-copper text-white shadow-xs'
-                : 'bg-zinc-100 dark:bg-zinc-800/80 text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white'
-            }`}
-          >
-            {t.label}
-          </button>
-        ))}
-      </div>
+      {savedToast && (
+        <div className="p-3 bg-emerald-500/15 border border-emerald-500/30 rounded-xl text-emerald-700 dark:text-emerald-300 text-xs font-bold flex items-center gap-2 animate-in fade-in">
+          <CheckCircle2 size={16} className="text-emerald-600 dark:text-emerald-400 shrink-0" />
+          <span>¡Configuración y datos del hogar guardados correctamente!</span>
+        </div>
+      )}
 
       {/* TAB 1: MI COCINA & EQUIPAMIENTO */}
       {activeTab === 'kitchen' && (
@@ -966,33 +897,97 @@ export function ProfileView({ onPeopleCountChange, onNavigateToChefPortal, onOpe
         </div>
       )}
 
-      {/* TAB 5: MI CUENTA & SEGURIDAD */}
+      {/* TAB 4: MI CUENTA & SEGURIDAD */}
       {activeTab === 'account' && (
-        <div className="bg-white dark:bg-zinc-900 rounded-3xl border border-zinc-200 dark:border-zinc-800 p-6 shadow-xs space-y-5">
-          <h3 className="font-bold text-sm text-zinc-900 dark:text-white pb-3 border-b border-zinc-100 dark:border-zinc-800">
-            Detalles de Usuario y Seguridad
-          </h3>
+        <div className="bg-white dark:bg-zinc-900 rounded-3xl border border-zinc-200 dark:border-zinc-800 p-6 shadow-xs space-y-6">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-zinc-100 dark:border-zinc-800">
+            <div className="flex items-center gap-4">
+              <div className="relative">
+                <div className="w-14 h-14 rounded-2xl bg-[#E07A5F] text-white flex items-center justify-center font-black text-lg shadow-sm shrink-0 overflow-hidden">
+                  {user?.photoURL ? (
+                    <img src={user.photoURL} alt={user.displayName || 'Avatar'} className="w-full h-full object-cover" />
+                  ) : (
+                    <UserIcon size={26} />
+                  )}
+                </div>
+                <span className="absolute -bottom-1 -right-1 w-4 h-4 rounded-full bg-[#E07A5F] border-2 border-white dark:border-zinc-900 flex items-center justify-center text-[8px] text-white font-bold">
+                  ✓
+                </span>
+              </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div>
-              <label className="text-xs font-bold text-zinc-700 dark:text-zinc-300 block mb-1">Nombre Mostrado:</label>
-              <input
-                type="text"
-                value={displayName}
-                onChange={(e) => setDisplayName(e.target.value)}
-                placeholder="Tu nombre"
-                className="w-full bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 rounded-xl p-2.5 text-xs text-zinc-900 dark:text-white"
-              />
+              <div>
+                <div className="flex items-center gap-2">
+                  <strong className="text-base font-black text-zinc-900 dark:text-white">
+                    {displayName || 'Usuario TouChef'}
+                  </strong>
+                  {isVerifiedChef ? (
+                    <span className="text-[10px] font-black px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-600 dark:text-amber-300 border border-amber-500/30 uppercase tracking-wider flex items-center gap-1">
+                      <Award size={11} /> Chef Homologado
+                    </span>
+                  ) : (
+                    <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 border border-zinc-200 dark:border-zinc-700">
+                      Cliente del Hogar
+                    </span>
+                  )}
+                </div>
+                <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-0.5">
+                  {user ? user.email : 'Modo Local / Invitado'} • Sincronización en la Nube
+                </p>
+              </div>
             </div>
 
             <div>
-              <label className="text-xs font-bold text-zinc-700 dark:text-zinc-300 block mb-1">Email Vinculado:</label>
-              <input
-                type="email"
-                disabled
-                value={user?.email || 'modo_invitado@touchef.local'}
-                className="w-full bg-zinc-100 dark:bg-zinc-800/50 border border-zinc-200 dark:border-zinc-700 rounded-xl p-2.5 text-xs text-zinc-500 cursor-not-allowed"
-              />
+              {isVerifiedChef ? (
+                <button
+                  type="button"
+                  onClick={onNavigateToChefPortal}
+                  className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-amber-500/15 text-amber-600 dark:text-amber-300 hover:bg-amber-500/25 border border-amber-500/30 text-xs font-bold transition-all cursor-pointer shadow-xs"
+                >
+                  <Award size={14} className="text-amber-500" />
+                  <span>Portal de Cocinero Pro →</span>
+                </button>
+              ) : (
+                <button
+                  type="button"
+                  onClick={() => {
+                    if (onOpenChefOnboarding) {
+                      onOpenChefOnboarding();
+                    } else {
+                      setActiveTab('chef_contract');
+                    }
+                  }}
+                  className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-amber-500/10 hover:bg-amber-500/20 text-amber-700 dark:text-amber-300 border border-amber-500/30 text-xs font-bold transition-all cursor-pointer shadow-xs group"
+                >
+                  <ChefHat size={14} className="text-amber-500 group-hover:rotate-12 transition-transform" />
+                  <span>¿Quieres cocinar en hogares? Conviértete en Cocinero →</span>
+                </button>
+              )}
+            </div>
+          </div>
+
+          <div className="space-y-4">
+            <h4 className="font-bold text-xs uppercase tracking-wider text-zinc-400">Datos Personales &amp; Acceso</h4>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label className="text-xs font-bold text-zinc-700 dark:text-zinc-300 block mb-1">Nombre Mostrado:</label>
+                <input
+                  type="text"
+                  value={displayName}
+                  onChange={(e) => setDisplayName(e.target.value)}
+                  placeholder="Tu nombre"
+                  className="w-full bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 rounded-xl p-2.5 text-xs text-zinc-900 dark:text-white"
+                />
+              </div>
+
+              <div>
+                <label className="text-xs font-bold text-zinc-700 dark:text-zinc-300 block mb-1">Email Vinculado:</label>
+                <input
+                  type="email"
+                  disabled
+                  value={user?.email || 'modo_invitado@touchef.local'}
+                  className="w-full bg-zinc-100 dark:bg-zinc-800/50 border border-zinc-200 dark:border-zinc-700 rounded-xl p-2.5 text-xs text-zinc-500 cursor-not-allowed"
+                />
+              </div>
             </div>
           </div>
 
