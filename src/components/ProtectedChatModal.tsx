@@ -41,13 +41,7 @@ export const ProtectedChatModal: React.FC<ProtectedChatModalProps> = ({
       id: 'msg-1',
       sender: 'system',
       text: `🔒 Canal seguro TouChef activo para el encargo ${booking.id}. Tu teléfono y datos bancarios están 100% protegidos.`,
-      timestamp: '10:00'
-    },
-    {
-      id: 'msg-2',
-      sender: 'chef',
-      text: `¡Hola! He revisado tu menú de ${booking.dishes.length} platos y tengo disponibilidad completa en tu franja horaria. Cuento con carné sanitario y cuchillos propios desinfectados. ¿Tienes alguna indicación especial sobre los fogones o tuppers?`,
-      timestamp: '10:05'
+      timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
     }
   ]);
 
@@ -73,17 +67,6 @@ export const ProtectedChatModal: React.FC<ProtectedChatModalProps> = ({
 
     setMessages(prev => [...prev, newMsg]);
     setInputMessage('');
-
-    // Instant confirmation response from chef
-    setTimeout(() => {
-      const chefReply: Message = {
-        id: `msg-${Date.now() + 1}`,
-        sender: 'chef',
-        text: '¡Entendido perfectamente! Quedo a tu disposición para cuando desees confirmar la reserva.',
-        timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
-      };
-      setMessages(prev => [...prev, chefReply]);
-    }, 1200);
   };
 
   return (

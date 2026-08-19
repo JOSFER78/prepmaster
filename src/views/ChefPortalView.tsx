@@ -28,7 +28,8 @@ import {
   ShoppingBag
 } from 'lucide-react';
 import { ChefBookingRequest, ViewState } from '../types';
-import { loadChefBookingsFromStorage, applyToBroadcastBooking, MOCK_CHEFS } from '../lib/chefsData';
+import { loadChefBookingsFromStorage, applyToBroadcastBooking, BOOTSTRAP_CHEF_PROFILE, MOCK_CHEFS } from '../lib/chefsData';
+import { auth } from '../lib/firebase';
 
 interface ChefPortalViewProps {
   onNavigate: (view: ViewState) => void;
@@ -51,16 +52,18 @@ export const ChefPortalView: React.FC<ChefPortalViewProps> = ({
 
   const [bookings, setBookings] = useState<ChefBookingRequest[]>(() => loadChefBookingsFromStorage());
 
-  const currentChef = MOCK_CHEFS[0]; // Marcos Valbuena as default active logged in chef
+  const currentChef = BOOTSTRAP_CHEF_PROFILE;
+  const chefDisplayName = auth.currentUser?.displayName || currentChef.name;
+  const chefEmail = auth.currentUser?.email || currentChef.email;
 
   // Broadcast requests looking for chefs
   const broadcastRequests = bookings.filter(b => b.isBroadcast || b.status === 'published' || b.status === 'offers_received');
   // Confirmed bookings assigned directly to this chef
   const assignedBookings = bookings.filter(b => b.status === 'confirmed' || b.status === 'in_progress');
 
-  // Stats
-  const totalGrossTransacted = bookings.reduce((acc, b) => acc + b.costBreakdown.totalClientPrice, 0);
-  const totalNetEarnings = bookings.reduce((acc, b) => acc + (b.costBreakdown.chefPayoutEstimated || b.costBreakdown.totalClientPrice * 0.9), 0);
+  // Stats (calculated from real bookings)
+  const totalGrossTransacted = bookings.reduce((acc, b) => acc + (b.costBreakdown?.totalClientPrice || 0), 0);
+  const totalNetEarnings = bookings.reduce((acc, b) => acc + (b.costBreakdown?.chefPayoutEstimated || (b.costBreakdown?.totalClientPrice || 0) * 0.9), 0);
 
   const toggleSlot = (slot: string) => {
     setSelectedSlots(prev => 
@@ -76,19 +79,24 @@ export const ChefPortalView: React.FC<ChefPortalViewProps> = ({
   };
 
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-6 py-6 space-y-6 animate-in fade-in duration-300">
+    <div className="max-w-6xl mx-auto px-4 sm:px-6 py-6 space-y-6 animate-in fade-in duration-300 text-zinc-900 dark:text-zinc-100">
       
-      {/* Top Banner */}
-      <div className="relative rounded-3xl overflow-hidden bg-gradient-to-r from-zinc-900 via-amber-950/40 to-zinc-900 border border-amber-500/30 p-6 sm:p-8 shadow-2xl">
-        <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-4">
+      {/* Top Profile Banner */}
+      <div className="p-6 rounded-3xl bg-zinc-900 border border-zinc-800 shadow-xl relative overflow-hidden">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div className="flex items-center gap-4">
-            <div className="w-16 h-16 rounded-2xl bg-[#E07A5F] text-white flex items-center justify-center font-black text-2xl shadow-lg shadow-[#E07A5F]/20">
-              <ChefHat size={32} />
-            </div>
+            <img
+              src={currentChef.avatar}
+              alt={chefDisplayName}
+              className="w-16 h-16 rounded-2xl object-cover border-2 border-amber-500/50 shadow-md shrink-0"
+            />
             <div>
               <div className="flex items-center gap-2">
                 <span className="text-[10px] font-black uppercase tracking-wider bg-amber-500/20 text-amber-300 px-2.5 py-0.5 rounded-full border border-amber-500/30">
                   Panel del Cocinero Profesional
+                </span>
+                <span className="text-[10px] font-black uppercase bg-emerald-500/20 text-emerald-300 px-2.5 py-0.5 rounded-full border border-emerald-500/30 flex items-center gap-1">
+                  <CheckCircle2 size={11} /> Chef Homologado
                 </span>
                 {isProSubscriber && (
                   <span className="text-[10px] font-black uppercase bg-emerald-500/20 text-emerald-300 px-2.5 py-0.5 rounded-full border border-emerald-500/30 flex items-center gap-1">
@@ -97,14 +105,14 @@ export const ChefPortalView: React.FC<ChefPortalViewProps> = ({
                 )}
               </div>
               <h1 className="text-xl sm:text-2xl font-black text-white mt-1">
-                Marcos Valbuena · Chef Verificado
+                {chefDisplayName} ({chefEmail})
               </h1>
               <p className="text-xs text-zinc-300">
-                Madrid - Chamberí • 4.98 ★ (84 reseñas) • 142 servicios completados
+                {currentChef.locationCity} • {currentChef.rating} ★ ({currentChef.reviewsCount} reseñas) • {assignedBookings.length} servicios completados
               </p>
             </div>
           </div>
-
+          
           <div className="flex items-center gap-2">
             <button
               onClick={() => setActiveTab('pro')}

@@ -131,13 +131,11 @@ export const SupermarketCheckoutView: React.FC<SupermarketCheckoutViewProps> = (
 
     saveSupermarketOrderToStorage(order);
 
-    setTimeout(() => {
-      setIsSubmitting(false);
-      setOrderCompleted(order);
-      if (onOrderConfirmed) {
-        onOrderConfirmed(order);
-      }
-    }, 800);
+    setIsSubmitting(false);
+    setOrderCompleted(order);
+    if (onOrderConfirmed) {
+      onOrderConfirmed(order);
+    }
   };
 
   const handleOpenExternalDIA = () => {

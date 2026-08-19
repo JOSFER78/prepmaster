@@ -178,15 +178,15 @@ export function ChefDirectoryView({
         </div>
       </div>
 
-      {/* CHEF GRID */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {filteredChefs.map(chef => (
-          <div
-            key={chef.id}
-            className="bg-white dark:bg-zinc-900 rounded-3xl p-5 sm:p-6 border border-zinc-200/80 dark:border-zinc-800 shadow-xs hover:shadow-xl transition-all flex flex-col justify-between space-y-4 group"
-          >
-            <div className="space-y-3.5">
-              {/* TOP CHEF INFO */}
+      {/* CHEFS DIRECTORY GRID */}
+      {filteredChefs.length > 0 ? (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {filteredChefs.map(chef => (
+            <div
+              key={chef.id}
+              className="bg-white dark:bg-zinc-900 rounded-3xl p-5 border border-zinc-200/80 dark:border-zinc-800 shadow-xs hover:shadow-md transition-all flex flex-col justify-between space-y-4 group"
+            >
+              {/* TOP HEADER: AVATAR & NAME */}
               <div className="flex items-start gap-3.5">
                 <div className="w-14 h-14 rounded-2xl overflow-hidden bg-[#E07A5F] text-white flex items-center justify-center font-black text-xl shrink-0 border border-[#E07A5F]/20 relative">
                   <img src={chef.avatar} alt={chef.name} className="w-full h-full object-cover" />
@@ -204,12 +204,12 @@ export function ChefDirectoryView({
                   </div>
 
                   <p className="text-[11px] text-zinc-500 dark:text-zinc-400 truncate mt-0.5 font-medium">
-                    {chef.title}
+                    {chef.specialties[0] || 'Chef de Cocina'}
                   </p>
 
                   <div className="flex items-center gap-1 text-[11px] text-zinc-400 mt-1">
                     <MapPin size={12} className="text-[#E07A5F] shrink-0" />
-                    <span className="truncate">{chef.locationCity} ({chef.zones.slice(0, 2).join(', ')})</span>
+                    <span className="truncate">{chef.locationCity} ({(chef.zones || []).slice(0, 2).join(', ')})</span>
                   </div>
                 </div>
               </div>
@@ -240,46 +240,57 @@ export function ChefDirectoryView({
                   </span>
                 </div>
                 
-                <div className="flex items-center justify-between text-[11px] text-zinc-500 border-t border-zinc-200/40 dark:border-zinc-700/40 pt-1.5">
-                  <span>Compra en DIA / Mercado:</span>
-                  <span className="font-mono text-zinc-700 dark:text-zinc-300 font-bold">
-                    {chef.pricing.groceryShoppingHourRate} €/h
-                  </span>
+                <div className="flex items-center justify-between text-[11px] text-zinc-500">
+                  <span>Compra en súper opcional:</span>
+                  <span>+{chef.pricing.groceryShoppingHourRate} €/h</span>
                 </div>
 
-                <div className="flex items-center justify-between text-[10px] text-emerald-600 dark:text-emerald-400 font-bold">
+                <div className="flex items-center justify-between text-[11px] text-emerald-600 dark:text-emerald-400 font-semibold pt-1 border-t border-zinc-200/40 dark:border-zinc-700/40">
                   <span className="flex items-center gap-1">
-                    <CheckCircle2 size={12} /> Cuchillos Pro Desinfectados
+                    <ShieldCheck size={12} />
+                    <span>Cuchillos &amp; Herramientas:</span>
                   </span>
-                  <span className="flex items-center gap-1">
-                    <CheckCircle2 size={12} /> Limpieza de Cocina
-                  </span>
+                  <span>Incluidos</span>
                 </div>
               </div>
 
+              {/* ACTIONS: VER PERFIL + ELEGIR CHEF */}
+              <div className="flex items-center gap-2 pt-2 border-t border-zinc-100 dark:border-zinc-800">
+                <button
+                  onClick={() => handleOpenDetail(chef)}
+                  className="px-3.5 py-2.5 rounded-xl bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 text-xs font-bold hover:bg-zinc-200 dark:hover:bg-zinc-700 transition-all cursor-pointer"
+                >
+                  Ver Ficha
+                </button>
+
+                <button
+                  onClick={() => onSelectChefToBook(chef)}
+                  className="flex-1 py-2.5 rounded-xl btn-hero-copper text-white text-xs font-black shadow-xs transition-all cursor-pointer flex items-center justify-center gap-1 active:scale-95"
+                >
+                  <span>Elegir Manualmente</span>
+                  <ArrowRight size={13} />
+                </button>
+              </div>
+
             </div>
-
-            {/* ACTION BUTTONS */}
-            <div className="flex items-center gap-2 pt-2 border-t border-zinc-100 dark:border-zinc-800">
-              <button
-                onClick={() => handleOpenDetail(chef)}
-                className="flex-1 py-2.5 rounded-xl bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-800 dark:hover:bg-zinc-700 text-zinc-700 hover:text-zinc-900 dark:text-zinc-300 dark:hover:text-white text-xs font-bold transition-all cursor-pointer text-center"
-              >
-                Ver Perfil Completo
-              </button>
-
-              <button
-                onClick={() => onSelectChefToBook(chef)}
-                className="flex-1 py-2.5 rounded-xl btn-hero-copper text-white text-xs font-black shadow-xs transition-all cursor-pointer flex items-center justify-center gap-1 active:scale-95"
-              >
-                <span>Elegir Manualmente</span>
-                <ArrowRight size={13} />
-              </button>
-            </div>
-
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
+      ) : (
+        <div className="bg-white dark:bg-zinc-900 rounded-3xl p-12 text-center border border-zinc-200 dark:border-zinc-800 space-y-4">
+          <ChefHat size={40} className="mx-auto text-amber-500/60" />
+          <h3 className="text-base font-black text-zinc-900 dark:text-white">No hay cocineros homologados en esta zona</h3>
+          <p className="text-xs text-zinc-500 dark:text-zinc-400 max-w-md mx-auto">
+            Pronto homologaremos nuevos cocineros en tu ciudad. ¿Eres chef profesional o estudiante de hostelería?
+          </p>
+          <button
+            onClick={() => onNavigate && onNavigate({ name: 'profile' })}
+            className="px-5 py-2.5 rounded-xl btn-hero-copper text-white text-xs font-bold shadow-xs cursor-pointer inline-flex items-center gap-2"
+          >
+            <span>Conviértete en Cocinero TouChef</span>
+            <ArrowRight size={14} />
+          </button>
+        </div>
+      )}
 
       {/* CHEF DETAIL MODAL */}
       <ChefDetailModal

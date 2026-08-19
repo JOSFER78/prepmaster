@@ -1,53 +1,145 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
-    // Helper function to check if user is authenticated
+
+    // =========================================================================
+    // 1. HELPER FUNCTIONS & ROLE GUARDS
+    // =========================================================================
+
     function isAuthenticated() {
       return request.auth != null;
     }
-    
-    // SuperAdmin privileges for josferestudio@gmail.com
+
+    // SuperAdmin oficial estricto: josferestudio@gmail.com
     function isSuperAdmin() {
       return isAuthenticated() && (
-        request.auth.token.email == 'josferestudio@gmail.com' ||
-        (request.auth.token.keys().hasAll(['email']) && request.auth.token.email.lower() == 'josferestudio@gmail.com')
+        (request.auth.token.keys().hasAll(['admin']) && request.auth.token.admin == true) ||
+        (request.auth.token.keys().hasAll(['email']) && 
+         request.auth.token.email.lower() == 'josferestudio@gmail.com')
       );
     }
 
-    // Helper function to check ownership
+    // Comprobación de propiedad por UID
     function isOwner(userId) {
       return isAuthenticated() && request.auth.uid == userId;
     }
 
-    // SuperAdmin has full read/write access to all collections
-    match /{document=**} {
-      allow read, write: if isSuperAdmin();
+    // Comprobación de Cocinero Homologado Oficial
+    function isApprovedChef() {
+      return isAuthenticated() && (
+        (request.auth.token.keys().hasAll(['role']) && request.auth.token.role == 'chef') ||
+        (request.auth.token.keys().hasAll(['email']) && request.auth.token.email.lower() == 'usajosefernan@gmail.com') ||
+        (exists(/databases/$(database)/documents/chefs/$(request.auth.uid)) &&
+         get(/databases/$(database)/documents/chefs/$(request.auth.uid)).data.isVerified == true)
+      );
     }
 
-    // Users collection
+    // =========================================================================
+    // 2. COLECCIÓN: USERS (Datos Privados de Cuenta)
+    // =========================================================================
     match /users/{userId} {
-      allow read, write: if isAuthenticated();
+      // Solo el propio usuario o el superadmin leen el perfil
+      allow read: if isOwner(userId) || isSuperAdmin();
+
+      // Creación: Solo si coincide con su UID y no se auto-asigna superadmin
+      allow create: if isOwner(userId) &&
+        (!request.resource.data.keys().hasAny(['isSuperAdmin']) || request.resource.data.isSuperAdmin == false);
+
+      // Actualización: El propio usuario no puede alterar roles protegidos
+      allow update: if isSuperAdmin() || (
+        isOwner(userId) &&
+        !request.resource.data.diff(resource.data).affectedKeys().hasAny(['isSuperAdmin', 'isVerifiedChef', 'chefStatus', 'role'])
+      );
+
+      allow delete: if isOwner(userId) || isSuperAdmin();
     }
 
-    // Menu plans
+    // =========================================================================
+    // 3. COLECCIÓN: CHEFS (Directorio Público de Cocineros Aprobados)
+    // =========================================================================
+    match /chefs/{chefId} {
+      // Lectura pública de cocineros verificados
+      allow read: if resource.data.isVerified == true || isOwner(chefId) || isSuperAdmin();
+
+      // Creación por el chef solicitante en estado no verificado
+      allow create: if isOwner(chefId) && 
+                    request.resource.data.isVerified == false;
+
+      // Actualización: El chef edita bio y tarifas, pero NO auto-verifica ni altera rating
+      allow update: if isSuperAdmin() || (
+        isOwner(chefId) &&
+        !request.resource.data.diff(resource.data).affectedKeys().hasAny(['isVerified', 'badges', 'rating', 'completedBookingsCount'])
+      );
+
+      allow delete: if isOwner(chefId) || isSuperAdmin();
+    }
+
+    // =========================================================================
+    // 4. COLECCIÓN: CHEF BOOKINGS (Reservas, Encargos & Escrow)
+    // =========================================================================
+    match /chef_bookings/{bookingId} {
+      allow read: if isSuperAdmin() ||
+                     (isAuthenticated() && resource.data.customerId == request.auth.uid) ||
+                     (isAuthenticated() && resource.data.chefId == request.auth.uid) ||
+                     (isApprovedChef() && resource.data.isBroadcast == true);
+
+      allow create: if isAuthenticated() && 
+                    request.resource.data.customerId == request.auth.uid;
+
+      allow update: if isSuperAdmin() ||
+        (
+          isAuthenticated() && 
+          resource.data.customerId == request.auth.uid &&
+          !request.resource.data.diff(resource.data).affectedKeys().hasAny(['costBreakdown', 'platformServiceFee'])
+        ) ||
+        (
+          isApprovedChef() && 
+          resource.data.isBroadcast == true &&
+          request.resource.data.diff(resource.data).affectedKeys().hasOnly(['applicants', 'updatedAt'])
+        );
+
+      allow delete: if isSuperAdmin() || (isAuthenticated() && resource.data.customerId == request.auth.uid && resource.data.status == 'draft');
+    }
+
+    // =========================================================================
+    // 5. COLECCIONES: BATCH PROJECTS / PLANES / DESPENSA / COMPRA
+    // =========================================================================
+    match /batch_projects/{projectId} {
+      allow read, write: if isSuperAdmin() || (isAuthenticated() && (resource == null || resource.data.userId == request.auth.uid) && request.resource.data.userId == request.auth.uid);
+    }
+
     match /menu_plans/{planId} {
-      allow read, write: if isAuthenticated() || resource == null || resource.data.userId == request.auth.uid;
+      allow read, write: if isSuperAdmin() || (isAuthenticated() && (resource == null || resource.data.userId == request.auth.uid) && request.resource.data.userId == request.auth.uid);
     }
 
-    // Pantry items
     match /pantry_items/{itemId} {
-      allow read, write: if isAuthenticated() || resource == null || resource.data.userId == request.auth.uid;
+      allow read, write: if isSuperAdmin() || (isAuthenticated() && (resource == null || resource.data.userId == request.auth.uid) && request.resource.data.userId == request.auth.uid);
     }
 
-    // Shopping items
     match /shopping_items/{itemId} {
-      allow read, write: if isAuthenticated() || resource == null || resource.data.userId == request.auth.uid;
+      allow read, write: if isSuperAdmin() || (isAuthenticated() && (resource == null || resource.data.userId == request.auth.uid) && request.resource.data.userId == request.auth.uid);
     }
 
-    // System config (Superadmin management)
+    // =========================================================================
+    // 6. COLECCIÓN: RESEÑAS VERIFICADAS
+    // =========================================================================
+    match /chef_reviews/{reviewId} {
+      allow read: if true;
+      allow create: if isAuthenticated() && 
+                    request.resource.data.authorId == request.auth.uid;
+      allow update, delete: if isSuperAdmin();
+    }
+
+    // =========================================================================
+    // 7. SYSTEM CONFIG & FALLBACK SEGURO
+    // =========================================================================
     match /system_config/{configId} {
       allow read: if isAuthenticated();
       allow write: if isSuperAdmin();
+    }
+
+    match /{document=**} {
+      allow read, write: if isSuperAdmin();
     }
   }
 }

@@ -15,6 +15,7 @@ import {
 } from 'lucide-react';
 import { ChefProfile, BatchProject, ChefBookingRequest } from '../types';
 import { MOCK_CHEFS, calculateBookingQuote } from '../lib/chefsData';
+import { auth } from '../lib/firebase';
 
 interface CreateChefRequestModalProps {
   isOpen: boolean;
@@ -89,11 +90,14 @@ export const CreateChefRequestModal: React.FC<CreateChefRequestModalProps> = ({
   const handleSubmit = () => {
     setIsSubmitting(true);
     const isBroadcastMode = selectionMode === 'broadcast';
+    const currentUid = auth.currentUser?.uid || 'user-client-123';
+    const currentEmail = auth.currentUser?.email || 'tisute@gmail.com';
+    const currentName = auth.currentUser?.displayName || (currentEmail.split('@')[0]);
 
     const newRequest: ChefBookingRequest = {
       id: `TC-REQ-${Date.now().toString().slice(-6)}`,
-      customerId: 'user-demo-123',
-      customerName: 'Laura Morales',
+      customerId: currentUid,
+      customerName: currentName,
       customerPhone: '+34 612 345 678',
       address,
       postalCode,
@@ -114,32 +118,7 @@ export const CreateChefRequestModal: React.FC<CreateChefRequestModalProps> = ({
       chefId: !isBroadcastMode ? assignedChef.id : undefined,
       chefName: !isBroadcastMode ? assignedChef.name : undefined,
       chefAvatar: !isBroadcastMode ? assignedChef.avatar : undefined,
-      applicants: isBroadcastMode ? [
-        {
-          id: `app-marcos-${Date.now()}`,
-          chefId: 'chef-marcos-valbuena',
-          chefName: 'Marcos Valbuena',
-          chefAvatar: 'https://images.unsplash.com/photo-1577219491135-ce391730fb2c?w=400&auto=format&fit=crop&q=80',
-          chefRating: 4.98,
-          chefHourlyRate: 24,
-          chefSpecialties: ['Batch Cooking Tradicional', 'Guisos Lentos', 'Sin Gluten'],
-          appliedAt: new Date().toISOString(),
-          message: '¡Hola! Me encantaría cocinar tu menú de 40 raciones. Tengo disponibilidad en esa franja y llevo mis propios cuchillos profesionales desinfectados.',
-          status: 'pending'
-        },
-        {
-          id: `app-clara-${Date.now()}`,
-          chefId: 'chef-clara-santamaria',
-          chefName: 'Clara Santamaría',
-          chefAvatar: 'https://images.unsplash.com/photo-1583394838336-acd977736f90?w=400&auto=format&fit=crop&q=80',
-          chefRating: 4.96,
-          chefHourlyRate: 26,
-          chefSpecialties: ['Fitness & Macros', 'High Protein', 'Keto & Low Carb'],
-          appliedAt: new Date().toISOString(),
-          message: 'Hola! Puedo acudir a tu domicilio en Chamberí. Me encargo de dejar todo sellado en tus fiambreras de borosilicato y la cocina reluciente.',
-          status: 'pending'
-        }
-      ] : undefined,
+      applicants: [],
       costBreakdown: {
         cookingCost: quote.cookingCost,
         groceryServiceCost: quote.groceryCost,
@@ -152,17 +131,15 @@ export const CreateChefRequestModal: React.FC<CreateChefRequestModalProps> = ({
         chefPayoutEstimated: quote.chefPayout,
         commissionRatePercent: quote.commissionRatePercent
       },
-      status: isBroadcastMode ? 'offers_received' : 'confirmed',
+      status: isBroadcastMode ? 'published' : 'confirmed',
       notes,
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString()
     };
 
-    setTimeout(() => {
-      setIsSubmitting(false);
-      onSuccess(newRequest);
-      onClose();
-    }, 600);
+    setIsSubmitting(false);
+    onSuccess(newRequest);
+    onClose();
   };
 
   return (

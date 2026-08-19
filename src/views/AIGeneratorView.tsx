@@ -125,42 +125,40 @@ export function AIGeneratorView({
     setIsGenerating(true);
     setActiveDrawer('none');
 
-    setTimeout(() => {
-      const dishes = generateDynamicBatchDishes({
-        peopleCount,
-        daysCount,
-        mealCoverage,
-        dietStyle,
-        varietyPreference
-      });
+    const dishes = generateDynamicBatchDishes({
+      peopleCount,
+      daysCount,
+      mealCoverage,
+      dietStyle,
+      varietyPreference
+    });
 
-      setGeneratedDishes(dishes);
+    setGeneratedDishes(dishes);
 
-      const plan: GeneratedMenuPlan = {
-        id: `plan-${Date.now()}`,
-        title: `Plan Batch Cooking ${dietStyle.toUpperCase()} (${structure.totalIndividualServings} Raciones)`,
-        philosophy: `Estructura optimizada para ${peopleCount} personas durante ${daysCount} días. ${structure.dishCount} recetas coordinadas en paralelo en ${structure.estimatedCookTimeFormatted}.`,
-        macrosTarget: {
-          protein: dietStyle === 'fitness' ? '30%' : '20%',
-          carbs: dietStyle === 'lowcarb' ? '15%' : '45%',
-          fats: '35%'
-        },
-        meals: [],
-        batchCookingSummary: {
-          totalTime: structure.estimatedCookTimeFormatted,
-          parallelSteps: [
-            'Mise en place unificada: Picar todas las verduras antes de encender fuegos.',
-            'Cocción concurrente: Horno y fogones en paralelo para máxima eficiencia térmica.',
-            'Envasado hermético: Nevera (días 1-3) y congelador (días 4+) en vidrio borosilicato.'
-          ]
-        }
-      };
+    const plan: GeneratedMenuPlan = {
+      id: `plan-${Date.now()}`,
+      title: `Plan Batch Cooking ${dietStyle.toUpperCase()} (${structure.totalIndividualServings} Raciones)`,
+      philosophy: `Estructura optimizada para ${peopleCount} personas durante ${daysCount} días. ${structure.dishCount} recetas coordinadas en paralelo en ${structure.estimatedCookTimeFormatted}.`,
+      macrosTarget: {
+        protein: dietStyle === 'fitness' ? '30%' : '20%',
+        carbs: dietStyle === 'lowcarb' ? '15%' : '45%',
+        fats: '35%'
+      },
+      meals: [],
+      batchCookingSummary: {
+        totalTime: structure.estimatedCookTimeFormatted,
+        parallelSteps: [
+          'Mise en place unificada: Picar todas las verduras antes de encender fuegos.',
+          'Cocción concurrente: Horno y fogones en paralelo para máxima eficiencia térmica.',
+          'Envasado hermético: Nevera (días 1-3) y congelador (días 4+) en vidrio borosilicato.'
+        ]
+      }
+    };
 
-      setGeneratedPlan(plan);
-      setIsGenerating(false);
-      setCurrentStep(2);
-      onMenuApproved(plan);
-    }, 900);
+    setGeneratedPlan(plan);
+    setIsGenerating(false);
+    setCurrentStep(2);
+    onMenuApproved(plan);
   };
 
   const createBatchProjectFromState = (status: BatchProject['status'] = 'planning'): BatchProject => {
