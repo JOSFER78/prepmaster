@@ -43,6 +43,9 @@ El chef homologado debe portar obligatoriamente la dotación técnica profesiona
 | **Higiene & EPP** | **Pack Desinfección Grado Alimentario** | Spray de alcohol isopropílico/etílico alimentario 70% sin residuo, guantes de nitrilo negro sin polvo, cofia, delantal negro bordado TouChef, 4 paños de microfibra desinfectados. | Mantenimiento del estándar aséptico en cocina ajena. |
 | **Pesaje de Precisión** | **Báscula Digital de Doble Rango** | Capacidad 5 kg (resolución 1 g) y micro-báscula de precisión 500 g (resolución 0.01 g para sales de cura, especias y gomas). | Formulación exacta de salmueras, marinados y texturizantes. |
 
+![Chef profesional en servicio a domicilio con kit de herramientas y recipientes](assets/foto_chef_domicilio_servicio_kit.jpg)
+*Fotografía 2.1: Chef profesional homologado TouChef durante el servicio a domicilio, operando con el Chef Kit oficial, instrumental de precisión y recipientes herméticos bajo estándar White Glove.*
+
 ---
 
 ## 3. CRONOGRAMA OPERATIVO IN-SITU DE 120 MINUTOS (PASO A PASO)
@@ -54,6 +57,9 @@ El chef homologado debe portar obligatoriamente la dotación técnica profesiona
 [01:30] ─── FASE 4: Abatimiento Express & Etiquetado (20 min) ───► [01:50]
 [01:50] ─── FASE 5: Limpieza White Glove & Entrega (10 min) ─────► [02:00]
 ```
+
+![Cronograma Operativo In-Situ de 120 Minutos](assets/cronograma_flujo_chef_120_min.svg)
+*Figura 3.1: Diagrama de flujo temporal y arquitectura de entregables de las 5 fases estancas del servicio de Chef Privado TouChef (Setup, Mise en place & Vacío, Cocción multizona concurrente, Abatimiento forzado y Cierre White Glove). Trazabilidad: Protocolo TouChef In-Situ Standard v2.4.*
 
 ---
 
@@ -87,6 +93,9 @@ El chef homologado debe portar obligatoriamente la dotación técnica profesiona
 > [!IMPORTANT]
 > **Regla de Oro del Minuto 10:** El Roner y el horno DEBEN estar encendidos y calentando antes de que el reloj marque el minuto 10. Cada minuto de retraso en el encendido penaliza el tiempo de cocción efectiva.
 
+![Circulador de inmersión Roner Sous-Vide funcionando en cubeta](assets/foto_roner_inmersion_cubeta_agua.jpg)
+*Fotografía 2.2: Puesta en marcha del Roner de inmersión en cubeta transparente de policarbonato para la cocción sous-vide del menú semanal con control de agitación continua.*
+
 ---
 
 ### FASE 2: MISE EN PLACE, PORCIONADO Y ENVASADO AL VACÍO
@@ -119,6 +128,9 @@ flowchart TD
 3. Desplegar el borde de la bolsa y colocar en la barra de sellado.
 4. Aplicar vacío máximo (grado 99.8% para carnes duras y verduras; 95% con pulso para pescados delicados para no aplastar fibras).
 5. **Doble Soldadura:** Inspeccionar visualmente la línea de sellado: debe ser completamente transparente, recta, sin arrugas ni burbujas atrapadas.
+
+![Bolsas multicapa termoselladas al vacío con alimentos marinados](assets/foto_bolsas_vacio_alimentos_termoselladas.jpg)
+*Fotografía 2.3: Bolsas multicapa selladas al vacío con salmón fresco y hierbas aromáticas, acondicionadas en monocapa homogénea para asegurar una penetración térmica uniforme.*
 
 ---
 
@@ -175,6 +187,12 @@ flowchart LR
     C --> D[Secado Minucioso con Papel Celulosa]
     D --> E[Impresión & Adhesión de Etiqueta HACCP TouChef]
 ```
+
+![Protocolo de Abatimiento Térmico Forzado en Baño de Hielo 50/50](assets/protocolo_bano_hielo_50_50_abatimiento.svg)
+*Figura 3.2: Protocolo técnico de choque térmico en salmuera de agua y hielo al 50/50 ($h \ge 2.500\text{ W}/(\text{m}^2\cdot\text{K})$) para garantizar el cruce de la zona de peligro ($54.4^\circ\text{C} \to 4.0^\circ\text{C}$) en $< 20\text{–}45\text{ min}$. Trazabilidad: [Douglas Baldwin Chilling Tables](https://douglasbaldwin.com/sous-vide.html#Chilling) / [UK ACMSF Guidelines](https://acmsf.food.gov.uk).*
+
+![Baño de choque térmico con hielo y agua para abatimiento rápido de bolsas](assets/foto_bano_choque_termico_hielo_bolsas.jpg)
+*Fotografía 2.4: Abatimiento térmico forzado de las bolsas en baño de choque con agua y hielo, interrumpiendo la cocción residual y garantizando la inocuidad antes del almacenaje.*
 
 #### 1. Protocolo de Abatimiento Forzado (Ice-Water Bath)
 1. **Preparación del Baño:** En una cubeta o fregadero desinfectado, preparar una emulsión térmica compuesta por:

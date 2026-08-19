@@ -22,6 +22,12 @@ graph LR
     C --> D[Paso 3: Emplatado & Toque Gourmet]
 ```
 
+![Guía Visual de Acabado Maillard y Regeneración Express](assets/guia_acabado_maillard_cliente.svg)
+*Figura 1.1: Guía visual para el cliente del acabado gastronómico en 4 pasos (Templado en bolsa a $55\text{–}60^\circ\text{C}$ + Secado + Marcado Maillard de 45 segundos por cara + Emplatado con jugos reducidos) y comparativa biofísica del gradiente cárnico (Cocción tradicional deshidratada vs. TouChef 98% punto óptimo de borde a borde). Trazabilidad: [Douglas Baldwin Sous-Vide Guide / Reacción de Maillard (140°C–165°C)](https://douglasbaldwin.com/sous-vide.html).*
+
+![Corte transversal de carne cocinada a baja temperatura con punto rosado uniforme](assets/foto_corte_transversal_carne_sous_vide.jpg)
+*Fotografía 3.1: Resultado gourmet en casa: corte transversal con textura sedosa, jugosidad intacta y punto rosado homogéneo de borde a borde ($54.0^\circ\text{C}$) obtenido tras el templado y sellado de precisión.*
+
 ---
 
 ## 🎛️ LAS 4 TÉCNICAS UNIVERSALES DE REGENERACIÓN
@@ -56,6 +62,9 @@ graph LR
    * Coloca el medallón: **45 segundos exactos por cara** hasta crear una costra dorada y crujiente.
    * *Opcional Chef:* Añade una ramita de romero o tomillo a la mantequilla espumosa y baña la carne con una cuchara (*arrosé*).
 4. **Acabado & Emplatado:** Pasa la carne a la tabla, corta en medallones gruesos, añade escamas de sal Maldon y vierte por encima los jugos calientes de la bolsa.
+
+![Sellado y dorado a fuego vivo en sartén de hierro fundido con mantequilla y hierbas (reacción de Maillard)](assets/foto_marcado_maillard_sarten_hierro.jpg)
+*Fotografía 3.2: Marcado Maillard express en sartén de hierro fundido a fuego vivo con mantequilla espumosa y hierbas aromáticas, logrando caramelización superficial sin alterar el punto térmico interior.*
 
 > [!TIP]
 > **El Secreto del Chef:** No dejes la carne más de 1 minuto por lado en la sartén; la carne ya está en su punto perfecto en el interior y solo buscamos caramelizar la corteza exterior.
@@ -210,6 +219,9 @@ graph TD
 | 🟢 **VERDE**<br>*Consumo Prioritario* | **Días 1, 2 y 3** tras el servicio del chef. | - Pescados frescos y mariscos.<br>- Ensaladas templadas y hojas verdes.<br>- Emulsiones finas y verduras al dente. | Mantener en el estante inferior (zona más fría del frigorífico). Consumir en primer lugar. |
 | 🟡 **AMARILLO**<br>*Consumo Medio* | **Días 4, 5 y 6** tras el servicio del chef. | - Carnes rojas pasteurizadas.<br>- Pechugas y cortes de ave.<br>- Guisos tradicionales y legumbres.<br>- Cremas de verduras y tubérculos asados. | Perfectamente estables en vacío. No abrir la bolsa hasta el momento exacto de su regeneración. |
 | 🔴 **ROJO**<br>*Fecha Límite* | **Día 7 en adelante** | - Cualquier elaboración restante. | Si no vas a consumir un plato antes del día 6, **introdúcelo directamente al congelador ($-18^\circ\text{C}$)** dentro de su bolsa original sin abrir. |
+
+![Bolsas multicapa termoselladas al vacío con alimentos listos para refrigerar o regenerar](assets/foto_bolsas_vacio_alimentos_termoselladas.jpg)
+*Fotografía 3.3: Acondicionamiento profesional en bolsas termoselladas al vacío: raciones individuales etiquetadas listas para conservar en frío óptimo ($2^\circ\text{C}\text{--}4^\circ\text{C}$) o regenerar directamente en baño caliente.*
 
 ---
 

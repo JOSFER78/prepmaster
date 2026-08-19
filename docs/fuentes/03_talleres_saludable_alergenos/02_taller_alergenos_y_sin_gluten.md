@@ -25,6 +25,16 @@ graph TD
 
 El **Reglamento (UE) nº 1169/2011** sobre la información alimentaria facilitada al consumidor establece la obligatoriedad jurídica de declarar de forma clara, destacada y tipográficamente diferenciada la presencia de 14 sustancias o productos que causan alergias o intolerancias (Anexo II), tanto en alimentos envasados como en alimentos servidos en restauración colectiva y servicios de chef a domicilio.
 
+![Matriz Oficial de los 14 Alérgenos de Declaración Obligatoria según Reglamento UE 1169/2011](assets/iconos_14_alergenos_ue_1169_2011.svg)
+
+![Fotografía real de mesa con ingredientes representativos de los 14 alérgenos de declaración obligatoria según Reglamento UE 1169/2011](assets/foto_14_alergenos_ingredientes_reales.jpg)
+
+> [!NOTE]
+> **Ficha Técnica & Trazabilidad Normativa:**
+> - **Marco Jurídico:** Reglamento (UE) nº 1169/2011 del Parlamento Europeo y del Consejo (25 de octubre de 2011), Anexo II.
+> - **Ámbito de Aplicación:** Hostelería, catering, obradores de Batch Cooking y servicios de chef privado.
+> - **Exigencia Técnica:** Declaración obligatoria de presencia e ingredientes derivados con indicación del nombre normativo exacto del alérgeno. Prohibición de ambigüedades en menús para celíacos o personas polialérgicas (límite $<20\text{ ppm}$ para gluten según Reglamento de Ejecución UE nº 828/2014).
+
 ```
 ┌─────────────────────────────────────────────────────────────────────────────┐
 │                 LOS 14 ALÉRGENOS DE DECLARACIÓN OBLIGATORIA                 │
@@ -297,11 +307,22 @@ graph TD
 └───────────────────┴─────────────────────────────────────────────────────────┘
 ```
 
+![Estación de cocina profesional organizada para la prevención de contaminación cruzada y preparación segura de alérgenos con utensilios dedicados](assets/foto_organizacion_cocina_sin_contaminacion_cruzada.jpg)
+
 ---
 
 ## 4. Masterclass Sin Gluten: Harinas Alternativas e Hidrocoloides Aglutinantes
 
 La panificación tradicional se fundamenta en la red viscoelástica formada por la hidratación de dos proteínas del trigo: la **glutenina** (que aporta resistencia y elasticidad a la tracción) y la **gliadina** (que aporta viscosidad y extensibilidad), permitiendo retener las bolsas de gas $CO_2$ generadas por la levadura (*Saccharomyces cerevisiae*).
+
+![Esquema de Red Reológica y Biomimética de Hidrocoloides Sin Gluten](assets/matriz_hidrocoloides_sin_gluten.svg)
+
+![Hogaza artesanal de pan sin gluten horneada con psyllium husk y harinas nobles, con corteza crujiente y miga esponjosa](assets/foto_pan_sin_gluten_psyllium_artesano.jpg)
+
+> [!NOTE]
+> **Ficha Técnica & Trazabilidad Reológica:**
+> - **Fundamento Científico:** Reología y Química de Cereales (*Cereal Chemistry & Hydrocolloids*). Replicación biomimética de la viscoelasticidad del gluten sin epítopos reactivos ($<20\text{ ppm}$).
+> - **Sinergia Polimérica:** El **Psyllium Husk ($2\text{ - }4\%$)** forma un hidrogel de arabinoxilanos que retiene entre 10 y 15 veces su peso en agua, confiriendo extensibilidad y miga húmeda duradera. La **Goma Xantana ($0.5\text{ - }1\%$)** confiere un comportamiento pseudoplástico que captura y sella las celdas alveolares de gas $CO_2$. El **Almidón de Tapioca ($25\text{ - }30\%$)** provee una gelatinización termoelástica que imita la mordida tradicional (*chewy texture*).
 
 ```
           REOLOGÍA COMPARADA: MASA CON GLUTEN vs. MASA SIN GLUTEN

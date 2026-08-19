@@ -6,7 +6,8 @@ import {
   BatchProject, 
   BatchStatus,
   ChefBookingRequest,
-  ChefProfile
+  ChefProfile,
+  BatchDish
 } from './types';
 import { Layout } from './components/Layout';
 import { LandingView } from './views/LandingView';
@@ -33,14 +34,11 @@ import { LegalModals } from './components/LegalModals';
 import { auth, db, onAuthStateChanged, signInAnonymously, User } from './lib/firebase';
 import { doc, getDoc, setDoc } from 'firebase/firestore';
 import { 
-  loadBatchProjectsFromStorage, 
-  saveBatchProjectsToStorage, 
   cloneBatchProjectAsNew,
   consumeDishPortion
 } from './lib/batchProjects';
 import { 
-  loadChefBookingsFromStorage, 
-  saveChefBookingsToStorage, 
+  BOOTSTRAP_CHEF_PROFILE,
   MOCK_CHEFS 
 } from './lib/chefsData';
 import { 
@@ -49,6 +47,14 @@ import {
   saveFavoriteBatchesToStorage, 
   saveFavoriteDishesToStorage 
 } from './lib/favoritesEngine';
+import { 
+  subscribeToBookings, 
+  saveBooking 
+} from './services/bookingService';
+import { 
+  subscribeToUserBatchProjects, 
+  saveBatchProject 
+} from './services/batchProjectService';
 
 export default function App() {
   const [currentUser, setCurrentUser] = useState<User | null>(null);
@@ -62,14 +68,14 @@ export default function App() {
   const [activeLegalModal, setActiveLegalModal] = useState<'privacy' | 'terms' | 'cookies' | null>(null);
 
   // Batch Projects System (Active Project & Batch History)
-  const [batchProjects, setBatchProjects] = useState<BatchProject[]>(() => loadBatchProjectsFromStorage());
+  const [batchProjects, setBatchProjects] = useState<BatchProject[]>([]);
 
   // Favorites & Vault System (Batches & Individual Dishes)
   const [favoriteBatches, setFavoriteBatches] = useState<BatchProject[]>(() => loadFavoriteBatchesFromStorage());
   const [favoriteDishes, setFavoriteDishes] = useState<BatchDish[]>(() => loadFavoriteDishesFromStorage());
 
-  // Chef Marketplace & Bookings State
-  const [chefBookings, setChefBookings] = useState<ChefBookingRequest[]>(() => loadChefBookingsFromStorage());
+  // Chef Marketplace & Bookings State (Real-time Firestore)
+  const [chefBookings, setChefBookings] = useState<ChefBookingRequest[]>([]);
   const [isChefBookingModalOpen, setIsChefBookingModalOpen] = useState<boolean>(false);
   const [selectedChefForBooking, setSelectedChefForBooking] = useState<ChefProfile | null>(null);
   const [selectedChefForDetailModal, setSelectedChefForDetailModal] = useState<ChefProfile | null>(null);
@@ -78,6 +84,23 @@ export default function App() {
 
   const activeProject = batchProjects.find(p => p.status !== 'archived') || null;
   const batchHistory = batchProjects.filter(p => p.status === 'archived');
+
+  // Suscripción reactiva en tiempo real a las reservas de Firestore
+  useEffect(() => {
+    const unsub = subscribeToBookings((loaded) => {
+      setChefBookings(loaded);
+    });
+    return () => unsub();
+  }, []);
+
+  // Suscripción a proyectos del usuario activo
+  useEffect(() => {
+    if (!currentUser) return;
+    const unsub = subscribeToUserBatchProjects(currentUser.uid, (projects) => {
+      setBatchProjects(projects);
+    });
+    return () => unsub();
+  }, [currentUser]);
 
   useEffect(() => {
     if (currentView.name === 'create-chef-request') {
@@ -95,31 +118,22 @@ export default function App() {
 
   const handleSaveProjects = (updated: BatchProject[]) => {
     setBatchProjects(updated);
-    saveBatchProjectsToStorage(updated);
-
     if (currentUser) {
-      setDoc(doc(db, 'users', currentUser.uid), {
-        batchProjects: updated,
-        updatedAt: new Date().toISOString()
-      }, { merge: true }).catch(console.error);
+      updated.forEach(p => {
+        saveBatchProject(currentUser.uid, p).catch(console.error);
+      });
     }
   };
 
   const handleSaveChefBookings = (updated: ChefBookingRequest[]) => {
     setChefBookings(updated);
-    saveChefBookingsToStorage(updated);
-
-    if (currentUser) {
-      setDoc(doc(db, 'users', currentUser.uid), {
-        chefBookings: updated,
-        updatedAt: new Date().toISOString()
-      }, { merge: true }).catch(console.error);
-    }
+    updated.forEach(b => {
+      saveBooking(b).catch(console.error);
+    });
   };
 
-  const handleCreateChefBooking = (newBooking: ChefBookingRequest) => {
-    const updated = [newBooking, ...chefBookings];
-    handleSaveChefBookings(updated);
+  const handleCreateChefBooking = async (newBooking: ChefBookingRequest) => {
+    await saveBooking(newBooking);
     setIsChefBookingModalOpen(false);
     setCurrentView({ name: 'my-bookings' });
   };
@@ -267,31 +281,16 @@ export default function App() {
   };
 
   // Shared Meal Plan Config (Sync between Landing & App)
-  const [activePlanConfig, setActivePlanConfig] = useState<MealPlanConfig | null>(() => {
-    if (typeof window !== 'undefined') {
-      try {
-        const saved = localStorage.getItem('touchef_plan_config');
-        if (saved) return JSON.parse(saved);
-      } catch (e) {
-        console.error('Failed to parse saved plan config', e);
-      }
-    }
-    return {
-      peopleCount: 4,
-      daysCount: 5,
-      mealCoverage: 'both',
-      dietStyle: 'mediterranean',
-      totalServings: 40
-    };
+  const [activePlanConfig, setActivePlanConfig] = useState<MealPlanConfig | null>({
+    peopleCount: 4,
+    daysCount: 5,
+    mealCoverage: 'both',
+    dietStyle: 'mediterranean',
+    totalServings: 40
   });
 
   const handleUpdatePlanConfig = (ctx: MealPlanConfig) => {
     setActivePlanConfig(ctx);
-    try {
-      localStorage.setItem('touchef_plan_config', JSON.stringify(ctx));
-    } catch (e) {
-      console.error('Failed to store plan config', e);
-    }
 
     if (currentUser) {
       setDoc(doc(db, 'users', currentUser.uid), {

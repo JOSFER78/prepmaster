@@ -26,6 +26,7 @@ import { ChefProfile } from '../types';
 import { MOCK_CHEFS } from '../lib/chefsData';
 import { auth, db } from '../lib/firebase';
 import { doc, setDoc } from 'firebase/firestore';
+import { saveChefProfile } from '../services/chefService';
 
 interface ChefOnboardingModalProps {
   isOpen: boolean;
@@ -145,18 +146,24 @@ export function ChefOnboardingModal({ isOpen, onClose, onChefRegistered }: ChefO
       pricing: {
         cookingHourRate,
         groceryShoppingHourRate: offersGroceryShopping ? groceryShoppingRate : 0,
-        travelFee,
-        travelRadiusKm,
+        assistantHourRate: 15,
+        travelFee: 5,
+        travelRadiusKm: 15,
         toolsIncluded: bringsOwnTools,
         toolsExtraFee,
-        cleaningIncluded: includesCleaning
+        cleaningIncluded: includesCleaning,
+        cleaningHourRate: 0
       },
       availabilityDays: ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábados'],
       timeSlots: ['Mañanas (09:00 - 14:00)', 'Tardes (16:00 - 21:00)'],
       badges: ['Chef Homologado', 'Manipulador Certificado', 'Contrato Firmado', 'Fondo Protegido'],
+      hasFoodHandlerCertificate: true,
+      foodHandlerCertificateNumber: certNumber.trim(),
+      allergenManagementCertified: true,
+      haccpCompliance: true,
       featuredDishes: [
         {
-          name: 'Guiso de Lentejas & Verduras Asadas',
+          name: 'Guiso Tradicional de Lentejas (Carmen)',
           image: 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=500&auto=format&fit=crop&q=80',
           category: 'Legumbres',
           prepTime: '45 min'
@@ -165,11 +172,17 @@ export function ChefOnboardingModal({ isOpen, onClose, onChefRegistered }: ChefO
       reviews: []
     };
 
-    // Update in MOCK_CHEFS
+    // Update in memory list
     MOCK_CHEFS.unshift(newChef);
-    localStorage.setItem('touchef_chef_verified', 'true');
 
-    // Persist to Firestore if user logged in
+    // Save to Firestore /chefs SSOT
+    try {
+      await saveChefProfile(newChef);
+    } catch (e) {
+      console.warn('Firestore chef save warning:', e);
+    }
+
+    // Persist to Firestore /users if user logged in
     if (auth.currentUser) {
       try {
         await setDoc(doc(db, 'users', auth.currentUser.uid), {

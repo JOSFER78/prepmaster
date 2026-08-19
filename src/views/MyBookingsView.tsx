@@ -23,7 +23,7 @@ import { ServiceTimelineModal } from '../components/ServiceTimelineModal';
 import { ProtectedChatModal } from '../components/ProtectedChatModal';
 import { ReviewChefModal } from '../components/ReviewChefModal';
 import { AntiFugaEconomicsModal } from '../components/AntiFugaEconomicsModal';
-import { acceptChefApplication } from '../lib/chefsData';
+import { acceptChefApplicationInFirestore } from '../services/bookingService';
 
 interface MyBookingsViewProps {
   bookings: ChefBookingRequest[];
@@ -45,10 +45,12 @@ export const MyBookingsView: React.FC<MyBookingsViewProps> = ({
   const [isEconomicsOpen, setIsEconomicsOpen] = useState<boolean>(false);
   const [selectedApplicant, setSelectedApplicant] = useState<ChefApplication | null>(null);
 
-  const handleAcceptCandidate = (bookingId: string, applicantId: string) => {
-    const updated = acceptChefApplication(bookingId, applicantId);
-    setBookings(updated);
-    if (onUpdateBookings) onUpdateBookings(updated);
+  const handleAcceptCandidate = async (bookingId: string, applicantId: string) => {
+    try {
+      await acceptChefApplicationInFirestore(bookingId, applicantId);
+    } catch (e) {
+      console.error('Error accepting candidate in Firestore:', e);
+    }
   };
 
   return (

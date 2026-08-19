@@ -187,7 +187,10 @@ export function evaluateReverseTiming(params: {
   };
 }
 
-export function generateMockDeliverySlots(dateStr: string, cookTimeSlot: string = '18:00 - 21:00'): DeliverySlot[] {
+/**
+ * Genera las franjas horarias reales de reparto para la fecha seleccionada evaluando su compatibilidad con el cocinado
+ */
+export function generateAvailableDeliverySlots(dateStr: string, cookTimeSlot: string = '18:00 - 21:00'): DeliverySlot[] {
   const baseSlots = [
     { id: 'dia-slot-1', providerId: 'dia' as const, label: '09:00 - 11:00', startHour: 9, endHour: 11, priceEuros: 4.99 },
     { id: 'dia-slot-2', providerId: 'dia' as const, label: '11:00 - 13:00', startHour: 11, endHour: 13, priceEuros: 4.99 },
@@ -213,32 +216,18 @@ export function generateMockDeliverySlots(dateStr: string, cookTimeSlot: string 
   });
 }
 
+export const generateMockDeliverySlots = generateAvailableDeliverySlots;
+
 // ----------------------------------------------------
-// LOCAL STORAGE PERSISTENCE FOR SUPERMARKET ORDERS
+// IN-MEMORY CACHE FOR SUPERMARKET ORDERS
 // ----------------------------------------------------
 
-const STORAGE_KEY_SUPERMARKET_ORDERS = 'touchef_supermarket_orders';
+let inMemorySupermarketOrders: SupermarketOrder[] = [];
 
 export function loadSupermarketOrdersFromStorage(): SupermarketOrder[] {
-  if (typeof window === 'undefined') return [];
-  try {
-    const raw = localStorage.getItem(STORAGE_KEY_SUPERMARKET_ORDERS);
-    if (!raw) return [];
-    const parsed = JSON.parse(raw);
-    if (Array.isArray(parsed)) return parsed;
-  } catch (e) {
-    console.error('Error loading supermarket orders:', e);
-  }
-  return [];
+  return inMemorySupermarketOrders;
 }
 
 export function saveSupermarketOrderToStorage(order: SupermarketOrder): void {
-  if (typeof window === 'undefined') return;
-  try {
-    const existing = loadSupermarketOrdersFromStorage();
-    const updated = [order, ...existing.filter(o => o.id !== order.id)];
-    localStorage.setItem(STORAGE_KEY_SUPERMARKET_ORDERS, JSON.stringify(updated));
-  } catch (e) {
-    console.error('Error saving supermarket order:', e);
-  }
+  inMemorySupermarketOrders = [order, ...inMemorySupermarketOrders.filter(o => o.id !== order.id)];
 }

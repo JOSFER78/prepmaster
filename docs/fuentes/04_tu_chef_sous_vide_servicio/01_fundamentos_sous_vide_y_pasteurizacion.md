@@ -92,6 +92,9 @@ Donde $L_c$ es la longitud característica ($L_c = \frac{V}{A}$, siendo $V$ el v
 
 > **Implicación Termodinámica P0:** En un baño de agua con agitación forzada, $h \ge 1500\ \text{W}/(\text{m}^2\cdot\text{K})$, por lo que $Bi \gg 1$. Esto significa que la resistencia a la transferencia de calor superficial es prácticamente **nula**: la superficie del alimento alcanza instantáneamente la temperatura del agua ($T_{\text{superficie}} \approx T_{\text{baño}}$). La velocidad total del proceso de calentamiento queda limitada exclusivamente por la difusividad térmica interna ($\alpha$) del alimento.
 
+![Circulador de inmersión Roner Sous-Vide funcionando en cubeta de agua termostatizada](assets/foto_roner_inmersion_cubeta_agua.jpg)
+*Fotografía 1.1: Circulador de inmersión termostático (Roner Sous-Vide) en funcionamiento dentro de cubeta de agua, garantizando convección forzada líquida continua ($h \ge 1.500\ \text{W}/(\text{m}^2\cdot\text{K})$) y estabilidad térmica de $\pm 0.05^\circ\text{C}$ sobre bolsas al vacío.*
+
 ---
 
 ### 1.2 Modelización Matemática del Gradiente Térmico Transitorio
@@ -123,6 +126,9 @@ $$\frac{T_{\text{centro}} - T_{\text{baño}}}{T_{\text{inicial}} - T_{\text{bañ
 > $$t \propto \frac{L^2}{\alpha}$$
 > **Duplicar el grosor de una pieza (ej. de 25 mm a 50 mm) cuadruplica ($4\times$) el tiempo de calentamiento.**
 
+![Curvas de Penetración Térmica en Núcleo según Modelo de Fourier de Baldwin](assets/curvas_penetracion_termica_baldwin.svg)
+*Figura 1.1: Curvas de penetración térmica en el centro geométrico para losas planas de matriz cárnica ($10\text{ mm}$ a $70\text{ mm}$) a $55.0^\circ\text{C}$, $60.0^\circ\text{C}$ y $65.0^\circ\text{C}$ basadas en la solución analítica de la ecuación de Fourier ($t \propto L^2 / \alpha$). Trazabilidad científica y matemática: [Douglas Baldwin, IJGFS (2012)](https://doi.org/10.1016/j.ijgfs.2011.11.002) / [USDA-FSIS Pathogen Modeling Program](https://www.fsis.usda.gov).*
+
 ---
 
 ### 1.3 Anoxia, Retención de Volátiles y Cinética de Autooxidación Lipídica
@@ -136,6 +142,9 @@ $$\frac{T_{\text{centro}} - T_{\text{baño}}}{T_{\text{inicial}} - T_{\text{bañ
 
 2. **Conservación de la Fracción Volátil Hidrofóbica y Terpénica:**  
    En sistemas de cocción abiertos (asado, ebullición, fritura), la presión de vapor de agua arrastra compuestos volátiles aromáticos de bajo peso molecular (ésteres, pirazinas, terpenos). En sous-vide, el volumen de fase gaseosa en el interior de la bolsa es cuasi-cero ($V_{\text{gas}} \approx 0$). Al no haber espacio de cabeza ni corriente convectiva libre, el coeficiente de partición líquido-gas se satura en equilibrio termodinámico cerrado, reteniendo el $100\%$ de la fracción aromática hidrosoluble y liposoluble en el jugo intracelular y matriz cárnica.
+
+![Bolsas multicapa termoselladas al vacío con alimentos en marinada](assets/foto_bolsas_vacio_alimentos_termoselladas.jpg)
+*Fotografía 1.2: Acondicionamiento anóxico en bolsa barrera multicapa termosellada al vacío con salmón fresco, eneldo y adobos técnicos, eliminando la autooxidación lipídica y preservando la totalidad de la fracción aromática volátil.*
 
 ---
 
@@ -195,6 +204,9 @@ COLÁGENO                                           [===== Contracción 60-65°C
      $$k_{\text{solub}} = A \cdot \exp\left( - \frac{E_a}{R \cdot T} \right)$$
      Donde la energía de activación $E_a \approx 180 - 220\ \text{kJ}/\text{mol}$.
    - **Estrategia Sous-Vide en Cortes Duros (Carrillera, Rabo, Jarrete):** En lugar de aplicar altas temperaturas ($100^\circ\text{C}$) que hidrolizan el colágeno en 2 horas a costa de destrozar y desecar la actina, el sous-vide opera a **$55^\circ\text{C} - 62^\circ\text{C}$ durante $24 - 48\text{ horas}$**. A esta temperatura, la tasa de reacción $k_{\text{solub}}$ es más baja pero constante, transformando el $100\%$ del colágeno en gelatina ultra untuosa mientras la actina jamás supera su umbral de contracción, logrando cortes simultáneamente gelatinosos, jugosos y con corte limpio de cuchillo.
+
+![Corte transversal de carne cocinada a baja temperatura con punto rosado uniforme](assets/foto_corte_transversal_carne_sous_vide.jpg)
+*Fotografía 1.3: Corte transversal de pieza cárnica cocinada mediante precisión sous-vide a $54.0^\circ\text{C}$, evidenciando la desnaturalización selectiva de miosina ($50\text{--}55^\circ\text{C}$) sin sobrecalentamiento de actina ($\ge 66^\circ\text{C}$), logrando un 98% de superficie con punto rosado uniforme de borde a borde (*edge-to-edge*) y retención máxima de jugos miofibrilares.*
 
 ---
 
@@ -322,6 +334,9 @@ Donde $n$ es el número de reducciones decimales exigidas por la autoridad sanit
   Adoptado internacionalmente para *Listeria monocytogenes* en productos listos para el consumo (RTE). Si una carne cruda presenta una contaminación masiva de $1.000.000\ \text{UFC}/\text{g}$ ($10^6$), un tratamiento $6D$ reduce la carga a $\le 1\ \text{UFC}/\text{g}$ ($10^0$), eliminando cualquier probabilidad estadística de dosis infectiva.
 - **Estándar $7D$ ($7\text{ log}_{10}$ / $99.99999\%$ de inactivación):**  
   Exigido por la USDA-FSIS (Directiva 9 CFR § 381.150) para *Salmonella spp.* en todas las carnes de ave, debido a su mayor prevalencia inicial y gravedad toxiinfecciosa.
+
+![Cinética de Inactivación Logarítmica 6D / 7D y Valores D y z](assets/tabla_cinetica_inactivacion_6d_7d.svg)
+*Figura 2.1: Esquema cuantitativo de reducción logarítmica de Salmonella spp. (7D) y Listeria monocytogenes (6D) a 60.0°C con matriz cinetica de valores $D_T$ por temperatura ($55^\circ\text{C}$ a $70^\circ\text{C}$), sensibilidad térmica ($z$) e integral de letalidad acumulada ($P$). Trazabilidad oficial: [FDA Food Code Annex 3 (Public Health Reasons)](https://www.fda.gov/food/fda-food-code/food-code-2022) / [USDA FSIS 9 CFR § 381.150 Lethality Standards](https://www.ecfr.gov).*
 
 ---
 
@@ -491,6 +506,12 @@ El mayor riesgo biológico en los procesos *Cook-Chill* (Cocinar y Enfriar) no r
 | **$60\text{ mm}$** | **$140\text{ min}$** *(No conforme Cook-Chill)* | **$90\text{ min}$** | $65\text{ min}$ |
 
 > **ALERTA DE DISEÑO OPERATIVO:** Todo corte destinado a *Cook-Chill* con almacenamiento en frío superior a 48 horas **no debe superar un grosor máximo de 45 mm**. Si la pieza mide $\ge 50\text{ mm}$, debe porcionarse antes del envasado o abatirse en abatidor de temperatura profesional de chorro criogénico.
+
+![Protocolo de Abatimiento Térmico Forzado en Baño de Agua y Hielo 50/50](assets/protocolo_bano_hielo_50_50_abatimiento.svg)
+*Figura 4.1: Biofísica del enfriamiento forzado en baño bifásico de agua y hielo al 50/50 ($h \ge 2.500\text{ W}/(\text{m}^2\cdot\text{K})$), regla de los 90 minutos para cruzar la zona de peligro ($54.4^\circ\text{C} \to 4.0^\circ\text{C}$) y prevención de germinación de esporas de Clostridium perfringens y Clostridium botulinum. Trazabilidad científica: [UK ACMSF Guidelines on Cook-Chill Systems](https://acmsf.food.gov.uk) / [Douglas Baldwin Chilling Calculations](https://douglasbaldwin.com/sous-vide.html#Chilling).*
+
+![Baño de choque térmico con agua y hielo para abatimiento rápido de bolsas sous-vide](assets/foto_bano_choque_termico_hielo_bolsas.jpg)
+*Fotografía 1.4: Baño de choque térmico real con agua y abundante hielo en dispersión bifásica, manteniendo una temperatura de $0.5^\circ\text{C}$ para disipar inmediatamente el calor residual de las bolsas termoselladas.*
 
 ---
 

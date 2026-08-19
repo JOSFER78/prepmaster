@@ -61,6 +61,8 @@ Guarnición y plato principal emblemático de la huerta manchega. Elaborado medi
 | **Alérgenos (UE 1169/2011)** | Ninguno (Exento de los 14 alérgenos principales) |
 
 ### Ingredientes Estandarizados
+
+![Ingredientes y Mise en Place](assets/pisto_manchego_tradicional_01_ingredientes.jpg)
 | Ingrediente | Cantidad (g) | % Fórmula | Función / Especificación Técnica |
 | :--- | :--- | :--- | :--- |
 | **Aceite de Oliva Virgen Extra (AOVE)** | 120 g | 6.7% | Variedad Picual o Cornicabra para resistir cocción prolongada |
@@ -80,6 +82,8 @@ Guarnición y plato principal emblemático de la huerta manchega. Elaborado medi
 - **Equipamiento:** Cazuela de barro esmaltada o sartén honda de hierro fundido/acero inoxidable de fondo grueso (mínimo 28 cm de diámetro), espátula de madera o silicona térmica.
 
 ### Paso a Paso de Ejecución Técnica
+
+![Técnica de Elaboración](assets/pisto_manchego_tradicional_02_elaboracion.jpg)
 1. **Calentamiento del Medio Graso:** En la cazuela amplia, verter los 120 g de AOVE a fuego medio-bajo (temperatura diana del aceite: 140 °C).
 2. **Pochado de Base Aromática (Cebolla y Ajo):** Añadir la cebolla (350 g) con 3 g de sal. Sofreír durante 8 minutos hasta que comience a transparentar. Incorporar el ajo (20 g) y cocinar durante 2 minutos más sin que tome coloración oscura.
 3. **Incorporación de Pimientos:** Agregar el pimiento verde (250 g) y el pimiento rojo (250 g) junto con 3 g de sal. Rehogar a fuego medio durante 10-12 minutos, removiendo periódicamente hasta que pierdan rigidez.
@@ -124,6 +128,8 @@ Elaboración clásica de verduras de temporada cocinadas por separado al vapor/e
 | **Alérgenos (UE 1169/2011)** | Gluten (Trigo en la harina para ligar - sustituible por Maicena para versión Sin Gluten) |
 
 ### Ingredientes Estandarizados
+
+![Ingredientes y Mise en Place](assets/menestra_de_verduras_tudelana_con_jamon_iberi_01_ingredientes.jpg)
 | Ingrediente | Cantidad (g) | % Fórmula | Función / Especificación Técnica |
 | :--- | :--- | :--- | :--- |
 | **Alcachofas frescas (corazones limpios)** | 300 g (peso neto) | 16.2% | Variedad Blanca de Tudela, torneadas y en cuartos |
@@ -145,6 +151,8 @@ Elaboración clásica de verduras de temporada cocinadas por separado al vapor/e
 - **Equipamiento:** Olla para cocción al vapor o ebullición escalonada, bol con agua helada (baño inverso) para fijar la clorofila, cazuela baja de acero inoxidable o sartén sauté de 28 cm.
 
 ### Paso a Paso de Ejecución Técnica
+
+![Técnica de Elaboración](assets/menestra_de_verduras_tudelana_con_jamon_iberi_02_elaboracion.jpg)
 1. **Cocción Escalonada de las Verduras (Respeto de Tiempos):**
    - En una olla con 2 litros de agua y 15 g de sal hirviendo a borbotones:
      - Cocer las **zanahorias** durante 8 minutos.
@@ -193,6 +201,8 @@ Fusión de la receta tradicional andaluza de vigilia (majado de pan frito, ajo, 
 | **Alérgenos (UE 1169/2011)** | Gluten (Pan frito - omitir para celiacos), Lácteos (Nata/leche en variante crema) |
 
 ### Ingredientes Estandarizados
+
+![Ingredientes y Mise en Place](assets/espinacas_con_garbanzos_al_estilo_sevillano_y_01_ingredientes.jpg)
 | Ingrediente | Cantidad (g) | % Fórmula | Función / Especificación Técnica |
 | :--- | :--- | :--- | :--- |
 | **Espinacas frescas (o congeladas en hojas)** | 600 g | 31.6% | Limpias, lavadas y escurridas |
@@ -214,6 +224,8 @@ Fusión de la receta tradicional andaluza de vigilia (majado de pan frito, ajo, 
 - **Equipamiento:** Mortero tradicional de piedra/madera o procesador de alimentos, sartén honda o cazuela de 26 cm.
 
 ### Paso a Paso de Ejecución Técnica
+
+![Técnica de Elaboración](assets/espinacas_con_garbanzos_al_estilo_sevillano_y_02_elaboracion.jpg)
 1. **Fritura del Majado Sevillano:** En la cazuela con los 80 g de AOVE a fuego medio (160 °C), dorar los dientes de ajo enteros (25 g) y la rebanada de pan (50 g) hasta que adquieran un tono dorado crujiente homogéneo. Retirar y colocar en el vaso del mortero o trituradora.
 2. **Elaboración del Majado:** En el mortero junto al pan y ajo frito, incorporar los 4 g de comino, los 8 g de sal y machacar hasta formar una pasta. Añadir los 8 g de pimentón dulce, los 15 g de vinagre de Jerez y los 80 g de tomate frito casero. Majar hasta obtener una pasta emulsionada densa.
 3. **Rehogado de Espinacas:** En el mismo aceite residual de la cazuela a fuego medio, volcar las espinacas picadas (600 g) y saltear durante 3-4 minutos para que se impregnen de la grasa aromática.
@@ -256,6 +268,8 @@ Guarnición reina de la cocina tradicional andaluza y española. Patatas cortada
 | **Alérgenos (UE 1169/2011)** | Ninguno (100% libre de alérgenos obligatorios) |
 
 ### Ingredientes Estandarizados
+
+![Ingredientes y Mise en Place](assets/patatas_a_lo_pobre_con_pimientos_tricolor_y_c_01_ingredientes.jpg)
 | Ingrediente | Cantidad (g) | % Fórmula | Función / Especificación Técnica |
 | :--- | :--- | :--- | :--- |
 | **Patata de variedad semitardía (Monalisa / Kennebec)** | 1.000 g (peso limpio) | 52.6% | Patata para freír/confitar, rodajas de 4-5 mm |
@@ -273,6 +287,8 @@ Guarnición reina de la cocina tradicional andaluza y española. Patatas cortada
 - **Equipamiento:** Sartén amplia antiadherente de 30 cm de diámetro con tapa, espumadera de araña de acero inoxidable, escurridor metálico sobre bol.
 
 ### Paso a Paso de Ejecución Técnica
+
+![Técnica de Elaboración](assets/patatas_a_lo_pobre_con_pimientos_tricolor_y_c_02_elaboracion.jpg)
 1. **Sazonado y Mezcla en Frío:** En un bol grande, mezclar las patatas en rodajas (1.000 g), la cebolla en juliana (300 g), los pimientos en tiras (300 g) y los ajos en camisa chafados (30 g). Añadir los 10 g de sal y mezclar bien con las manos limpias para repartir homogéneamente.
 2. **Inicio del Confitado a Fuego Lento:** Disponer la mezcla en la sartén amplia y verter los 250 g de AOVE. Llevar a fuego medio-bajo (temperatura diana: **120 °C - 130 °C**). Las patatas no deben freírse ruidosamente, sino cocerse en el aceite lentamente.
 3. **Cocción Tapada:** Cubrir la sartén con su tapa y cocinar durante 20-25 minutos, removiendo con mucho cuidado con la espumadera cada 6-7 minutos dando vueltas desde el fondo hacia arriba para no quebrar las rodajas.
@@ -319,6 +335,8 @@ El pilar maestro de toda la cocina mediterránea tradicional. Concentrado denso 
 | **Alérgenos (UE 1169/2011)** | Ninguno |
 
 ### Ingredientes Estandarizados
+
+![Ingredientes y Mise en Place](assets/sofrito_madre_multiusos_de_carmen_01_ingredientes.jpg)
 | Ingrediente | Cantidad (g) | % Fórmula | Función / Especificación Técnica |
 | :--- | :--- | :--- | :--- |
 | **Cebolla dulce tipo Figueres o Reca** | 600 g | 33.3% | Picada en brunoise fina de 2 mm |
@@ -337,6 +355,8 @@ El pilar maestro de toda la cocina mediterránea tradicional. Concentrado denso 
 - **Equipamiento:** Cazuela ancha de hierro fundido esmaltado (tipo Cocotte) o cacerola de acero inoxidable de triple fondo difusor (28 cm), espátula raspadora plana.
 
 ### Paso a Paso de Ejecución Técnica
+
+![Técnica de Elaboración](assets/sofrito_madre_multiusos_de_carmen_02_elaboracion.jpg)
 1. **Infusión Grasa y Ajo:** En la cazuela fría, añadir los 100 g de AOVE y los 40 g de ajo picado. Encender a fuego suave y dejar que el ajo sude y libere alicina durante 3 minutos sin tomar color marrón.
 2. **Pochado Lento de Cebolla y Puerro:** Añadir la cebolla (600 g), el puerro (200 g), las 2 hojas de laurel y 5 g de sal. Cocinar a fuego muy bajo con la cazuela tapada durante 25 minutos, removiendo cada 5 minutos. La cebolla debe reducir su volumen a la mitad y adquirir un color rubio brillante traslúcido.
 3. **Adición de Pimientos:** Incorporar el pimiento verde (200 g) y el pimiento rojo (150 g) con 2 g de sal. Continuar pochando a fuego lento destapado durante 15 minutos hasta que los pimientos estén completamente tiernos y caramelizados.
@@ -378,6 +398,8 @@ Salsa de tomate tradicional andaluza frita lentamente en aceite de oliva virgen 
 | **Alérgenos (UE 1169/2011)** | Ninguno |
 
 ### Ingredientes Estandarizados
+
+![Ingredientes y Mise en Place](assets/salsa_de_tomate_frito_casero_reducido_01_ingredientes.jpg)
 | Ingrediente | Cantidad (g) | % Fórmula | Función / Especificación Técnica |
 | :--- | :--- | :--- | :--- |
 | **Tomate pera maduro pelado y triturado** | 2.000 g | 83.3% | Variedad Roma / Pera madurada en rama, tamizada |
@@ -395,6 +417,8 @@ Salsa de tomate tradicional andaluza frita lentamente en aceite de oliva virgen 
 - **Equipamiento:** Cazuela alta antisalpicaduras (mínimo 24 cm de diámetro y 12 cm de altura) con tapa con orificio de vapor, espátula de madera larga.
 
 ### Paso a Paso de Ejecución Técnica
+
+![Técnica de Elaboración](assets/salsa_de_tomate_frito_casero_reducido_02_elaboracion.jpg)
 1. **Aromatización del Aceite:** Verter los 120 g de AOVE en la cazuela a fuego medio (140 °C). Añadir los ajos laminados (20 g) y el trozo de pimiento verde (60 g). Dorar durante 2 minutos hasta que el ajo esté rubio claro.
 2. **Pochado de la Cebolla:** Incorporar la cebolla picada (200 g) con 3 g de sal. Bajar el fuego y pochar lentamente durante 12-15 minutos hasta que adquiera un color dorado miel.
 3. **Incorporación del Tomate:** Verter los 2.000 g de tomate triturado con cuidado. Añadir los 9 g de sal restantes, el azúcar (12 g) y la pimienta negra (1 g).
@@ -435,6 +459,8 @@ La técnica maestra de la bechamel tradicional española para croquetas cremosas
 | **Alérgenos (UE 1169/2011)** | Gluten (Harina de trigo), Lácteos (Mantequilla y leche) |
 
 ### Ingredientes Estandarizados
+
+![Ingredientes y Mise en Place](assets/salsa_bechamel_perfecta_sedosa_sin_grumos_01_ingredientes.jpg)
 | Ingrediente | Cantidad (g) | % Fórmula | Función / Especificación Técnica |
 | :--- | :--- | :--- | :--- |
 | **Mantequilla sin sal (82% M.G.)** | 60 g | 5.2% | Grasa noble para roux (opcional 30g mantequilla + 30g AOVE) |
@@ -451,6 +477,8 @@ La técnica maestra de la bechamel tradicional española para croquetas cremosas
 - **Equipamiento:** Cazo hondo de acero inoxidable de fondo encapsulado (20-22 cm), varilla manual de repostería de acero fino (batidor de globo), lengua de silicona.
 
 ### Paso a Paso de Ejecución Técnica
+
+![Técnica de Elaboración](assets/salsa_bechamel_perfecta_sedosa_sin_grumos_02_elaboracion.jpg)
 1. **Fusión de las Grasas:** En el cazo a fuego medio-bajo (110 °C), derretir los 60 g de mantequilla junto con los 20 g de AOVE hasta que cese el burbujeo de suero lácteo.
 2. **Cocción del Roux (Paso Crítico Anti-Sabor a Crudo):** Añadir los 80 g de harina de golpe. Remover inmediatamente con la varilla manual a fuego medio (120 °C) durante **2 a 3 minutos continuos**. La mezcla debe formar una pasta espumosa y adquirir un color avellana muy claro (Roux Rubio) desprendiendo aroma a galleta horneada.
 3. **Técnica Anti-Grumos (Choque Térmico Controlado):**
@@ -494,6 +522,8 @@ Las dos grandes salsas emulsionadas frías de la gastronomía española. Elabora
 | **Alérgenos (UE 1169/2011)** | Huevo | Huevo (en versión con yema) / Ninguno (en alioli puro ajo-aceite) |
 
 ### Ingredientes Estandarizados
+
+![Ingredientes y Mise en Place](assets/emulsiones_frias_clasicas_mahonesa_tradiciona_01_ingredientes.jpg)
 | Ingrediente | Mahonesa (g) | Alioli Tradicional (g) | Función Técnica |
 | :--- | :--- | :--- | :--- |
 | **Huevo campero entero (Talla L)** | 60 g (1 unidad a temp. ambiente) | - | Agente emulsionante natural (lecitinas) |
@@ -506,6 +536,8 @@ Las dos grandes salsas emulsionadas frías de la gastronomía española. Elabora
 | **Sal marina fina** | 4 g | 4 g | Realce de sabor y fricción mecánica |
 
 ### Paso a Paso de Ejecución Técnica
+
+![Técnica de Elaboración](assets/emulsiones_frias_clasicas_mahonesa_tradiciona_02_elaboracion.jpg)
 
 #### A. Mahonesa Perfecta Inmulsionable (Técnica Batidora de Mano sin Corte)
 1. **Regla de Temperaturas:** El huevo y el aceite deben estar exactamente a la **misma temperatura (ambiente, aprox. 20-22 °C)** para evitar tensiones interfaciales que provoquen el corte de la emulsión.
@@ -554,6 +586,8 @@ Elaboración tradicional de arroz con leche de grano hinchado y meloso mediante 
 | **Alérgenos (UE 1169/2011)** | Lácteos (Leche entera y mantequilla) |
 
 ### Ingredientes Estandarizados
+
+![Ingredientes y Mise en Place](assets/arroz_con_leche_cremoso_de_la_abuela_01_ingredientes.jpg)
 | Ingrediente | Cantidad (g) | % Fórmula | Función / Especificación Técnica |
 | :--- | :--- | :--- | :--- |
 | **Arroz de grano redondo (Bomba / Senia / Bahía)** | 200 g | 9.8% | Alto contenido en amilopectina para liberar almidón |
@@ -573,6 +607,8 @@ Elaboración tradicional de arroz con leche de grano hinchado y meloso mediante 
 - **Equipamiento:** Cazuela amplia de acero inoxidable de fondo grueso o cobre esmaltado (26 cm), cuchara o espátula de madera de haya o silicona.
 
 ### Paso a Paso de Ejecución Técnica
+
+![Técnica de Elaboración](assets/arroz_con_leche_cremoso_de_la_abuela_02_elaboracion.jpg)
 1. **Apertura del Grano de Arroz:** En la cazuela, colocar los 200 g de arroz redondo con los 150 g de agua y la pizca de sal (2 g) a fuego medio. Dejar hervir suavemente durante 4-5 minutos hasta que el arroz haya absorbido casi toda el agua. Esta técnica abre la estructura del almidón exterior sin romper el grano.
 2. **Infusión Láctea:** Simultáneamente, calentar en otro cazo los 1.500 g de leche junto a los 200 g de nata, las ramas de canela (6 g) y las pieles de limón y naranja (16 g) hasta que alcance los 80 °C. Dejar reposar 5 minutos tapado.
 3. **Cocción Lenta y Removido Continuo:** Verter la leche infusionada colada sobre el arroz caliente a través de un colador. Bajar el fuego a mínimo (temperatura de cocción: **88 °C - 92 °C**, con leve temblor superficial pero sin ebullición turbulenta).
@@ -610,6 +646,8 @@ El postre más canónico de la repostería casera. Coagulación térmica lenta d
 | **Alérgenos (UE 1169/2011)** | Huevo, Lácteos (Leche entera) |
 
 ### Ingredientes Estandarizados
+
+![Ingredientes y Mise en Place](assets/flan_de_huevo_tradicional_al_bano_maria_con_c_01_ingredientes.jpg)
 | Ingrediente | Cantidad (g) | % Fórmula | Función / Especificación Técnica |
 | :--- | :--- | :--- | :--- |
 | **Huevos camperos enteros frescos (Talla L)** | 300 g (5 unidades) | 26.5% | Agente coagulante y estructura proteica |
@@ -626,6 +664,8 @@ El postre más canónico de la repostería casera. Coagulación térmica lenta d
 - **Equipamiento:** Flaneras individuales de aluminio/acero o molde grande con tapa (20 cm de diámetro), bandeja de horno profunda con reborde alto (mínimo 6 cm), varilla de mano, colador de malla fina/chino.
 
 ### Paso a Paso de Ejecución Técnica
+
+![Técnica de Elaboración](assets/flan_de_huevo_tradicional_al_bano_maria_con_c_02_elaboracion.jpg)
 1. **Elaboración del Caramelo Rubio:**
    - En un cazo de acero inoxidable a fuego medio, colocar los 150 g de azúcar, los 30 g de agua y las gotas de limón.
    - Dejar fundir sin meter cucharas ni remover mecánicamente (solo moviendo el cazo por el mango con giros suaves) hasta que adquiera un color ámbar dorado brillante (temperatura diana: **165 °C - 170 °C**).
@@ -671,6 +711,8 @@ Postre de cuchara por excelencia. Crema inglesa espesada por la coagulación de 
 | **Alérgenos (UE 1169/2011)** | Huevo (Yemas), Lácteos (Leche entera), Gluten (Galleta María - sustituible por galleta sin gluten) |
 
 ### Ingredientes Estandarizados
+
+![Ingredientes y Mise en Place](assets/natillas_caseras_de_yema_con_galleta_maria_y__01_ingredientes.jpg)
 | Ingrediente | Cantidad (g) | % Fórmula | Función / Especificación Técnica |
 | :--- | :--- | :--- | :--- |
 | **Leche entera fresca pasteurizada (3.6% M.G.)** | 1.000 g | 76.9% | Medio lácteo base |
@@ -688,6 +730,8 @@ Postre de cuchara por excelencia. Crema inglesa espesada por la coagulación de 
 - **Equipamiento:** Cazo de acero inoxidable de fondo grueso (20-22 cm), bol de cristal para blanquear yemas, varilla manual, colador fino, cuencos de cerámica o cristal.
 
 ### Paso a Paso de Ejecución Técnica
+
+![Técnica de Elaboración](assets/natillas_caseras_de_yema_con_galleta_maria_y__02_elaboracion.jpg)
 1. **Infusión Láctea Aromática:** En el cazo, verter los 850 g de leche restante junto a la piel de limón (6 g), la rama de canela (4 g) y la vainilla (2 g). Calentar a fuego medio hasta que empiece a hervir (85 °C - 90 °C). Apagar el fuego, tapar el cazo y dejar reposar 10 minutos para que los aromas se transfieran a la grasa láctea.
 2. **Blanqueado de Yemas y Maicena:**
    - En el bol de cristal, colocar los 120 g de yemas de huevo y los 130 g de azúcar. Batir con la varilla durante 2 minutos hasta que la mezcla aclare su color y esté cremosa.

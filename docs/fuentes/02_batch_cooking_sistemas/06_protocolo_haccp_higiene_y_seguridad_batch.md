@@ -198,6 +198,9 @@ Donde para *L. monocytogenes*: $T_{\text{ref}} = 70^\circ\text{C}$, $D_{70} \app
         0         30         60         90        120        Tiempo (min)
 ```
 
+![Curva de Abatimiento Térmico Cook & Chill APPCC](assets/curva_abatimiento_cook_chill.svg)
+> **Procedencia Técnica & Validación Bromatológica:** Curva de control para el Punto Crítico de Control (PCC 4) según Reglamento CE 852/2004 y directrices FDA Food Code para enfriamiento rápido forzado en matrices alimentarias densas.
+
 ### 3. Protocolos de Abatimiento por Entorno
 
 #### A. Entorno Profesional / Industrial (Abatidor de Temperatura)
@@ -211,6 +214,9 @@ Donde para *L. monocytogenes*: $T_{\text{ref}} = 70^\circ\text{C}$, $D_{70} \app
   2. Sumergir el recipiente en un baño maría inverso con **$50\%$ agua fría $+ 50\%$ hielo picado $+ 200\,\text{g}$ de sal común** (la sal desciende el punto eutéctico del agua a $-2^\circ\text{C} / -4^\circ\text{C}$).
   3. Agitar continuamente con espátula desinfectada para romper el gradiente interno de conducción.
   4. Una vez alcanzados los $\le 10^\circ\text{C}$ en sonda, tapar herméticamente y transferir al estante más frío de la nevera ($0-3^\circ\text{C}$).
+
+![Choque Térmico Rápido y Abatimiento Forzado en Baño de Hielo](assets/foto_bano_hielo_abatimiento_batch.jpg)
+> **Fotografía Real Operativa:** Protocolo de abatimiento bifásico mediante baño de agua con hielo y sal para cumplimiento de PCC 4 y reducción térmica acelerada.
 
 ---
 
@@ -253,6 +259,9 @@ Donde para *L. monocytogenes*: $T_{\text{ref}} = 70^\circ\text{C}$, $D_{70} \app
 > 3. Lote interno de producción (L-AAMMDD-X).
 > 4. Fecha límite de consumo seguro ($T \le 3^\circ\text{C}$).
 > 5. Método y temperatura exigida de regeneración.
+
+![Rotulación y Etiquetado Sistemático de Recipientes Batch Cooking HACCP](assets/foto_rotulacion_etiquetas_haccp_tuppers.jpg)
+> **Fotografía Real Operativa:** Identificación y rotulado de recipientes y frascos herméticos con fecha de envasado, lote interno y fecha límite de consumo según protocolo de trazabilidad HACCP.
 
 ---
 
@@ -442,6 +451,9 @@ Para anular radicalmente la contaminación cruzada entre matrices de distinto ni
     │   Hortalizas RTE   │      │   Quesos / Embutido│      │   Raíces con tierra│
     └────────────────────┘      └────────────────────┘      └────────────────────┘
 ```
+
+![Código Cromático Internacional de Tablas de Corte HACCP](assets/tabla_haccp_codigos_color.svg)
+> **Procedencia Técnica & Prevención de Riesgos Biológicos:** Estándar internacional de codificación cromática para anulación de contaminación cruzada según directrices HACCP / APPCC y especificaciones de material HDPE 500 (FDA 21 CFR 177.1520 / Reglamento UE 10/2011).
 
 ### Especificaciones Técnicas del Material de Tablas
 1. **Composición:** Polietileno de Alta Densidad (**HDPE 500**) o Polipropileno virgen de grado alimentario (normativa FDA 21 CFR 177.1520 / Reglamento UE 10/2011).

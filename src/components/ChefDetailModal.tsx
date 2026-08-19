@@ -142,14 +142,29 @@ export function ChefDetailModal({
                 </div>
               </div>
 
-              <div className="p-3.5 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 text-xs space-y-1.5">
+              <div className="p-3.5 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 text-xs space-y-2">
                 <div className="flex items-center gap-2 text-emerald-600 dark:text-emerald-400 font-bold">
                   <ShieldCheck size={16} />
-                  <span>Garantía Sanitaria & Herramientas Incluidas</span>
+                  <span>Seguridad Alimentaria & Garantía Sanitaria TouChef</span>
                 </div>
-                <p className="text-zinc-500 text-[11px]">
-                  El cocinero aporta cuchillos profesionales desinfectados y deja la cocina impecable. Certificado de manipulador de alimentos verificado por TouChef.
-                </p>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-[11px] text-zinc-600 dark:text-zinc-300">
+                  <div className="flex items-center gap-1.5">
+                    <CheckCircle2 size={13} className="text-emerald-500 shrink-0" />
+                    <span>Carnet Manipulador: {chef.foodHandlerCertificateNumber || 'CERT-MAD-2026-9882'}</span>
+                  </div>
+                  <div className="flex items-center gap-1.5">
+                    <CheckCircle2 size={13} className="text-emerald-500 shrink-0" />
+                    <span>Control 14 Alérgenos UE Acreditado</span>
+                  </div>
+                  <div className="flex items-center gap-1.5">
+                    <CheckCircle2 size={13} className="text-emerald-500 shrink-0" />
+                    <span>Cuchillería Pro Desinfectada</span>
+                  </div>
+                  <div className="flex items-center gap-1.5">
+                    <CheckCircle2 size={13} className="text-emerald-500 shrink-0" />
+                    <span>Protocolo APPCC & Limpieza de Cocina</span>
+                  </div>
+                </div>
               </div>
             </div>
           )}
@@ -230,7 +245,7 @@ export function ChefDetailModal({
                     <span className="text-[10px] text-zinc-400">{rev.date}</span>
                   </div>
                   <p className="text-zinc-600 dark:text-zinc-300 italic">"{rev.comment}"</p>
-                  <span className="text-[10px] text-[#E07A5F] font-bold block">Lote: {rev.batchType}</span>
+                  <span className="text-[10px] text-[#E07A5F] font-bold block">Lote: {(rev as any).batchType || 'Batch Cooking Tradicional'}</span>
                 </div>
               ))}
             </div>

@@ -1,0 +1,231 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 860" width="100%" height="100%" style="background:#090d16; font-family:'Inter', system-ui, -apple-system, sans-serif;">
+  <defs>
+    <!-- Background Gradients -->
+    <linearGradient id="bgGrad4" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0e1322"/>
+      <stop offset="100%" stop-color="#06080e"/>
+    </linearGradient>
+    <linearGradient id="cardGrad4" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e293b" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#0f172a" stop-opacity="0.95"/>
+    </linearGradient>
+
+    <!-- Specific Gradients -->
+    <linearGradient id="gGlutenTrigo" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#fbbf24"/><stop offset="100%" stop-color="#d97706"/></linearGradient>
+    <linearGradient id="gSinGlutenFallo" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#f87171"/><stop offset="100%" stop-color="#dc2626"/></linearGradient>
+    <linearGradient id="gBiomimetic" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#a855f7"/><stop offset="100%" stop-color="#6366f1"/></linearGradient>
+    <linearGradient id="gPsyllium" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#2dd4bf"/><stop offset="100%" stop-color="#0d9488"/></linearGradient>
+    <linearGradient id="gXanthan" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#f472b6"/><stop offset="100%" stop-color="#db2777"/></linearGradient>
+
+    <!-- Shadows -->
+    <filter id="shadow4" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="6" stdDeviation="10" flood-color="#000000" flood-opacity="0.5"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="860" fill="url(#bgGrad4)"/>
+
+  <!-- Subtle Blueprint Grid -->
+  <g stroke="#ffffff" stroke-opacity="0.03" stroke-width="1">
+    <line x1="50" y1="0" x2="50" y2="860"/>
+    <line x1="410" y1="0" x2="410" y2="860"/>
+    <line x1="790" y1="0" x2="790" y2="860"/>
+    <line x1="1150" y1="0" x2="1150" y2="860"/>
+    <line x1="0" y1="120" x2="1200" y2="120"/>
+    <line x1="0" y1="520" x2="1200" y2="520"/>
+  </g>
+
+  <!-- Header Section -->
+  <g transform="translate(50, 30)">
+    <rect width="1100" height="75" rx="14" fill="url(#cardGrad4)" stroke="#334155" stroke-width="1.2" filter="url(#shadow4)"/>
+    
+    <!-- Molecular Chain Icon -->
+    <rect x="18" y="15" width="46" height="46" rx="10" fill="#7c3aed"/>
+    <circle cx="33" cy="38" r="6" fill="#c084fc"/>
+    <circle cx="49" cy="38" r="6" fill="#c084fc"/>
+    <line x1="33" y1="38" x2="49" y2="38" stroke="#ffffff" stroke-width="2.5"/>
+    <path d="M 28 30 L 41 24 L 54 30" stroke="#ffffff" stroke-width="2" fill="none"/>
+
+    <!-- Title and Subtitle -->
+    <text x="76" y="35" font-size="20" font-weight="900" fill="#f8fafc" letter-spacing="0.5">INGENIERÍA REOLÓGICA DE MASAS SIN GLUTEN</text>
+    <text x="76" y="53" font-size="12" font-weight="600" fill="#94a3b8">Biomimética Viscoelástica · Psyllium Husk (2-4%) + Goma Xantana (1%) + Almidón de Tapioca (30%)</text>
+    
+    <!-- Right Badge -->
+    <rect x="915" y="20" width="165" height="35" rx="18" fill="#1e293b" stroke="#a855f7" stroke-width="1.2"/>
+    <circle cx="932" cy="37" r="5" fill="#a855f7"/>
+    <text x="946" y="42" font-size="11.5" font-weight="700" fill="#f3e8ff">REOLOGÍA AVANZADA</text>
+  </g>
+
+  <!-- 3 COMPARATIVE PANELS (y=130 to 510) -->
+
+  <!-- PANEL 1: TRIGO CONVENCIONAL -->
+  <g transform="translate(50, 130)" filter="url(#shadow4)">
+    <rect width="340" height="370" rx="14" fill="url(#cardGrad4)" stroke="#d97706" stroke-width="1.5"/>
+    <rect x="16" y="16" width="308" height="38" rx="8" fill="#451a03"/>
+    <circle cx="36" cy="35" r="12" fill="url(#gGlutenTrigo)"/>
+    <text x="56" y="39" font-size="13" font-weight="900" fill="#fbbf24">TRIGO: RED DE GLUTEN</text>
+
+    <!-- Schematic of Gluten Network -->
+    <g transform="translate(20, 70)">
+      <rect width="300" height="135" rx="8" fill="#0b1120" stroke="#334155" stroke-width="1"/>
+      
+      <!-- Glutenin (Elastic long strands) + Gliadin (Globular links) -->
+      <path d="M 20 40 C 60 10, 80 70, 120 40 S 180 70, 220 40 S 260 70, 280 40" stroke="#f59e0b" stroke-width="3" fill="none"/>
+      <path d="M 20 90 C 60 60, 80 120, 120 90 S 180 120, 220 90 S 260 120, 280 90" stroke="#f59e0b" stroke-width="3" fill="none"/>
+      
+      <!-- Disulfide Bridges (-S-S-) -->
+      <line x1="70" y1="28" x2="70" y2="78" stroke="#ef4444" stroke-width="2.5" stroke-dasharray="3,3"/>
+      <line x1="170" y1="52" x2="170" y2="102" stroke="#ef4444" stroke-width="2.5" stroke-dasharray="3,3"/>
+      <line x1="240" y1="28" x2="240" y2="78" stroke="#ef4444" stroke-width="2.5" stroke-dasharray="3,3"/>
+      
+      <!-- Gas Bubbles trapped -->
+      <circle cx="120" cy="65" r="16" fill="#3b82f6" fill-opacity="0.35" stroke="#60a5fa" stroke-width="1.5"/>
+      <text x="120" y="69" font-size="10" font-weight="900" fill="#ffffff" text-anchor="middle">CO₂</text>
+      <circle cx="205" cy="65" r="12" fill="#3b82f6" fill-opacity="0.35" stroke="#60a5fa" stroke-width="1.5"/>
+      <text x="205" y="68" font-size="8.5" font-weight="900" fill="#ffffff" text-anchor="middle">CO₂</text>
+    </g>
+
+    <text x="20" y="230" font-size="11.5" font-weight="800" fill="#f8fafc">Comportamiento Mecánico:</text>
+    <text x="20" y="252" font-size="10.5" fill="#cbd5e1">• <tspan font-weight="700" fill="#fbbf24">Glutenina</tspan>: Elasticidad y tenacidad a la tracción.</text>
+    <text x="20" y="272" font-size="10.5" fill="#cbd5e1">• <tspan font-weight="700" fill="#fde68a">Gliadina</tspan>: Viscosidad y extensibilidad.</text>
+    <text x="20" y="292" font-size="10.5" fill="#cbd5e1">• Enlaces disulfuro (-S-S-) espontáneos con agua.</text>
+    <text x="20" y="312" font-size="10.5" fill="#cbd5e1">• Trampa elástica 3D perfecta para burbujas de gas.</text>
+
+    <rect x="20" y="328" width="300" height="26" rx="6" fill="#451a03"/>
+    <text x="170" y="345" font-size="10" font-weight="800" fill="#fed7aa" text-anchor="middle">Miga Abierta, Esponjosa y Tenaz</text>
+  </g>
+
+  <!-- PANEL 2: SIN GLUTEN SIN MEJORANTES (EL FALLO) -->
+  <g transform="translate(430, 130)" filter="url(#shadow4)">
+    <rect width="340" height="370" rx="14" fill="url(#cardGrad4)" stroke="#dc2626" stroke-width="1.5"/>
+    <rect x="16" y="16" width="308" height="38" rx="8" fill="#450a0a"/>
+    <circle cx="36" cy="35" r="12" fill="url(#gSinGlutenFallo)"/>
+    <text x="56" y="39" font-size="13" font-weight="900" fill="#f87171">SIN GLUTEN SIN AYUDAS</text>
+
+    <!-- Schematic of Broken Dispersion -->
+    <g transform="translate(20, 70)">
+      <rect width="300" height="135" rx="8" fill="#0b1120" stroke="#334155" stroke-width="1"/>
+      
+      <!-- Dispersed disconnected starch grains -->
+      <circle cx="50" cy="50" r="10" fill="#64748b"/>
+      <circle cx="90" cy="80" r="14" fill="#64748b"/>
+      <circle cx="150" cy="40" r="12" fill="#64748b"/>
+      <circle cx="210" cy="75" r="11" fill="#64748b"/>
+      <circle cx="260" cy="45" r="13" fill="#64748b"/>
+      
+      <!-- Escaping Gas Lines -->
+      <path d="M 80 40 L 90 15 M 140 25 L 145 10 M 200 45 L 210 15" stroke="#ef4444" stroke-width="2" stroke-dasharray="3,3"/>
+      <text x="150" y="115" font-size="10" font-weight="800" fill="#f87171" text-anchor="middle">FUGA TOTAL DE CO₂ (CERO COHESIÓN)</text>
+    </g>
+
+    <text x="20" y="230" font-size="11.5" font-weight="800" fill="#f8fafc">Defectos Físico-Químicos:</text>
+    <text x="20" y="252" font-size="10.5" fill="#fca5a5">• Fluido no newtoniano o barro disgregable.</text>
+    <text x="20" y="272" font-size="10.5" fill="#cbd5e1">• Cero retención de gas alveolar durante el leudado.</text>
+    <text x="20" y="292" font-size="10.5" fill="#cbd5e1">• Pérdida violenta de agua libre en el horneado.</text>
+    <text x="20" y="312" font-size="10.5" fill="#f87171">• Estructura compacta, arenosa y desmigable en 12h.</text>
+
+    <rect x="20" y="328" width="300" height="26" rx="6" fill="#450a0a"/>
+    <text x="170" y="345" font-size="10" font-weight="800" fill="#fecaca" text-anchor="middle">Resultado: Pan Pesado, Seco y Quebradizo</text>
+  </g>
+
+  <!-- PANEL 3: TOUCHEF BIOMIMÉTICO (PSYLLIUM + XANTANA) -->
+  <g transform="translate(810, 130)" filter="url(#shadow4)">
+    <rect width="340" height="370" rx="14" fill="url(#cardGrad4)" stroke="#8b5cf6" stroke-width="1.5"/>
+    <rect x="16" y="16" width="308" height="38" rx="8" fill="#2e1065"/>
+    <circle cx="36" cy="35" r="12" fill="url(#gBiomimetic)"/>
+    <text x="56" y="39" font-size="13" font-weight="900" fill="#c084fc">TOUCHEF: MATRIZ REOLÓGICA</text>
+
+    <!-- Schematic of Hydrocolloid 3D Network -->
+    <g transform="translate(20, 70)">
+      <rect width="300" height="135" rx="8" fill="#0b1120" stroke="#334155" stroke-width="1"/>
+      
+      <!-- Interwoven Psyllium Hydrogel (teal) + Xanthan Bridges (pink) -->
+      <path d="M 20 40 Q 60 80 100 35 T 180 50 T 260 30" stroke="#2dd4bf" stroke-width="3" fill="none"/>
+      <path d="M 30 100 Q 80 50 140 105 T 220 80 T 280 95" stroke="#2dd4bf" stroke-width="3" fill="none"/>
+      
+      <!-- Xanthan Crosslinks -->
+      <path d="M 60 60 C 60 30, 110 30, 110 70 S 160 110, 160 70" stroke="#f472b6" stroke-width="2" fill="none"/>
+      <path d="M 180 60 C 180 30, 230 30, 230 70 S 270 100, 270 65" stroke="#f472b6" stroke-width="2" fill="none"/>
+
+      <!-- Captured CO2 Bubbles in cell matrix -->
+      <circle cx="95" cy="70" r="15" fill="#38bdf8" fill-opacity="0.35" stroke="#38bdf8" stroke-width="1.5"/>
+      <text x="95" y="74" font-size="9.5" font-weight="900" fill="#ffffff" text-anchor="middle">CO₂</text>
+      
+      <circle cx="210" cy="65" r="14" fill="#38bdf8" fill-opacity="0.35" stroke="#38bdf8" stroke-width="1.5"/>
+      <text x="210" y="69" font-size="9" font-weight="900" fill="#ffffff" text-anchor="middle">CO₂</text>
+    </g>
+
+    <text x="20" y="230" font-size="11.5" font-weight="800" fill="#f8fafc">Biomimética Reológica:</text>
+    <text x="20" y="252" font-size="10.5" fill="#2dd4bf">• <tspan font-weight="700">Psyllium (2-4%)</tspan>: Hidrogel mucilaginoso (10x H₂O).</text>
+    <text x="20" y="272" font-size="10.5" fill="#f472b6">• <tspan font-weight="700">Xantana (1%)</tspan>: Pseudoplasticidad y trampa de gas.</text>
+    <text x="20" y="292" font-size="10.5" fill="#cbd5e1">• <tspan font-weight="700" fill="#fde68a">Tapioca (30%)</tspan>: Gelatinización elástica "chewy".</text>
+    <text x="20" y="312" font-size="10.5" fill="#a78bfa">• Miga elástica, flexible y jugosa durante 72-96h.</text>
+
+    <rect x="20" y="328" width="300" height="26" rx="6" fill="#3b0764"/>
+    <text x="170" y="345" font-size="10" font-weight="800" fill="#f3e8ff" text-anchor="middle">Miga Idéntica al Trigo sin Alérgenos</text>
+  </g>
+
+  <!-- LOWER SECTION: THE TRINARY MIX FORMULA & ACTION PROTOCOL (y=520 to 760) -->
+  
+  <!-- FORMULATION CARD (Width 1100) -->
+  <g transform="translate(50, 520)" filter="url(#shadow4)">
+    <rect width="1100" height="225" rx="14" fill="url(#cardGrad4)" stroke="#334155" stroke-width="1.2"/>
+    
+    <text x="30" y="35" font-size="14" font-weight="900" fill="#f8fafc">FÓRMULA MAESTRA DEL MIX PANARIO Y REPOSTERO TOUCHEF (100% LIBRE DE GLUTEN)</text>
+    <line x1="30" y1="48" x2="1070" y2="48" stroke="#334155" stroke-width="1"/>
+
+    <!-- 4 Step columns inside formulation card -->
+    <!-- Col 1: Harinas Base (45%) -->
+    <g transform="translate(30, 65)">
+      <rect width="240" height="140" rx="10" fill="#0b1120" stroke="#3b82f6" stroke-width="1"/>
+      <text x="16" y="25" font-size="12" font-weight="800" fill="#60a5fa">1. HARINAS BASE (45%)</text>
+      <text x="16" y="50" font-size="10.5" fill="#f8fafc">• Arroz Blanco o Integral (30%)</text>
+      <text x="16" y="70" font-size="10.5" fill="#f8fafc">• Avena Certificada GF (15%)</text>
+      <text x="16" y="95" font-size="9.5" fill="#94a3b8">Aportan cuerpo neutro, proteína</text>
+      <text x="16" y="112" font-size="9.5" fill="#94a3b8">estructural y beta-glucanos.</text>
+    </g>
+
+    <!-- Col 2: Almidones Elásticos (35%) -->
+    <g transform="translate(295, 65)">
+      <rect width="240" height="140" rx="10" fill="#0b1120" stroke="#eab308" stroke-width="1"/>
+      <text x="16" y="25" font-size="12" font-weight="800" fill="#facc15">2. ALMIDONES (35%)</text>
+      <text x="16" y="50" font-size="10.5" fill="#f8fafc">• Almidón de Tapioca/Yuca (25%)</text>
+      <text x="16" y="70" font-size="10.5" fill="#f8fafc">• Fécula de Patata o Maicena (10%)</text>
+      <text x="16" y="95" font-size="9.5" fill="#94a3b8">Gelatinización ultrarrápida,</text>
+      <text x="16" y="112" font-size="9.5" fill="#94a3b8">mordida elástica y retención H₂O.</text>
+    </g>
+
+    <!-- Col 3: Harinas Nobles (15%) -->
+    <g transform="translate(560, 65)">
+      <rect width="240" height="140" rx="10" fill="#0b1120" stroke="#f97316" stroke-width="1"/>
+      <text x="16" y="25" font-size="12" font-weight="800" fill="#fb923c">3. HARINAS NOBLES (15%)</text>
+      <text x="16" y="50" font-size="10.5" fill="#f8fafc">• Trigo Sarraceno (10%)</text>
+      <text x="16" y="70" font-size="10.5" fill="#f8fafc">• Harina de Teff o Almendra (5%)</text>
+      <text x="16" y="95" font-size="9.5" fill="#94a3b8">Complejidad aromática, color</text>
+      <text x="16" y="112" font-size="9.5" fill="#94a3b8">rústico, rutina y minerales.</text>
+    </g>
+
+    <!-- Col 4: Hidrocoloides (5%) -->
+    <g transform="translate(825, 65)">
+      <rect width="245" height="140" rx="10" fill="#2e1065" stroke="#a855f7" stroke-width="1.2"/>
+      <text x="16" y="25" font-size="12" font-weight="800" fill="#c084fc">4. HIDROCOLOIDES (3-5%)</text>
+      <text x="16" y="50" font-size="10.5" font-weight="700" fill="#2dd4bf">• Psyllium Husk Grado Polvo: 3%</text>
+      <text x="16" y="70" font-size="10.5" font-weight="700" fill="#f472b6">• Goma Xantana Pura: 1%</text>
+      <text x="16" y="95" font-size="9.5" fill="#e9d5ff">Hidratación total de masa: 80-90%</text>
+      <text x="16" y="112" font-size="9.5" font-weight="700" fill="#f3e8ff">Tiempo de gel previo: 10 min.</text>
+    </g>
+  </g>
+
+  <!-- Bottom Legal & Technical Strip -->
+  <g transform="translate(50, 760)">
+    <rect width="1100" height="50" rx="10" fill="#0f172a" stroke="#334155" stroke-width="1"/>
+    <text x="550" y="30" font-size="10.5" font-weight="600" fill="#94a3b8" text-anchor="middle">
+      Técnica Reológica TouChef Master Series · Homologado para Masas Fermentadas, Pastas Frescas y Repostería de Alta Gama
+    </text>
+  </g>
+
+  <text x="600" y="840" font-size="9" font-weight="500" fill="#64748b" text-anchor="middle">
+    Referencia Técnica: Food Hydrocolloids &amp; Cereal Chemistry Research · TouChef Master Series · Seguridad &lt;20 ppm
+  </text>
+</svg>

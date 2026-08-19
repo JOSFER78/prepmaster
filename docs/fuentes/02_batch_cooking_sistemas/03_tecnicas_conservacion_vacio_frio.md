@@ -100,6 +100,9 @@ graph TD
     end
 ```
 
+![Termodinámica de la Cristalización en Congelación: Microcristales vs Macrocristales](assets/termodinamica_cristalizacion_congelacion.svg)
+> **Procedencia Técnica & Histología de Alimentos:** Análisis termodinámico y morfología cristalográfica según modelos de Fennema (*Food Chemistry*) y estándares criogénicos TouChef para prevención de lisis celular y *drip loss*.
+
 #### Fisiopatología del Daño Celular (*Lisis Celular y Drip Loss*)
 
 1. **Congelación Lenta Doméstica ($-18^\circ\text{C}$ estática):**
@@ -149,6 +152,15 @@ El envasado al vacío (*Vacuum Packaging*) consiste en la evacuación forzada de
 | **Tipo de Bolsa Requerida** | **Bolsas Gofradas** (con microrrelieve interior para canalizar el aire) | **Bolsas Lisas Multicapa** (coste por unidad $70\%$ inferior) |
 | **Potencia de Bomba** | $10 - 18\,\text{L/min}$ (bomba de pistón en seco) | $4 - 20\,\text{m}^3/\text{h}$ (bomba de paletas en baño de aceite) |
 | **Ancho y Calidad de Sellado** | Soldadura simple estrecha ($1.5 - 2.5\,\text{mm}$) | Soldadura doble o ancha ($4 - 5\,\text{mm}$) con corte de sobrante |
+
+![Física del Envasado al Vacío: Campana vs Aspiración Externa](assets/envasado_vacio_campana_vs_externa.svg)
+> **Procedencia Técnica & Termodinámica de Vacío:** Diagrama de fluidos y curvas de presión de vapor según ecuación de Clausius-Clapeyron para envasado de matrices líquidas y cocción *Sous-Vide*.
+
+![Envasadora de Vacío de Campana Profesional en Funcionamiento](assets/foto_envasadora_campana_profesional.jpg)
+> **Fotografía Real Operativa:** Envasadora de campana profesional de cámara transparente despresurizando homogéneamente matrices con caldos y marinadas sin ebullición ni desborde.
+
+![Envasadora Externa Sellando Bolsas Gofradas de Vacío](assets/foto_envasado_vacio_bolsas_gofradas.jpg)
+> **Fotografía Real Operativa:** Envasadora de aspiración externa sellando bolsas gofradas texturizadas de alta barrera para porciones secas y congelación rápida.
 
 ---
 
@@ -249,6 +261,9 @@ gantt
     Descenso de 10°C a 3°C (MÁXIMO 120 MINUTOS) :active, 120, 240
 ```
 
+![Curva de Abatimiento Térmico Cook & Chill: Baño de Hielo vs Temperatura Ambiente](assets/curva_abatimiento_cook_chill.svg)
+> **Procedencia Técnica & Termodinámica de Transferencia de Calor:** Modelo de enfriamiento por convección forzada en baño criogénico ($k=0.58\text{ W/m}\cdot\text{K}$) conforme a directrices de seguridad microbiológica Codex Alimentarius CAC/GL 21-1997.
+
 ### 4.1. La Zona de Peligro de Temperatura (ZPT / Danger Zone)
 
 El rango térmico entre **$+65^\circ\text{C}$ y $+10^\circ\text{C}$** (con un pico exponencial destructivo entre **$+35^\circ\text{C}$ y $+43^\circ\text{C}$**) es el intervalo donde la velocidad de duplicación bacteriana alcanza su máximo asintótico ($\tau < 15\text{ minutos}$).
@@ -311,6 +326,9 @@ Donde:
 3. **Agitación Dinámica:** Remover el alimento cada 10 minutos con espátula esterilizada para romper el gradiente térmico central y forzar la convección interna.
 4. **Verificación con Sonda:** Registrar con termómetro digital de penetración el descenso hasta $\le 10^\circ\text{C}$ en núcleo en menos de 45-60 minutos.
 5. **Sellado y Transferencia:** Tapar herméticamente o envasar al vacío y transferir a la zona más fría del frigorífico ($0^\circ\text{C}$ a $2^\circ\text{C}$, sobre la bandeja de carnes/pescados).
+
+![Abatimiento Térmico Forzado en Baño de Agua Helada](assets/foto_bano_hielo_abatimiento_batch.jpg)
+> **Fotografía Real Operativa:** Choque térmico forzado y enfriamiento acelerado por inmersión en baño de agua y hielo para atravesar la zona de peligro bacteriano en tiempo récord.
 
 ---
 

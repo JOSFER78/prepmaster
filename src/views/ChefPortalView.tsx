@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   ChefHat, 
   DollarSign, 
@@ -25,10 +25,17 @@ import {
   Radio,
   Send,
   MapPin,
-  ShoppingBag
+  ShoppingBag,
+  Wrench,
+  BadgeCheck
 } from 'lucide-react';
-import { ChefBookingRequest, ViewState } from '../types';
-import { loadChefBookingsFromStorage, applyToBroadcastBooking, BOOTSTRAP_CHEF_PROFILE, MOCK_CHEFS } from '../lib/chefsData';
+import { ChefBookingRequest, ViewState, ChefProfile } from '../types';
+import { BOOTSTRAP_CHEF_PROFILE } from '../lib/chefsData';
+import { 
+  subscribeToBookings, 
+  applyToBookingInFirestore 
+} from '../services/bookingService';
+import { saveChefProfile } from '../services/chefService';
 import { auth } from '../lib/firebase';
 
 interface ChefPortalViewProps {
@@ -42,17 +49,42 @@ export const ChefPortalView: React.FC<ChefPortalViewProps> = ({
   onAcceptBooking,
   onRejectBooking
 }) => {
-  const [activeTab, setActiveTab] = useState<'broadcast' | 'assigned' | 'calendar' | 'earnings' | 'contract' | 'pro'>('broadcast');
-  const [cookingRate, setCookingRate] = useState<number>(24);
-  const [groceryRate, setGroceryRate] = useState<number>(16);
+  const [activeTab, setActiveTab] = useState<'broadcast' | 'assigned' | 'calendar' | 'earnings' | 'rates' | 'contract' | 'pro'>('broadcast');
+  
+  // Tarifas desglosadas del cocinero
+  const [cookingRate, setCookingRate] = useState<number>(25);
+  const [groceryRate, setGroceryRate] = useState<number>(18);
+  const [assistantRate, setAssistantRate] = useState<number>(15);
+  const [toolsFee, setToolsFee] = useState<number>(0);
+  const [travelFee, setTravelFee] = useState<number>(5);
+  const [isRatesSaved, setIsRatesSaved] = useState<boolean>(false);
+
   const [isProSubscriber, setIsProSubscriber] = useState<boolean>(false);
   const [selectedSlots, setSelectedSlots] = useState<string[]>(['Lunes Tarde', 'Miércoles Tarde', 'Viernes Tarde', 'Sábado Mañana']);
   const [applicationMessages, setApplicationMessages] = useState<Record<string, string>>({});
   const [appliedBookings, setAppliedBookings] = useState<Record<string, boolean>>({});
 
-  const [bookings, setBookings] = useState<ChefBookingRequest[]>(() => loadChefBookingsFromStorage());
+  const [bookings, setBookings] = useState<ChefBookingRequest[]>([]);
 
-  const currentChef = BOOTSTRAP_CHEF_PROFILE;
+  useEffect(() => {
+    const unsub = subscribeToBookings((loaded) => {
+      setBookings(loaded);
+    });
+    return () => unsub();
+  }, []);
+
+  const currentChef: ChefProfile = {
+    ...BOOTSTRAP_CHEF_PROFILE,
+    pricing: {
+      ...BOOTSTRAP_CHEF_PROFILE.pricing,
+      cookingHourRate: cookingRate,
+      groceryShoppingHourRate: groceryRate,
+      assistantHourRate: assistantRate,
+      toolsExtraFee: toolsFee,
+      travelFee: travelFee
+    }
+  };
+
   const chefDisplayName = auth.currentUser?.displayName || currentChef.name;
   const chefEmail = auth.currentUser?.email || currentChef.email;
 
@@ -71,11 +103,24 @@ export const ChefPortalView: React.FC<ChefPortalViewProps> = ({
     );
   };
 
-  const handleApplyToBooking = (bookingId: string) => {
-    const msg = applicationMessages[bookingId] || '¡Hola! Me encantaría preparar tu menú. Tengo disponibilidad completa en tu franja horaria y llevo mis propios cuchillos profesionales desinfectados.';
-    const updated = applyToBroadcastBooking(bookingId, currentChef, msg);
-    setBookings(updated);
-    setAppliedBookings(prev => ({ ...prev, [bookingId]: true }));
+  const handleApplyToBooking = async (bookingId: string) => {
+    const msg = applicationMessages[bookingId] || '¡Hola! Me encantaría preparar tu menú de Cocina con Carmen. Cuento con carnet de manipulador de alimentos, cuchillos profesionales esterilizados y disponibilidad completa.';
+    try {
+      await applyToBookingInFirestore(bookingId, currentChef, msg);
+      setAppliedBookings(prev => ({ ...prev, [bookingId]: true }));
+    } catch (err) {
+      console.error('Error applying to broadcast booking in Firestore:', err);
+    }
+  };
+
+  const handleSaveRates = async () => {
+    try {
+      await saveChefProfile(currentChef);
+      setIsRatesSaved(true);
+      setTimeout(() => setIsRatesSaved(false), 3000);
+    } catch (e) {
+      console.error('Error saving chef profile rates:', e);
+    }
   };
 
   return (

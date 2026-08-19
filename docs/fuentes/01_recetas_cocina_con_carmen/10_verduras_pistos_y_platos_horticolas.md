@@ -105,6 +105,8 @@ El tratamiento de las verduras y hortalizas en la cocina tradicional española c
 
 ### ⚖️ Ingredientes Exactos
 
+![Ingredientes y Mise en Place](assets/pisto_manchego_tradicional_con_pochado_escalo_01_ingredientes.jpg)
+
 #### Base de Huerta Seleccionada
 * **300 g** Cebolla dulce o recia cortada en brunoise regular de 1 cm.
 * **200 g** Pimiento verde italiano limpio (sin semillas) cortado en dados de 1 cm.
@@ -132,6 +134,8 @@ El tratamiento de las verduras y hortalizas en la cocina tradicional española c
 ---
 
 ### 👨‍🍳 Paso a Paso Técnico y Minucioso
+
+![Técnica de Elaboración](assets/pisto_manchego_tradicional_con_pochado_escalo_02_elaboracion.jpg)
 
 1. **Purga Osmótica de la Berenjena:**
    * Cortar la berenjena en dados de 1 cm, colocarla en un colador y espolvorear con 3 g de sal marina. Dejar reposar durante 20 minutos para que exude los jugos amargos. Enjuagar rápidamente bajo agua fría y secar con papel absorbente.
@@ -205,6 +209,8 @@ El tratamiento de las verduras y hortalizas en la cocina tradicional española c
 
 ### ⚖️ Ingredientes Exactos
 
+![Ingredientes y Mise en Place](assets/berenjenas_rellenas_de_carne_picada_gratinada_01_ingredientes.jpg)
+
 #### Barquitas de Berenjena y Sofrito Cárnico
 * **2 unidades grandes (approx. 700 g)** Berenjenas moradas tersas y firmes.
 * **350 g** Carne picada mixta (50% ternera / 50% cerdo) de carnicería de confianza.
@@ -237,6 +243,8 @@ El tratamiento de las verduras y hortalizas en la cocina tradicional española c
 ---
 
 ### 👨‍🍳 Paso a Paso Técnico y Minucioso
+
+![Técnica de Elaboración](assets/berenjenas_rellenas_de_carne_picada_gratinada_02_elaboracion.jpg)
 
 1. **Precocción y Vaciado de las Berenjenas:**
    * Lavar las berenjenas y cortarlas longitudinalmente por la mitad. Realizar incisiones profundas en forma de rombo en la pulpa con la punta de un cuchillo, sin cortar la piel exterior. Pincelar con 15 ml de AOVE y espolvorear una pizca de sal.
@@ -309,6 +317,8 @@ El tratamiento de las verduras y hortalizas en la cocina tradicional española c
 
 ### ⚖️ Ingredientes Exactos
 
+![Ingredientes y Mise en Place](assets/calabacines_rellenos_de_atun_huevo_y_verduras_01_ingredientes.jpg)
+
 #### Barquetas de Calabacín
 * **2 unidades medianas (aprox. 600 g)** Calabacines verdes claros rectos y firmes.
 * **1.500 ml** Agua mineral para escaldado previo + 10 g de sal.
@@ -335,6 +345,8 @@ El tratamiento de las verduras y hortalizas en la cocina tradicional española c
 ---
 
 ### 👨‍🍳 Paso a Paso Técnico y Minucioso
+
+![Técnica de Elaboración](assets/calabacines_rellenos_de_atun_huevo_y_verduras_02_elaboracion.jpg)
 
 1. **Escaldado y Vaciado de los Calabacines:**
    * Lavar los calabacines, retirar los extremos y cortarlos longitudinalmente por la mitad.
@@ -420,6 +432,8 @@ El tratamiento de las verduras y hortalizas en la cocina tradicional española c
 
 ### ⚖️ Ingredientes Exactos
 
+![Ingredientes y Mise en Place](assets/menestra_de_verduras_tudelana_con_jamon_iberi_01_ingredientes.jpg)
+
 #### Selección Hortícola de Temporada
 * **4 unidades** Alcachofas frescas medianas (torneadas y cortadas en cuartos).
 * **200 g** Judías verdes planas o redondas limpias (cortadas en tiras de 4 cm).
@@ -450,6 +464,8 @@ El tratamiento de las verduras y hortalizas en la cocina tradicional española c
 ---
 
 ### 👨‍🍳 Paso a Paso Técnico y Minucioso
+
+![Técnica de Elaboración](assets/menestra_de_verduras_tudelana_con_jamon_iberi_02_elaboracion.jpg)
 
 1. **Torneado y Cocción de las Alcachofas:**
    * Retirar las hojas exteriores duras de las alcachofas hasta llegar al corazón tierno de tono amarillo pálido. Cortar las puntas duras y pelar el tallo. Frotar con medio limón o mantener en agua con ramas de perejil para evitar la oxidación enzimática.
@@ -531,6 +547,8 @@ El tratamiento de las verduras y hortalizas en la cocina tradicional española c
 
 ### ⚖️ Ingredientes Exactos
 
+![Ingredientes y Mise en Place](assets/espinacas_con_garbanzos_al_estilo_sevillano_y_01_ingredientes.jpg)
+
 #### Base del Guiso
 * **600 g** Espinacas frescas limpias (o 450 g de espinacas congeladas en hojas enteras, descongeladas y muy bien escurridas).
 * **400 g** Garbanzos cocidos de calidad (variedad Pedrosillano o Lechoso), lavados y escurridos.
@@ -558,6 +576,8 @@ El tratamiento de las verduras y hortalizas en la cocina tradicional española c
 ---
 
 ### 👨‍🍳 Paso a Paso Técnico y Minucioso
+
+![Técnica de Elaboración](assets/espinacas_con_garbanzos_al_estilo_sevillano_y_02_elaboracion.jpg)
 
 1. **Tratamiento y Escaldado de las Espinacas:**
    * Si se usan espinacas frescas, escaldarlas en agua hirviendo con sal durante **2 minutos**. Escurrir inmediatamente y presionar con las manos o una espátula para retirar toda el agua libre. Picar toscamente a cuchillo.
@@ -627,6 +647,8 @@ El tratamiento de las verduras y hortalizas en la cocina tradicional española c
 
 ### ⚖️ Ingredientes Exactos
 
+![Ingredientes y Mise en Place](assets/patatas_a_lo_pobre_con_pimientos_y_cebolla_co_01_ingredientes.jpg)
+
 * **800 g** Patatas de variedad agria, monalisa o kennebec (peladas y cortadas en rodajas panaderas de 4-5 mm de grosor).
 * **250 g** Cebolla dulce cortada en juliana fina de 3 mm.
 * **150 g** Pimiento verde italiano cortado en tiras de 1 cm.
@@ -646,6 +668,8 @@ El tratamiento de las verduras y hortalizas en la cocina tradicional española c
 ---
 
 ### 👨‍🍳 Paso a Paso Técnico y Minucioso
+
+![Técnica de Elaboración](assets/patatas_a_lo_pobre_con_pimientos_y_cebolla_co_02_elaboracion.jpg)
 
 1. **Corte y Lavado de la Patata:**
    * Pelar las patatas y cortarlas en rodajas uniformes de 4-5 mm de grosor. Lavar ligeramente en agua fría para eliminar el almidón superficial y secar bien con un paño limpio.
@@ -712,6 +736,8 @@ El tratamiento de las verduras y hortalizas en la cocina tradicional española c
 
 ### ⚖️ Ingredientes Exactos
 
+![Ingredientes y Mise en Place](assets/alcachofas_salteadas_con_jamon_iberico_y_ajos_01_ingredientes.jpg)
+
 * **8 unidades** Alcachofas frescas de temporada (variedad Blanca de Tudela o similar).
 * **1 manojo (100 g)** Ajos tiernos o ajetes frescos limpios y cortados en rodajas de 1 cm.
 * **120 g** Jamón ibérico en taquitos finos o virutas finas.
@@ -732,6 +758,8 @@ El tratamiento de las verduras y hortalizas en la cocina tradicional española c
 ---
 
 ### 👨‍🍳 Paso a Paso Técnico y Minucioso
+
+![Técnica de Elaboración](assets/alcachofas_salteadas_con_jamon_iberico_y_ajos_02_elaboracion.jpg)
 
 1. **Torneado y Limpieza de Alcachofas:**
    * Cortar el tallo dejando 3 cm, pelando la parte externa fibrosa del mismo.
@@ -799,6 +827,8 @@ El tratamiento de las verduras y hortalizas en la cocina tradicional española c
 
 ### ⚖️ Ingredientes Exactos
 
+![Ingredientes y Mise en Place](assets/coliflor_al_ajoarriero_con_pimenton_de_la_ver_01_ingredientes.jpg)
+
 * **1 unidad mediana (aprox. 900 g)** Coliflor blanca fresca, limpia y separada en ramilletes regulares.
 * **6 dientes** Ajo morado cortados en láminas finas de 1 mm.
 * **70 ml** Aceite de Oliva Virgen Extra (AOVE).
@@ -818,6 +848,8 @@ El tratamiento de las verduras y hortalizas en la cocina tradicional española c
 ---
 
 ### 👨‍🍳 Paso a Paso Técnico y Minucioso
+
+![Técnica de Elaboración](assets/coliflor_al_ajoarriero_con_pimenton_de_la_ver_02_elaboracion.jpg)
 
 1. **Corte y Cocción al Vapor de la Coliflor:**
    * Retirar las hojas verdes exteriores y el tronco central duro de la coliflor. Separar en ramilletes homogéneos medianos y lavar bajo el grifo.
@@ -883,6 +915,8 @@ El tratamiento de las verduras y hortalizas en la cocina tradicional española c
 
 ### ⚖️ Ingredientes Exactos
 
+![Ingredientes y Mise en Place](assets/champinones_al_ajillo_con_vino_blanco_y_perej_01_ingredientes.jpg)
+
 * **500 g** Champiñones frescos enteros de París o Portobello (limpios y cortados en cuartos o láminas gruesas de 6 mm).
 * **6 dientes** Ajo morado picados en brunoise fina.
 * **1 unidad** Guindilla cayena seca (opcional, para toque picante tradicional).
@@ -902,6 +936,8 @@ El tratamiento de las verduras y hortalizas en la cocina tradicional española c
 ---
 
 ### 👨‍🍳 Paso a Paso Técnico y Minucioso
+
+![Técnica de Elaboración](assets/champinones_al_ajillo_con_vino_blanco_y_perej_02_elaboracion.jpg)
 
 1. **Limpieza y Corte de los Hongos:**
    * Cortar la base terrosa del tallo. Limpiar los sombreros con un paño húmedo o papel de cocina. Cortar los champiñones en cuartos regulares (si son pequeños, se pueden dejar enteros).
@@ -966,6 +1002,8 @@ El tratamiento de las verduras y hortalizas en la cocina tradicional española c
 
 ### ⚖️ Ingredientes Exactos
 
+![Ingredientes y Mise en Place](assets/judias_verdes_con_tomate_frito_casero_y_taqui_01_ingredientes.jpg)
+
 * **600 g** Judías verdes planas (tipo perona) o redondas frescas.
 * **350 g** Salsa de tomate frito casero concentrado de Carmen.
 * **100 g** Jamón serrano o ibérico cortado en taquitos regulares de 3 mm.
@@ -986,6 +1024,8 @@ El tratamiento de las verduras y hortalizas en la cocina tradicional española c
 ---
 
 ### 👨‍🍳 Paso a Paso Técnico y Minucioso
+
+![Técnica de Elaboración](assets/judias_verdes_con_tomate_frito_casero_y_taqui_02_elaboracion.jpg)
 
 1. **Limpieza, Corte y Blanqueado:**
    * Retirar los extremos y las hebras laterales de las judías verdes con una puntilla o pelador. Cortar en tiras transversales o bastones de unos 5 cm.
@@ -1064,6 +1104,8 @@ El tratamiento de las verduras y hortalizas en la cocina tradicional española c
 
 ### ⚖️ Ingredientes Exactos
 
+![Ingredientes y Mise en Place](assets/pastel_de_verduras_al_horno_con_queso_de_cabr_01_ingredientes.jpg)
+
 #### Relleno Hortícola Salteado
 * **1 unidad (200 g)** Calabacín mediano cortado en daditos pequeños de 5 mm.
 * **2 unidades (180 g)** Puerros limpios (solo parte blanca) cortados en medias lunas finas.
@@ -1093,6 +1135,8 @@ El tratamiento de las verduras y hortalizas en la cocina tradicional española c
 ---
 
 ### 👨‍🍳 Paso a Paso Técnico y Minucioso
+
+![Técnica de Elaboración](assets/pastel_de_verduras_al_horno_con_queso_de_cabr_02_elaboracion.jpg)
 
 1. **Pochar y Secar las Verduras:**
    * En la sartén amplia, calentar los 40 ml de AOVE a fuego medio. Añadir el puerro y la zanahoria con una pizca de sal y pochar durante 8 minutos hasta que estén muy tiernos.

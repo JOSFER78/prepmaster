@@ -9,18 +9,28 @@ import {
   Save
 } from 'lucide-react';
 import { 
-  loadHouseholdMemoryFromStorage, 
-  saveHouseholdMemoryToStorage, 
-  HouseholdMemory 
-} from '../lib/antiFugaEngine';
+  getHouseholdMemory, 
+  saveHouseholdMemory, 
+  HouseholdMemory,
+  getDefaultHouseholdMemory 
+} from '../services/householdService';
+import { auth } from '../lib/firebase';
 
 export const HouseholdMemoryCard: React.FC = () => {
-  const [memory, setMemory] = useState<HouseholdMemory>(() => loadHouseholdMemoryFromStorage());
+  const [memory, setMemory] = useState<HouseholdMemory>(getDefaultHouseholdMemory());
   const [isEditing, setIsEditing] = useState<boolean>(false);
   const [isSaved, setIsSaved] = useState<boolean>(false);
 
-  const handleSave = () => {
-    saveHouseholdMemoryToStorage(memory);
+  React.useEffect(() => {
+    const uid = auth.currentUser?.uid;
+    if (uid) {
+      getHouseholdMemory(uid).then(setMemory).catch(console.error);
+    }
+  }, []);
+
+  const handleSave = async () => {
+    const uid = auth.currentUser?.uid || 'user-client-123';
+    await saveHouseholdMemory(uid, memory);
     setIsEditing(false);
     setIsSaved(true);
     setTimeout(() => setIsSaved(false), 2000);

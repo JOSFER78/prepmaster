@@ -100,6 +100,8 @@ Para alcanzar la perfección en arroces secos, melosos, caldosos y fideuás cruj
 
 ### ⚖️ Ingredientes Exactos
 
+![Ingredientes y Mise en Place](assets/arroz_caldoso_marinero_con_rape_gambones_y_me_01_ingredientes.jpg)
+
 #### Fumet Marinero Concentrado
 * **1 unidad (aprox. 600 g)** Cabeza y espinas de rape fresco limpio.
 * **200 g** Galeras frescas o cangrejos de sopa.
@@ -140,6 +142,8 @@ Para alcanzar la perfección en arroces secos, melosos, caldosos y fideuás cruj
 ---
 
 ### 👨‍🍳 Paso a Paso Técnico y Minucioso
+
+![Técnica de Elaboración](assets/arroz_caldoso_marinero_con_rape_gambones_y_me_02_elaboracion.jpg)
 
 1. **Elaboración del Fumet Marinero:**
    * En una olla alta, calentar 20 ml de AOVE. Añadir las galeras o cangrejos y aplastar las cabezas con la maza para liberar jugos. Dorar a fuego vivo 3 minutos.
@@ -225,6 +229,8 @@ Para alcanzar la perfección en arroces secos, melosos, caldosos y fideuás cruj
 
 ### ⚖️ Ingredientes Exactos
 
+![Ingredientes y Mise en Place](assets/arroz_con_costillejas_de_cerdo_iberico_alcach_01_ingredientes.jpg)
+
 #### Proteína Ibérica y Huerta
 * **500 g** Costillejas de cerdo ibérico troceadas en trozos pequeños (2-3 cm) y carnosas.
 * **4 unidades (aprox. 400 g)** Alcachofas frescas de temporada (limpias, torneadas y cortadas en cuartos).
@@ -258,6 +264,8 @@ Para alcanzar la perfección en arroces secos, melosos, caldosos y fideuás cruj
 ---
 
 ### 👨‍🍳 Paso a Paso Técnico y Minucioso
+
+![Técnica de Elaboración](assets/arroz_con_costillejas_de_cerdo_iberico_alcach_02_elaboracion.jpg)
 
 1. **Preparación y Limpieza de las Alcachofas:**
    * Retirar las hojas exteriores más duras de las alcachofas hasta llegar a las hojas tiernas de color verde amarillento.
@@ -343,6 +351,8 @@ Para alcanzar la perfección en arroces secos, melosos, caldosos y fideuás cruj
 
 ### ⚖️ Ingredientes Exactos
 
+![Ingredientes y Mise en Place](assets/paella_mixta_tradicional_de_pollo_conejo_cala_01_ingredientes.jpg)
+
 #### Carnes y Frutos del Mar
 * **400 g** Pollo de corral troceado en trozos pequeños de bocado (con hueso).
 * **300 g** Conejo de granja troceado menudo.
@@ -376,6 +386,8 @@ Para alcanzar la perfección en arroces secos, melosos, caldosos y fideuás cruj
 ---
 
 ### 👨‍🍳 Paso a Paso Técnico y Minucioso
+
+![Técnica de Elaboración](assets/paella_mixta_tradicional_de_pollo_conejo_cala_02_elaboracion.jpg)
 
 1. **Nivelado de la Paella y Salteado de Gambas:**
    * Nivelar la paella sobre el quemador de gas. Añadir los 80 ml de AOVE y espolvorear sal marina en el perímetro exterior de la paella para evitar salpicaduras.
@@ -458,6 +470,8 @@ Para alcanzar la perfección en arroces secos, melosos, caldosos y fideuás cruj
 
 ### ⚖️ Ingredientes Exactos
 
+![Ingredientes y Mise en Place](assets/arroz_a_banda_tradicional_con_salmorreta_y_al_01_ingredientes.jpg)
+
 #### Fondo / Caldo de Morralla de Pescadores
 * **1 kg** Pescado de roca variado (morralla: cabracho, araña, cintas, rascacio, cangrejos y galeras).
 * **1 unidad** Cabeza de rape fresca limpia.
@@ -496,6 +510,8 @@ Para alcanzar la perfección en arroces secos, melosos, caldosos y fideuás cruj
 ---
 
 ### 👨‍🍳 Paso a Paso Técnico y Minucioso
+
+![Técnica de Elaboración](assets/arroz_a_banda_tradicional_con_salmorreta_y_al_02_elaboracion.jpg)
 
 1. **Elaboración del Caldo de Morralla:**
    * En una olla, dorar los cangrejos y galeras con 30 ml de AOVE a fuego vivo durante 3 minutos aplastando los caparazones.
@@ -579,6 +595,8 @@ Para alcanzar la perfección en arroces secos, melosos, caldosos y fideuás cruj
 
 ### ⚖️ Ingredientes Exactos
 
+![Ingredientes y Mise en Place](assets/arroz_negro_con_sepia_en_su_tinta_y_habitas_t_01_ingredientes.jpg)
+
 #### Moluscos, Huerta y Tintas
 * **500 g** Sepia fresca sucia (reservando su bolsa de tinta y su melsa/bazo marrón).
 * **150 g** Habitas baby tiernas frescas (o habitas repeladas congeladas de primera calidad).
@@ -609,6 +627,8 @@ Para alcanzar la perfección en arroces secos, melosos, caldosos y fideuás cruj
 ---
 
 ### 👨‍🍳 Paso a Paso Técnico y Minucioso
+
+![Técnica de Elaboración](assets/arroz_negro_con_sepia_en_su_tinta_y_habitas_t_02_elaboracion.jpg)
 
 1. **Limpieza y Preparación de la Sepia:**
    * Limpiar la sepia con cuidado de no romper la bolsa de tinta. Retirar la boca y los ojos.
@@ -690,6 +710,8 @@ Para alcanzar la perfección en arroces secos, melosos, caldosos y fideuás cruj
 
 ### ⚖️ Ingredientes Exactos
 
+![Ingredientes y Mise en Place](assets/fideua_marinera_de_fideo_fino_crujiente_con_r_01_ingredientes.jpg)
+
 #### Fideos y Frutos del Mar
 * **350 g** Fideos de trigo duro calibre fino (nº 0 cabellín o nº 1).
 * **300 g** Lomo de rape fresco limpio cortado en dados de 2x2 cm.
@@ -717,6 +739,8 @@ Para alcanzar la perfección en arroces secos, melosos, caldosos y fideuás cruj
 ---
 
 ### 👨‍🍳 Paso a Paso Técnico y Minucioso
+
+![Técnica de Elaboración](assets/fideua_marinera_de_fideo_fino_crujiente_con_r_02_elaboracion.jpg)
 
 1. **Tostado Previo de los Fideos (El Secreto de la Textura):**
    * En la paella amplia sin aceite o con apenas 10 ml de AOVE a fuego medio-bajo, añadir los 350 g de fideos finos.
@@ -793,6 +817,8 @@ Para alcanzar la perfección en arroces secos, melosos, caldosos y fideuás cruj
 
 ### ⚖️ Ingredientes Exactos
 
+![Ingredientes y Mise en Place](assets/arroz_al_horno_tradicional_valenciano_con_cos_01_ingredientes.jpg)
+
 #### Cárnicos y Embutidos
 * **350 g** Costillejas de cerdo troceadas pequeñas.
 * **150 g** Panceta fresca o tocino entreverado de cerdo en tiras de 2 cm.
@@ -822,6 +848,8 @@ Para alcanzar la perfección en arroces secos, melosos, caldosos y fideuás cruj
 ---
 
 ### 👨‍🍳 Paso a Paso Técnico y Minucioso
+
+![Técnica de Elaboración](assets/arroz_al_horno_tradicional_valenciano_con_cos_02_elaboracion.jpg)
 
 1. **Precalentado del Horno y Cazuela:**
    * Precalentar el horno a **220°C** con calor superior e inferior. Introducir la cazuela de barro vacía en el horno durante 10 minutos para que adquiera temperatura térmica.
@@ -896,6 +924,8 @@ Para alcanzar la perfección en arroces secos, melosos, caldosos y fideuás cruj
 
 ### ⚖️ Ingredientes Exactos
 
+![Ingredientes y Mise en Place](assets/arroz_meloso_con_bacalao_y_coliflor_01_ingredientes.jpg)
+
 #### Bacalao y Verduras de Huerta
 * **350 g** Lomo o migas gruesas de bacalao desalado desalinizadas en su punto justo, cortadas en bocados.
 * **300 g** Coliflor fresca cortada en ramilletes pequeños de bocado (limpios y secos).
@@ -922,6 +952,8 @@ Para alcanzar la perfección en arroces secos, melosos, caldosos y fideuás cruj
 ---
 
 ### 👨‍🍳 Paso a Paso Técnico y Minucioso
+
+![Técnica de Elaboración](assets/arroz_meloso_con_bacalao_y_coliflor_02_elaboracion.jpg)
 
 1. **Dorado Previo de la Coliflor:**
    * En la cazuela honda, calentar 50 ml de AOVE a fuego medio-alto.

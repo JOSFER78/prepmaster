@@ -20,13 +20,15 @@ interface PlannerViewProps {
   currentMenuPlan?: GeneratedMenuPlan | null;
   activeProject?: BatchProject | null;
   onUpdateDishServings?: (dishId: string, delta: number) => void;
+  onHireChefForPlan?: () => void;
 }
 
 export function PlannerView({ 
   onNavigate, 
   currentMenuPlan,
   activeProject,
-  onUpdateDishServings
+  onUpdateDishServings,
+  onHireChefForPlan
 }: PlannerViewProps) {
   
   const dishes = activeProject?.dishes || [];

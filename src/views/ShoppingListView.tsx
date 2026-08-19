@@ -25,6 +25,7 @@ interface ShoppingListViewProps {
   onToggleItemBought: (itemId: string) => void;
   onAdvanceToCooking: () => void;
   onUpdateShoppingDate?: (dateStr: string) => void;
+  onHireChefToCook?: () => void;
 }
 
 export function ShoppingListView({ 
@@ -33,7 +34,8 @@ export function ShoppingListView({
   onNavigateToGenerator,
   onToggleItemBought,
   onAdvanceToCooking,
-  onUpdateShoppingDate
+  onUpdateShoppingDate,
+  onHireChefToCook
 }: ShoppingListViewProps) {
   const [copied, setCopied] = useState<boolean>(false);
   const [filter, setFilter] = useState<'all' | 'pending' | 'bought'>('all');

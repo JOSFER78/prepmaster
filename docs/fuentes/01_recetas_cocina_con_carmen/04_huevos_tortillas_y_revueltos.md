@@ -104,6 +104,8 @@ La maestría de Carmen en las elaboraciones con huevo descansa sobre cinco princ
 ---
 
 ### ⚖️ Ingredientes Exactos
+
+![Ingredientes y Mise en Place](assets/tortilla_espanola_de_patatas_jugosa_con_cebol_01_ingredientes.jpg)
 * **800 g** Patatas de calidad (variedad Monalisa, Kennebec o Agria), peladas y lavadas.
 * **350 g** Cebolla dulce o tipo Reca (aprox. 1 cebolla grande y media), pelada.
 * **7 unidades (aprox. 420 g sin cáscara)** Huevos camperos frescos (categoría 0 o 1, clase L).
@@ -122,6 +124,8 @@ La maestría de Carmen en las elaboraciones con huevo descansa sobre cinco princ
 ---
 
 ### 👨‍🍳 Paso a Paso Técnico y Minucioso
+
+![Técnica de Elaboración](assets/tortilla_espanola_de_patatas_jugosa_con_cebol_02_elaboracion.jpg)
 
 1. **Corte y Calibrado de Patata y Cebolla:**
    * Cortar las patatas peladas por la mitad a lo largo y luego en láminas finas de unos 2-3 mm de grosor (*corte tradicional de media luna fina irregular*).
@@ -197,6 +201,8 @@ La maestría de Carmen en las elaboraciones con huevo descansa sobre cinco princ
 ---
 
 ### ⚖️ Ingredientes Exactos
+
+![Ingredientes y Mise en Place](assets/tortilla_paisana_tradicional_con_chorizo_guis_01_ingredientes.jpg)
 * **650 g** Patatas peladas cortadas en dados medianos de 1,5 cm (tipo mirepoix).
 * **180 g** Cebolla picada en dados.
 * **100 g** Pimiento rojo morrón fresco en dados de 1 cm.
@@ -211,6 +217,8 @@ La maestría de Carmen en las elaboraciones con huevo descansa sobre cinco princ
 ---
 
 ### 👨‍🍳 Paso a Paso Técnico y Minucioso
+
+![Técnica de Elaboración](assets/tortilla_paisana_tradicional_con_chorizo_guis_02_elaboracion.jpg)
 
 1. **Sofrito de Verduras y Fritura de Patatas:**
    * En sartén amplia, calentar 200 ml de AOVE a fuego medio. Añadir las patatas en dados sazonadas con 3 g de sal y pochar durante 15 minutos hasta que estén tiernas y ligeramente doradas por fuera. Retirar con espumadera y reservar en bol.
@@ -275,6 +283,8 @@ La maestría de Carmen en las elaboraciones con huevo descansa sobre cinco princ
 ---
 
 ### ⚖️ Ingredientes Exactos
+
+![Ingredientes y Mise en Place](assets/huevos_a_la_flamenca_tradicionales_en_cazuela_01_ingredientes.jpg)
 * **8 unidades** Huevos camperos frescos clase L (2 huevos por cazuela individual).
 * **400 g** Patatas cortadas en dados pequeños (1x1 cm).
 * **500 g** Tomate frito casero espeso (elaborado con tomate pera maduro, cebolla y AOVE).
@@ -298,6 +308,8 @@ La maestría de Carmen en las elaboraciones con huevo descansa sobre cinco princ
 ---
 
 ### 👨‍🍳 Paso a Paso Técnico y Minucioso
+
+![Técnica de Elaboración](assets/huevos_a_la_flamenca_tradicionales_en_cazuela_02_elaboracion.jpg)
 
 1. **Fritura Crujiente de Patatas:**
    * En sartén con abundante AOVE a 170°C, freír los dados de patata hasta que queden dorados por fuera y tiernos por dentro (aprox. 8-10 minutos).
@@ -363,6 +375,8 @@ La maestría de Carmen en las elaboraciones con huevo descansa sobre cinco princ
 ---
 
 ### ⚖️ Ingredientes Exactos
+
+![Ingredientes y Mise en Place](assets/huevos_rotos_con_jamon_iberico_y_patatas_pana_01_ingredientes.jpg)
 * **800 g** Patatas de calidad (variedad Agria o Kennebec), peladas.
 * **1 unidad (150 g)** Cebolla cortada en juliana fina (opcional pero imprescindible para Carmen).
 * **1 unidad (80 g)** Pimiento verde italiano cortado en tiras (opcional).
@@ -374,6 +388,8 @@ La maestría de Carmen en las elaboraciones con huevo descansa sobre cinco princ
 ---
 
 ### 👨‍🍳 Paso a Paso Técnico y Minucioso
+
+![Técnica de Elaboración](assets/huevos_rotos_con_jamon_iberico_y_patatas_pana_02_elaboracion.jpg)
 
 1. **Elaboración de las Patatas Panadera:**
    * Cortar las patatas peladas en rodajas de unos 3-4 mm de grosor (*corte panadera*).
@@ -432,6 +448,8 @@ La maestría de Carmen en las elaboraciones con huevo descansa sobre cinco princ
 ---
 
 ### ⚖️ Ingredientes Exactos
+
+![Ingredientes y Mise en Place](assets/revuelto_de_setas_silvestres_gambas_al_ajillo_01_ingredientes.jpg)
 * **6 unidades** Huevos camperos frescos clase L.
 * **300 g** Setas variadas de temporada o silvestres (boletus, níscalos, setas de cardo, champiñones portobello), limpias y troceadas.
 * **200 g** Gambas frescas peladas o colas de langostino crudo.
@@ -446,6 +464,8 @@ La maestría de Carmen en las elaboraciones con huevo descansa sobre cinco princ
 ---
 
 ### 👨‍🍳 Paso a Paso Técnico y Minucioso
+
+![Técnica de Elaboración](assets/revuelto_de_setas_silvestres_gambas_al_ajillo_02_elaboracion.jpg)
 
 1. **Evaporación y Dorado de las Setas:**
    * En una sartén amplia, calentar 20 ml de AOVE a fuego fuerte.
@@ -505,6 +525,8 @@ La maestría de Carmen en las elaboraciones con huevo descansa sobre cinco princ
 ---
 
 ### ⚖️ Ingredientes Exactos
+
+![Ingredientes y Mise en Place](assets/tortilla_de_espinacas_frescas_pinones_y_pasas_01_ingredientes.jpg)
 * **500 g** Espinacas frescas baby o de hoja limpia.
 * **35 g** Piñones nacionales tostados.
 * **40 g** Uvas pasas de Corinto o sultanas (hidratadas 10 min en agua templada o vino dulce).
@@ -517,6 +539,8 @@ La maestría de Carmen en las elaboraciones con huevo descansa sobre cinco princ
 ---
 
 ### 👨‍🍳 Paso a Paso Técnico y Minucioso
+
+![Técnica de Elaboración](assets/tortilla_de_espinacas_frescas_pinones_y_pasas_02_elaboracion.jpg)
 
 1. **Hidratación y Tostado:**
    * Poner las pasas a hidratar en un vasito con agua tibia durante 10 minutos; escurrir y secar con papel absorbente.
@@ -572,6 +596,8 @@ La maestría de Carmen en las elaboraciones con huevo descansa sobre cinco princ
 ---
 
 ### ⚖️ Ingredientes Exactos
+
+![Ingredientes y Mise en Place](assets/tortilla_de_bacalao_desmigado_con_pimientos_y_01_ingredientes.jpg)
 * **300 g** Bacalao desalado de primera calidad, desmigado a mano y sin espinas ni piel.
 * **250 g** Cebolla dulce cortada en juliana muy fina.
 * **150 g** Pimiento verde italiano cortado en tiras finas.
@@ -584,6 +610,8 @@ La maestría de Carmen en las elaboraciones con huevo descansa sobre cinco princ
 ---
 
 ### 👨‍🍳 Paso a Paso Técnico y Minucioso
+
+![Técnica de Elaboración](assets/tortilla_de_bacalao_desmigado_con_pimientos_y_02_elaboracion.jpg)
 
 1. **Pochar la Verdura Melosa:**
    * En sartén amplia, calentar 40 ml de AOVE a fuego suave.
@@ -644,6 +672,8 @@ La maestría de Carmen en las elaboraciones con huevo descansa sobre cinco princ
 
 ### ⚖️ Ingredientes Exactos
 
+![Ingredientes y Mise en Place](assets/huevos_rellenos_de_atun_y_yema_gratinados_con_01_ingredientes.jpg)
+
 #### Relleno de Huevos
 * **6 unidades** Huevos camperos clase L.
 * **160 g (2 latas escurridas)** Atún claro en aceite de oliva virgen.
@@ -665,6 +695,8 @@ La maestría de Carmen en las elaboraciones con huevo descansa sobre cinco princ
 ---
 
 ### 👨‍🍳 Paso a Paso Técnico y Minucioso
+
+![Técnica de Elaboración](assets/huevos_rellenos_de_atun_y_yema_gratinados_con_02_elaboracion.jpg)
 
 1. **Cocción Perfecta del Huevo Duro (Técnica de Carmen):**
    * Llevar a ebullición un cazo con agua abundante, 1 cucharada de sal marina y 1 cucharada de vinagre (facilita el pelado posterior).
@@ -727,6 +759,8 @@ La maestría de Carmen en las elaboraciones con huevo descansa sobre cinco princ
 ---
 
 ### ⚖️ Ingredientes Exactos
+
+![Ingredientes y Mise en Place](assets/huevos_tontos_tradicionales_de_la_abuela_01_ingredientes.jpg)
 * **4 unidades** Huevos camperos frescos clase L.
 * **180 g** Miga de pan candeal o de pueblo del día anterior (sin corteza).
 * **60 ml** Leche entera tibia o caldo de ave para remojar ligeramente la miga.
@@ -740,6 +774,8 @@ La maestría de Carmen en las elaboraciones con huevo descansa sobre cinco princ
 ---
 
 ### 👨‍🍳 Paso a Paso Técnico y Minucioso
+
+![Técnica de Elaboración](assets/huevos_tontos_tradicionales_de_la_abuela_02_elaboracion.jpg)
 
 1. **Hidratación y Amasado de la Miga:**
    * En un bol, desmigar el pan duro con las manos. Verter los 60 ml de leche o caldo tibio y dejar reposar 5 minutos para que la miga se ablande.
@@ -799,6 +835,8 @@ La maestría de Carmen en las elaboraciones con huevo descansa sobre cinco princ
 ---
 
 ### ⚖️ Ingredientes Exactos
+
+![Ingredientes y Mise en Place](assets/revuelto_gramajo_tradicional_con_jamon_y_pata_01_ingredientes.jpg)
 * **500 g** Patatas especiales para freír (variedad Agria o Spunta), peladas.
 * **6 unidades** Huevos camperos frescos clase L.
 * **150 g** Jamón cocido extra (o mezcla 50% jamón cocido y 50% jamón serrano) cortado en juliana fina.
@@ -812,6 +850,8 @@ La maestría de Carmen en las elaboraciones con huevo descansa sobre cinco princ
 ---
 
 ### 👨‍🍳 Paso a Paso Técnico y Minucioso
+
+![Técnica de Elaboración](assets/revuelto_gramajo_tradicional_con_jamon_y_pata_02_elaboracion.jpg)
 
 1. **Corte y Fritura Maestra de las Patatas Paja:**
    * Cortar las patatas con mandolina o a cuchillo en tiras finísimas de 1,5 mm de grosor (*corte paja*).
@@ -873,6 +913,8 @@ La maestría de Carmen en las elaboraciones con huevo descansa sobre cinco princ
 
 ### ⚖️ Ingredientes Exactos
 
+![Ingredientes y Mise en Place](assets/pisto_manchego_con_huevos_fritos_con_puntilla_01_ingredientes.jpg)
+
 #### Pisto Manchego Tradicional
 * **500 g** Calabacín fresco lavado (con o sin piel según preferencia), cortado en dados de 1,5 cm.
 * **350 g** Cebolla dulce picada en dados de 1 cm.
@@ -893,6 +935,8 @@ La maestría de Carmen en las elaboraciones con huevo descansa sobre cinco princ
 ---
 
 ### 👨‍🍳 Paso a Paso Técnico y Minucioso
+
+![Técnica de Elaboración](assets/pisto_manchego_con_huevos_fritos_con_puntilla_02_elaboracion.jpg)
 
 1. **Pochar Pimientos y Cebolla:**
    * En una cazuela ancha de barro o sartén honda de hierro fundido, calentar los 80 ml de AOVE a fuego medio.

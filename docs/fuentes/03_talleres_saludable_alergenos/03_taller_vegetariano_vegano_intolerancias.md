@@ -25,6 +25,8 @@ graph TD
 
 El diseño de menús basados en plantas (*Plant-Based Nutrition*) en sistemas de producción por lotes (*Batch Cooking*) no consiste en suprimir ingredientes de origen animal, sino en **reconfigurar la densidad nutricional y la cinética de absorción de macro y micronutrientes**.
 
+![Bowl completo vegetariano y vegano de proteína completa con legumbres, quinoa real, aguacate, semillas y vegetales frescos](assets/foto_plato_vegano_proteina_completa.jpg)
+
 ### 1.1. Estrategia de Aminoácidos Limitantes y Calidad Proteica
 
 Históricamente se catalogaba a las proteínas vegetales como "incompletas". La evidencia contemporánea y las directrices de la OMS/FAO establecen que una dieta vegetal variada cubre la totalidad de aminoácidos esenciales siempre que se alcance el requerimiento energético y proteico diario ($1.2\text{ - }1.6\text{ g/kg/día}$ en población activa).
@@ -198,6 +200,12 @@ La proteína texturizada se produce mediante extrusión termoplástica de harina
 ## 3. Intolerancia a la Lactosa y Alergia a la Proteína de Leche de Vaca (APLV)
 
 Es mandatorio distinguir entre la alteración enzimática y la reacción inmune para garantizar la seguridad clínica en la cocina.
+
+![Matriz Oficial de los 14 Alérgenos de Declaración Obligatoria según Reglamento UE 1169/2011](assets/iconos_14_alergenos_ue_1169_2011.svg)
+
+> [!NOTE]
+> **Contexto de Seguridad en Cocina Vegetal:**
+> La exclusión de lácteos (Alérgeno 07) no exime del control estricto de otros alérgenos de origen vegetal presentes en el Reglamento (UE) 1169/2011 (Soja 06, Frutos de cáscara 08, Sésamo 11, Apio 09, Mostaza 10 y Altramuces 13).
 
 ```
 ┌────────────────────────────────────────┐  ┌────────────────────────────────────────┐

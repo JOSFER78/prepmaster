@@ -42,6 +42,8 @@ La repostería casera tradicional de **Cocina con Carmen** representa la sabidur
 | **Frutos de Cáscara / Soja** | 🟢 AUSENTE | Formulación limpia. |
 
 ### ⚖️ Ingredientes Exactos
+
+![Ingredientes y Mise en Place](assets/bizcocho_de_yogur_esponjoso_1_2_3_tradicional_01_ingredientes.jpg)
 * **1 unidad (125 g)** Yogur natural entero sin azúcar (el vasito sirve de medida métrica).
 * **3 unidades (180 g)** Huevos camperos frescos clase L a temperatura ambiente.
 * **240 g (2 vasitos)** Azúcar blanco común.
@@ -53,6 +55,8 @@ La repostería casera tradicional de **Cocina con Carmen** representa la sabidur
 * **10 g** Mantequilla y harina extra para encamisar el molde.
 
 ### 👨‍🍳 Paso a Paso Técnico
+
+![Técnica de Elaboración](assets/bizcocho_de_yogur_esponjoso_1_2_3_tradicional_02_elaboracion.jpg)
 1. **Preparación y Precalentamiento:** Precalentar el horno a 180°C con calor arriba y abajo (sin ventilador). Enmantequillar y enharinar un molde de 22 cm sacudiendo el exceso.
 2. **Blanqueado Aireado:** En un bol amplio, batir los 3 huevos con los 240 g de azúcar y la pizca de sal con varillas eléctricas durante 5 minutos hasta que la mezcla duplique su volumen, blanquee y forme relieve.
 3. **Integración de Líquidos:** Añadir el yogur natural, el aceite y la ralladura de limón. Batir a velocidad baja durante 45 segundos hasta integrar.
@@ -92,6 +96,8 @@ La repostería casera tradicional de **Cocina con Carmen** representa la sabidur
 | **Soja** | ⚠️ *Trazas* | Posible lecitina de soja en el chocolate de cobertura. |
 
 ### ⚖️ Ingredientes Exactos
+
+![Ingredientes y Mise en Place](assets/tarta_de_la_abuela_tradicional_de_galletas_cr_01_ingredientes.jpg)
 * **300 g (2 paquetes)** Galletas María hojaldradas o tostadas clásicas.
 * **250 ml** Leche entera templada con 1 cucharada de cacao en polvo y un chorrito de anís dulce (para remojar).
 
@@ -109,6 +115,8 @@ La repostería casera tradicional de **Cocina con Carmen** representa la sabidur
 * **40 g** Mantequilla sin sal a temperatura ambiente (para brillo espejo).
 
 ### 👨‍🍳 Paso a Paso Técnico
+
+![Técnica de Elaboración](assets/tarta_de_la_abuela_tradicional_de_galletas_cr_02_elaboracion.jpg)
 1. **Crema Pastelera Infusionada:** Infusionar 600 ml de leche con la canela y piel de limón a 80°C. En un bol, batir las 4 yemas con el azúcar, la maicena y los 150 ml de leche fría restante. Colar la leche caliente sobre el bol batiendo continuamente, devolver al cazo a fuego medio-bajo y espesar removiendo sin parar con varillas hasta que hierva suave 1 min. Retirar del fuego, añadir los 25 g de mantequilla y tapar con film a piel.
 2. **Ganache Brillante:** Calentar la nata hasta ebullición. Verter sobre el chocolate troceado en un bol. Dejar reposar 2 min y batir desde el centro hasta emulsionar. Incorporar los 40 g de mantequilla en pomada.
 3. **Montaje por Capas:** En la base del molde rectangular, colocar una capa de galletas remojadas brevemente (1 segundo por lado en la leche con anís). Verter la mitad de la crema pastelera caliente. Colocar otra capa de galletas remojadas, verter el resto de la crema, cubrir con una tercera capa de galletas.
@@ -134,6 +142,8 @@ La repostería casera tradicional de **Cocina con Carmen** representa la sabidur
 | **Coste Estimado** | Medio (5,50 € total / 0,68 € ración) |
 
 ### ⚖️ Ingredientes Exactos
+
+![Ingredientes y Mise en Place](assets/tarta_de_queso_tradicional_al_horno_de_la_abu_01_ingredientes.jpg)
 * **600 g** Queso crema tipo Philadelphia (entero, no light).
 * **4 unidades (240 g)** Huevos camperos clase L.
 * **350 ml** Nata líquida para montar (35% M.G.).
@@ -142,6 +152,8 @@ La repostería casera tradicional de **Cocina con Carmen** representa la sabidur
 * **1 cucharadita** Extracto de vainilla y una pizca de sal.
 
 ### 👨‍🍳 Paso a Paso Técnico
+
+![Técnica de Elaboración](assets/tarta_de_queso_tradicional_al_horno_de_la_abu_02_elaboracion.jpg)
 1. **Forrado del Molde:** Arrugar una hoja de papel de horno bajo el grifo, escurrir bien y forrar el molde desmontable de 22 cm dejando que sobresalga por los bordes.
 2. **Batido Suave:** En un bol grande, mezclar el queso crema con el azúcar con varillas manuales hasta suavizar. Añadir los huevos uno a uno, integrando con suavidad sin meter exceso de aire.
 3. **Integración:** Verter la nata, la vainilla, la pizca de sal y la cucharada de harina tamizada. Mezclar hasta obtener una crema líquida homogénea.
@@ -168,6 +180,8 @@ La repostería casera tradicional de **Cocina con Carmen** representa la sabidur
 | **Coste Estimado** | Muy Económico (3,20 € total / 0,24 € unidad) |
 
 ### ⚖️ Ingredientes Exactos
+
+![Ingredientes y Mise en Place](assets/torrijas_tradicionales_de_leche_y_miel_de_car_01_ingredientes.jpg)
 * **1 barra (400 g)** Pan especial de torrijas o pan de hogaza con miga densa del día anterior (rebanadas de 2 cm).
 * **1.000 ml** Leche entera pasteurizada.
 * **120 g** Azúcar blanco.
@@ -177,6 +191,8 @@ La repostería casera tradicional de **Cocina con Carmen** representa la sabidur
 * **150 g** Miel de flores disuelta en 40 ml de agua tibia (o mezcla de 100g azúcar + 1 cucharada canela molida).
 
 ### 👨‍🍳 Paso a Paso Técnico
+
+![Técnica de Elaboración](assets/torrijas_tradicionales_de_leche_y_miel_de_car_02_elaboracion.jpg)
 1. **Infusión Láctea:** Hervir la leche con el azúcar, la canela y las pieles cítricas. Apagar, tapar y dejar templar 15 minutos para que la miga absorba sin romperse.
 2. **Remojo Paciente:** Colocar las rebanadas de pan en una fuente honda. Verter la leche infusionada colada tibia sobre el pan. Dejar reposar 8-10 minutos hasta que estén completamente empapadas como esponjas sin deshacerse.
 3. **Rebozado y Fritura:** Pasar con cuidado cada rebanada por huevo batido. Freír en AOVE caliente a 175°C en tandas de 2 o 3 unidades durante 1,5 minutos por lado hasta que adquieran un tono dorado avellanado brillante.
@@ -202,6 +218,8 @@ La repostería casera tradicional de **Cocina con Carmen** representa la sabidur
 | **Coste Estimado** | Muy Económico (2,80 € total / 0,16 € porción) |
 
 ### ⚖️ Ingredientes Exactos
+
+![Ingredientes y Mise en Place](assets/leche_frita_cremosa_tradicional_01_ingredientes.jpg)
 * **1.000 ml** Leche entera fresca.
 * **120 g** Azúcar blanco.
 * **90 g** Almidón de maíz (Maicena).
@@ -213,6 +231,8 @@ La repostería casera tradicional de **Cocina con Carmen** representa la sabidur
 * **100 g azúcar + 1 cucharadita de canela molida** para el rebozado final.
 
 ### 👨‍🍳 Paso a Paso Técnico
+
+![Técnica de Elaboración](assets/leche_frita_cremosa_tradicional_02_elaboracion.jpg)
 1. **Infusión y Mezcla:** Infusionar 800 ml de leche con la canela y el limón. Disolver la maicena y las yemas en los 200 ml de leche fría restante con el azúcar.
 2. **Espesado:** Colar la leche caliente sobre la mezcla de maicena, devolver al cazo a fuego medio-bajo y cocinar removiendo continuamente con varillas hasta que espese intensamente y hierva 2 minutos. Añadir la mantequilla fuera del fuego.
 3. **Cuajado en Molde:** Verter la crema en una fuente rectangular aceitada (de unos 2 cm de grosor), cubrir con film a piel y refrigerar 4 horas hasta que esté firme y fría.
@@ -229,12 +249,16 @@ La repostería casera tradicional de **Cocina con Carmen** representa la sabidur
 
 
 ### ⚖️ Ingredientes Exactos
+
+![Ingredientes y Mise en Place](assets/tarta_de_manzana_casera_con_crema_y_base_de_h_01_ingredientes.jpg)
 * **1 lámina (250 g)** Hojaldre mantequilla rectangular refrigerado.
 * **3 unidades (500 g)** Manzanas variedad Reineta o Golden maduras.
 * **350 ml** Crema pastelera tradicional espesa (preparada con leche, yema, maicena y azúcar).
 * **60 g** Mermelada de albaricoque o melocotón + 1 cucharada de agua (para abrillantar).
 
 ### 👨‍🍳 Paso a Paso Técnico
+
+![Técnica de Elaboración](assets/tarta_de_manzana_casera_con_crema_y_base_de_h_02_elaboracion.jpg)
 1. **Base y Crema:** Extender el hojaldre en una bandeja con papel vegetal. Pinchar la base con tenedor (dejando 1 cm de borde sin pinchar). Extender la crema pastelera fría sobre la base.
 2. **Colocación de Manzana:** Pelar, descorazonar y cortar las manzanas en láminas finas de 2 mm. Disponerlas solapadas en filas ordenadas sobre la crema.
 3. **Horneado y Brillo:** Hornear a 195°C durante 30-35 minutos hasta que el hojaldre esté inflado y dorado y la manzana tierna. Calentar la mermelada con el agua y pintar generosamente la superficie caliente con un pincel.
@@ -250,6 +274,8 @@ La repostería casera tradicional de **Cocina con Carmen** representa la sabidur
 
 
 ### ⚖️ Ingredientes Exactos
+
+![Ingredientes y Mise en Place](assets/magdalenas_caseras_de_pueblo_con_copete_y_azu_01_ingredientes.jpg)
 * **250 g** Harina de trigo común.
 * **200 g** Azúcar blanco (+ extra para espolvorear).
 * **3 unidades (180 g)** Huevos camperos clase L.
@@ -259,6 +285,8 @@ La repostería casera tradicional de **Cocina con Carmen** representa la sabidur
 * **Ralladura de 1 limón** y 1 pizca de sal.
 
 ### 👨‍🍳 Paso a Paso Técnico (El Secreto del Copete)
+
+![Técnica de Elaboración](assets/magdalenas_caseras_de_pueblo_con_copete_y_azu_02_elaboracion.jpg)
 1. **Batido Intenso:** Batir los huevos con el azúcar durante 7 minutos hasta blanquear.
 2. **Emulsión Líquida:** Añadir la leche, el aceite y la ralladura batiendo a velocidad baja.
 3. **Tamizado e Integración:** Incorporar la harina, levadura y sal tamizadas. Mezclar con espátula.
@@ -276,6 +304,8 @@ La repostería casera tradicional de **Cocina con Carmen** representa la sabidur
 
 
 ### ⚖️ Ingredientes Exactos
+
+![Ingredientes y Mise en Place](assets/rosquillas_de_anis_caseras_de_la_abuela_01_ingredientes.jpg)
 * **450 g** Harina de trigo común.
 * **3 unidades** Huevos camperos L.
 * **100 g** Azúcar blanco.
@@ -286,6 +316,8 @@ La repostería casera tradicional de **Cocina con Carmen** representa la sabidur
 * **Aceite abundante para freír y azúcar para rebozar**.
 
 ### 👨‍🍳 Paso a Paso Técnico
+
+![Técnica de Elaboración](assets/rosquillas_de_anis_caseras_de_la_abuela_02_elaboracion.jpg)
 1. **Masa Aromática:** Batir los huevos con el azúcar, añadir el AOVE aromatizado frío, el anís licor y las ralladuras. Incorporar la harina tamizada con el impulsor hasta tener una masa tierna y manejable (engrasarse las manos con aceite para trabajarla).
 2. **Formado:** Tomar porciones de masa de 25 g, hacer cordones, unir los extremos formando rosquillas y hacerles 2 o 3 pequeños cortes exteriores con tijera.
 3. **Fritura:** Freír en AOVE a 170°C hasta que se doren uniformemente e hinchen. Rebozar calientes en azúcar común.

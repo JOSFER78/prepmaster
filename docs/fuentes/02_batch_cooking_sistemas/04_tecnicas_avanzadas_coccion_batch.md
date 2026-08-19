@@ -101,6 +101,9 @@ $$\dot{Q} = h \cdot A \cdot (T_{superficie} - T_{baño})$$
 * **Regla de Transferencia:** El tiempo de permanencia en el baño 50/50 debe ser **exactamente igual al tiempo de inmersión en agua hirviendo ($t_{shock} = t_{boil}$)**.
 * **Secado Centrífugo Forzado:** La presencia de agua residual libre ($a_w = 1.0$) en la superficie del vegetal tras el blanqueado acelera el ataque de mohos y degrada el sellado al vacío. Todo vegetal blanqueado debe centrifugarse mecánicamente o secarse sobre paños técnicos de microfibra antes de envasar.
 
+![Escaldado Estratificado y Abatimiento Inmediato en Baño de Hielo](assets/foto_bano_hielo_abatimiento_batch.jpg)
+> **Fotografía Real Operativa:** Proceso de fijación de clorofila y cese instantáneo de cocción mediante inmersión dinámica en baño de agua con hielo tras escaldado cronometrado.
+
 ---
 
 ### 1.5. Matriz Maestra de Blanqueado Estratificado por Especies Vegetales
@@ -139,6 +142,9 @@ El horno convectivo forzado es el reactor térmico central del Batch Cooking. Pe
 │ • Evita exudado prematuro │     │ • Secado superficial      │     │ • Caramelización homogénea│
 └───────────────────────────┘     └───────────────────────────┘     └───────────────────────────┘
 ```
+
+![Asado Multizona por Densidades en Horno Convectivo](assets/foto_asado_multizona_horno_bandejas.jpg)
+> **Fotografía Real Operativa:** Distribución estratificada en horno con bandejas simultáneas: tubérculos caramelizando en el nivel de mayor inercia y proteínas protegidas en altura.
 
 ---
 
@@ -695,6 +701,9 @@ graph TD
         D2 --> E2["Vida útil garantizada: 7 a 14 días en vacío"]
     end
 ```
+
+![Curva de Abatimiento Térmico Cook & Chill: Protocolo TouChef vs Caída Espontánea](assets/curva_abatimiento_cook_chill.svg)
+> **Procedencia Técnica & Termodinámica Aplicada:** Curva cinética de enfriamiento forzado vs descenso espontáneo en aire estático ($k_{aire}=0.024\text{ W/m}\cdot\text{K}$) conforme a estándares de ingeniería culinaria PES-04.
 
 #### Parámetros Críticos de Seguridad Alimentaria
 * **Zona de Peligro Microbiológico:** Rango de **$+65^\circ\text{C}$ a $+10^\circ\text{C}$**, donde las bacterias patógenas duplican su población cada $15-20\,\text{minutos}$.

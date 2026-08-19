@@ -78,6 +78,8 @@ La excelencia en los entrantes tradicionales se sustenta sobre cinco principios 
 
 ### ⚖️ Ingredientes Exactos
 
+![Ingredientes y Mise en Place](assets/croquetas_de_jamon_iberico_cremosas_de_la_abu_01_ingredientes.jpg)
+
 #### Infusión Láctea y Fondo
 * **1.000 ml** Leche entera fresca pasteurizada (3,6% M.G.).
 * **1 trozo (aprox. 120 g)** Hueso de jamón ibérico de bellota limpio (blanqueado 2 minutos en agua hirviendo).
@@ -111,6 +113,8 @@ La excelencia en los entrantes tradicionales se sustenta sobre cinco principios 
 ---
 
 ### 👨‍🍳 Paso a Paso Técnico y Minucioso
+
+![Técnica de Elaboración](assets/croquetas_de_jamon_iberico_cremosas_de_la_abu_02_elaboracion.jpg)
 
 1. **Infusión Aromática de la Leche:**
    * Blanquear el hueso de jamón sumergiéndolo en agua hirviendo durante 2 minutos; desechar esa agua.
@@ -195,6 +199,8 @@ La excelencia en los entrantes tradicionales se sustenta sobre cinco principios 
 
 ### ⚖️ Ingredientes Exactos
 
+![Ingredientes y Mise en Place](assets/croquetas_de_pollo_asado_y_huevo_duro_01_ingredientes.jpg)
+
 #### Relleno Cárnico y Sofrito
 * **300 g** Carne de pollo asado o cocido (pechuga y contramuslo), deshuesada y desmenuzada a cuchillo muy fino.
 * **50 ml** Jugos concentrados del asado de pollo (desgrasados).
@@ -228,6 +234,8 @@ La excelencia en los entrantes tradicionales se sustenta sobre cinco principios 
 ---
 
 ### 👨‍🍳 Paso a Paso Técnico y Minucioso
+
+![Técnica de Elaboración](assets/croquetas_de_pollo_asado_y_huevo_duro_02_elaboracion.jpg)
 
 1. **Cocción de Huevos y Picado del Pollo:**
    * Cocer 2 huevos camperos en agua hirviendo con sal durante 9 minutos exactos. Enfriar en agua con hielo, pelar y picar a cuchillo en dados diminutos de 2 mm.
@@ -297,6 +305,8 @@ La excelencia en los entrantes tradicionales se sustenta sobre cinco principios 
 
 ### ⚖️ Ingredientes Exactos
 
+![Ingredientes y Mise en Place](assets/ensaladilla_rusa_tradicional_de_carmen_con_ma_01_ingredientes.jpg)
+
 #### Base de Tubérculos y Proteína
 * **600 g** Patatas de variedad adecuada para cocer (Monalisa o Spunta), de tamaño uniforme.
 * **250 g** Zanahorias enteras limpias sin pelar.
@@ -330,6 +340,8 @@ La excelencia en los entrantes tradicionales se sustenta sobre cinco principios 
 ---
 
 ### 👨‍🍳 Paso a Paso Técnico y Minucioso
+
+![Técnica de Elaboración](assets/ensaladilla_rusa_tradicional_de_carmen_con_ma_02_elaboracion.jpg)
 
 1. **Cocción Perfecta de Patatas y Zanahorias con Piel:**
    * Lavar muy bien las patatas y las zanahorias bajo el grifo. Colocarlas enteras con piel en una olla amplia cubiertas de agua fría con 15 g de sal por litro.
@@ -404,6 +416,8 @@ La excelencia en los entrantes tradicionales se sustenta sobre cinco principios 
 
 ### ⚖️ Ingredientes Exactos
 
+![Ingredientes y Mise en Place](assets/patatas_bravas_con_salsa_brava_autentica_pica_01_ingredientes.jpg)
+
 #### Patatas y Doble Fritura
 * **800 g** Patatas de variedad Agria o Kennebec (alto contenido en almidón y bajo en agua).
 * **600 ml** Aceite de Oliva Virgen Extra para la doble cocción.
@@ -431,6 +445,8 @@ La excelencia en los entrantes tradicionales se sustenta sobre cinco principios 
 ---
 
 ### 👨‍🍳 Paso a Paso Técnico y Minucioso
+
+![Técnica de Elaboración](assets/patatas_bravas_con_salsa_brava_autentica_pica_02_elaboracion.jpg)
 
 1. **Corte y Lavado de la Patata:**
    * Pelar las patatas y cortarlas en trozos irregulares de bocado (aprox. 3x3 cm), chascando el final del corte para liberar almidón superficial.
@@ -499,6 +515,8 @@ La excelencia en los entrantes tradicionales se sustenta sobre cinco principios 
 
 ### ⚖️ Ingredientes Exactos
 
+![Ingredientes y Mise en Place](assets/patatas_alioli_tradicionales_al_mortero_01_ingredientes.jpg)
+
 #### Base de Patatas
 * **700 g** Patatas de cocer (variedad Monalisa o Kennebec).
 * **10 g** Sal gorda para el agua de cocción.
@@ -522,6 +540,8 @@ La excelencia en los entrantes tradicionales se sustenta sobre cinco principios 
 ---
 
 ### 👨‍🍳 Paso a Paso Técnico y Minucioso
+
+![Técnica de Elaboración](assets/patatas_alioli_tradicionales_al_mortero_02_elaboracion.jpg)
 
 1. **Cocción y Corte de las Patatas:**
    * Cocer las patatas enteras con piel en agua salada abundante durante 25-30 minutos.
@@ -585,6 +605,8 @@ La excelencia en los entrantes tradicionales se sustenta sobre cinco principios 
 
 ### ⚖️ Ingredientes Exactos
 
+![Ingredientes y Mise en Place](assets/empanadillas_caseras_de_atun_tomate_y_huevo_d_01_ingredientes.jpg)
+
 #### Masa Casera Tradicional Escaldada
 * **350 g** Harina de trigo común todo uso (W=160-180).
 * **80 ml** Aceite de Oliva Virgen Extra (AOVE).
@@ -617,6 +639,8 @@ La excelencia en los entrantes tradicionales se sustenta sobre cinco principios 
 ---
 
 ### 👨‍🍳 Paso a Paso Técnico y Minucioso
+
+![Técnica de Elaboración](assets/empanadillas_caseras_de_atun_tomate_y_huevo_d_02_elaboracion.jpg)
 
 1. **Elaboración de la Masa Escaldada:**
    * En una sartén pequeña, calentar los 80 ml de AOVE con la tira de piel de cítrico hasta que empiece a chisporrotear. Apagar el fuego, retirar la piel y añadir el pimentón dulce fuera del fuego para que no se queme.
@@ -683,6 +707,8 @@ La excelencia en los entrantes tradicionales se sustenta sobre cinco principios 
 ---
 
 ### ⚖️ Ingredientes Exactos
+
+![Ingredientes y Mise en Place](assets/tortilla_espanola_jugosa_con_cebolla_pochada_01_ingredientes.jpg)
 * **800 g** Patatas de calidad (variedad Agria, Kennebec o Monalisa).
 * **300 g** Cebolla dulce o cebolla blanca madura.
 * **7 unidades** Huevos camperos frescos clase L (o 6 XL).
@@ -701,6 +727,8 @@ La excelencia en los entrantes tradicionales se sustenta sobre cinco principios 
 ---
 
 ### 👨‍🍳 Paso a Paso Técnico y Minucioso
+
+![Técnica de Elaboración](assets/tortilla_espanola_jugosa_con_cebolla_pochada_02_elaboracion.jpg)
 
 1. **Corte Profesional de Patata y Cebolla:**
    * Pelar las patatas y cortarlas longitudinalmente por la mitad; luego laminar en rodajas finas de 3 mm de grosor (formato tradicional de lasca o abanico).
@@ -772,6 +800,8 @@ La excelencia en los entrantes tradicionales se sustenta sobre cinco principios 
 ---
 
 ### ⚖️ Ingredientes Exactos
+
+![Ingredientes y Mise en Place](assets/tortillitas_de_camarones_gambas_crujientes_01_ingredientes.jpg)
 * **100 g** Harina de trigo floja común.
 * **100 g** Harina de garbanzo fina tamizada (aporta sabor, color dorado y textura crujiente).
 * **150 g** Camarones frescos enteros pequeños (o gambitas arroceras frescas troceadas muy finas).
@@ -793,6 +823,8 @@ La excelencia en los entrantes tradicionales se sustenta sobre cinco principios 
 ---
 
 ### 👨‍🍳 Paso a Paso Técnico y Minucioso
+
+![Técnica de Elaboración](assets/tortillitas_de_camarones_gambas_crujientes_02_elaboracion.jpg)
 
 1. **Elaboración de la Masa Fluida:**
    * En un bol amplio, tamizar la harina de trigo y la harina de garbanzo. Añadir la sal.
@@ -853,6 +885,8 @@ La excelencia en los entrantes tradicionales se sustenta sobre cinco principios 
 ---
 
 ### ⚖️ Ingredientes Exactos
+
+![Ingredientes y Mise en Place](assets/huevos_rellenos_de_atun_y_yema_con_gratinado__01_ingredientes.jpg)
 * **4 unidades** Huevos camperos frescos clase L.
 * **160 g (peso escurrido)** Atún claro en aceite de oliva.
 * **50 g** Tomate frito casero espeso y reducido.
@@ -872,6 +906,8 @@ La excelencia en los entrantes tradicionales se sustenta sobre cinco principios 
 ---
 
 ### 👨‍🍳 Paso a Paso Técnico y Minucioso
+
+![Técnica de Elaboración](assets/huevos_rellenos_de_atun_y_yema_con_gratinado__02_elaboracion.jpg)
 
 1. **Cocción y Corte de los Huevos:**
    * Cocer los huevos en agua hirviendo durante 9 minutos. Enfriar en agua con hielo, pelar con delicadeza y cortar longitudinalmente por la mitad con cuchillo afilado mojado en agua.
@@ -934,6 +970,8 @@ La excelencia en los entrantes tradicionales se sustenta sobre cinco principios 
 ---
 
 ### ⚖️ Ingredientes Exactos
+
+![Ingredientes y Mise en Place](assets/flamenquines_cordobeses_caseros_de_lomo_y_jam_01_ingredientes.jpg)
 * **4 filetes (400 g)** Cinta de lomo de cerdo cortada fina y limpia de grasa exterior.
 * **160 g** Jamón serrano o ibérico cortado en lonchas finas o bastones jugosos.
 * **2 dientes** Ajo morado picados en pasta y 10 g de perejil picado (para marinar la carne).
@@ -954,6 +992,8 @@ La excelencia en los entrantes tradicionales se sustenta sobre cinco principios 
 ---
 
 ### 👨‍🍳 Paso a Paso Técnico y Minucioso
+
+![Técnica de Elaboración](assets/flamenquines_cordobeses_caseros_de_lomo_y_jam_02_elaboracion.jpg)
 
 1. **Espalmado y Macerado de la Carne:**
    * Colocar cada filete de lomo entre dos hojas de papel film. Golpear suavemente con la maza o la base de una cazuela pesada desde el centro hacia los extremos hasta dejar la carne con un grosor uniforme de 2 mm (esto rompe las fibras y garantiza máxima ternura).
@@ -1020,6 +1060,8 @@ La excelencia en los entrantes tradicionales se sustenta sobre cinco principios 
 ---
 
 ### ⚖️ Ingredientes Exactos
+
+![Ingredientes y Mise en Place](assets/calamares_a_la_romana_crujientes_y_tiernos_01_ingredientes.jpg)
 * **600 g** Calamares frescos limpios (tubos limpios cortados en anillas de 1 cm de grosor).
 * **120 g** Harina de trigo común.
 * **1 unidad** Huevo campero clase L (separada la yema de la clara).
@@ -1041,6 +1083,8 @@ La excelencia en los entrantes tradicionales se sustenta sobre cinco principios 
 ---
 
 ### 👨‍🍳 Paso a Paso Técnico y Minucioso
+
+![Técnica de Elaboración](assets/calamares_a_la_romana_crujientes_y_tiernos_02_elaboracion.jpg)
 
 1. **Preparación y Secado del Calamar:**
    * Cortar los tubos de calamar limpios en anillas de 1 a 1,2 cm de grosor.

@@ -25,6 +25,16 @@ graph TD
 
 El modelo del Plato de Alimentación Saludable, desarrollado por la Escuela de Salud Pública de Harvard (*Harvard T.H. Chan School of Public Health*), constituye el estándar clínico contemporáneo para la formulación de menús equilibrados, superando definitivamente las deficiencias de la pirámide nutricional tradicional.
 
+![Esquema Oficial del Plato para Comer Saludable de Harvard HSPH](assets/plato_para_comer_saludable_harvard.svg)
+
+![Plato real elaborado según el Método Harvard con salmón a la plancha, quinoa integral, verduras variadas y aguacate](assets/foto_plato_harvard_real_elaborado.jpg)
+
+> [!NOTE]
+> **Ficha Técnica & Trazabilidad Oficial de la Fuente:**
+> - **Institución Emisora:** Harvard T.H. Chan School of Public Health & Harvard Medical School — *The Nutrition Source*.
+> - **Referencia y Copyright:** Copyright © 2011 Harvard University. Guía oficial de libre consulta clínica y pedagógica en [Harvard Nutrition Source](https://www.hsph.harvard.edu/nutritionsource/healthy-eating-plate/).
+> - **Principios Rectores:** Énfasis en la calidad y matriz del alimento antes que en calorías aisladas, exclusión explícita de las patatas/papas del grupo vegetal por su elevado impacto insulinémico ($IG > 80$), primacía del Aceite de Oliva Virgen Extra (AOVE) sobre grasas industriales, y limitación estricta de carnes ultraprocesadas y bebidas azucaradas.
+
 ```
 ┌─────────────────────────────────────────────────────────────────────────────┐
 │                 ARQUITECTURA DEL PLATO HARVARD (100% MATRIZ)                │
@@ -210,6 +220,14 @@ $$\text{Carga Glucémica (CG)} = \frac{\text{Índice Glucémico (IG)} \times \te
 
 El almidón se compone de dos polisacáridos: **amilosa** (cadenas lineales unidas por enlaces $\alpha\text{-}(1,4)$) y **amilopectina** (cadenas ramificadas con enlaces $\alpha\text{-}(1,6)$).
 
+![Diagrama de Retrogradación Térmica del Almidón RS3 y Síntesis Colónica de AGCC](assets/almidon_resistente_rs3_microbiota.svg)
+
+> [!NOTE]
+> **Ficha Bioquímica & Trazabilidad Científica:**
+> - **Mecanismo Físico-Químico:** Gelatinización hidrotérmica ($>70^\circ\text{C}$) seguida de recristalización en doble hélice por puentes de hidrógeno tras reposo de 24 horas a $2^\circ\text{C}\text{ - }4^\circ\text{C}$.
+> - **Cinética Duodenal vs Colónica:** Inaccesibilidad estérica para la $\alpha$-amilasa salival y pancreática en el intestino delgado $\to$ Tránsito luminal intacto hacia el colon derecho.
+> - **Ecosistema Fermentativo:** Sustrato preferencial para bacterias simbióticas (*Faecalibacterium prausnitzii*, *Bifidobacterium spp.* y *Akkermansia muciniphila*) generando Ácidos Grasos de Cadena Corta (**Butirato** para energía epitelial y cierre de *Tight Junctions*, **Propionato** para saciedad/eje hepático y **Acetato** para acidificación luminal y bloqueo de patógenos).
+
 ```
    GELATINIZACIÓN TÉRMICA                   RETROGRADACIÓN A 3°C (24 HORAS)
    (Cocción con agua > 70°C)                (Recristalización en Doble Hélice)
@@ -230,6 +248,8 @@ El almidón se compone de dos polisacáridos: **amilosa** (cadenas lineales unid
    - Reducción del $20\text{ - }30\%$ de las calorías metabolizables efectivas.
    - Aplanamiento de la curva de glucosa e insulina postprandial.
    - Transporte masivo de sustrato fermentable al colon.
+
+![Alimentos ricos en almidón resistente RS3: Patatas y tubérculos cocidos y enfriados 24h a 3°C para ensaladas saludables prebióticas](assets/foto_alimentos_almidon_resistente_rs3.jpg)
 
 ---
 

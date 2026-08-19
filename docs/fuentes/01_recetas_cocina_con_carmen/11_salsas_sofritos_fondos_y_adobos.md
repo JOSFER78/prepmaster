@@ -107,6 +107,8 @@ En la alta cocina doméstica y tradicional transmitida por **Cocina con Carmen**
 
 ### ⚖️ Ingredientes Exactos
 
+![Ingredientes y Mise en Place](assets/sofrito_madre_universal_de_carmen_base_dorada_01_ingredientes.jpg)
+
 #### Vegetales Frescos de Huerta
 * **400 g** Cebolla dulce o cebolla recia pelada (picada en brunoise fina de 2 mm).
 * **180 g** Pimiento verde italiano limpio y despepitado (en brunoise fina).
@@ -132,6 +134,8 @@ En la alta cocina doméstica y tradicional transmitida por **Cocina con Carmen**
 ---
 
 ### 👨‍🍳 Paso a Paso Técnico y Minucioso
+
+![Técnica de Elaboración](assets/sofrito_madre_universal_de_carmen_base_dorada_02_elaboracion.jpg)
 
 1. **Aromatización del Aceite e Inicio de Pochado:**
    * Disponer los 120 ml de AOVE en la cazuela a fuego medio-bajo (130°C). Añadir los ajos picados y la hoja de laurel.
@@ -198,6 +202,8 @@ En la alta cocina doméstica y tradicional transmitida por **Cocina con Carmen**
 
 ### ⚖️ Ingredientes Exactos
 
+![Ingredientes y Mise en Place](assets/salsa_de_tomate_frito_casero_reducido_y_conce_01_ingredientes.jpg)
+
 #### Base de Tomate y Aromáticos
 * **1.600 g** Tomate maduro de pera (fresco escaldado y triturado o pulpa de tomate triturado 100% natural de lata de máxima calidad).
 * **250 g** Cebolla dulce finamente picada.
@@ -211,6 +217,8 @@ En la alta cocina doméstica y tradicional transmitida por **Cocina con Carmen**
 ---
 
 ### 👨‍🍳 Paso a Paso Técnico y Minucioso
+
+![Técnica de Elaboración](assets/salsa_de_tomate_frito_casero_reducido_y_conce_02_elaboracion.jpg)
 
 1. **Confitado de Ajos y Cebolla:**
    * En una cazuela alta (para evitar salpicaduras), calentar los 120 ml de AOVE a fuego suave.
@@ -279,6 +287,8 @@ En la alta cocina doméstica y tradicional transmitida por **Cocina con Carmen**
 ---
 
 ### ⚖️ Ingredientes Exactos (Para 650 ml de Salsa)
+
+![Ingredientes y Mise en Place](assets/salsa_bechamel_perfecta_y_sedosa_sin_grumos_01_ingredientes.jpg)
 * **45 g** Mantequilla pura sin sal (o 45 ml de AOVE suave).
 * **45 g** Harina de trigo de repostería/común tamizada.
 * **650 ml** Leche entera fresca de vaca calentada a 60°C.
@@ -289,6 +299,8 @@ En la alta cocina doméstica y tradicional transmitida por **Cocina con Carmen**
 ---
 
 ### 👨‍🍳 Paso a Paso Técnico y Minucioso
+
+![Técnica de Elaboración](assets/salsa_bechamel_perfecta_y_sedosa_sin_grumos_02_elaboracion.jpg)
 
 1. **Calentamiento de la Leche:**
    * En un cazo secundario o microondas, calentar los 650 ml de leche hasta que esté bien tibia/caliente (sin llegar a hervir para no formar nata superficial).
@@ -357,6 +369,8 @@ En la alta cocina doméstica y tradicional transmitida por **Cocina con Carmen**
 
 ### ⚖️ Ingredientes Exactos
 
+![Ingredientes y Mise en Place](assets/salsa_alioli_casera_tradicional_al_mortero_em_01_ingredientes.jpg)
+
 #### Fórmula Clásica Estabilizada
 * **3 dientes medianos (18 g)** Ajo morado fresco de Las Pedroñeras (retirado el germen interior verde para evitar amargor y repetición).
 * **3 g** Sal marina gruesa (ayuda a la fricción abrasiva durante el majado).
@@ -367,6 +381,8 @@ En la alta cocina doméstica y tradicional transmitida por **Cocina con Carmen**
 ---
 
 ### 👨‍🍳 Paso a Paso Técnico y Minucioso
+
+![Técnica de Elaboración](assets/salsa_alioli_casera_tradicional_al_mortero_em_02_elaboracion.jpg)
 
 1. **Majado Abrasivo del Ajo:**
    * En un mortero pesado de piedra o cerámica, colocar los 3 dientes de ajo troceados junto con los 3 g de sal gruesa.
@@ -421,6 +437,8 @@ En la alta cocina doméstica y tradicional transmitida por **Cocina con Carmen**
 ---
 
 ### ⚖️ Ingredientes Exactos
+
+![Ingredientes y Mise en Place](assets/mayonesa_casera_con_toque_de_limon_por_inmers_01_ingredientes.jpg)
 * **1 unidad (60 g)** Huevo fresco entero tamaño L (a temperatura ambiente).
 * **200 ml** Aceite (100 ml AOVE variedad suave Arbequina + 100 ml Aceite de Girasol Alto Oleico para equilibrar sabor).
 * **10 ml (1 cucharada)** Zumo de limón recién colado (o vinagre de manzana).
@@ -430,6 +448,8 @@ En la alta cocina doméstica y tradicional transmitida por **Cocina con Carmen**
 ---
 
 ### 👨‍🍳 Paso a Paso Técnico y Minucioso
+
+![Técnica de Elaboración](assets/mayonesa_casera_con_toque_de_limon_por_inmers_02_elaboracion.jpg)
 
 1. **Disposición por Densidades en el Vaso:**
    * En el vaso estrecho de la batidora eléctrica (minipimer), cascar el huevo en el fondo cuidando de no romper la yema.
@@ -484,6 +504,8 @@ En la alta cocina doméstica y tradicional transmitida por **Cocina con Carmen**
 ---
 
 ### ⚖️ Ingredientes Exactos
+
+![Ingredientes y Mise en Place](assets/salsa_verde_tradicional_para_pescados_y_maris_01_ingredientes.jpg)
 * **4 dientes (20 g)** Ajo morado finamente picado en brunoise.
 * **25 g** Perejil fresco de hoja lisa (solo hojas y tallos tiernos, picados muy finos a cuchillo).
 * **10 g (1 cucharada rasa)** Harina de trigo común.
@@ -496,6 +518,8 @@ En la alta cocina doméstica y tradicional transmitida por **Cocina con Carmen**
 ---
 
 ### 👨‍🍳 Paso a Paso Técnico y Minucioso
+
+![Técnica de Elaboración](assets/salsa_verde_tradicional_para_pescados_y_maris_02_elaboracion.jpg)
 
 1. **Aromatizado del Aceite:**
    * En una cazuela baja y ancha (preferiblemente de barro esmaltado o acero inoxidable), calentar los 50 ml de AOVE a fuego medio-bajo.
@@ -554,6 +578,8 @@ En la alta cocina doméstica y tradicional transmitida por **Cocina con Carmen**
 ---
 
 ### ⚖️ Ingredientes Exactos
+
+![Ingredientes y Mise en Place](assets/salsa_espanola_oscura_reducida_para_carnes_y__01_ingredientes.jpg)
 * **1 unidad (150 g)** Cebolla dulce en brunoise fina.
 * **1 unidad pequeña (80 g)** Zanahoria pelada y picada muy fina.
 * **2 dientes (10 g)** Ajo morado picado.
@@ -568,6 +594,8 @@ En la alta cocina doméstica y tradicional transmitida por **Cocina con Carmen**
 ---
 
 ### 👨‍🍳 Paso a Paso Técnico y Minucioso
+
+![Técnica de Elaboración](assets/salsa_espanola_oscura_reducida_para_carnes_y__02_elaboracion.jpg)
 
 1. **Caramelización de la Bresa Vegetal:**
    * En una cazuela a fuego medio, calentar la grasa (mantequilla y AOVE). Añadir la cebolla, la zanahoria y el ajo con una pizca de sal.
@@ -626,6 +654,8 @@ En la alta cocina doméstica y tradicional transmitida por **Cocina con Carmen**
 ---
 
 ### ⚖️ Ingredientes Exactos
+
+![Ingredientes y Mise en Place](assets/salsa_brava_casera_autentica_con_pimenton_de__01_ingredientes.jpg)
 * **150 g** Cebolla dulce picada muy fina en brunoise.
 * **2 dientes (10 g)** Ajo morado picado.
 * **50 ml** Aceite de Oliva Virgen Extra (AOVE).
@@ -640,6 +670,8 @@ En la alta cocina doméstica y tradicional transmitida por **Cocina con Carmen**
 ---
 
 ### 👨‍🍳 Paso a Paso Técnico y Minucioso
+
+![Técnica de Elaboración](assets/salsa_brava_casera_autentica_con_pimenton_de__02_elaboracion.jpg)
 
 1. **Pochado Profundo:**
    * Calentar el AOVE en una sartén a fuego medio. Añadir el ajo y la cebolla con una pizca de sal. Pochar durante **12 minutos** a fuego suave hasta que la cebolla esté dorada y tierna.
@@ -704,6 +736,8 @@ En la alta cocina doméstica y tradicional transmitida por **Cocina con Carmen**
 ---
 
 ### ⚖️ Ingredientes Exactos (Para 1 kg de Pescado o Carne)
+
+![Ingredientes y Mise en Place](assets/adobo_andaluz_tradicional_para_bienmesabe_car_01_ingredientes.jpg)
 * **6 dientes (30 g)** Ajo morado con piel, aplastados de un golpe de cuchillo.
 * **12 g (2 cucharadas colmadas)** Orégano seco silvestre andaluz de monte.
 * **6 g (1 cucharadita colmada)** Comino en grano entero (tostado 1 minuto en sartén seca).
@@ -717,6 +751,8 @@ En la alta cocina doméstica y tradicional transmitida por **Cocina con Carmen**
 ---
 
 ### 👨‍🍳 Paso a Paso Técnico y Minucioso
+
+![Técnica de Elaboración](assets/adobo_andaluz_tradicional_para_bienmesabe_car_02_elaboracion.jpg)
 
 1. **Tostado y Majado Aromático:**
    * En una sartén pequeña sin aceite a fuego medio, tostar los 6 g de comino en grano durante 60 segundos hasta que desprendan sus aceites esenciales.
@@ -773,6 +809,8 @@ En la alta cocina doméstica y tradicional transmitida por **Cocina con Carmen**
 ---
 
 ### ⚖️ Ingredientes Exactos
+
+![Ingredientes y Mise en Place](assets/fondo_oscuro_de_carne_casero_tostado_y_gelati_01_ingredientes.jpg)
 * **1.200 g** Huesos de ternera (rodilla, caña con tuétano y recortes de espinazo).
 * **600 g** Falda, morcillo o recortes de carne de ternera con tendones.
 * **1 unidad (200 g)** Pie de cerdo o manita de ternera limpia (fuente excepcional de colágeno natural).
@@ -790,6 +828,8 @@ En la alta cocina doméstica y tradicional transmitida por **Cocina con Carmen**
 ---
 
 ### 👨‍🍳 Paso a Paso Técnico y Minucioso
+
+![Técnica de Elaboración](assets/fondo_oscuro_de_carne_casero_tostado_y_gelati_02_elaboracion.jpg)
 
 1. **Tostado Profundo en Horno (Maillard):**
    * Precalentar el horno a **220°C con calor arriba y abajo**.
@@ -859,6 +899,8 @@ En la alta cocina doméstica y tradicional transmitida por **Cocina con Carmen**
 ---
 
 ### ⚖️ Ingredientes Exactos
+
+![Ingredientes y Mise en Place](assets/fumet_rojo_de_pescado_y_marisco_concentrado_c_01_ingredientes.jpg)
 * **450 g** Cabezas y cuerpos de gambones, langostinos o carabineros frescos.
 * **700 g** Espinas y cabezas de pescado blanco limpio de agallas y ojos (merluza, rape, congrio, salmonete o morralla de roca).
 * **1 unidad (150 g)** Cebolla dulce en brunoise.
@@ -876,6 +918,8 @@ En la alta cocina doméstica y tradicional transmitida por **Cocina con Carmen**
 ---
 
 ### 👨‍🍳 Paso a Paso Técnico y Minucioso
+
+![Técnica de Elaboración](assets/fumet_rojo_de_pescado_y_marisco_concentrado_c_02_elaboracion.jpg)
 
 1. **Dorado y Extracción de Coral del Marisco:**
    * En una cazuela amplia de fondo difusor, calentar los 45 ml de AOVE a fuego vivo.
@@ -933,6 +977,8 @@ En la alta cocina doméstica y tradicional transmitida por **Cocina con Carmen**
 ---
 
 ### ⚖️ Ingredientes Exactos
+
+![Ingredientes y Mise en Place](assets/caldo_de_pollo_de_corral_y_hueso_de_jamon_tra_01_ingredientes.jpg)
 * **1 unidad (approx. 800 g)** Carcasa, alitas y cuartos traseros de pollo campero de corral.
 * **1 trozo (120 g)** Hueso de jamón ibérico curado de calidad (previamente blanqueado).
 * **1 trozo (100 g)** Hueso blanco de ternera salado (enjuagado).
@@ -948,6 +994,8 @@ En la alta cocina doméstica y tradicional transmitida por **Cocina con Carmen**
 ---
 
 ### 👨‍🍳 Paso a Paso Técnico y Minucioso
+
+![Técnica de Elaboración](assets/caldo_de_pollo_de_corral_y_hueso_de_jamon_tra_02_elaboracion.jpg)
 
 1. **Blanqueado del Hueso de Jamón:**
    * En un cazo pequeño con agua hirviendo, sumergir el hueso de jamón durante 2 minutos. Escurrir y desechar esa agua. Esto purga impurezas exteriores que podrían agriar el caldo.

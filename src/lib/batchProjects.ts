@@ -2,31 +2,6 @@ import { BatchProject, BatchDish, BatchShoppingItem, BatchStatus } from '../type
 
 export const INITIAL_BATCH_PROJECTS: BatchProject[] = [];
 
-const STORAGE_KEY = 'touchef_batch_projects_v1';
-
-export function loadBatchProjectsFromStorage(): BatchProject[] {
-  if (typeof window === 'undefined') return [];
-  try {
-    const data = localStorage.getItem(STORAGE_KEY);
-    if (data) {
-      const parsed = JSON.parse(data);
-      if (Array.isArray(parsed)) return parsed;
-    }
-  } catch (e) {
-    console.error('Error loading batch projects from storage', e);
-  }
-  return [];
-}
-
-export function saveBatchProjectsToStorage(projects: BatchProject[]): void {
-  if (typeof window === 'undefined') return;
-  try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(projects));
-  } catch (e) {
-    console.error('Error saving batch projects to storage', e);
-  }
-}
-
 /**
  * Distribute portions between fridge (days 1-3) and freezer (days 4+)
  */

@@ -106,6 +106,8 @@ La cocina de sopas, cremas y potajes constituye el alma más profunda de la gast
 
 ### ⚖️ Ingredientes Exactos
 
+![Ingredientes y Mise en Place](assets/salmorejo_cordobes_tradicional_de_carmen_01_ingredientes.jpg)
+
 #### Base del Salmorejo
 * **1.000 g** Tomates maduros tipo pera (rojos, carnosos y con piel fina, bien lavados).
 * **180 g** Miga de pan de telera cordobesa (o pan blanco candeal/sobado del día anterior, sin corteza dura).
@@ -131,6 +133,8 @@ La cocina de sopas, cremas y potajes constituye el alma más profunda de la gast
 ---
 
 ### 👨‍🍳 Paso a Paso Técnico y Minucioso
+
+![Técnica de Elaboración](assets/salmorejo_cordobes_tradicional_de_carmen_02_elaboracion.jpg)
 
 1. **Mise en Place y Cocción de Huevos:**
    * Llevar agua a ebullición en un cazo con una pizca de sal y un chorrito de vinagre. Sumergir los 2 huevos camperos y cocer durante 9 minutos exactos.
@@ -224,6 +228,8 @@ La cocina de sopas, cremas y potajes constituye el alma más profunda de la gast
 
 ### ⚖️ Ingredientes Exactos
 
+![Ingredientes y Mise en Place](assets/gazpacho_andaluz_tradicional_01_ingredientes.jpg)
+
 #### Base del Gazpacho
 * **1.000 g** Tomates maduros tipo pera o rama bien rojos (1 kg neto).
 * **60 g** Pimiento verde tipo italiano (aprox. 1 unidad mediana, limpio de semillas y nervaduras blancas).
@@ -252,6 +258,8 @@ La cocina de sopas, cremas y potajes constituye el alma más profunda de la gast
 ---
 
 ### 👨‍🍳 Paso a Paso Técnico y Minucioso
+
+![Técnica de Elaboración](assets/gazpacho_andaluz_tradicional_02_elaboracion.jpg)
 
 1. **Limpieza y Corte de Hortalizas:**
    * Lavar escrupulosamente los tomates y pimientos. Trocear los tomates en cuartos desechando el pedúnculo.
@@ -342,6 +350,8 @@ La cocina de sopas, cremas y potajes constituye el alma más profunda de la gast
 
 ### ⚖️ Ingredientes Exactos
 
+![Ingredientes y Mise en Place](assets/ajoblanco_malagueno_tradicional_con_uvas_mosc_01_ingredientes.jpg)
+
 #### Base del Ajoblanco
 * **200 g** Almendras crudas peladas (preferentemente variedad Marcona española, no tostadas ni saladas).
 * **100 g** Miga de pan blanco candeal o rústico del día anterior.
@@ -367,6 +377,8 @@ La cocina de sopas, cremas y potajes constituye el alma más profunda de la gast
 ---
 
 ### 👨‍🍳 Paso a Paso Técnico y Minucioso
+
+![Técnica de Elaboración](assets/ajoblanco_malagueno_tradicional_con_uvas_mosc_02_elaboracion.jpg)
 
 1. **Hidratación de la Miga y Acondicionamiento:**
    * Remojar los 100 g de miga de pan en 100 ml del agua helada durante 5 minutos.
@@ -457,6 +469,8 @@ La cocina de sopas, cremas y potajes constituye el alma más profunda de la gast
 
 ### ⚖️ Ingredientes Exactos
 
+![Ingredientes y Mise en Place](assets/sopa_de_ajo_castellana_tradicional_con_huevo__01_ingredientes.jpg)
+
 #### Base de la Sopa
 * **180 g** Pan de hogaza de pueblo de masa madre (o pan candeal) de 2 o 3 días atrás, cortado en rebanadas finas al bies.
 * **10 dientes (45 g)** Ajo morado de Las Pedroñeras, pelados y laminados finos a cuchillo.
@@ -480,6 +494,8 @@ La cocina de sopas, cremas y potajes constituye el alma más profunda de la gast
 ---
 
 ### 👨‍🍳 Paso a Paso Técnico y Minucioso
+
+![Técnica de Elaboración](assets/sopa_de_ajo_castellana_tradicional_con_huevo__02_elaboracion.jpg)
 
 1. **Confitado y Dorado de los Ajos:**
    * Verter los 60 ml de AOVE en la cazuela a fuego medio-bajo.
@@ -573,6 +589,8 @@ La cocina de sopas, cremas y potajes constituye el alma más profunda de la gast
 
 ### ⚖️ Ingredientes Exactos
 
+![Ingredientes y Mise en Place](assets/sopa_de_picadillo_andaluza_con_fideos_pollo_j_01_ingredientes.jpg)
+
 #### Fondo Magistral de Ave y Jamón
 * **450 g** Cuartos traseros de pollo de corral o gallina campera (con piel y hueso).
 * **1 unidad (120 g)** Hueso de jamón curado (desalado bajo el grifo de agua templada).
@@ -600,6 +618,8 @@ La cocina de sopas, cremas y potajes constituye el alma más profunda de la gast
 ---
 
 ### 👨‍🍳 Paso a Paso Técnico y Minucioso
+
+![Técnica de Elaboración](assets/sopa_de_picadillo_andaluza_con_fideos_pollo_j_02_elaboracion.jpg)
 
 1. **Montaje del Fondo en Frío y Espumado:**
    * Introducir en la olla el pollo o gallina, el hueso de jamón, el hueso blanco de ternera, el puerro y la zanahoria. Cubrir con los 2.200 ml de agua mineral fría.
@@ -689,6 +709,8 @@ La cocina de sopas, cremas y potajes constituye el alma más profunda de la gast
 
 ### ⚖️ Ingredientes Exactos
 
+![Ingredientes y Mise en Place](assets/crema_de_calabacin_aterciopelada_de_carmen_co_01_ingredientes.jpg)
+
 #### Base de la Crema
 * **800 g** Calabacines verdes frescos y firmes (lavados; pelados a rayas alternas, dejando el 50% de la piel para color y nutrientes).
 * **220 g** Patatas de variedad Monalisa o Kennebec (peladas y chascadas en trozos medianos).
@@ -715,6 +737,8 @@ La cocina de sopas, cremas y potajes constituye el alma más profunda de la gast
 ---
 
 ### 👨‍🍳 Paso a Paso Técnico y Minucioso
+
+![Técnica de Elaboración](assets/crema_de_calabacin_aterciopelada_de_carmen_co_02_elaboracion.jpg)
 
 1. **Rehogado Aromático Inicial:**
    * En la cazuela a fuego medio, calentar los 45 ml de AOVE. Añadir el puerro en rodajas y el diente de ajo con una pizca de sal.
@@ -802,6 +826,8 @@ La cocina de sopas, cremas y potajes constituye el alma más profunda de la gast
 
 ### ⚖️ Ingredientes Exactos
 
+![Ingredientes y Mise en Place](assets/crema_de_calabaza_asada_con_crujiente_de_semi_01_ingredientes.jpg)
+
 #### Para el Asado y Base
 * **850 g** Calabaza tipo Cacahuete (Butternut) o Potimarrón (pelada, sin pipas y cortada en dados de 3 cm).
 * **180 g** Zanahorias (peladas y cortadas en rodajas gruesas).
@@ -833,6 +859,8 @@ La cocina de sopas, cremas y potajes constituye el alma más profunda de la gast
 ---
 
 ### 👨‍🍳 Paso a Paso Técnico y Minucioso
+
+![Técnica de Elaboración](assets/crema_de_calabaza_asada_con_crujiente_de_semi_02_elaboracion.jpg)
 
 1. **Asado Maestro y Concentración de Sabores:**
    * Precalentar el horno a 200°C.
@@ -927,6 +955,8 @@ La cocina de sopas, cremas y potajes constituye el alma más profunda de la gast
 
 ### ⚖️ Ingredientes Exactos
 
+![Ingredientes y Mise en Place](assets/potaje_de_vigilia_tradicional_garbanzos_con_b_01_ingredientes.jpg)
+
 #### Base de Legumbre y Pescado
 * **350 g** Garbanzos secos castellanos o pedrosillanos (remojados 12 horas en agua templada con 5 g de sal = aprox. 750 g ya hidratados).
 * **300 g** Lomo o dados de bacalao desalado limpio (en porciones de bocado, sin espinas).
@@ -961,6 +991,8 @@ La cocina de sopas, cremas y potajes constituye el alma más profunda de la gast
 ---
 
 ### 👨‍🍳 Paso a Paso Técnico y Minucioso
+
+![Técnica de Elaboración](assets/potaje_de_vigilia_tradicional_garbanzos_con_b_02_elaboracion.jpg)
 
 1. **Remojo y Cocción Maestra del Garbanzo:**
    * Hidratar los garbanzos 12 horas en abundante agua templada con una pizca de sal marina.
@@ -1066,6 +1098,8 @@ La cocina de sopas, cremas y potajes constituye el alma más profunda de la gast
 
 ### ⚖️ Ingredientes Exactos
 
+![Ingredientes y Mise en Place](assets/sopa_de_marisco_y_pescado_festiva_de_carmen_01_ingredientes.jpg)
+
 #### Para el Fumet Rojo de Corales Concentrado
 * **350 g** Cabezas y cáscaras de langostinos o gambones frescos.
 * **400 g** Espinas y cabeza limpia de rape o merluza (sin ojos ni agallas rojas).
@@ -1100,6 +1134,8 @@ La cocina de sopas, cremas y potajes constituye el alma más profunda de la gast
 ---
 
 ### 👨‍🍳 Paso a Paso Técnico y Minucioso
+
+![Técnica de Elaboración](assets/sopa_de_marisco_y_pescado_festiva_de_carmen_02_elaboracion.jpg)
 
 1. **Purga de Almejas y Pelado del Marisco:**
    * Colocar las almejas en un recipiente con agua fría y 35 g de sal marina durante 60 minutos para expulsar la arena. Aclarar con agua corriente.

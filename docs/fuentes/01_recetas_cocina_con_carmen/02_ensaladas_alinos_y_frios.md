@@ -112,6 +112,8 @@ La excelencia en los aliños y platos fríos tradicionales se sustenta sobre sei
 
 ### ⚖️ Ingredientes Exactos
 
+![Ingredientes y Mise en Place](assets/ensalada_campera_tradicional_de_patata_atun_h_01_ingredientes.jpg)
+
 #### Base de Tubérculo y Proteínas
 * **800 g** Patatas de cocer firmes (variedad Monalisa, Spunta o Kennebec), de calibre uniforme.
 * **3 unidades (aprox. 180 g)** Huevos camperos frescos categoría L.
@@ -143,6 +145,8 @@ La excelencia en los aliños y platos fríos tradicionales se sustenta sobre sei
 ---
 
 ### 👨‍🍳 Paso a Paso Técnico y Minucioso
+
+![Técnica de Elaboración](assets/ensalada_campera_tradicional_de_patata_atun_h_02_elaboracion.jpg)
 
 1. **Cocción Perfecta de las Patatas:**
    * Lavar minuciosamente las patatas bajo el grifo con un cepillo para retirar restos de tierra sin dañar la piel.
@@ -241,6 +245,8 @@ La excelencia en los aliños y platos fríos tradicionales se sustenta sobre sei
 
 ### ⚖️ Ingredientes Exactos
 
+![Ingredientes y Mise en Place](assets/pipirrana_andaluza_tradicional_con_tomate_pep_01_ingredientes.jpg)
+
 #### Vegetales de Huerta Andaluza
 * **1.000 g** Tomates maduros carnosos de temporada (pera maduro, corazón de buey o tomate rosa), pelados meticulosamente.
 * **150 g (1 unidad)** Pepino tipo español, pelado completamente y sin semillas acuosas.
@@ -266,6 +272,8 @@ La excelencia en los aliños y platos fríos tradicionales se sustenta sobre sei
 ---
 
 ### 👨‍🍳 Paso a Paso Técnico y Minucioso
+
+![Técnica de Elaboración](assets/pipirrana_andaluza_tradicional_con_tomate_pep_02_elaboracion.jpg)
 
 1. **Preparación de Huevos y Extracción de Yemas:**
    * Cocer los 2 huevos camperos en agua hirviendo durante 9 minutos. Enfriar en baño de agua con hielo, pelar y separar con cuidado las yemas cocidas de las claras.
@@ -354,6 +362,8 @@ La excelencia en los aliños y platos fríos tradicionales se sustenta sobre sei
 
 ### ⚖️ Ingredientes Exactos
 
+![Ingredientes y Mise en Place](assets/ensalada_de_pimientos_asados_al_horno_con_mel_01_ingredientes.jpg)
+
 #### Base de Asado
 * **1.200 g (aprox. 4 unidades grandes)** Pimientos rojos morrones carnosos de piel tersa y brillante.
 * **150 g (1 unidad)** Cebolleta fresca o cebolla dulce tierna.
@@ -381,6 +391,8 @@ La excelencia en los aliños y platos fríos tradicionales se sustenta sobre sei
 ---
 
 ### 👨‍🍳 Paso a Paso Técnico y Minucioso
+
+![Técnica de Elaboración](assets/ensalada_de_pimientos_asados_al_horno_con_mel_02_elaboracion.jpg)
 
 1. **Horneado y Caramelización de los Pimientos:**
    * Precalentar el horno a **200°C con calor arriba y abajo** (sin ventilador para no secar la carne).
@@ -469,6 +481,8 @@ La excelencia en los aliños y platos fríos tradicionales se sustenta sobre sei
 
 ### ⚖️ Ingredientes Exactos
 
+![Ingredientes y Mise en Place](assets/salpicon_de_marisco_tradicional_con_pulpo_gam_01_ingredientes.jpg)
+
 #### Selección de Mariscos Nobles
 * **300 g** Pata de pulpo cocido de roca (cortado al bies en rodajas de 5 mm).
 * **300 g** Gamba blanca fresca de Huelva o langostinos crudos (para cocer y pelar; peso neto aprox. 180 g).
@@ -501,6 +515,8 @@ La excelencia en los aliños y platos fríos tradicionales se sustenta sobre sei
 ---
 
 ### 👨‍🍳 Paso a Paso Técnico y Minucioso
+
+![Técnica de Elaboración](assets/salpicon_de_marisco_tradicional_con_pulpo_gam_02_elaboracion.jpg)
 
 1. **Apertura y Limpieza de los Mejillones:**
    * Limpiar la concha de los mejillones con un cuchillo retirando adherencias y tirar de la barba hacia la parte ancha de la concha para no desgarrar la carne.
@@ -591,6 +607,8 @@ La excelencia en los aliños y platos fríos tradicionales se sustenta sobre sei
 
 ### ⚖️ Ingredientes Exactos
 
+![Ingredientes y Mise en Place](assets/ensaladilla_rusa_tradicional_de_carmen_con_ma_01_ingredientes.jpg)
+
 #### Base de Tubérculos y Hortalizas
 * **700 g** Patatas para cocer (variedad Monalisa o Kennebec), enteras y limpias.
 * **250 g (2-3 unidades)** Zanahorias medianas peladas.
@@ -619,6 +637,8 @@ La excelencia en los aliños y platos fríos tradicionales se sustenta sobre sei
 ---
 
 ### 👨‍🍳 Paso a Paso Técnico y Minucioso
+
+![Técnica de Elaboración](assets/ensaladilla_rusa_tradicional_de_carmen_con_ma_02_elaboracion.jpg)
 
 1. **Cocción Homogénea de Patatas, Zanahorias y Huevos:**
    * En una olla con abundante agua fría y 15 g de sal, introducir las patatas enteras con piel y las zanahorias peladas.
@@ -713,6 +733,8 @@ La excelencia en los aliños y platos fríos tradicionales se sustenta sobre sei
 
 ### ⚖️ Ingredientes Exactos
 
+![Ingredientes y Mise en Place](assets/ensalada_de_pasta_de_verano_con_atun_maiz_y_s_01_ingredientes.jpg)
+
 #### Base de Pasta y Tropezones Frescos
 * **300 g** Pasta corta estriada (hélices, espirales tricolor, *fusilli* o *penne rigate* de trigo duro).
 * **160 g** Atún claro en aceite de oliva (peso escurrido aprox. 110 g).
@@ -742,6 +764,8 @@ La excelencia en los aliños y platos fríos tradicionales se sustenta sobre sei
 ---
 
 ### 👨‍🍳 Paso a Paso Técnico y Minucioso
+
+![Técnica de Elaboración](assets/ensalada_de_pasta_de_verano_con_atun_maiz_y_s_02_elaboracion.jpg)
 
 1. **Cocción Rigurosa de la Pasta:**
    * Poner a hervir 3,5 litros de agua con 30 g de sal marina en una olla amplia a fuego vivo.
@@ -826,6 +850,8 @@ La excelencia en los aliños y platos fríos tradicionales se sustenta sobre sei
 
 ### ⚖️ Ingredientes Exactos
 
+![Ingredientes y Mise en Place](assets/ensalada_de_garbanzos_veraniega_con_verduras__01_ingredientes.jpg)
+
 #### Base de Legumbres y Huerta
 * **500 g** Garbanzos cocidos (variedad Pedrosillano o Lechoso), tiernos y con piel fina (peso neto escurrido).
 * **150 g (1 unidad)** Pimiento rojo morrón carnoso, cortado en brunoise fina.
@@ -854,6 +880,8 @@ La excelencia en los aliños y platos fríos tradicionales se sustenta sobre sei
 ---
 
 ### 👨‍🍳 Paso a Paso Técnico y Minucioso
+
+![Técnica de Elaboración](assets/ensalada_de_garbanzos_veraniega_con_verduras__02_elaboracion.jpg)
 
 1. **Preparación y Secado de la Legumbre:**
    * Si se utilizan garbanzos en conserva de tarro de cristal, volcarlos en un escurridor y lavarlos suavemente bajo el chorro de agua fría hasta eliminar todo rastro del líquido de gobierno (aquafaba).
@@ -934,6 +962,8 @@ La excelencia en los aliños y platos fríos tradicionales se sustenta sobre sei
 
 ### ⚖️ Ingredientes Exactos
 
+![Ingredientes y Mise en Place](assets/cogollos_de_tudela_al_ajillo_con_anchoas_del__01_ingredientes.jpg)
+
 #### Base Vegetal y Salina
 * **4 unidades (aprox. 500 g)** Cogollos de Tudela frescos, apretados y sin hojas marchitas.
 * **12-16 filetes (aprox. 80 g)** Anchoas del Cantábrico en aceite de oliva (calidad 00).
@@ -957,6 +987,8 @@ La excelencia en los aliños y platos fríos tradicionales se sustenta sobre sei
 ---
 
 ### 👨‍🍳 Paso a Paso Técnico y Minucioso
+
+![Técnica de Elaboración](assets/cogollos_de_tudela_al_ajillo_con_anchoas_del__02_elaboracion.jpg)
 
 1. **Limpieza, Desinfección y Secado Centrifugado:**
    * Retirar la primera capa exterior de hojas de los cogollos si están dañadas. Cortar la base del tallo manteniendo la unión para que las hojas no se suelten.
@@ -1045,6 +1077,8 @@ La excelencia en los aliños y platos fríos tradicionales se sustenta sobre sei
 
 ### ⚖️ Ingredientes Exactos
 
+![Ingredientes y Mise en Place](assets/boquerones_en_vinagre_tradicionales_de_carmen_01_ingredientes.jpg)
+
 #### Pescado Fresco y Solución de Blanqueado
 * **1.000 g** Boquerones frescos de tamaño mediano (brillantes, de agalla roja y carne prieta; peso limpio aprox. 650 g de lomos).
 * **500 ml** Agua muy fría con cubitos de hielo (para desangrado).
@@ -1071,6 +1105,8 @@ La excelencia en los aliños y platos fríos tradicionales se sustenta sobre sei
 ---
 
 ### 👨‍🍳 Paso a Paso Técnico y Minucioso
+
+![Técnica de Elaboración](assets/boquerones_en_vinagre_tradicionales_de_carmen_02_elaboracion.jpg)
 
 1. **Limpieza Quirúrgica del Boquerón:**
    * Sujetar el boquerón por la cabeza con los dedos índice y pulgar, presionar bajo las agallas y tirar hacia abajo: la cabeza y las vísceras saldrán juntas de una sola vez.
@@ -1162,6 +1198,8 @@ La excelencia en los aliños y platos fríos tradicionales se sustenta sobre sei
 
 ### ⚖️ Ingredientes Exactos
 
+![Ingredientes y Mise en Place](assets/ensalada_de_arroz_de_verano_refrescante_y_nut_01_ingredientes.jpg)
+
 #### Base de Cereal y Aromatización
 * **250 g** Arroz de grano largo, jazmín o basmati.
 * **1 hoja** Laurel seco.
@@ -1196,6 +1234,8 @@ La excelencia en los aliños y platos fríos tradicionales se sustenta sobre sei
 ---
 
 ### 👨‍🍳 Paso a Paso Técnico y Minucioso
+
+![Técnica de Elaboración](assets/ensalada_de_arroz_de_verano_refrescante_y_nut_02_elaboracion.jpg)
 
 1. **Cocción Aromática del Arroz:**
    * Enjuagar el arroz de grano largo en un colador bajo agua fría durante 30 segundos para retirar el exceso de almidón exterior.
@@ -1281,6 +1321,8 @@ La excelencia en los aliños y platos fríos tradicionales se sustenta sobre sei
 
 ### ⚖️ Ingredientes Exactos
 
+![Ingredientes y Mise en Place](assets/ensalada_de_tomate_con_ventresca_cebolleta_y__01_ingredientes.jpg)
+
 #### Huerta Noble y Conserva Selecta
 * **800 g (aprox. 3-4 unidades)** Tomates de huerta de máxima calidad (variedad Rosa de Barbastro, Corazón de Buey, Raf o Tomate de Huete).
 * **150 g (1 unidad)** Cebolleta fresca dulce o cebolla morada de corteza fina.
@@ -1303,6 +1345,8 @@ La excelencia en los aliños y platos fríos tradicionales se sustenta sobre sei
 ---
 
 ### 👨‍🍳 Paso a Paso Técnico y Minucioso
+
+![Técnica de Elaboración](assets/ensalada_de_tomate_con_ventresca_cebolleta_y__02_elaboracion.jpg)
 
 1. **Tratamiento Térmico del Tomate (Temperatura Ambiente):**
    * Asegurarse de que los tomates estén a temperatura ambiente (aprox. 18-20°C). Si estaban en nevera, sacarlos al menos **2 horas antes**.

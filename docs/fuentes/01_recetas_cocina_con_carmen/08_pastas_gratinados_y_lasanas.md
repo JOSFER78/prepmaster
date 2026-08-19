@@ -106,6 +106,8 @@ La excelencia en los gratinados y pastas tradicionales se fundamenta en cinco pr
 
 ### ⚖️ Ingredientes Exactos
 
+![Ingredientes y Mise en Place](assets/macarrones_gratinados_de_la_abuela_con_choriz_01_ingredientes.jpg)
+
 #### Pasta y Sofrito de la Abuela
 * **400 g** Macarrones rayados (tipo pluma o tortiglioni de trigo duro).
 * **250 g** Carne picada mixta (50% aguja de ternera, 50% magro de cerdo).
@@ -141,6 +143,8 @@ La excelencia en los gratinados y pastas tradicionales se fundamenta en cinco pr
 ---
 
 ### 👨‍🍳 Paso a Paso Técnico y Minucioso
+
+![Técnica de Elaboración](assets/macarrones_gratinados_de_la_abuela_con_choriz_02_elaboracion.jpg)
 
 1. **Elaboración del Sofrito con Chorizo y Carne:**
    * En una sartén amplia, calentar los 40 ml de AOVE a fuego medio. Añadir el chorizo picado y saltear durante 2 minutos hasta que empiece a fundir su grasa y liberar su característico tono anaranjado.
@@ -240,6 +244,8 @@ La excelencia en los gratinados y pastas tradicionales se fundamenta en cinco pr
 
 ### ⚖️ Ingredientes Exactos
 
+![Ingredientes y Mise en Place](assets/lasana_casera_tradicional_bolonesa_de_carne_y_01_ingredientes.jpg)
+
 #### Placas de Pasta
 * **16-18 placas** Pasta de lasaña al huevo (precocidas o para hervir).
 * **30 ml** Aceite de oliva (para el agua de remojo).
@@ -280,6 +286,8 @@ La excelencia en los gratinados y pastas tradicionales se fundamenta en cinco pr
 ---
 
 ### 👨‍🍳 Paso a Paso Técnico y Minucioso
+
+![Técnica de Elaboración](assets/lasana_casera_tradicional_bolonesa_de_carne_y_02_elaboracion.jpg)
 
 1. **Cocción del Ragú Boloñesa Concentrado:**
    * En la cazuela con el AOVE caliente a fuego medio, añadir la cebolla, la zanahoria y el apio con una pizca de sal. Pochar durante 12-14 minutos hasta que las verduras estén muy tiernas y comiencen a caramelizar suavemente.
@@ -378,6 +386,8 @@ La excelencia en los gratinados y pastas tradicionales se fundamenta en cinco pr
 
 ### ⚖️ Ingredientes Exactos
 
+![Ingredientes y Mise en Place](assets/canelones_tradicionales_de_fiesta_rellenos_de_01_ingredientes.jpg)
+
 #### Placas de Canelón
 * **18-20 placas** de canelón clásico al huevo.
 
@@ -418,6 +428,8 @@ La excelencia en los gratinados y pastas tradicionales se fundamenta en cinco pr
 ---
 
 ### 👨‍🍳 Paso a Paso Técnico y Minucioso
+
+![Técnica de Elaboración](assets/canelones_tradicionales_de_fiesta_rellenos_de_02_elaboracion.jpg)
 
 1. **Rostizado Tradicional de las Tres Carnes:**
    * En la cazuela con el AOVE y la manteca caliente a fuego medio-alto, dorar los trozos de ternera, cerdo y pollo salpimentados hasta que adquieran un color dorado intenso y caramelizado por todos sus lados (10 minutos).
@@ -513,6 +525,8 @@ La excelencia en los gratinados y pastas tradicionales se fundamenta en cinco pr
 
 ### ⚖️ Ingredientes Exactos
 
+![Ingredientes y Mise en Place](assets/espaguetis_a_la_carbonara_tradicional_al_huev_01_ingredientes.jpg)
+
 #### Pasta y Chacinado
 * **400 g** Espaguetis de sémola de trigo duro de trefilado al bronce (tipo Spaghetti n.º 5 o Spaghettoni).
 * **160 g** Guanciale curado italiano (en su defecto, panceta curada o panceta ibérica entreverada de alta calidad, nunca beicon ahumado industrial), cortado en tiras de 1 cm x 0,5 cm.
@@ -539,6 +553,8 @@ La excelencia en los gratinados y pastas tradicionales se fundamenta en cinco pr
 ---
 
 ### 👨‍🍳 Paso a Paso Técnico y Minucioso
+
+![Técnica de Elaboración](assets/espaguetis_a_la_carbonara_tradicional_al_huev_02_elaboracion.jpg)
 
 1. **Tostado de la Pimienta y Dorado del Guanciale:**
    * En la sartén fría sin nada de aceite, poner los granos de pimienta negra machacados a fuego medio durante 1 minuto para despertar sus aceites esenciales.
@@ -635,6 +651,8 @@ La excelencia en los gratinados y pastas tradicionales se fundamenta en cinco pr
 
 ### ⚖️ Ingredientes Exactos
 
+![Ingredientes y Mise en Place](assets/lasana_de_atun_huevos_duros_y_pimientos_asado_01_ingredientes.jpg)
+
 #### Pasta y Relleno Marinero
 * **12-14 placas** de lasaña precocidas o tradicionales.
 * **3 latas (240 g peso escurrido)** Atún claro en aceite de oliva virgen o de oliva de calidad.
@@ -664,6 +682,8 @@ La excelencia en los gratinados y pastas tradicionales se fundamenta en cinco pr
 ---
 
 ### 👨‍🍳 Paso a Paso Técnico y Minucioso
+
+![Técnica de Elaboración](assets/lasana_de_atun_huevos_duros_y_pimientos_asado_02_elaboracion.jpg)
 
 1. **Sofrito de Cebolla y Base de Tomate:**
    * En una sartén con el AOVE caliente, pochar la cebolla y el ajo picado a fuego medio-suave durante 10 minutos con una pizca de sal hasta que caramelicen suavemente.
@@ -752,6 +772,8 @@ La excelencia en los gratinados y pastas tradicionales se fundamenta en cinco pr
 
 ### ⚖️ Ingredientes Exactos
 
+![Ingredientes y Mise en Place](assets/pasta_con_salsa_bolonesa_tradicional_de_larga_01_ingredientes.jpg)
+
 #### Carnes y Sofrito
 * **400 g** Carne de aguja o falda de ternera picada en carnicería (1 solo pase).
 * **250 g** Magro de cerdo o panceta fresca curada picada.
@@ -784,6 +806,8 @@ La excelencia en los gratinados y pastas tradicionales se fundamenta en cinco pr
 ---
 
 ### 👨‍🍳 Paso a Paso Técnico y Minucioso
+
+![Técnica de Elaboración](assets/pasta_con_salsa_bolonesa_tradicional_de_larga_02_elaboracion.jpg)
 
 1. **Sellado de Carnes:**
    * En la cazuela pesada a fuego medio-alto, calentar el AOVE y la mantequilla. Añadir la carne de ternera y cerdo.
@@ -875,6 +899,8 @@ La excelencia en los gratinados y pastas tradicionales se fundamenta en cinco pr
 
 ### ⚖️ Ingredientes Exactos
 
+![Ingredientes y Mise en Place](assets/espaguetis_con_gambas_al_ajillo_y_guindilla_01_ingredientes.jpg)
+
 #### Pasta y Mariscos
 * **400 g** Espaguetis o Linguine de trigo duro de calidad.
 * **400 g** Gambas frescas o langostinos enteros (crudos).
@@ -897,6 +923,8 @@ La excelencia en los gratinados y pastas tradicionales se fundamenta en cinco pr
 ---
 
 ### 👨‍🍳 Paso a Paso Técnico y Minucioso
+
+![Técnica de Elaboración](assets/espaguetis_con_gambas_al_ajillo_y_guindilla_02_elaboracion.jpg)
 
 1. **Pelado de Gambas y Extracción de Esencia:**
    * Pelar las 400 g de gambas reservando los cuerpos limpios en un plato con una pizca de sal.
@@ -985,6 +1013,8 @@ La excelencia en los gratinados y pastas tradicionales se fundamenta en cinco pr
 
 ### ⚖️ Ingredientes Exactos
 
+![Ingredientes y Mise en Place](assets/canelones_de_espinacas_ricotta_requeson_y_pin_01_ingredientes.jpg)
+
 #### Pasta y Relleno Verde
 * **16-18 placas** de canelones al huevo.
 * **600 g** Espinacas frescas lavadas (o 450 g de espinacas congeladas en hojas descongeladas y muy escurridas).
@@ -1016,6 +1046,8 @@ La excelencia en los gratinados y pastas tradicionales se fundamenta en cinco pr
 ---
 
 ### 👨‍🍳 Paso a Paso Técnico y Minucioso
+
+![Técnica de Elaboración](assets/canelones_de_espinacas_ricotta_requeson_y_pin_02_elaboracion.jpg)
 
 1. **Salteado y Escurrido de Espinacas:**
    * En una sartén amplia con 30 ml de AOVE a fuego medio, dorar ligeramente los piñones durante 1 minuto hasta que tomen color dorado; añadir los ajos picados y sofreír 30 segundos.

@@ -167,6 +167,9 @@ Para que una sesión de 2 horas sea fluida y carezca de estrés operativo, el es
 └──────────────────────────────────────────────────┴───────────────────────────────────────────────┘
 ```
 
+![Esquema de Zonificación Ergonómica y Flujo Operativo de 5 Estaciones](assets/esquema_zonificacion_cocina_5_estaciones.svg)
+> **Procedencia Técnica & Diagrama de Planta:** Arquitectura de producción TouChef basada en el principio industrial de *Marcha Hacia Adelante* (Reglamento CE 852/2004) y optimización ergonómica del triángulo de trabajo culinario.
+
 ---
 
 ### 3.1. Detalle Operativo de las 5 Estaciones de Trabajo
@@ -179,6 +182,9 @@ Para que una sesión de 2 horas sea fluida y carezca de estrés operativo, el es
   2. *Familia B (Hortalizas duras y limpias):* Zanahorias, calabaza, boniato, patatas.
   3. *Familia C (Hortalizas con agua y piel blanda):* Calabacín, pimientos, tomates.
   4. *Familia D (Proteínas animales - utilizar tabla separada o desinfectada):* Pechugas de pollo, carnes para estofar, lomos de pescado.
+
+![Mise en Place Profesional Organizada por Estaciones de Corte y Preparación](assets/foto_mise_en_place_5_estaciones.jpg)
+> **Fotografía Real Operativa:** Estación de corte y mise en place con boles gastronómicos de trasvase e ingredientes clasificados para procesado continuo sin cuellos de botella.
 
 #### Estación 2: Zona de Fuegos y Placa (Thermal Top Station)
 - Asignación fija de recipientes a quemadores según diámetro y curva de calor:
@@ -206,6 +212,9 @@ Para que una sesión de 2 horas sea fluida y carezca de estrés operativo, el es
   - Porcionado mediante báscula: 150-200g de proteína cocida + 150g de granos/tubérculos + 200g de vegetales por ración individual estándar.
   - **Etiquetado Estandarizado:** Cinta de pintor de papel + rotulador indeleble:
     `[Nombre del Bloque/Plato] | [Fecha de Elaboración] | [Límite Consumo Nevera] | [Destino: Nevera/Congelador]`.
+
+![Tuppers Herméticos de Vidrio Borosilicato con Raciones Semanales Preparadas](assets/foto_tuppers_vidrio_borosilicato_preparados.jpg)
+> **Fotografía Real Operativa:** Contenedores herméticos de vidrio borosilicato de alta resistencia con raciones individuales y bloques nutricionales listos para refrigeración controlada.
 
 ---
 

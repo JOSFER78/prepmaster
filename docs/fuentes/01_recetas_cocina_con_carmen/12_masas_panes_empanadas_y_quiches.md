@@ -90,6 +90,8 @@ El arte de las masas horneadas representa la cúspide de la alquimia en la cocin
 
 ### ⚖️ Ingredientes Exactos
 
+![Ingredientes y Mise en Place](assets/masa_de_empanada_gallega_tradicional_con_rell_01_ingredientes.jpg)
+
 #### Para la Masa Tradicional (Hydration ~56%, Fat ~20%)
 * **500 g** Harina de trigo panificable (fuerza media, W=180-200, 11% proteína).
 * **100 ml** Aceite templado escurrido del sofrito del relleno (imprescindible).
@@ -127,6 +129,8 @@ El arte de las masas horneadas representa la cúspide de la alquimia en la cocin
 ---
 
 ### 👨‍🍳 Paso a Paso Técnico y Minucioso
+
+![Técnica de Elaboración](assets/masa_de_empanada_gallega_tradicional_con_rell_02_elaboracion.jpg)
 
 #### Fase 1: El Sofrito Aromático y la Extracción del Aceite
 1. **Pochado Lento:** En una sartén amplia, calentar los 120 ml de AOVE a fuego medio. Añadir los ajos laminados y, en cuanto empiecen a "bailar" sin dorarse, incorporar la cebolla en juliana, el pimiento rojo y el pimiento verde con una pizca de sal.
@@ -207,6 +211,8 @@ El arte de las masas horneadas representa la cúspide de la alquimia en la cocin
 
 ### ⚖️ Ingredientes Exactos (Porcentajes de Panadero)
 
+![Ingredientes y Mise en Place](assets/masa_de_pizza_casera_crujiente_de_larga_ferme_01_ingredientes.jpg)
+
 * **500 g (100%)** Harina de trigo de fuerza media-alta (tipo '00' para pizza o fuerza W=280-300, 12,5% proteína).
 * **330 ml (66%)** Agua mineral fría (a unos 10-12°C).
 * **2 g (0,4%)** Levadura fresca de panadería (o 0,7 g de levadura seca instantánea).
@@ -227,6 +233,8 @@ El arte de las masas horneadas representa la cúspide de la alquimia en la cocin
 ---
 
 ### 👨‍🍳 Paso a Paso Técnico y Minucioso
+
+![Técnica de Elaboración](assets/masa_de_pizza_casera_crujiente_de_larga_ferme_02_elaboracion.jpg)
 
 #### Fase 1: Autólisis y Amasado Suave
 1. **Autólisis Inicial:** En un bol grande, mezclar los 500 g de harina con 300 ml del agua fría (reservar 30 ml). Remover con una cuchara durante 2 minutos hasta que no quede harina seca. Tapar y dejar reposar **30 minutos**. Esta técnica relaja la proteína y reduce drásticamente el tiempo de amasado manual.
@@ -303,6 +311,8 @@ El arte de las masas horneadas representa la cúspide de la alquimia en la cocin
 
 ### ⚖️ Ingredientes Exactos
 
+![Ingredientes y Mise en Place](assets/masa_quebrada_brisa_casera_para_tartas_salada_01_ingredientes.jpg)
+
 * **250 g** Harina de trigo floja / repostería (baja en proteína, W=90-110).
 * **125 g** Mantequilla sin sal de alta calidad (82% materia grasa), **muy fría y cortada en dados de 1x1 cm**.
 * **1 unidad** Yema de huevo campero tamaño L (fresca de la nevera).
@@ -322,6 +332,8 @@ El arte de las masas horneadas representa la cúspide de la alquimia en la cocin
 ---
 
 ### 👨‍🍳 Paso a Paso Técnico y Minucioso
+
+![Técnica de Elaboración](assets/masa_quebrada_brisa_casera_para_tartas_salada_02_elaboracion.jpg)
 
 #### Fase 1: El Arenado (*Sablage*)
 1. **Tamizado de Secos:** En el bol frío, tamizar los 250 g de harina junto con los 5 g de sal y los 3 g de azúcar.
@@ -383,6 +395,8 @@ El arte de las masas horneadas representa la cúspide de la alquimia en la cocin
 
 ### ⚖️ Ingredientes Exactos
 
+![Ingredientes y Mise en Place](assets/quiche_lorraine_tradicional_con_bacon_ahumado_01_ingredientes.jpg)
+
 #### Para la Base
 * **1 unidad** Base de Masa Quebrada casera horneada en blanco (según la receta nº 3).
 
@@ -409,6 +423,8 @@ El arte de las masas horneadas representa la cúspide de la alquimia en la cocin
 ---
 
 ### 👨‍🍳 Paso a Paso Técnico y Minucioso
+
+![Técnica de Elaboración](assets/quiche_lorraine_tradicional_con_bacon_ahumado_02_elaboracion.jpg)
 
 1. **Cocinado y Desgrasado del Bacon:**
    * Calentar una sartén a fuego medio sin añadir nada de aceite.
@@ -482,6 +498,8 @@ El arte de las masas horneadas representa la cúspide de la alquimia en la cocin
 
 ### ⚖️ Ingredientes Exactos (Fórmula Panadera)
 
+![Ingredientes y Mise en Place](assets/pan_casero_facil_sin_amasado_en_cocotte_pyrex_01_ingredientes.jpg)
+
 * **450 g (90%)** Harina de trigo panificable (W=180-220, 11-12% proteína).
 * **50 g (10%)** Harina de trigo integral o harina de centeno (aporta aroma a cereal de campo y color rústico).
 * **380 ml (76%)** Agua mineral tibia (a unos 24-26°C).
@@ -501,6 +519,8 @@ El arte de las masas horneadas representa la cúspide de la alquimia en la cocin
 ---
 
 ### 👨‍🍳 Paso a Paso Técnico y Minucioso
+
+![Técnica de Elaboración](assets/pan_casero_facil_sin_amasado_en_cocotte_pyrex_02_elaboracion.jpg)
 
 #### Fase 1: Mezclado Simple y Reposo Inicial
 1. **Disolución:** En el bol grande, verter los 380 ml de agua tibia y disolver los 3 g de levadura fresca con los dedos.
@@ -571,6 +591,8 @@ El arte de las masas horneadas representa la cúspide de la alquimia en la cocin
 
 ### ⚖️ Ingredientes Exactos
 
+![Ingredientes y Mise en Place](assets/masa_para_empanadillas_fritas_y_al_horno_oble_01_ingredientes.jpg)
+
 #### Para la Masa Escaldada de Obleas
 * **350 g** Harina de trigo todo uso (W=140-160).
 * **60 ml** Aceite de Oliva Virgen Extra (AOVE).
@@ -605,6 +627,8 @@ El arte de las masas horneadas representa la cúspide de la alquimia en la cocin
 ---
 
 ### 👨‍🍳 Paso a Paso Técnico y Minucioso
+
+![Técnica de Elaboración](assets/masa_para_empanadillas_fritas_y_al_horno_oble_02_elaboracion.jpg)
 
 #### Fase 1: El Escaldado de la Grasa y el Amasado
 1. **Infusión y Escaldado Térmico:** En un cazo pequeño, calentar los 60 ml de AOVE con el diente de ajo entero a fuego medio hasta que el ajo empiece a dorarse. Retirar el ajo. Añadir al cazo los 40 g de manteca de cerdo, los 75 ml de vino blanco, los 60 ml de agua y los 6 g de sal. Llevar a ebullición suave y apagar el fuego en cuanto la manteca se funda.
@@ -674,6 +698,8 @@ El arte de las masas horneadas representa la cúspide de la alquimia en la cocin
 
 ### ⚖️ Ingredientes Exactos
 
+![Ingredientes y Mise en Place](assets/empanada_de_pollo_asado_cebolla_caramelizada__01_ingredientes.jpg)
+
 #### Para la Masa de Empanada Enriquecida
 * **500 g** Harina de trigo panificable (W=180-200).
 * **90 ml** Aceite de oliva virgen extra (o grasa del asado de pollo filtrada).
@@ -707,6 +733,8 @@ El arte de las masas horneadas representa la cúspide de la alquimia en la cocin
 ---
 
 ### 👨‍🍳 Paso a Paso Técnico y Minucioso
+
+![Técnica de Elaboración](assets/empanada_de_pollo_asado_cebolla_caramelizada__02_elaboracion.jpg)
 
 1. **Caramelización Natural de la Cebolla:**
    * En una cazuela baja, calentar los 50 ml de AOVE a fuego medio. Añadir la cebolla en juliana con una pizca de sal.
@@ -776,6 +804,8 @@ El arte de las masas horneadas representa la cúspide de la alquimia en la cocin
 
 ### ⚖️ Ingredientes Exactos
 
+![Ingredientes y Mise en Place](assets/hojaldre_relleno_de_espinacas_frescas_queso_f_01_ingredientes.jpg)
+
 #### Para el Hojaldrado
 * **2 láminas (aprox. 500 g)** Masa de hojaldre rectangular elaborada con mantequilla (fresca o descongelada en frío).
 * **1 unidad** Huevo campero batido para sellar y pincelar.
@@ -804,6 +834,8 @@ El arte de las masas horneadas representa la cúspide de la alquimia en la cocin
 ---
 
 ### 👨‍🍳 Paso a Paso Técnico y Minucioso
+
+![Técnica de Elaboración](assets/hojaldre_relleno_de_espinacas_frescas_queso_f_02_elaboracion.jpg)
 
 1. **Salteado y Escurrido Riguroso de las Espinacas:**
    * En una sartén amplia, calentar los 30 ml de AOVE y dorar el ajo picado durante 30 segundos sin quemarlo.

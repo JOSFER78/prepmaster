@@ -8,8 +8,9 @@ export interface TierCommissionResult {
   cookingHourRate: number;
   cookingCost: number;
   groceryCost: number;
-  travelFee: number;
   toolsFee: number;
+  assistantCost: number;
+  travelFee: number;
   cleaningFee: number;
   ingredientsEstimatedCost: number;
   commissionableBase: number;
@@ -26,6 +27,8 @@ export function calculateAntiFugaQuote(params: {
   includeGrocery: boolean;
   groceryHours?: number;
   bringTools?: boolean;
+  hasAssistant?: boolean;
+  assistantHours?: number;
   includeCleaning?: boolean;
   ingredientsCost?: number;
   completedBookingsWithChef?: number;
@@ -56,17 +59,20 @@ export function calculateAntiFugaQuote(params: {
   }
 
   // 2. DISAGGREGATED COSTS
-  const cookingCost = params.chef.pricing.cookingHourRate * params.hours;
+  const cookingCost = (params.chef.pricing?.cookingHourRate || 25) * params.hours;
   const groceryCost = params.includeGrocery 
-    ? (params.chef.pricing.groceryShoppingHourRate || params.chef.pricing.cookingHourRate) * (params.groceryHours || 1)
+    ? (params.chef.pricing?.groceryShoppingHourRate || 18) * (params.groceryHours || 1)
     : 0;
-  const travelFee = params.chef.pricing.travelFee || 0;
-  const toolsFee = (params.bringTools && params.chef.pricing.toolsExtraFee) ? params.chef.pricing.toolsExtraFee : 0;
-  const cleaningFee = (params.includeCleaning && params.chef.pricing.cleaningHourRate) ? params.chef.pricing.cleaningHourRate : 0;
+  const toolsFee = (params.bringTools && params.chef.pricing?.toolsExtraFee) ? params.chef.pricing.toolsExtraFee : 0;
+  const assistantCost = (params.hasAssistant && params.chef.pricing?.assistantHourRate) 
+    ? params.chef.pricing.assistantHourRate * (params.assistantHours || params.hours) 
+    : 0;
+  const travelFee = params.chef.pricing?.travelFee || 0;
+  const cleaningFee = (params.includeCleaning && params.chef.pricing?.cleaningHourRate) ? params.chef.pricing.cleaningHourRate : 0;
   const ingredientsCost = params.ingredientsCost || 0;
 
-  // 3. ZERO COMMISSION ON RAW INGREDIENTS
-  const commissionableBase = cookingCost + groceryCost + travelFee + toolsFee + cleaningFee;
+  // 3. ZERO COMMISSION ON RAW INGREDIENTS (0% sobre el coste de la comida)
+  const commissionableBase = cookingCost + groceryCost + toolsFee + assistantCost + travelFee + cleaningFee;
   
   const platformFee = Math.round(commissionableBase * (commissionPercent / 100) * 100) / 100;
   const chefNetPayout = Math.round((commissionableBase - platformFee) * 100) / 100;
@@ -82,11 +88,12 @@ export function calculateAntiFugaQuote(params: {
     tierLabel,
     commissionPercent,
     cookingHours: params.hours,
-    cookingHourRate: params.chef.pricing.cookingHourRate,
+    cookingHourRate: params.chef.pricing?.cookingHourRate || 25,
     cookingCost,
     groceryCost,
-    travelFee,
     toolsFee,
+    assistantCost,
+    travelFee,
     cleaningFee,
     ingredientsEstimatedCost: ingredientsCost,
     commissionableBase,
@@ -99,7 +106,7 @@ export function calculateAntiFugaQuote(params: {
 }
 
 // ----------------------------------------------------
-// HOUSEHOLD KITCHEN MEMORY
+// HOUSEHOLD KITCHEN MEMORY DEFAULTS
 // ----------------------------------------------------
 
 export interface HouseholdMemory {
@@ -123,29 +130,7 @@ export function getDefaultHouseholdMemory(): HouseholdMemory {
     kitchenRobotAvailable: false,
     glassTupperwareCount: 8,
     allergiesOrIntolerances: ['Sin alérgenos graves declarados'],
-    dietaryPreferences: ['Mediterránea', 'Equilibrada'],
+    dietaryPreferences: ['Mediterránea Tradicional (Carmen)', 'Equilibrada'],
     kitchenRulesNotes: 'Frigorífico con 2 baldas despejadas para fiambreras. Zona de reciclaje bajo el fregadero.'
   };
-}
-
-const STORAGE_KEY_HOUSEHOLD_MEMORY = 'touchef_household_memory';
-
-export function loadHouseholdMemoryFromStorage(): HouseholdMemory {
-  if (typeof window === 'undefined') return getDefaultHouseholdMemory();
-  try {
-    const raw = localStorage.getItem(STORAGE_KEY_HOUSEHOLD_MEMORY);
-    if (raw) return JSON.parse(raw);
-  } catch (e) {
-    console.error('Error reading household memory:', e);
-  }
-  return getDefaultHouseholdMemory();
-}
-
-export function saveHouseholdMemoryToStorage(memory: HouseholdMemory): void {
-  if (typeof window === 'undefined') return;
-  try {
-    localStorage.setItem(STORAGE_KEY_HOUSEHOLD_MEMORY, JSON.stringify(memory));
-  } catch (e) {
-    console.error('Error saving household memory:', e);
-  }
 }

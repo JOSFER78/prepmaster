@@ -199,69 +199,38 @@ export const DEFAULT_FAVORITE_BATCHES: BatchProject[] = [
   }
 ];
 
+let inMemoryFavoriteBatches: BatchProject[] = DEFAULT_FAVORITE_BATCHES;
+let inMemoryFavoriteDishes: BatchDish[] = DEFAULT_FAVORITE_DISHES;
+
 export function loadFavoriteBatchesFromStorage(): BatchProject[] {
-  if (typeof window === 'undefined') return DEFAULT_FAVORITE_BATCHES;
-  try {
-    const raw = localStorage.getItem(FAVORITE_BATCHES_STORAGE_KEY);
-    if (raw) {
-      const parsed = JSON.parse(raw);
-      if (Array.isArray(parsed) && parsed.length > 0) return parsed;
-    }
-  } catch (e) {
-    console.error('Error loading favorite batches:', e);
-  }
-  return DEFAULT_FAVORITE_BATCHES;
+  return inMemoryFavoriteBatches;
 }
 
 export function loadFavoriteDishesFromStorage(): BatchDish[] {
-  if (typeof window === 'undefined') return DEFAULT_FAVORITE_DISHES;
-  try {
-    const raw = localStorage.getItem(FAVORITE_DISHES_STORAGE_KEY);
-    if (raw) {
-      const parsed = JSON.parse(raw);
-      if (Array.isArray(parsed) && parsed.length > 0) return parsed;
-    }
-  } catch (e) {
-    console.error('Error loading favorite dishes:', e);
-  }
-  return DEFAULT_FAVORITE_DISHES;
+  return inMemoryFavoriteDishes;
 }
 
 export function saveFavoriteBatchesToStorage(batches: BatchProject[], userId?: string): void {
-  if (typeof window === 'undefined') return;
-  try {
-    localStorage.setItem(FAVORITE_BATCHES_STORAGE_KEY, JSON.stringify(batches));
-  } catch (e) {
-    console.error('Error saving favorite batches locally:', e);
-  }
+  inMemoryFavoriteBatches = batches;
 
-  if (userId || auth.currentUser?.uid) {
-    const uid = userId || auth.currentUser?.uid;
-    if (uid) {
-      setDoc(doc(db, 'users', uid), {
-        favoriteBatches: batches,
-        updatedAt: new Date().toISOString()
-      }, { merge: true }).catch(err => console.warn('Firestore favorite batches save:', err));
-    }
+  const uid = userId || auth.currentUser?.uid;
+  if (uid) {
+    setDoc(doc(db, 'users', uid), {
+      favoriteBatches: batches,
+      updatedAt: new Date().toISOString()
+    }, { merge: true }).catch(err => console.warn('Firestore favorite batches save:', err));
   }
 }
 
 export function saveFavoriteDishesToStorage(dishes: BatchDish[], userId?: string): void {
-  if (typeof window === 'undefined') return;
-  try {
-    localStorage.setItem(FAVORITE_DISHES_STORAGE_KEY, JSON.stringify(dishes));
-  } catch (e) {
-    console.error('Error saving favorite dishes locally:', e);
-  }
+  inMemoryFavoriteDishes = dishes;
 
-  if (userId || auth.currentUser?.uid) {
-    const uid = userId || auth.currentUser?.uid;
-    if (uid) {
-      setDoc(doc(db, 'users', uid), {
-        favoriteDishes: dishes,
-        updatedAt: new Date().toISOString()
-      }, { merge: true }).catch(err => console.warn('Firestore favorite dishes save:', err));
-    }
+  const uid = userId || auth.currentUser?.uid;
+  if (uid) {
+    setDoc(doc(db, 'users', uid), {
+      favoriteDishes: dishes,
+      updatedAt: new Date().toISOString()
+    }, { merge: true }).catch(err => console.warn('Firestore favorite dishes save:', err));
   }
 }
 

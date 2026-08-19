@@ -69,6 +69,8 @@ Una de las joyas cumbre de la cocina marinera: lomos gruesos de merluza cocinado
 - **Sulfitos** (Vino blanco / fino)
 
 ### 🛒 Ingredientes Precisos (g / ml / unidades)
+
+![Ingredientes y Mise en Place](assets/merluza_en_salsa_verde_tradicional_con_almeja_01_ingredientes.jpg)
 | Ingrediente | Cantidad Exacta | Notas de Selección y Corte |
 | :--- | :--- | :--- |
 | **Lomos o rodajas de merluza limpia** | 800 g (4 lomos de 200 g) | Merluza de pincho o del Cantábrico con piel, sin espinas |
@@ -91,6 +93,8 @@ Una de las joyas cumbre de la cocina marinera: lomos gruesos de merluza cocinado
 - Tapa hermética para la cazuela.
 
 ### 👨‍🍳 Paso a Paso Culinario Exhaustivo
+
+![Técnica de Elaboración](assets/merluza_en_salsa_verde_tradicional_con_almeja_02_elaboracion.jpg)
 1. **Purga de almejas:** Disponer las almejas en un cuenco con abundante agua fría y 35 g de sal por litro durante al menos 1 hora para expulsar cualquier resto de arena. Escurrir y enjuagar con agua fría corriente.
 2. **Preparación del pescado:** Secar los lomos de merluza con papel absorbente. Salar ligeramente por ambas caras 10 minutos antes de cocinar para compactar la fibra muscular.
 3. **Elaboración de la base aromática:** Poner la cazuela a fuego medio-bajo con los 60 ml de AOVE. Añadir el ajo picado. Dejar que comience a "bailar" y soltar aroma durante 1-2 minutos sin que tome color dorado oscuro (si se dora en exceso amargará la salsa verde).
@@ -153,6 +157,8 @@ Guiso emblemático de arrieros y pescadores de la ribera navarra y vasca, perfec
 - *Libre de lácteos y huevo*
 
 ### 🛒 Ingredientes Precisos (g / ml / unidades)
+
+![Ingredientes y Mise en Place](assets/bacalao_al_ajoarriero_tradicional_con_pimient_01_ingredientes.jpg)
 | Ingrediente | Cantidad Exacta | Notas de Selección y Corte |
 | :--- | :--- | :--- |
 | **Bacalao desalado desmigado o en tacos finos** | 700 g | Bacalao de buena curación desalado en agua fría durante 48h |
@@ -174,6 +180,8 @@ Guiso emblemático de arrieros y pescadores de la ribera navarra y vasca, perfec
 - Escurridor para el bacalao.
 
 ### 👨‍🍳 Paso a Paso Culinario Exhaustivo
+
+![Técnica de Elaboración](assets/bacalao_al_ajoarriero_tradicional_con_pimient_02_elaboracion.jpg)
 1. **Desalado y secado del bacalao:** Desalar el bacalao cambiando el agua cada 8 horas en frigorífico durante 48 horas. Escurrir muy bien y desmigar en lascas o tiras medianas de unos 3-4 cm con las manos, retirando cualquier espina residual. Secar con paño limpio.
 2. **Confitado inicial de ajos y bacalao:** En la cazuela, calentar los 100 ml de AOVE con los ajos laminados y la cayena a fuego muy suave (90-100°C). Cuando los ajos comiencen a dorarse levemente, añadir las lascas de bacalao. Confitar durante 3 minutos removiendo para que el bacalao suelte su gelatina blanca (albúmina). Retirar el bacalao y los ajos a un plato, conservando todo el aceite y la gelatina en la cazuela.
 3. **Elaboración del sofrito aromático:** En el mismo aceite aromatizado, añadir la cebolla picada y el pimiento verde. Pochar a fuego medio-bajo durante 15 minutos con una pizca de sal, hasta que la cebolla esté melosa y caramelizada.
@@ -231,6 +239,8 @@ El gran clásico de la cocina de vigilia andaluza y española. Carmen utiliza un
 - **Huevo** (Huevo cocido picado de guarnición tradicional; opcional)
 
 ### 🛒 Ingredientes Precisos (g / ml / unidades)
+
+![Ingredientes y Mise en Place](assets/potaje_de_garbanzos_con_bacalao_y_espinacas_f_01_ingredientes.jpg)
 | Ingrediente | Cantidad Exacta | Notas de Selección y Corte |
 | :--- | :--- | :--- |
 | **Garbanzos pedrosillano o lechoso** | 400 g (en seco) | Puestos en remojo 12h en agua templada con sal |
@@ -255,6 +265,8 @@ El gran clásico de la cocina de vigilia andaluza y española. Carmen utiliza un
 - Espumadera y cucharón de servicio.
 
 ### 👨‍🍳 Paso a Paso Culinario Exhaustivo
+
+![Técnica de Elaboración](assets/potaje_de_garbanzos_con_bacalao_y_espinacas_f_02_elaboracion.jpg)
 1. **Remojo y cocción inicial de garbanzos:** Tras 12 horas de remojo en agua templada con una pizca de bicarbonato o sal, escurrir los garbanzos. Poner en la olla 1,4 litros de agua o caldo suave con las 2 hojas de laurel y media cebolla. Llevar a ebullición. **Regla de oro:** Introducir siempre los garbanzos cuando el agua esté hirviendo a borbotones para evitar que queden duros (hollejo encallado). Cocer a fuego lento espumando las impurezas durante 1 hora (o 20-25 minutos en olla a presión rápida).
 2. **Elaboración del majado de Carmen:** 
    - En una sartén pequeña con 30 ml de AOVE, freír los 3 dientes de ajo enteros y la rebanada de pan hasta que estén dorados y crujientes.
@@ -316,6 +328,8 @@ El guiso marinero por excelencia del mar Cantábrico. El secreto de Carmen radic
 - *Libre de lácteos, huevos y crustáceos*
 
 ### 🛒 Ingredientes Precisos (g / ml / unidades)
+
+![Ingredientes y Mise en Place](assets/marmitako_tradicional_de_bonito_del_norte_con_01_ingredientes.jpg)
 | Ingrediente | Cantidad Exacta | Notas de Selección y Corte |
 | :--- | :--- | :--- |
 | **Bonito del Norte o Atún fresco limpio** | 600 g | Limpio de piel y espinas negras, cortado en dados de 2,5 cm |
@@ -339,6 +353,8 @@ El guiso marinero por excelencia del mar Cantábrico. El secreto de Carmen radic
 - Tabla de corte y espátula de madera.
 
 ### 👨‍🍳 Paso a Paso Culinario Exhaustivo
+
+![Técnica de Elaboración](assets/marmitako_tradicional_de_bonito_del_norte_con_02_elaboracion.jpg)
 1. **Técnica de chascado de la patata:** Pelar las patatas y lavarlas. Introducir el cuchillo de puntilla 1 cm y tirar haciendo palanca para romper ("chascar" o "cascar") el trozo con un chasquido seco. Este corte irregular expone las celdas de almidón abiertas, lo que espesará el caldo de forma natural sin necesidad de añadir harinas.
 2. **Sofrito marinero:** En la cazuela con los 60 ml de AOVE, pochar a fuego medio la cebolla, el pimiento verde, el pimiento rojo y el ajo durante 12-14 minutos con una pizca de sal, hasta que las verduras estén completamente pochadas y tiernas.
 3. **Especiado y desglasado:** Añadir la pulpa de pimiento choricero, el pimentón dulce y el tomate triturado. Rehogar 2 minutos sin dejar de remover. Verter el vino blanco/txakoli y raspar el fondo con la espátula para rescatar los azúcares caramelizados. Dejar evaporar el alcohol 2 minutos.
@@ -401,6 +417,8 @@ Guiso de salsa negra aterciopelada, profunda y brillante, donde la dulzura de la
 - *Libre de gluten de forma natural (si no se añade pan ni harina para espesar)*
 
 ### 🛒 Ingredientes Precisos (g / ml / unidades)
+
+![Ingredientes y Mise en Place](assets/calamares_en_su_tinta_caseros_con_arroz_blanc_01_ingredientes.jpg)
 | Ingrediente | Cantidad Exacta | Notas de Selección y Corte |
 | :--- | :--- | :--- |
 | **Calamares frescos o chipirones limpios** | 1.000 g (1 kg entero = 750 g limpio) | Limpios, cuerpos en anillas de 1,5 cm y tentáculos enteros |
@@ -421,6 +439,8 @@ Guiso de salsa negra aterciopelada, profunda y brillante, donde la dulzura de la
 - Colador chino de malla fina.
 
 ### 👨‍🍳 Paso a Paso Culinario Exhaustivo
+
+![Técnica de Elaboración](assets/calamares_en_su_tinta_caseros_con_arroz_blanc_02_elaboracion.jpg)
 1. **Limpieza del calamar:** Limpiar los calamares retirando la pluma transparente, tripas y boca. Conservar la piel fina si se desea mayor sabor o pelar para acabado blanco. Cortar los tubos en anillas de 1,5 cm de grosor y los tentáculos en 2-3 piezas. Secar meticulosamente con papel de cocina.
 2. **Sellado a alta temperatura:** En la cazuela bien caliente con 2 cucharadas de AOVE a fuego vivo, saltear los calamares durante 2 minutos hasta que cambien de color y suelten el exceso de agua. Retirar los calamares y reservar su jugo escurrido en un cuenco.
 3. **El pochado negro de la cebolla:** En la misma cazuela con el resto del AOVE, añadir la gran cantidad de cebolla picada, el pimiento verde y los ajos con una pizca de sal. Pochar a fuego muy lento durante 20-25 minutos. La cebolla debe quedar completamente transparente, reducida a una cuarta parte y con un tono dorado caramelo natural.
@@ -479,6 +499,8 @@ La apoteosis del arroz de costa andaluz: grano en su punto exacto de suspensión
 - *Libre de gluten de forma natural*
 
 ### 🛒 Ingredientes Precisos (g / ml / unidades)
+
+![Ingredientes y Mise en Place](assets/arroz_caldoso_marinero_con_rape_gambones_y_me_01_ingredientes.jpg)
 | Ingrediente | Cantidad Exacta | Notas de Selección y Corte |
 | :--- | :--- | :--- |
 | **Arroz tipo Bomba, Albufera o Senia** | 300 g (aprox. 75 g por persona) | Grano redondo de alta absorción |
@@ -502,6 +524,8 @@ La apoteosis del arroz de costa andaluz: grano en su punto exacto de suspensión
 - Pinzas y espumadera.
 
 ### 👨‍🍳 Paso a Paso Culinario Exhaustivo
+
+![Técnica de Elaboración](assets/arroz_caldoso_marinero_con_rape_gambones_y_me_02_elaboracion.jpg)
 1. **Extracción aromática del marisco:** En la cazuela con los 60 ml de AOVE a fuego fuerte, marcar los gambones enteros durante 1 minuto por cada lado. Retirar a un plato. En el mismo aceite, sofreír los dados de rape durante 1 minuto y retirar junto a los gambones para evitar sobrecocinarlos.
 2. **Elaboración de la salmorreta / sofrito:** Bajar a fuego medio. Añadir la cebolla, el pimiento rojo y el ajo picado. Pochar lentamente durante 10 minutos. Añadir la carne de ñora, el pimentón dulce, las hebras de azafrán y el tomate triturado. Reducir el sofrito durante 6-8 minutos hasta que caramelice y adquiera un tono caoba oscuro.
 3. **Nacarado del arroz:** Añadir los 300 g de arroz a la cazuela. Remover con cuchara de madera durante 2 minutos a fuego medio para que el grano se impregne de grasa y se selle el almidón exterior ("nacarar").
@@ -563,6 +587,8 @@ La versión inteligente y accesible de Carmen para disfrutar de una fabada subli
 - *Libre de alérgenos mayores (Comprobar que el compango [morcilla/chorizo] no contenga trazas de gluten o lactosa según fabricante artesanal)*
 
 ### 🛒 Ingredientes Precisos (g / ml / unidades)
+
+![Ingredientes y Mise en Place](assets/fabada_rapida_casera_de_carmen_con_compango_a_01_ingredientes.jpg)
 | Ingrediente | Cantidad Exacta | Notas de Selección y Corte |
 | :--- | :--- | :--- |
 | **Alubias / Fabes cocidas en conserva de cristal**| 800 g (2 tarros de 400 g peso neto) | Variedad Granja o Judión, bien enteras |
@@ -584,6 +610,8 @@ La versión inteligente y accesible de Carmen para disfrutar de una fabada subli
 - Tenedor o pasapurés para triturar parte de la legumbre.
 
 ### 👨‍🍳 Paso a Paso Culinario Exhaustivo
+
+![Técnica de Elaboración](assets/fabada_rapida_casera_de_carmen_con_compango_a_02_elaboracion.jpg)
 1. **Tratamiento de las alubias cocidas:** Volcar los botes de fabes en un colador grande y lavarlas bajo el grifo de agua fría con chorro muy suave para retirar el líquido de gobierno (gelatina de conservación) sin romper la piel. Escurrir delicadamente.
 2. **Dorado del compango:** En la cazuela con 2 cucharadas de AOVE, dorar a fuego medio los tacos de panceta y el chorizo pinchado durante 4-5 minutos para que suelten sus grasas ahumadas y aromas. Retirar la mitad del exceso de grasa si se prefiere una fabada más ligera y digestiva.
 3. **Sofrito base:** Añadir a la grasa aromatizada la cebolla picada y los ajos. Pochar a fuego suave durante 8 minutos hasta que estén tiernos. Añadir el azafrán, la hoja de laurel y el pimentón dulce, removiendo 15 segundos fuera del fuego.
@@ -641,6 +669,8 @@ Un aperitivo o entrante marinero de alta alcurnia: almejas carnosas abiertas al 
 - **Sulfitos** (Vino blanco / fino)
 
 ### 🛒 Ingredientes Precisos (g / ml / unidades)
+
+![Ingredientes y Mise en Place](assets/almejas_a_la_marinera_tradicionales_con_vino__01_ingredientes.jpg)
 | Ingrediente | Cantidad Exacta | Notas de Selección y Corte |
 | :--- | :--- | :--- |
 | **Almejas frescas (fina, babosa o japónica)** | 600 g | Vivas, conchas cerradas e intactas |
@@ -661,6 +691,8 @@ Un aperitivo o entrante marinero de alta alcurnia: almejas carnosas abiertas al 
 - Cuchara de madera y espumadera.
 
 ### 👨‍🍳 Paso a Paso Culinario Exhaustivo
+
+![Técnica de Elaboración](assets/almejas_a_la_marinera_tradicionales_con_vino__02_elaboracion.jpg)
 1. **Desarenado meticuloso:** Sumergir las almejas en 1 litro de agua fría con 35 g de sal gorda durante mínimo 2 horas en la nevera, cambiando el agua a mitad de tiempo. Enjuagar con cuidado bajo el grifo.
 2. **Sofrito de la salsa marinera:** Calentar los 45 ml de AOVE en la cazuela a fuego medio. Añadir la cayena, los ajos picados y la cebolla finísima con una pizca insignificante de sal. Pochar durante 8-10 minutos hasta que la cebolla esté tierna, transparente y fundente.
 3. **Elaboración del roux rojizo:** Incorporar la cucharada de harina y remover durante 1 minuto para tostarla. Añadir el pimentón dulce de la Vera, mezclar 10 segundos y verter de inmediato el vino fino y los 80 ml de caldo/agua.
@@ -723,6 +755,8 @@ Un guiso tradicional de cuchara de los pueblos costeros andaluces. La sepia (o j
 - *Libre de gluten de forma natural*
 
 ### 🛒 Ingredientes Precisos (g / ml / unidades)
+
+![Ingredientes y Mise en Place](assets/guiso_marinero_de_sepia_con_patatas_y_guisant_01_ingredientes.jpg)
 | Ingrediente | Cantidad Exacta | Notas de Selección y Corte |
 | :--- | :--- | :--- |
 | **Sepia o Choco limpio y fresco** | 750 g (peso limpio) | Cortada en dados regulares de 3x3 cm |
@@ -746,6 +780,8 @@ Un guiso tradicional de cuchara de los pueblos costeros andaluces. La sepia (o j
 - Cucharón y espátula.
 
 ### 👨‍🍳 Paso a Paso Culinario Exhaustivo
+
+![Técnica de Elaboración](assets/guiso_marinero_de_sepia_con_patatas_y_guisant_02_elaboracion.jpg)
 1. **Preparación y dorado de la sepia:** Secar concienzudamente los trozos de sepia con papel absorbente. Calentar la cazuela a fuego vivo con 2 cucharadas de AOVE. Añadir la sepia y dorar durante 3-4 minutos hasta que evapore el agua que desprende y empiece a adquirir tono dorado. Retirar y reservar en un plato.
 2. **Sofrito marinero:** En la misma cazuela con el resto del aceite a fuego medio-bajo, añadir la cebolla, el pimiento verde y los ajos con una pizca de sal. Pochar durante 12 minutos hasta que la verdura esté muy blanda y caramelizada.
 3. **Tomate y desglasado:** Añadir el tomate triturado, el pimentón y el laurel. Cocinar 6 minutos hasta reducir. Verter el vino blanco/manzanilla y raspar el fondo con la cuchara. Dejar reducir 2 minutos.

@@ -75,6 +75,8 @@ La cocina de guiso y cazuela representa el patrimonio gastronómico más reconfo
 
 ### ⚖️ Ingredientes Exactos
 
+![Ingredientes y Mise en Place](assets/pollo_en_pepitoria_tradicional_01_ingredientes.jpg)
+
 #### Base y Proteína
 * **1.200 g** Pollo de corral limpio, cortado en octavos (jamoncitos, muslos y pechugas con hueso).
 * **35 g** Harina de trigo común (o almidón de maíz para celíacos) para un enharinado muy leve.
@@ -108,6 +110,8 @@ La cocina de guiso y cazuela representa el patrimonio gastronómico más reconfo
 ---
 
 ### 👨‍🍳 Paso a Paso Técnico y Minucioso
+
+![Técnica de Elaboración](assets/pollo_en_pepitoria_tradicional_02_elaboracion.jpg)
 
 1. **Mise en Place y Huevos Cocidos:**
    * Hervir los 2 huevos en agua con un pellizco de sal durante 9 minutos exactos desde que rompa a hervir. Cortar la cocción en baño de agua con hielo, pelar, separar las yemas (para el majado) y picar las claras en brunoise fina (reservar como guarnición final).
@@ -191,6 +195,8 @@ La cocina de guiso y cazuela representa el patrimonio gastronómico más reconfo
 
 ### ⚖️ Ingredientes Exactos
 
+![Ingredientes y Mise en Place](assets/albondigas_en_salsa_de_la_abuela_01_ingredientes.jpg)
+
 #### Masa de Albóndigas Artesanas
 * **400 g** Carne picada de aguja o babilla de ternera (1 solo pase por picadora).
 * **300 g** Carne picada de magro o cabecero de cerdo ibérico.
@@ -226,6 +232,8 @@ La cocina de guiso y cazuela representa el patrimonio gastronómico más reconfo
 ---
 
 ### 👨‍🍳 Paso a Paso Técnico y Minucioso
+
+![Técnica de Elaboración](assets/albondigas_en_salsa_de_la_abuela_02_elaboracion.jpg)
 
 1. **Hidratación y Mezclado de la Farsa:**
    * En un cuenco, desmenuzar la miga de pan y empaparla con la leche templada durante 5 minutos. Escurrir ligeramente con las manos.
@@ -301,6 +309,8 @@ La cocina de guiso y cazuela representa el patrimonio gastronómico más reconfo
 
 ### ⚖️ Ingredientes Exactos
 
+![Ingredientes y Mise en Place](assets/ternera_guisada_a_la_jardinera_01_ingredientes.jpg)
+
 #### Carne y Sellado
 * **900 g** Ternera para guisar (corte aguja, llana o morcillo) cortada en dados regulares de 3,5 cm.
 * **30 g** Harina de trigo para espolvorear.
@@ -330,6 +340,8 @@ La cocina de guiso y cazuela representa el patrimonio gastronómico más reconfo
 ---
 
 ### 👨‍🍳 Paso a Paso Técnico y Minucioso
+
+![Técnica de Elaboración](assets/ternera_guisada_a_la_jardinera_02_elaboracion.jpg)
 
 1. **Preparación y Sellado Intenso:**
    * Secar meticulosamente los tacos de ternera con papel absorbente (el agua superficial impide la reacción de Maillard). Salpimentar y pasar por una sutil película de harina.
@@ -404,6 +416,8 @@ La cocina de guiso y cazuela representa el patrimonio gastronómico más reconfo
 
 ### ⚖️ Ingredientes Exactos
 
+![Ingredientes y Mise en Place](assets/carrilleras_de_cerdo_iberico_en_salsa_al_vino_01_ingredientes.jpg)
+
 #### Carrilleras y Sellado
 * **8 unidades (aprox. 850 g)** Carrilleras de cerdo ibérico limpias de exceso de grasa y telilla exterior.
 * **50 ml** AOVE virgen extra.
@@ -433,6 +447,8 @@ La cocina de guiso y cazuela representa el patrimonio gastronómico más reconfo
 ---
 
 ### 👨‍🍳 Paso a Paso Técnico y Minucioso
+
+![Técnica de Elaboración](assets/carrilleras_de_cerdo_iberico_en_salsa_al_vino_02_elaboracion.jpg)
 
 1. **Limpieza y Sellado Profundo:**
    * Retirar con un cuchillo afilado la fascia blanca exterior (telilla) de las carrilleras para evitar que encojan al cocinarse. Salpimentar generosamente.
@@ -510,6 +526,8 @@ La cocina de guiso y cazuela representa el patrimonio gastronómico más reconfo
 
 ### ⚖️ Ingredientes Exactos
 
+![Ingredientes y Mise en Place](assets/lentejas_pardinas_con_chorizo_y_costilla_de_c_01_ingredientes.jpg)
+
 #### Legumbre y Chup-chup
 * **400 g** Lentejas pardinas secas seleccionadas y lavadas bajo el grifo.
 * **200 g** Costilla de cerdo fresca troceada menuda.
@@ -541,6 +559,8 @@ La cocina de guiso y cazuela representa el patrimonio gastronómico más reconfo
 ---
 
 ### 👨‍🍳 Paso a Paso Técnico y Minucioso
+
+![Técnica de Elaboración](assets/lentejas_pardinas_con_chorizo_y_costilla_de_c_02_elaboracion.jpg)
 
 1. **Carga en Frío (*Todo en Crudo* Base):**
    * En la cazuela amplia, colocar las lentejas lavadas. Disponer la costilla de cerdo, las rodajas de chorizo, el hueso de jamón, la cebolla entera, el pimiento verde entero, el tomate maduro pelado, la cabeza de ajos entera, las hojas de laurel y las zanahorias en rodajas.
@@ -613,6 +633,8 @@ La cocina de guiso y cazuela representa el patrimonio gastronómico más reconfo
 
 ### ⚖️ Ingredientes Exactos
 
+![Ingredientes y Mise en Place](assets/estofado_de_magro_de_cerdo_con_patatas_chasca_01_ingredientes.jpg)
+
 #### Carne y Sofrito
 * **650 g** Magro de jamón o cabecero de lomo de cerdo cortado en dados de 3 cm.
 * **50 ml** AOVE virgen extra.
@@ -641,6 +663,8 @@ La cocina de guiso y cazuela representa el patrimonio gastronómico más reconfo
 ---
 
 ### 👨‍🍳 Paso a Paso Técnico y Minucioso
+
+![Técnica de Elaboración](assets/estofado_de_magro_de_cerdo_con_patatas_chasca_02_elaboracion.jpg)
 
 1. **Sellado del Magro:**
    * Salpimentar los dados de magro de cerdo. Calentar el AOVE en la cazuela a fuego medio-alto y dorar la carne durante 6-7 minutos hasta que esté bien sellada y con tono dorado. Retirar la carne a un plato.
@@ -713,6 +737,8 @@ La cocina de guiso y cazuela representa el patrimonio gastronómico más reconfo
 
 ### ⚖️ Ingredientes Exactos
 
+![Ingredientes y Mise en Place](assets/pollo_al_ajillo_tradicional_01_ingredientes.jpg)
+
 #### Base y Proteína
 * **1.200 g** Pollo troceado menudo (piezas pequeñas con hueso: alitas, muslos, pechuga cortada en bocados).
 * **120 ml** AOVE virgen extra de calidad superior.
@@ -734,6 +760,8 @@ La cocina de guiso y cazuela representa el patrimonio gastronómico más reconfo
 ---
 
 ### 👨‍🍳 Paso a Paso Técnico y Minucioso
+
+![Técnica de Elaboración](assets/pollo_al_ajillo_tradicional_02_elaboracion.jpg)
 
 1. **Aromatizado del Aceite y Confitado de Ajos:**
    * Separar los dientes de ajo. Dejar 8 dientes enteros con su piel (*en camisa*), haciéndoles únicamente una incisión longitudinal con el cuchillo. Pelar y laminar los 7 dientes restantes.
@@ -808,6 +836,8 @@ La cocina de guiso y cazuela representa el patrimonio gastronómico más reconfo
 
 ### ⚖️ Ingredientes Exactos
 
+![Ingredientes y Mise en Place](assets/conejo_al_ajillo_y_romero_en_cazadora_salsa_r_01_ingredientes.jpg)
+
 #### Base y Proteína
 * **1.100 g** Conejo de granja limpio troceado menudo (incluyendo el hígado fresco).
 * **70 ml** AOVE virgen extra.
@@ -835,6 +865,8 @@ La cocina de guiso y cazuela representa el patrimonio gastronómico más reconfo
 ---
 
 ### 👨‍🍳 Paso a Paso Técnico y Minucioso
+
+![Técnica de Elaboración](assets/conejo_al_ajillo_y_romero_en_cazadora_salsa_r_02_elaboracion.jpg)
 
 1. **Sellado del Conejo y del Hígado:**
    * Salpimentar los trozos de conejo y el hígado.

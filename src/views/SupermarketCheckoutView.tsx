@@ -23,13 +23,13 @@ import { SUPERMARKET_PROVIDERS } from '../lib/chefsData';
 import { 
   buildSupermarketBasket, 
   evaluateReverseTiming, 
-  generateMockDeliverySlots, 
-  saveSupermarketOrderToStorage,
+  generateAvailableDeliverySlots, 
   SupermarketBasketItem,
   DeliverySlot,
   SubstitutionPolicy,
   SupermarketOrder
 } from '../lib/supermarketEngine';
+import { saveSupermarketOrder } from '../services/supermarketService';
 
 interface SupermarketCheckoutViewProps {
   activeProject: BatchProject | null;
@@ -42,7 +42,7 @@ export const SupermarketCheckoutView: React.FC<SupermarketCheckoutViewProps> = (
   onNavigate,
   onOrderConfirmed
 }) => {
-  const [selectedProviderId, setSelectedProviderId] = useState<'dia' | 'carrefour' | 'amazon_fresh'>('dia');
+  const [selectedProviderId, setSelectedProviderId] = useState<'dia' | 'carrefour' | 'mercadona' | 'alcampo' | 'amazon_fresh'>('dia');
   const [deliveryDate, setDeliveryDate] = useState<string>(() => {
     return activeProject?.plannedShoppingDate || new Date().toISOString().split('T')[0];
   });
@@ -66,7 +66,7 @@ export const SupermarketCheckoutView: React.FC<SupermarketCheckoutViewProps> = (
 
   // Available slots for selected date
   const availableSlots = useMemo(() => {
-    return generateMockDeliverySlots(deliveryDate, targetCookSlot);
+    return generateAvailableDeliverySlots(deliveryDate, targetCookSlot);
   }, [deliveryDate, targetCookSlot]);
 
   const selectedSlot = availableSlots.find(s => s.id === selectedSlotId) || availableSlots[0];
@@ -108,13 +108,13 @@ export const SupermarketCheckoutView: React.FC<SupermarketCheckoutViewProps> = (
     }));
   };
 
-  const handleConfirmSupermarketOrder = () => {
+  const handleConfirmSupermarketOrder = async () => {
     setIsSubmitting(true);
     const order: SupermarketOrder = {
       id: `dia-order-${Date.now()}`,
       batchProjectId: activeProject?.id,
       planTitle: activeProject?.title || 'Compra Batch Cooking',
-      provider: selectedProvider,
+      provider: selectedProvider as any,
       selectedSlot,
       substitutionPolicy,
       items: basketItems,
@@ -129,7 +129,11 @@ export const SupermarketCheckoutView: React.FC<SupermarketCheckoutViewProps> = (
       createdAt: new Date().toISOString()
     };
 
-    saveSupermarketOrderToStorage(order);
+    try {
+      await saveSupermarketOrder(order);
+    } catch (e) {
+      console.warn('Firestore supermarket order save warning:', e);
+    }
 
     setIsSubmitting(false);
     setOrderCompleted(order);

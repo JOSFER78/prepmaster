@@ -1,0 +1,225 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 620" width="100%" height="100%">
+  <defs>
+    <!-- Background Gradient -->
+    <linearGradient id="bgGrad3" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0b0f19" />
+      <stop offset="50%" stop-color="#082f49" />
+      <stop offset="100%" stop-color="#020617" />
+    </linearGradient>
+
+    <!-- Card Gradient -->
+    <linearGradient id="cardGrad3" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1e293b" stop-opacity="0.85" />
+      <stop offset="100%" stop-color="#0f172a" stop-opacity="0.95" />
+    </linearGradient>
+
+    <!-- Ice Gradient -->
+    <linearGradient id="iceGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38bdf8" />
+      <stop offset="50%" stop-color="#0284c7" />
+      <stop offset="100%" stop-color="#0369a1" />
+    </linearGradient>
+
+    <!-- Hot to Cold Curve Gradients -->
+    <linearGradient id="fastChillGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f97316" />
+      <stop offset="40%" stop-color="#38bdf8" />
+      <stop offset="100%" stop-color="#06b6d4" />
+    </linearGradient>
+
+    <linearGradient id="dangerGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ef4444" />
+      <stop offset="100%" stop-color="#b91c1c" />
+    </linearGradient>
+
+    <filter id="glowIce" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="3" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+
+    <filter id="cardShadow3" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="6" stdDeviation="10" flood-color="#000000" flood-opacity="0.6" />
+    </filter>
+  </defs>
+
+  <style>
+    .title { font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif; font-size: 20px; font-weight: 700; fill: #f8fafc; letter-spacing: 0.5px; }
+    .subtitle { font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif; font-size: 12px; fill: #94a3b8; }
+    .badge { font-family: 'JetBrains Mono', 'Fira Code', Consolas, monospace; font-size: 11px; font-weight: 600; }
+    .axis-label { font-family: 'Segoe UI', sans-serif; font-size: 11.5px; font-weight: 600; fill: #94a3b8; }
+    .tick-label { font-family: 'JetBrains Mono', monospace; font-size: 10.5px; fill: #64748b; }
+    .card-title { font-family: 'Segoe UI', sans-serif; font-size: 12.5px; font-weight: 700; fill: #e2e8f0; }
+    .card-text { font-family: 'Segoe UI', sans-serif; font-size: 11px; fill: #cbd5e1; line-height: 1.45; }
+    .step-num { font-family: 'Segoe UI', sans-serif; font-size: 13px; font-weight: 800; fill: #ffffff; }
+    .grid-line { stroke: #1e293b; stroke-width: 1; stroke-dasharray: 3 3; }
+    .axis-line { stroke: #334155; stroke-width: 1.5; }
+  </style>
+
+  <!-- Background -->
+  <rect width="1000" height="620" fill="url(#bgGrad3)" />
+
+  <!-- Outer Frame -->
+  <rect x="15" y="15" width="970" height="590" rx="12" fill="none" stroke="#1e293b" stroke-width="1.5" />
+
+  <!-- Header Section -->
+  <g transform="translate(40, 45)">
+    <rect x="0" y="0" width="36" height="36" rx="8" fill="#0284c7" fill-opacity="0.2" stroke="#0284c7" stroke-width="1" />
+    <path d="M18 7 L18 29 M10 13 L26 23 M26 13 L10 23" stroke="#38bdf8" stroke-width="2" stroke-linecap="round" />
+
+    <text x="48" y="18" class="title">PROTOCOLO DE ABATIMIENTO TÉRMICO FORZADO (BAÑO AGUA + HIELO 50/50)</text>
+    <text x="48" y="34" class="subtitle">Barrera Crítica Anti-Botulínica (C. botulinum &amp; C. perfringens): Descenso &lt; 4.0°C en &lt; 90 min (Baldwin / UK ACMSF)</text>
+
+    <!-- Tag Standard -->
+    <rect x="740" y="4" width="180" height="24" rx="12" fill="#0c4a6e" fill-opacity="0.6" stroke="#0284c7" stroke-width="1" />
+    <circle cx="754" cy="16" r="4" fill="#38bdf8" />
+    <text x="764" y="20" class="badge" fill="#7dd3fc">HACCP REGLA 90 MIN</text>
+  </g>
+
+  <!-- Left Side: 4 Process Flow Cards (Steps 1 to 4) -->
+  <g transform="translate(40, 105)">
+    
+    <!-- Step 1 Card -->
+    <g transform="translate(0, 0)">
+      <rect width="430" height="96" rx="8" fill="url(#cardGrad3)" stroke="#334155" stroke-width="1" filter="url(#cardShadow3)" />
+      <!-- Step Icon Badge -->
+      <circle cx="30" cy="30" r="14" fill="#ef4444" />
+      <text x="30" y="35" class="step-num" text-anchor="middle">1</text>
+      <text x="56" y="26" class="card-title" fill="#fca5a5">INMERSIÓN INMEDIATA POST-RONER (t = 0)</text>
+      <text x="56" y="44" class="card-text">Extracción de la cubeta de cocción ($54\text{–}85^\circ\text{C}$) y transferencia</text>
+      <text x="56" y="60" class="card-text">instantánea sin reposo al aire para anular la inercia térmica.</text>
+      <rect x="56" y="70" width="170" height="18" rx="4" fill="#ef4444" fill-opacity="0.15" />
+      <text x="62" y="83" class="badge" fill="#f87171">PROHIBIDO TEMPLAR AL AIRE</text>
+    </g>
+
+    <!-- Step 2 Card -->
+    <g transform="translate(0, 108)">
+      <rect width="430" height="96" rx="8" fill="url(#cardGrad3)" stroke="#334155" stroke-width="1" filter="url(#cardShadow3)" />
+      <circle cx="30" cy="30" r="14" fill="#0284c7" />
+      <text x="30" y="35" class="step-num" text-anchor="middle">2</text>
+      <text x="56" y="26" class="card-title" fill="#7dd3fc">SHOCK TÉRMICO: BAÑO 50% HIELO + 50% AGUA</text>
+      <text x="56" y="44" class="card-text">Mezcla íntima con agitación. Coeficiente $h \ge 2.500\text{ W}/(\text{m}^2\cdot\text{K})$.</text>
+      <text x="56" y="60" class="card-text">Opcional: Salmuera 1.5% NaCl para lograr baño subcero ($-0.5^\circ\text{C}$).</text>
+      <rect x="56" y="70" width="195" height="18" rx="4" fill="#0284c7" fill-opacity="0.15" />
+      <text x="62" y="83" class="badge" fill="#38bdf8">RATIO MÍNIMO 3:1 (BAÑO/PRODUCTO)</text>
+    </g>
+
+    <!-- Step 3 Card -->
+    <g transform="translate(0, 216)">
+      <rect width="430" height="96" rx="8" fill="url(#cardGrad3)" stroke="#334155" stroke-width="1" filter="url(#cardShadow3)" />
+      <circle cx="30" cy="30" r="14" fill="#059669" />
+      <text x="30" y="35" class="step-num" text-anchor="middle">3</text>
+      <text x="56" y="26" class="card-title" fill="#6ee7b7">MONITOREO DE NÚCLEO POR ESPESOR (&lt; 90 MIN)</text>
+      <text x="56" y="44" class="card-text">Tiempo de permanencia estricto según tabla de Baldwin:</text>
+      <text x="56" y="60" class="badge" fill="#e2e8f0">20mm: 20' | 35mm: 45' | 50mm: 75' | 70mm: 120'</text>
+      <rect x="56" y="70" width="180" height="18" rx="4" fill="#059669" fill-opacity="0.15" />
+      <text x="62" y="83" class="badge" fill="#34d399">CRITERIO CRÍTICO: T_núcleo &lt; 4.0°C</text>
+    </g>
+
+    <!-- Step 4 Card -->
+    <g transform="translate(0, 324)">
+      <rect width="430" height="96" rx="8" fill="url(#cardGrad3)" stroke="#334155" stroke-width="1" filter="url(#cardShadow3)" />
+      <circle cx="30" cy="30" r="14" fill="#6366f1" />
+      <text x="30" y="35" class="step-num" text-anchor="middle">4</text>
+      <text x="56" y="26" class="card-title" fill="#a5b4fc">SECADO, ETIQUETADO HACCP &amp; ALMACÉN FIFO</text>
+      <text x="56" y="44" class="card-text">Secado de bolsas, rotulado con fecha, lote y QR de regeneración.</text>
+      <text x="56" y="60" class="card-text">Conservación a $\le 3.0^\circ\text{C}$ (hasta 30 días) o congelador $-18^\circ\text{C}$ (12 meses).</text>
+      <rect x="56" y="70" width="190" height="18" rx="4" fill="#6366f1" fill-opacity="0.15" />
+      <text x="62" y="83" class="badge" fill="#c7d2fe">REGLAMENTO UE 1169/2011</text>
+    </g>
+  </g>
+
+  <!-- Right Side: Temperature Decay Comparison Chart -->
+  <!-- Chart Container: Origin (X=500, Y=105), Width=460, Height=420 -->
+  <g transform="translate(500, 105)">
+    <rect width="460" height="420" rx="10" fill="url(#cardGrad3)" stroke="#334155" stroke-width="1" filter="url(#cardShadow3)" />
+
+    <!-- Chart Header -->
+    <rect x="15" y="15" width="430" height="24" rx="4" fill="#0f172a" stroke="#1e293b" />
+    <text x="25" y="31" class="card-title" font-size="11.5">CURVAS DE DESCENSO TÉRMICO: BAÑO 50/50 VS AIRE NEVERA</text>
+
+    <!-- Danger Zone Red Area (54.4°C down to 4.0°C) -->
+    <!-- Y bounds: Top=54.4°C (Y=100), Bottom=4.0°C (Y=310). Height=210px -->
+    <!-- X bounds: X=60 to X=420 -->
+    <rect x="60" y="100" width="370" height="210" fill="#ef4444" fill-opacity="0.08" />
+    <line x1="60" y1="100" x2="430" y2="100" stroke="#f87171" stroke-width="1" stroke-dasharray="4 4" />
+    <line x1="60" y1="310" x2="430" y2="310" stroke="#38bdf8" stroke-width="1" stroke-dasharray="4 4" />
+
+    <text x="425" y="112" class="badge" fill="#f87171" font-size="9" text-anchor="end">LÍMITE SUPERIOR: 54.4°C</text>
+    <text x="425" y="200" class="badge" fill="#ef4444" font-size="10" text-anchor="end">ZONA DE PELIGRO MICROBIANO</text>
+    <text x="425" y="215" class="tick-label" fill="#fca5a5" font-size="8.5" text-anchor="end">(Germinación esporas C. perfringens / botulinum)</text>
+    <text x="425" y="305" class="badge" fill="#38bdf8" font-size="9" text-anchor="end">LÍMITE SEGURO: 4.0°C</text>
+
+    <!-- Grid Lines & Ticks -->
+    <!-- Y: 65°C (Y=60), 54°C (Y=100), 40°C (Y=160), 25°C (Y=220), 10°C (Y=280), 3°C (Y=315), 0°C (Y=330) -->
+    <line x1="60" y1="330" x2="430" y2="330" class="axis-line" />
+    <line x1="60" y1="60" x2="60" y2="330" class="axis-line" />
+
+    <!-- Y labels -->
+    <text x="52" y="64" class="tick-label" text-anchor="end">65°C</text>
+    <text x="52" y="104" class="tick-label" text-anchor="end">54°C</text>
+    <text x="52" y="164" class="tick-label" text-anchor="end">40°C</text>
+    <text x="52" y="224" class="tick-label" text-anchor="end">25°C</text>
+    <text x="52" y="284" class="tick-label" text-anchor="end">10°C</text>
+    <text x="52" y="318" class="badge" fill="#38bdf8" text-anchor="end">3°C</text>
+    <text x="52" y="334" class="tick-label" text-anchor="end">0°C</text>
+
+    <!-- X: 0' (X=60), 30' (X=120), 60' (X=180), 90' (X=240, REGLA 90 MIN), 120' (X=300), 180' (X=360), 240' (X=420) -->
+    <line x1="120" y1="60" x2="120" y2="330" class="grid-line" />
+    <line x1="180" y1="60" x2="180" y2="330" class="grid-line" />
+    
+    <!-- 90 min HACCP Limit Vertical Line -->
+    <line x1="240" y1="60" x2="240" y2="330" stroke="#f59e0b" stroke-width="2" stroke-dasharray="4 2" />
+    <text x="240" y="55" class="badge" fill="#fbbf24" font-size="9" text-anchor="middle">LÍMITE 90 MIN HACCP</text>
+
+    <line x1="300" y1="60" x2="300" y2="330" class="grid-line" />
+    <line x1="360" y1="60" x2="360" y2="330" class="grid-line" />
+    <line x1="420" y1="60" x2="420" y2="330" class="grid-line" />
+
+    <!-- X labels -->
+    <text x="60" y="348" class="tick-label" text-anchor="middle">0'</text>
+    <text x="120" y="348" class="tick-label" text-anchor="middle">30'</text>
+    <text x="180" y="348" class="tick-label" text-anchor="middle">60'</text>
+    <text x="240" y="348" class="badge" fill="#fbbf24" text-anchor="middle">90'</text>
+    <text x="300" y="348" class="tick-label" text-anchor="middle">120'</text>
+    <text x="360" y="348" class="tick-label" text-anchor="middle">180'</text>
+    <text x="420" y="348" class="tick-label" text-anchor="middle">240'</text>
+
+    <!-- Curve 1: Rapid Ice-Water Bath 50/50 (Drop from 65°C to 3°C in 45 min for 35mm cut) -->
+    <!-- (60, 60) -> (100, 180) -> (150, 310 @ 45min) -> (240, 325) -->
+    <path d="M 60 60 Q 95 180, 150 310 T 240 325 T 420 328" fill="none" stroke="url(#fastChillGrad)" stroke-width="3.5" filter="url(#glowIce)" />
+    <circle cx="150" cy="310" r="5" fill="#38bdf8" stroke="#fff" stroke-width="1.5" />
+
+    <!-- Curve 2: Air Chilling in Refrigerator (Hazardous! Stays in danger zone for 200+ min) -->
+    <path d="M 60 60 Q 180 120, 300 200 T 420 280" fill="none" stroke="url(#dangerGrad)" stroke-width="2.5" stroke-dasharray="6 3" />
+    <circle cx="420" cy="280" r="4" fill="#ef4444" stroke="#fff" stroke-width="1" />
+
+    <!-- Callouts inside Chart -->
+    <g transform="translate(70, 260)">
+      <rect width="135" height="40" rx="6" fill="#0c4a6e" fill-opacity="0.9" stroke="#0284c7" stroke-width="1" />
+      <text x="8" y="15" class="badge" fill="#38bdf8">BAÑO 50/50 (SEGURO)</text>
+      <text x="8" y="30" class="tick-label" fill="#e0f2fe">&lt; 3°C en 45 min (35 mm)</text>
+    </g>
+
+    <g transform="translate(260, 130)">
+      <rect width="150" height="40" rx="6" fill="#450a0a" fill-opacity="0.9" stroke="#ef4444" stroke-width="1" />
+      <text x="8" y="15" class="badge" fill="#f87171">NEVERA AIRE (PELIGRO)</text>
+      <text x="8" y="30" class="tick-label" fill="#fecaca">&gt; 240 min en zona crítica</text>
+    </g>
+
+    <!-- Bottom Metrics in Box -->
+    <g transform="translate(15, 365)">
+      <rect width="430" height="42" rx="6" fill="#0f172a" stroke="#1e293b" />
+      <text x="12" y="18" class="badge" fill="#34d399">EFICIENCIA CONVECTIVA:</text>
+      <text x="12" y="33" class="card-text" font-size="10.5">Baño Hielo Líquido: <tspan fill="#38bdf8" font-weight="700">h = 2.500 W/m²·K</tspan> (100× más rápido que aire estático de nevera).</text>
+    </g>
+  </g>
+
+  <!-- Bottom Legend Footer -->
+  <g transform="translate(40, 565)">
+    <rect width="920" height="32" rx="6" fill="#0f172a" fill-opacity="0.9" stroke="#1e293b" stroke-width="1" />
+    <text x="16" y="20" class="card-text" font-size="10.5" fill="#94a3b8">Marco de Seguridad Alimentaria: <tspan fill="#e2e8f0" font-weight="600">UK ACMSF Cook-Chill Guidelines</tspan> | Baldwin Sous Vide Cooling Tables | AESAN Directrices de Abatimiento Rápido</text>
+  </g>
+</svg>

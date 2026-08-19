@@ -217,12 +217,7 @@ export function ProfileView({ onPeopleCountChange, onNavigateToChefPortal, onOpe
   const [selectedSupermarkets, setSelectedSupermarkets] = useState<string[]>(['Supermercados DIA', 'Mercado Local / Frutería']);
 
   // Professional Chef Verification & Contract State
-  const [isVerifiedChef, setIsVerifiedChef] = useState<boolean>(() => {
-    if (typeof window !== 'undefined') {
-      return localStorage.getItem('touchef_chef_verified') === 'true';
-    }
-    return false;
-  });
+  const [isVerifiedChef, setIsVerifiedChef] = useState<boolean>(false);
   const [chefTitle, setChefTitle] = useState<string>('Chef Especialista en Batch Cooking & Mediterránea');
   const [chefCity, setChefCity] = useState<string>('Madrid');
   const [chefZones, setChefZones] = useState<string>('Chamberí, Salamanca, Retiro, Pozuelo');
@@ -360,14 +355,6 @@ export function ProfileView({ onPeopleCountChange, onNavigateToChefPortal, onOpe
       }
     }
 
-    // Save locally
-    try {
-      localStorage.setItem('touchef_kitchen_profile', JSON.stringify(kitchenProfile));
-      localStorage.setItem('touchef_diet_prefs', JSON.stringify(selectedDiets));
-    } catch (e) {
-      console.error('Local save error', e);
-    }
-
     setSaving(false);
     setSavedToast(true);
     setTimeout(() => setSavedToast(false), 3000);
@@ -388,11 +375,11 @@ export function ProfileView({ onPeopleCountChange, onNavigateToChefPortal, onOpe
     setChefContractSigned(true);
     setChefContractDate(dateNow);
     setIsVerifiedChef(true);
-    localStorage.setItem('touchef_chef_verified', 'true');
 
-    // Register into MOCK_CHEFS
+    // Register into Firestore /chefs
     const newChef: ChefProfile = {
       id: `chef-${user?.uid || Date.now()}`,
+      email: user?.email || '',
       name: displayName || user?.displayName || 'Chef TouChef',
       slug: (displayName || 'chef').toLowerCase().replace(/\s+/g, '-'),
       title: chefTitle,
@@ -405,19 +392,25 @@ export function ProfileView({ onPeopleCountChange, onNavigateToChefPortal, onOpe
       zones: chefZones.split(',').map(z => z.trim()),
       isVerified: true,
       yearsExperience: chefExperienceYears,
-      specialties: ['Batch Cooking', 'Mediterránea', 'Saludable'],
+      specialties: ['Batch Cooking', 'Mediterránea Tradicional (Carmen)', 'Saludable'],
       pricing: {
         cookingHourRate: chefCookingRate,
-        groceryShoppingHourRate: chefOffersShopping ? chefShoppingRate : 0,
+        groceryShoppingHourRate: chefShoppingRate,
+        assistantHourRate: 15,
         travelFee: 5,
         travelRadiusKm: 15,
         toolsIncluded: chefBringsTools,
         toolsExtraFee: 0,
-        cleaningIncluded: chefIncludesCleaning
+        cleaningIncluded: chefIncludesCleaning,
+        cleaningHourRate: 0
       },
-      availabilityDays: ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábados'],
+      availabilityDays: ['Lunes', 'Miércoles', 'Viernes', 'Domingos'],
       timeSlots: ['Mañanas (09:00 - 14:00)', 'Tardes (16:00 - 21:00)'],
-      badges: ['Chef Verificado', 'Contrato Firmado', 'Manipulador Certificado'],
+      badges: ['Chef Verificado', 'Higiene Certificada', 'Superhost'],
+      hasFoodHandlerCertificate: true,
+      foodHandlerCertificateNumber: chefSanitaryCert,
+      allergenManagementCertified: true,
+      haccpCompliance: true,
       featuredDishes: [],
       reviews: []
     };

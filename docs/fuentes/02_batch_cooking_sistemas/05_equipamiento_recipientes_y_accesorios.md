@@ -67,6 +67,9 @@ graph LR
 > **Gestión de Tapas y Hermeticidad:**  
 > Aunque el cuerpo de vidrio resiste $+400^\circ\text{C}$, **las tapas de Polipropileno (PP) con juntas de silicona deben retirarse siempre antes de introducir el recipiente en el horno convencional**, y deben mantenerse con la válvula de desvaporización abierta durante el uso en microondas para evitar sobrepresiones o deformaciones de la junta elástica.
 
+![Contenedores Herméticos de Vidrio Borosilicato para Batch Cooking](assets/foto_tuppers_vidrio_borosilicato_preparados.jpg)
+> **Fotografía Real Operativa:** Recipientes modulares de vidrio borosilicato 3.3 con cierres herméticos de 4 clips y junta perimetral de silicona para aislamiento biológico completo.
+
 ---
 
 ### 1.2. Polímeros Alimentarios Certificados: Polipropileno (PP-05) y Copolíester Tritán
@@ -211,6 +214,9 @@ graph TD
     C --> C4["Presión isobárica: Envasa líquidos y caldos sin desborde"]
 ```
 
+![Física y Termodinámica del Envasado al Vacío: Campana vs Aspiración Externa](assets/envasado_vacio_campana_vs_externa.svg)
+> **Procedencia Técnica & Termodinámica de Fluidos:** Análisis barométrico y curvas de saturación según ecuación de Clausius-Clapeyron para envasado de matrices líquidas y cocción *Sous-Vide*.
+
 ---
 
 ### 2.1. Envasadoras de Aspiración Externa
@@ -221,6 +227,9 @@ El extremo abierto de la bolsa gofrada se coloca en una pequeña cubeta de vací
 * **Depresión Nominal Máxima:** $0.75 - 0.85\text{ bar}$ ($750 - 850\text{ mbar}$ manométricos negativos $\equiv 150 - 250\text{ mbar}$ de presión absoluta residual).
 * **Concentración Residual de Oxígeno ($O_2$):** Alrededor del $3\% - 5\%$ (suficiente para frenar mohos y rancidez oxidativa a corto plazo, pero no para inhibición de microaerófilos).
 * **Barra de Termosellado:** Resistencia de hilo plano de Níquel-Cromo (NiCr) de $2.5\text{ mm}$ a $5\text{ mm}$ de anchura, recubierta con tela de teflón (PTFE). Control por temporizador electrónico de pulso ($2 - 6\text{ segundos}$).
+
+![Envasadora de Aspiración Externa con Bolsas Gofradas Termoselladas](assets/foto_envasado_vacio_bolsas_gofradas.jpg)
+> **Fotografía Real Operativa:** Envasadora de vacío de aspiración externa sellando bolsas gofradas mediante vacío por canal de extracción y soldadura térmica controlada.
 
 ---
 
@@ -240,6 +249,9 @@ PROCESO EN CÁMARA DE CAMPANA:
   │  └─────────┘  │        │  └─────────┘  │        │  └─────────┘  │        │ ▓└─────────┘▓ │
   └───────────────┘        └───────────────┘        └───────────────┘        └───────────────┘
 ```
+
+![Envasadora de Campana Profesional de Grado Culinario](assets/foto_envasadora_campana_profesional.jpg)
+> **Fotografía Real Operativa:** Envasadora de campana profesional de alta precisión despresurizando bolsas lisas con matrices cárnicas y salsas para cocción al vacío sous-vide y conservación prolongada.
 
 #### Ebullición en Frío: Ecuación de Clausius-Clapeyron y Control del Punto de Ebullición
 La relación entre la presión en la cámara y el punto de ebullición del agua se rige por la ecuación de Clausius-Clapeyron:

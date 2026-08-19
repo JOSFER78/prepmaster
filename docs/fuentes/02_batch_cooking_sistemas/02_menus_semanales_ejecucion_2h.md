@@ -157,6 +157,9 @@ LISTA DE LA COMPRA CONSOLIDADA — MENÚ 1 MEDITERRÁNEO INTEGRAL
 └── 02:00 • Limpieza final: Bayeta con desinfectante en bancadas y cierre del lavavajillas. FIN DE SESIÓN.
 ```
 
+![Horno Convectivo Multizona con Bandejas de Asado en Paralelo](assets/foto_asado_multizona_horno_bandejas.jpg)
+> **Fotografía Real Operativa:** Bandejas de asado simultáneo por niveles con verduras densas y proteínas protegidas para aprovechamiento térmico óptimo del horno convectivo.
+
 ---
 
 ### 2.4. Tabla Gantt de Concurrencia Térmica (Menú 1)
@@ -171,6 +174,9 @@ LISTA DE LA COMPRA CONSOLIDADA — MENÚ 1 MEDITERRÁNEO INTEGRAL
 | **Robot / Batidora** | — | — | — | — | 🟨 Crema Calabaza | 🟫 Emulsión Tahini | Aclarado robot | — |
 | **Tabla de Corte (Prep)** | 🔪 Mise en place | 🔪 Picar cebollas | 🔪 Cortar pollo | 🔪 Limpiar tabla | 🔪 Pelar huevos | 🔪 Trocear pollo | Limpieza tabla | — |
 | **Zona Abatimiento (Pack)**| Disponer tuppers | — | — | — | Enfriar quinoa | Enfriar bandejas | Porcionado boles| 🏷️ Etiquetado / Nevera |
+
+![Tuppers Herméticos de Vidrio Borosilicato con Raciones Semanales Preparadas](assets/foto_tuppers_vidrio_borosilicato_preparados.jpg)
+> **Fotografía Real Operativa:** Resultado final de la sesión de 2 horas: tuppers herméticos de vidrio borosilicato porcionados y listos para ensamblaje diario en 5 minutos.
 
 ---
 

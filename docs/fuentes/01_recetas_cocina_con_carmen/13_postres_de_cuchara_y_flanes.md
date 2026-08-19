@@ -117,6 +117,8 @@ La excelencia de un postre de cuchara artesano descansa sobre cinco pilares cien
 
 ### ⚖️ Ingredientes Exactos
 
+![Ingredientes y Mise en Place](assets/arroz_con_leche_cremoso_de_la_abuela_con_cane_01_ingredientes.jpg)
+
 #### Infusión y Apertura de Grano
 * **1.200 ml** Leche entera fresca pasteurizada (mínimo 3,6% M.G.).
 * **160 g** Arroz redondo tradicional (variedad Senia, Bahía o Bomba).
@@ -143,6 +145,8 @@ La excelencia de un postre de cuchara artesano descansa sobre cinco pilares cien
 ---
 
 ### 👨‍🍳 Paso a Paso Técnico y Minucioso
+
+![Técnica de Elaboración](assets/arroz_con_leche_cremoso_de_la_abuela_con_cane_02_elaboracion.jpg)
 
 1. **Aromatización e Infusión de la Leche:**
    * En un cazo independiente, verter los 1.200 ml de leche entera fresca junto con la piel de limón, la piel de naranja y la rama de canela partida por la mitad.
@@ -241,6 +245,8 @@ La excelencia de un postre de cuchara artesano descansa sobre cinco pilares cien
 
 ### ⚖️ Ingredientes Exactos
 
+![Ingredientes y Mise en Place](assets/flan_de_huevo_tradicional_al_bano_maria_con_c_01_ingredientes.jpg)
+
 #### Caramelo Líquido Casero
 * **120 g** Azúcar blanquilla.
 * **30 ml** Agua mineral natural.
@@ -265,6 +271,8 @@ La excelencia de un postre de cuchara artesano descansa sobre cinco pilares cien
 ---
 
 ### 👨‍🍳 Paso a Paso Técnico y Minucioso
+
+![Técnica de Elaboración](assets/flan_de_huevo_tradicional_al_bano_maria_con_c_02_elaboracion.jpg)
 
 1. **Elaboración del Caramelo Rubio Artesano:**
    * En un cazo a fuego medio, disponer los 120 g de azúcar, los 30 ml de agua y el zumo de limón.
@@ -365,6 +373,8 @@ La excelencia de un postre de cuchara artesano descansa sobre cinco pilares cien
 
 ### ⚖️ Ingredientes Exactos
 
+![Ingredientes y Mise en Place](assets/natillas_caseras_de_yema_con_galleta_maria_y__01_ingredientes.jpg)
+
 #### Infusión Láctea
 * **800 ml** Leche entera fresca pasteurizada (3,6% M.G.).
 * **1 unidad** Corteza de limón sin albedo blanco.
@@ -392,6 +402,8 @@ La excelencia de un postre de cuchara artesano descansa sobre cinco pilares cien
 ---
 
 ### 👨‍🍳 Paso a Paso Técnico y Minucioso
+
+![Técnica de Elaboración](assets/natillas_caseras_de_yema_con_galleta_maria_y__02_elaboracion.jpg)
 
 1. **Infusión Aromática:**
    * En el cazo, calentar los 800 ml de leche con la piel de limón y la rama de canela hasta que comience a humear (unos 85°C). Retirar del fuego, tapar y reposar 10 minutos.
@@ -486,6 +498,8 @@ La excelencia de un postre de cuchara artesano descansa sobre cinco pilares cien
 
 ### ⚖️ Ingredientes Exactos
 
+![Ingredientes y Mise en Place](assets/crema_catalana_tradicional_con_azucar_quemado_01_ingredientes.jpg)
+
 #### Infusión Aromática
 * **600 ml** Leche entera fresca pasteurizada (3,6% M.G.).
 * **1 unidad** Piel de limón fino (sin parte blanca).
@@ -511,6 +525,8 @@ La excelencia de un postre de cuchara artesano descansa sobre cinco pilares cien
 ---
 
 ### 👨‍🍳 Paso a Paso Técnico y Minucioso
+
+![Técnica de Elaboración](assets/crema_catalana_tradicional_con_azucar_quemado_02_elaboracion.jpg)
 
 1. **Infusión Cítrica Doble:**
    * Calentar en el cazo la leche entera con las cortezas de limón y naranja y la rama de canela partida.
@@ -604,6 +620,8 @@ La excelencia de un postre de cuchara artesano descansa sobre cinco pilares cien
 
 ### ⚖️ Ingredientes Exactos
 
+![Ingredientes y Mise en Place](assets/tocino_de_cielo_tradicional_de_jerez_01_ingredientes.jpg)
+
 #### Caramelo de Base
 * **80 g** Azúcar blanquilla.
 * **20 ml** Agua.
@@ -630,6 +648,8 @@ La excelencia de un postre de cuchara artesano descansa sobre cinco pilares cien
 ---
 
 ### 👨‍🍳 Paso a Paso Técnico y Minucioso
+
+![Técnica de Elaboración](assets/tocino_de_cielo_tradicional_de_jerez_02_elaboracion.jpg)
 
 1. **Caramelizado de los Moldes:**
    * En un cazo pequeño, hacer un caramelo rubio con los 80 g de azúcar, 20 ml de agua y zumo de limón hasta tono dorado suave.
@@ -726,6 +746,8 @@ La excelencia de un postre de cuchara artesano descansa sobre cinco pilares cien
 
 ### ⚖️ Ingredientes Exactos
 
+![Ingredientes y Mise en Place](assets/mousse_de_limon_cremosa_facil_y_rapida_01_ingredientes.jpg)
+
 #### Base Cítrica Concentrada
 * **370 g (1 lata pequeña)** Leche condensada entera tradicional.
 * **150 ml** Zumo de limones frescos recién exprimidos y colados (aprox. 3-4 limones medianos).
@@ -748,6 +770,8 @@ La excelencia de un postre de cuchara artesano descansa sobre cinco pilares cien
 ---
 
 ### 👨‍🍳 Paso a Paso Técnico y Minucioso
+
+![Técnica de Elaboración](assets/mousse_de_limon_cremosa_facil_y_rapida_02_elaboracion.jpg)
 
 1. **Reacción Cítrico-Láctea:**
    * En un bol mediano, verter los 370 g de leche condensada y la ralladura fina de limón.
@@ -839,6 +863,8 @@ La excelencia de un postre de cuchara artesano descansa sobre cinco pilares cien
 
 ### ⚖️ Ingredientes Exactos
 
+![Ingredientes y Mise en Place](assets/panna_cotta_tradicional_de_vainilla_con_couli_01_ingredientes.jpg)
+
 #### Base de Panna Cotta
 * **450 ml** Nata líquida para montar (mínimo 35% M.G.).
 * **150 ml** Leche entera fresca pasteurizada.
@@ -864,6 +890,8 @@ La excelencia de un postre de cuchara artesano descansa sobre cinco pilares cien
 ---
 
 ### 👨‍🍳 Paso a Paso Técnico y Minucioso
+
+![Técnica de Elaboración](assets/panna_cotta_tradicional_de_vainilla_con_couli_02_elaboracion.jpg)
 
 1. **Hidratación de la Gelatina:**
    * Sumergir las 3 hojas de gelatina neutra en el bol con agua muy fría durante **6 a 8 minutos** para que se hidraten y queden completamente flexibles.
@@ -955,6 +983,8 @@ La excelencia de un postre de cuchara artesano descansa sobre cinco pilares cien
 
 ### ⚖️ Ingredientes Exactos
 
+![Ingredientes y Mise en Place](assets/arroz_con_leche_caramelizado_al_estilo_asturi_01_ingredientes.jpg)
+
 #### Cocción e Infusión
 * **1.500 ml** Leche entera fresca pasteurizada (3,6% M.G.).
 * **130 g** Arroz redondo tradicional (variedad Senia o Bahía).
@@ -979,6 +1009,8 @@ La excelencia de un postre de cuchara artesano descansa sobre cinco pilares cien
 ---
 
 ### 👨‍🍳 Paso a Paso Técnico y Minucioso
+
+![Técnica de Elaboración](assets/arroz_con_leche_caramelizado_al_estilo_asturi_02_elaboracion.jpg)
 
 1. **Apertura de Grano en Agua:**
    * En la cazuela amplia, poner los 150 ml de agua mineral con el gramo de sal a hervir.

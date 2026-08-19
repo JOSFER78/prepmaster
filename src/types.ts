@@ -220,21 +220,22 @@ export interface AppUserProfile {
 // ----------------------------------------------------
 
 export interface ChefServicePricing {
-  cookingHourRate: number;       // €/hora de cocina
-  groceryShoppingHourRate: number; // €/hora de compra o tarifa
-  travelFee: number;             // Suplemento desplazamiento (€)
-  travelRadiusKm: number;        // Radio de cobertura en km
-  toolsIncluded: boolean;        // ¿Lleva cuchillos y herramientas propias?
-  toolsExtraFee?: number;        // Suplemento por equipo propio si aplica
-  cleaningIncluded: boolean;     // ¿Incluye recogida/limpieza básica de cocina?
-  cleaningHourRate?: number;     // Tarifa por hora de limpieza si se desglosa
+  cookingHourRate: number;         // €/hora de cocina base
+  groceryShoppingHourRate: number; // €/hora por gestionar la compra
+  assistantHourRate: number;       // €/hora por llevar ayudante
+  travelFee: number;               // Suplemento desplazamiento (€)
+  travelRadiusKm: number;          // Radio de cobertura en km
+  toolsIncluded: boolean;          // ¿Lleva cuchillos y herramientas propias?
+  toolsExtraFee: number;           // Suplemento por equipo propio si aplica (€)
+  cleaningIncluded: boolean;       // ¿Incluye recogida/limpieza básica de cocina?
+  cleaningHourRate?: number;       // Tarifa por hora de limpieza si se desglosa
 }
 
 export interface ChefReview {
   id: string;
   authorName: string;
   authorAvatar?: string;
-  rating: number;                // 1 a 5 estrellas
+  rating: number;                  // 1 a 5 estrellas
   date: string;
   comment: string;
   dishNameOrType?: string;
@@ -243,24 +244,29 @@ export interface ChefReview {
 
 export interface ChefProfile {
   id: string;
+  email?: string;
   name: string;
   slug: string;
-  title: string;                 // ej: "Especialista en Batch Cooking & Mediterránea"
+  title: string;                   // ej: "Especialista en Batch Cooking & Mediterránea"
   avatar: string;
   coverImage?: string;
   bio: string;
   rating: number;
   reviewsCount: number;
   completedBookingsCount: number;
-  locationCity: string;          // ej: "Madrid - Chamberí"
-  zones: string[];               // ej: ["Chamberí", "Salamanca", "Retiro", "Pozuelo"]
+  locationCity: string;            // ej: "Madrid - Chamberí"
+  zones: string[];                 // ej: ["Chamberí", "Salamanca", "Retiro", "Pozuelo"]
   isVerified: boolean;
   yearsExperience: number;
-  specialties: string[];         // ["Batch Cooking", "Mediterránea", "Sin Gluten", "Fitness High Protein", "Familiar"]
+  specialties: string[];           // ["Batch Cooking", "Mediterránea", "Sin Gluten", "Fitness High Protein", "Familiar"]
   pricing: ChefServicePricing;
-  availabilityDays: string[];    // ["Lunes", "Miércoles", "Viernes", "Domingos"]
-  timeSlots: string[];           // ["Mañanas (09:00 - 14:00)", "Tardes (16:00 - 21:00)"]
-  badges: string[];              // ["Chef Verificado", "Higiene Certificada", "Superhost", "Top Batch Cooker"]
+  availabilityDays: string[];      // ["Lunes", "Miércoles", "Viernes", "Domingos"]
+  timeSlots: string[];             // ["Mañanas (09:00 - 14:00)", "Tardes (16:00 - 21:00)"]
+  badges: string[];                // ["Chef Verificado", "Higiene Certificada", "Superhost", "Top Batch Cooker"]
+  hasFoodHandlerCertificate: boolean; // Certificado manipulador de alimentos
+  foodHandlerCertificateNumber?: string;
+  allergenManagementCertified: boolean; // Certificación control 14 alérgenos UE
+  haccpCompliance: boolean;        // Cumplimiento protocolo APPCC de conservación
   featuredDishes: {
     name: string;
     image: string;
@@ -271,15 +277,21 @@ export interface ChefProfile {
 }
 
 export type ChefBookingStatus = 
-  | 'draft'                      // Solicitud en borrador
-  | 'published'                  // Publicada esperando ofertas/confirmación
-  | 'offers_received'            // Con ofertas de cocineros
-  | 'awaiting_grocery'           // Esperando confirmación de ingredientes/supermercado
-  | 'confirmed'                  // Chef confirmado y franja reservada
-  | 'chef_arriving'              // Cocinero en camino
-  | 'in_progress'                // Sesión de cocina activa
-  | 'completed'                  // Finalizada y evaluada
+  | 'draft'                        // Solicitud en borrador
+  | 'published'                    // Publicada esperando ofertas/confirmación
+  | 'offers_received'              // Con ofertas de cocineros
+  | 'awaiting_grocery'             // Esperando confirmación de ingredientes/supermercado
+  | 'confirmed'                    // Chef confirmado y franja reservada
+  | 'chef_arriving'                // Cocinero en camino
+  | 'in_progress'                  // Sesión de cocina activa
+  | 'completed'                    // Finalizada y evaluada
   | 'cancelled';
+
+export type ChefServicePackage = 
+  | 'cooking_only'                 // 1. Solo Cocina (Cliente tiene comida y herramientas)
+  | 'with_tools'                   // 2. Cocina + Herramientas Profesionales del Chef
+  | 'with_grocery'                 // 3. Cocina + Compra de Supermercado + Herramientas
+  | 'full_pack_with_assistant';    // 4. Servicio Completo con Ayudante
 
 export interface ChefApplication {
   id: string;
@@ -310,12 +322,15 @@ export interface ChefBookingRequest {
   targetTimeSlot: string;
   estimatedHours: number;
   
-  // Servicios seleccionados
+  // Paquete y servicios seleccionados
+  servicePackage: ChefServicePackage;
   includeGroceryShopping: boolean;
   includeCleaning: boolean;
   bringChefTools: boolean;
+  hasAssistant: boolean;
+  assistantHours?: number;
   grocerySource: 'client' | 'chef' | 'supermarket_delivery';
-  supermarketProvider?: 'dia' | 'carrefour' | 'amazon_fresh';
+  supermarketProvider?: 'dia' | 'carrefour' | 'mercadona';
   
   // Modalidad: Broadcast a la Red vs Asignación Manual Directa
   isBroadcast?: boolean; // true si se lanzó a la red para recibir ofertas de varios cocineros
@@ -330,14 +345,15 @@ export interface ChefBookingRequest {
   costBreakdown: {
     cookingCost: number;
     groceryServiceCost: number;
-    travelCost: number;
     toolsCost: number;
+    assistantCost: number;
+    travelCost: number;
     cleaningCost: number;
     ingredientsEstimatedCost: number;
-    platformServiceFee: number;   // Fee transparente de servicio y protección
+    platformServiceFee: number;     // Fee transparente de servicio y protección
     totalClientPrice: number;
-    chefPayoutEstimated: number;  // Lo que cobra el chef
-    commissionRatePercent: number; // 15% primera reserva, 8% repetición, 5% Pro
+    chefPayoutEstimated: number;    // Lo que cobra el chef
+    commissionRatePercent: number;   // 15% primera reserva, 8% repetición, 5% Pro
   };
   
   status: ChefBookingStatus;

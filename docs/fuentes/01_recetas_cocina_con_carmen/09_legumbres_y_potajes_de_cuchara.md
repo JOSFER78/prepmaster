@@ -137,6 +137,8 @@ Para alcanzar la maestría en la cocción de legumbres según la sabiduría trad
 
 ### ⚖️ Ingredientes Exactos
 
+![Ingredientes y Mise en Place](assets/lentejas_pardinas_con_chorizo_costilla_y_el_m_01_ingredientes.jpg)
+
 #### Base de Legumbres y Cárnicos
 * **350 g** Lentejas pardinas de Tierra de Campos (o IGP Lenteja de la Armuña).
 * **300 g** Costilla de cerdo fresca troceada en bocados individuales.
@@ -175,6 +177,8 @@ Para alcanzar la maestría en la cocción de legumbres según la sabiduría trad
 ---
 
 ### 👨‍🍳 Paso a Paso Técnico y Minucioso
+
+![Técnica de Elaboración](assets/lentejas_pardinas_con_chorizo_costilla_y_el_m_02_elaboracion.jpg)
 
 1. **Sellado de Carnes y Base Grasa:**
    * En la cazuela amplia, verter los 45 ml de AOVE a fuego medio-alto. Incorporar los trozos de costilla sazonados con una pizca de sal y la panceta en dados. Dorar durante 5-6 minutos hasta que adquieran una costra dorada y liberen sus jugos grasos.
@@ -281,6 +285,8 @@ Para alcanzar la maestría en la cocción de legumbres según la sabiduría trad
 
 ### ⚖️ Ingredientes Exactos
 
+![Ingredientes y Mise en Place](assets/fabada_rapida_casera_con_compango_asturiano_01_ingredientes.jpg)
+
 #### Faba y Compango Asturiano
 * **500 g** Fabes asturianas secas con I.G.P. Faba Asturiana (o 2 tarros de 540 g de fabes cocidas artesanas de granja).
 * **2 unidades** Chorizos asturianos ahumados con leña de roble.
@@ -308,6 +314,8 @@ Para alcanzar la maestría en la cocción de legumbres según la sabiduría trad
 ---
 
 ### 👨‍🍳 Paso a Paso Técnico y Minucioso
+
+![Técnica de Elaboración](assets/fabada_rapida_casera_con_compango_asturiano_02_elaboracion.jpg)
 
 1. **Remojo Osmótico de las Fabes:**
    * Si se usa faba seca: disponer los 500 g de fabes en un bol hondo amplio con abundante agua mineral fría (3 partes de agua por 1 de legumbre). Dejar hidratar durante **12 a 14 horas**. Al terminar, escurrir con delicadeza sin apretarlas.
@@ -412,6 +420,8 @@ Para alcanzar la maestría en la cocción de legumbres según la sabiduría trad
 
 ### ⚖️ Ingredientes Exactos
 
+![Ingredientes y Mise en Place](assets/potaje_de_garbanzos_con_bacalao_y_espinacas_f_01_ingredientes.jpg)
+
 #### Garbanzos y Bacalao
 * **400 g** Garbanzos castellanos o pedrosillanos secos.
 * **350 g** Bacalao desalado de primera calidad (lomos y trozos con piel).
@@ -436,6 +446,8 @@ Para alcanzar la maestría en la cocción de legumbres según la sabiduría trad
 ---
 
 ### 👨‍🍳 Paso a Paso Técnico y Minucioso
+
+![Técnica de Elaboración](assets/potaje_de_garbanzos_con_bacalao_y_espinacas_f_02_elaboracion.jpg)
 
 1. **Remojo e Inicio Térmico de los Garbanzos:**
    * Remojar los 400 g de garbanzos en agua templada con 5 g de sal gorda durante 12 horas.
@@ -513,6 +525,8 @@ Para alcanzar la maestría en la cocción de legumbres según la sabiduría trad
 
 ### ⚖️ Ingredientes Exactos
 
+![Ingredientes y Mise en Place](assets/cocido_andaluz_tradicional_con_su_pringa_de_t_01_ingredientes.jpg)
+
 #### Legumbres y Carnes de la Pringá
 * **450 g** Garbanzos lechosos andaluces remojados.
 * **350 g** Jarrete / morcillo de ternera en trozos grandes.
@@ -535,6 +549,8 @@ Para alcanzar la maestría en la cocción de legumbres según la sabiduría trad
 ---
 
 ### 👨‍🍳 Paso a Paso Técnico y Minucioso
+
+![Técnica de Elaboración](assets/cocido_andaluz_tradicional_con_su_pringa_de_t_02_elaboracion.jpg)
 
 1. **El Fondo Noble y Extracción de Carnes:**
    * En una olla grande de 8 litros, introducir el morcillo de ternera, el pollo, el tocino blanco, el tocino entreverado, el hueso de jamón y el hueso blanco con los 2.500 ml de agua fría.
@@ -600,6 +616,8 @@ Para alcanzar la maestría en la cocción de legumbres según la sabiduría trad
 ---
 
 ### ⚖️ Ingredientes Exactos
+
+![Ingredientes y Mise en Place](assets/alubias_blancas_estofadas_con_verduras_de_la__01_ingredientes.jpg)
 * **400 g** Alubias blancas de riñón o alubia arrocina seca (remojada 12 h).
 * **200 g** Panceta fresca ibérica cortada en tacos medianos.
 * **1 unidad (140 g)** Cebolla dulce entera.
@@ -617,6 +635,8 @@ Para alcanzar la maestría en la cocción de legumbres según la sabiduría trad
 ---
 
 ### 👨‍🍳 Paso a Paso Técnico y Minucioso
+
+![Técnica de Elaboración](assets/alubias_blancas_estofadas_con_verduras_de_la__02_elaboracion.jpg)
 
 1. **Montaje en Frío (*Estofado a la Antigua*):**
    * En la cazuela, colocar las alubias escurridas, los tacos de panceta ibérica, la cebolla entera pelada, el puerro, los pimientos enteros, las zanahorias, los ajos y el laurel.
@@ -681,6 +701,8 @@ Para alcanzar la maestría en la cocción de legumbres según la sabiduría trad
 ---
 
 ### ⚖️ Ingredientes Exactos
+
+![Ingredientes y Mise en Place](assets/garbanzos_con_callos_y_morro_a_la_madrilena_01_ingredientes.jpg)
 * **400 g** Garbanzos pedrosillanos o castellanos remojados en agua tibia.
 * **500 g** Callos de ternera (toalla/panza) limpios y cortados en cuadros de 3x3 cm.
 * **300 g** Morro de ternera limpio en trozos.
@@ -699,6 +721,8 @@ Para alcanzar la maestría en la cocción de legumbres según la sabiduría trad
 ---
 
 ### 👨‍🍳 Paso a Paso Técnico y Minucioso
+
+![Técnica de Elaboración](assets/garbanzos_con_callos_y_morro_a_la_madrilena_02_elaboracion.jpg)
 
 1. **Blanqueado y Cocción de la Casquería:**
    * En una olla amplia, poner los callos, el morro y la pata cubiertos de agua fría con un chorrito de vinagre. Llevar a ebullición durante 3 minutos, desechar por completo esa agua y lavar bien las carnes bajo el grifo de agua fría.
@@ -763,6 +787,8 @@ Para alcanzar la maestría en la cocción de legumbres según la sabiduría trad
 ---
 
 ### ⚖️ Ingredientes Exactos
+
+![Ingredientes y Mise en Place](assets/judiones_de_la_granja_con_oreja_y_chorizo_01_ingredientes.jpg)
 * **450 g** Judiones secos de La Granja (I.G.P. o selección calidad).
 * **1 unidad (250 g)** Oreja de cerdo fresca limpia (chamuscada y troceada en bocados de 2x2 cm).
 * **2 unidades (180 g)** Chorizo curado artesano de pueblo.
@@ -780,6 +806,8 @@ Para alcanzar la maestría en la cocción de legumbres según la sabiduría trad
 ---
 
 ### 👨‍🍳 Paso a Paso Técnico y Minucioso
+
+![Técnica de Elaboración](assets/judiones_de_la_granja_con_oreja_y_chorizo_02_elaboracion.jpg)
 
 1. **Remojo Prolongado:**
    * Por su gran volumen celular, sumergir los judiones en agua mineral blanda durante un mínimo de **16 a 18 horas** en lugar fresco.
@@ -845,6 +873,8 @@ Para alcanzar la maestría en la cocción de legumbres según la sabiduría trad
 ---
 
 ### ⚖️ Ingredientes Exactos
+
+![Ingredientes y Mise en Place](assets/potaje_de_lentejas_castellanas_vegetarianas_c_01_ingredientes.jpg)
 * **350 g** Lentejas castellanas (o pardinas de cultivo ecológico).
 * **1 unidad grande (250 g)** Boniato (batata dulce) pelado y chascado en dados medianos.
 * **150 g** Calabaza pelada cortada en cubos de 2 cm.
@@ -864,6 +894,8 @@ Para alcanzar la maestría en la cocción de legumbres según la sabiduría trad
 ---
 
 ### 👨‍🍳 Paso a Paso Técnico y Minucioso
+
+![Técnica de Elaboración](assets/potaje_de_lentejas_castellanas_vegetarianas_c_02_elaboracion.jpg)
 
 1. **Sofrito Aromático de Huerta:**
    * En la cazuela, calentar los 50 ml de AOVE a fuego medio. Añadir los ajos laminados, la cebolla, el puerro y el pimiento rojo con una pizca de sal. Pochar durante 8-10 minutos hasta que la verdura esté tierna y brillante.

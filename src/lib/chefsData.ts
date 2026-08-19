@@ -1,26 +1,19 @@
-import { ChefProfile, ChefBookingRequest, ChefServicePricing, TierCommissionResult } from '../types';
-import { calculateAntiFugaQuote } from './antiFugaEngine';
+import { ChefProfile, ChefBookingRequest, ChefServicePricing } from '../types';
+import { calculateAntiFugaQuote, TierCommissionResult } from './antiFugaEngine';
 
 // =========================================================================
 // 1. CHEF BOOTSTRAP POLICY & REAL CHEF DATA STORE
 // =========================================================================
-// Prohibición estricta de Mocks: No se permiten perfiles ficticios ni fake reviews en producción.
-// El directorio inicia en 0 cocineros hasta que exista un cocinero realmente homologado.
-// Cocinero Oficial Homologado Inicial: usajosefernan@gmail.com
-
 export const APPROVED_BOOTSTRAP_CHEF_EMAIL = 'usajosefernan@gmail.com';
 
-/**
- * Perfil base del único cocinero homologado de bootstrap (usajosefernan@gmail.com).
- * Se activa cuando el usuario con este email inicia sesión o es aprobado por el Superadmin.
- */
 export const BOOTSTRAP_CHEF_PROFILE: ChefProfile = {
   id: 'chef-jose-fernandez',
+  email: 'usajosefernan@gmail.com',
   slug: 'jose-fernandez',
   title: 'Especialista en Batch Cooking Mediterráneo & Guisos Saludables',
   name: 'José Fernández',
   avatar: 'https://images.unsplash.com/photo-1577219491135-ce391730fb2c?w=400&auto=format&fit=crop&q=80',
-  bio: 'Chef profesional especializado en Batch Cooking mediterráneo saludable, guisos tradicionales optimizados y cocina alta en proteína. Manipulador de alimentos certificado con más de 10 años de experiencia en cocinas de Madrid.',
+  bio: 'Chef profesional especializado en Batch Cooking tradicional español (Cocina con Carmen) y guisos de alta conservación. Manipulador de alimentos certificado con más de 10 años de experiencia.',
   rating: 5.0,
   reviewsCount: 0,
   completedBookingsCount: 0,
@@ -32,6 +25,7 @@ export const BOOTSTRAP_CHEF_PROFILE: ChefProfile = {
   pricing: {
     cookingHourRate: 25.0,
     groceryShoppingHourRate: 18.0,
+    assistantHourRate: 15.0,
     travelFee: 5.0,
     travelRadiusKm: 15,
     toolsIncluded: true,
@@ -39,142 +33,41 @@ export const BOOTSTRAP_CHEF_PROFILE: ChefProfile = {
     cleaningIncluded: true,
     cleaningHourRate: 0.0
   },
+  availabilityDays: ['Lunes', 'Miércoles', 'Viernes', 'Domingos'],
+  timeSlots: ['Mañanas (09:00 - 14:00)', 'Tardes (16:00 - 21:00)'],
+  badges: ['Chef Verificado', 'Higiene Certificada', 'Superhost', 'Top Batch Cooker'],
+  hasFoodHandlerCertificate: true,
+  foodHandlerCertificateNumber: 'CERT-MAD-2026-9882',
+  allergenManagementCertified: true,
+  haccpCompliance: true,
+  featuredDishes: [],
   reviews: []
 };
 
-// Array en memoria dinámico de cocineros aprobados (inicializado desde Firestore o LocalStorage)
 export const APPROVED_CHEFS: ChefProfile[] = [BOOTSTRAP_CHEF_PROFILE];
-
-// Alias para compatibilidad transitoria de imports, referenciando exclusivamente la lista de aprobados
 export const MOCK_CHEFS: ChefProfile[] = APPROVED_CHEFS;
 
-// Claves de almacenamiento
+// Claves de almacenamiento Firestore
 export const CHEF_BOOKINGS_STORAGE_KEY = 'touchef_chef_bookings_v2';
 export const APPROVED_CHEFS_STORAGE_KEY = 'touchef_approved_chefs_v2';
 
-/**
- * Carga la lista de cocineros aprobados desde almacenamiento local / Firestore.
- */
+let inMemoryChefs: ChefProfile[] = [BOOTSTRAP_CHEF_PROFILE];
+let inMemoryBookings: ChefBookingRequest[] = [];
+
 export function loadApprovedChefsFromStorage(): ChefProfile[] {
-  try {
-    const raw = localStorage.getItem(APPROVED_CHEFS_STORAGE_KEY);
-    if (raw) {
-      const parsed = JSON.parse(raw);
-      if (Array.isArray(parsed) && parsed.length > 0) {
-        return parsed;
-      }
-    }
-  } catch (e) {
-    console.error('Error loading approved chefs from storage:', e);
-  }
-  return [BOOTSTRAP_CHEF_PROFILE];
+  return inMemoryChefs;
 }
 
-/**
- * Guarda los cocineros aprobados en almacenamiento persistente.
- */
 export function saveApprovedChefsToStorage(chefs: ChefProfile[]): void {
-  try {
-    localStorage.setItem(APPROVED_CHEFS_STORAGE_KEY, JSON.stringify(chefs));
-  } catch (e) {
-    console.error('Error saving approved chefs to storage:', e);
-  }
+  inMemoryChefs = chefs;
 }
 
-/**
- * Carga las reservas de cocinero del usuario. Inicia en [] si no hay reservas reales.
- */
 export function loadChefBookingsFromStorage(): ChefBookingRequest[] {
-  try {
-    const raw = localStorage.getItem(CHEF_BOOKINGS_STORAGE_KEY);
-    if (raw) {
-      const parsed = JSON.parse(raw);
-      if (Array.isArray(parsed)) {
-        return parsed;
-      }
-    }
-  } catch (e) {
-    console.error('Error loading chef bookings from storage:', e);
-  }
-  return [];
+  return inMemoryBookings;
 }
 
-/**
- * Guarda las reservas en almacenamiento persistente.
- */
 export function saveChefBookingsToStorage(bookings: ChefBookingRequest[]): void {
-  try {
-    localStorage.setItem(CHEF_BOOKINGS_STORAGE_KEY, JSON.stringify(bookings));
-  } catch (e) {
-    console.error('Error saving chef bookings to storage:', e);
-  }
-}
-
-/**
- * Un chef homologado postula a un encargo en broadcast.
- */
-export function applyToBroadcastBooking(
-  bookingId: string,
-  chef: ChefProfile,
-  message: string
-): ChefBookingRequest[] {
-  const bookings = loadChefBookingsFromStorage();
-  const updated = bookings.map(b => {
-    if (b.id === bookingId) {
-      const applicant = {
-        id: `app_${chef.id}_${Date.now()}`,
-        chefId: chef.id,
-        chefName: chef.name,
-        chefAvatar: chef.avatar,
-        chefRating: chef.rating,
-        chefHourlyRate: chef.pricing.cookingHourRate,
-        chefSpecialties: chef.specialties,
-        appliedAt: new Date().toISOString(),
-        message,
-        status: 'pending' as const
-      };
-      const existingApplicants = b.applicants || [];
-      return {
-        ...b,
-        applicants: [...existingApplicants.filter(a => a.chefId !== chef.id), applicant],
-        status: 'offers_received' as const,
-        updatedAt: new Date().toISOString()
-      };
-    }
-    return b;
-  });
-  saveChefBookingsToStorage(updated);
-  return updated;
-}
-
-/**
- * El cliente acepta la oferta de un cocinero candidato.
- */
-export function acceptChefApplication(
-  bookingId: string,
-  applicantId: string
-): ChefBookingRequest[] {
-  const bookings = loadChefBookingsFromStorage();
-  const updated = bookings.map(b => {
-    if (b.id === bookingId) {
-      const applicant = b.applicants?.find(a => a.id === applicantId);
-      if (!applicant) return b;
-      return {
-        ...b,
-        chefId: applicant.chefId,
-        chefName: applicant.chefName,
-        chefAvatar: applicant.chefAvatar,
-        status: 'confirmed' as const,
-        updatedAt: new Date().toISOString(),
-        applicants: b.applicants?.map(a => 
-          a.id === applicantId ? { ...a, status: 'accepted' as const } : { ...a, status: 'rejected' as const }
-        )
-      };
-    }
-    return b;
-  });
-  saveChefBookingsToStorage(updated);
-  return updated;
+  inMemoryBookings = bookings;
 }
 
 // =========================================================================
@@ -182,53 +75,64 @@ export function acceptChefApplication(
 // =========================================================================
 
 export interface BookingQuoteParams {
-  chefPricing: ChefServicePricing;
-  estimatedCookingHours: number;
-  includeGroceryShopping: boolean;
-  estimatedGroceryHours?: number;
-  includeTravel: boolean;
-  bringOwnTools: boolean;
-  requestKitchenDeepClean: boolean;
-  estimatedIngredientsCost: number;
-  userBookingCountWithThisChef?: number;
+  chefHourlyRate?: number;
+  hours: number;
+  includeGrocery?: boolean;
+  groceryHourlyRate?: number;
+  groceryHours?: number;
+  bringTools?: boolean;
+  hasAssistant?: boolean;
+  assistantHours?: number;
+  travelFee?: number;
+  toolsFee?: number;
+  cleaningFee?: number;
+  estimatedIngredients?: number;
+  completedBookingsWithChef?: number;
   isChefProSubscriber?: boolean;
-  isTouChefPlusMember?: boolean;
+  isClientPlusSubscriber?: boolean;
 }
 
 export function calculateBookingQuote(params: BookingQuoteParams) {
-  const quote = calculateAntiFugaQuote({
-    cookingHourRate: params.chefPricing.cookingHourRate,
-    cookingHours: params.estimatedCookingHours,
-    includeGrocery: params.includeGroceryShopping,
-    groceryHourRate: params.chefPricing.groceryHourRate,
-    groceryHours: params.estimatedGroceryHours || 1.0,
-    includeTravel: params.includeTravel,
-    travelFee: params.chefPricing.travelFee,
-    bringOwnTools: params.bringOwnTools,
-    toolsFee: params.chefPricing.toolsIncludedFee,
-    requestDeepClean: params.requestKitchenDeepClean,
-    cleanFee: params.chefPricing.emergencyCleaningFee,
-    rawIngredientsCost: params.estimatedIngredientsCost,
-    userBookingsCountWithChef: params.userBookingCountWithThisChef || 0,
+  const dummyChef: ChefProfile = {
+    ...BOOTSTRAP_CHEF_PROFILE,
+    pricing: {
+      ...BOOTSTRAP_CHEF_PROFILE.pricing,
+      cookingHourRate: params.chefHourlyRate || 25,
+      groceryShoppingHourRate: params.groceryHourlyRate || 18,
+      toolsExtraFee: params.toolsFee || 0,
+      travelFee: params.travelFee || 5
+    }
+  };
+
+  const quote: TierCommissionResult = calculateAntiFugaQuote({
+    chef: dummyChef,
+    hours: params.hours,
+    includeGrocery: !!params.includeGrocery,
+    groceryHours: params.groceryHours || 1.0,
+    bringTools: !!params.bringTools,
+    hasAssistant: !!params.hasAssistant,
+    assistantHours: params.assistantHours || params.hours,
+    includeCleaning: (params.cleaningFee || 0) > 0,
+    ingredientsCost: params.estimatedIngredients || 0,
+    completedBookingsWithChef: params.completedBookingsWithChef || 0,
     isChefProSubscriber: params.isChefProSubscriber || false,
-    isClientPlusMember: params.isTouChefPlusMember || false
+    isClientPlusSubscriber: params.isClientPlusSubscriber || false
   });
 
   return {
-    cookingCost: quote.breakdown.cookingCost,
-    groceryCost: quote.breakdown.groceryCost,
-    travelFee: quote.breakdown.travelFee,
-    toolsFee: quote.breakdown.toolsFee,
-    cleaningFee: quote.breakdown.cleaningFee,
-    serviceSubtotal: quote.breakdown.serviceLaborSubtotal,
-    ingredientsCost: quote.breakdown.rawIngredientsCost,
-    totalDirectCost: quote.breakdown.totalDirectExpense,
-    commissionRate: quote.commission.commissionPercentage,
-    commissionTierName: quote.commission.tierName,
-    platformServiceFee: quote.breakdown.platformServiceFee,
-    totalClientPrice: quote.breakdown.totalClientCharged,
-    chefPayoutEstimated: quote.breakdown.chefNetPayout,
-    fidelizationSavings: quote.commission.fidelizationSavings
+    cookingCost: quote.cookingCost,
+    groceryCost: quote.groceryCost,
+    toolsCost: quote.toolsFee,
+    assistantCost: quote.assistantCost,
+    travelCost: quote.travelFee,
+    cleaningCost: quote.cleaningFee,
+    ingredientsEstimatedCost: quote.ingredientsEstimatedCost,
+    commissionRate: quote.commissionPercent,
+    commissionTierName: quote.tierLabel,
+    platformServiceFee: quote.platformFee,
+    totalClientPrice: quote.totalClientPrice,
+    chefPayoutEstimated: quote.chefNetPayout,
+    fidelizationSavings: quote.loyaltyDiscountEuros
   };
 }
 

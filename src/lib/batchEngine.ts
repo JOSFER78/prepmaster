@@ -448,60 +448,75 @@ const RECIPE_BLUEPRINTS: RecipeBlueprint[] = [
   }
 ];
 
+import { CARMEN_RECIPES_DATABASE, getFilteredCarmenRecipes, CanonicalRecipe } from '../data/recipesCarmenDatabase';
+
 /**
- * Genera el conjunto dinámico de platos ajustado a comensales, días, tomas y estilo
+ * Genera el conjunto dinámico de platos ajustado a comensales, días, tomas, estilo y alérgenos
+ * usando exclusivamente la base de datos de recetas de Cocina con Carmen.
  */
-export function generateDynamicBatchDishes(config: BatchCalculationConfig): BatchDish[] {
+export function generateDynamicBatchDishes(
+  config: BatchCalculationConfig,
+  excludedAllergens?: string[]
+): BatchDish[] {
   const structure = calculateBatchStructure(config);
   const diet = config.dietStyle || 'mediterranean';
 
-  // Filtrar recetas según la dieta seleccionada
-  const matchingBlueprints = RECIPE_BLUEPRINTS.filter(b => b.suitableDiets.includes(diet));
-  const fallbackBlueprints = RECIPE_BLUEPRINTS;
+  // Obtener recetas filtradas de Cocina con Carmen
+  const lunchPool = getFilteredCarmenRecipes({
+    mealType: 'lunch',
+    dietStyle: diet as any,
+    excludedAllergens
+  });
 
-  const lunchPool = matchingBlueprints.filter(b => b.type === 'lunch').length > 0 
-    ? matchingBlueprints.filter(b => b.type === 'lunch')
-    : fallbackBlueprints.filter(b => b.type === 'lunch');
+  const dinnerPool = getFilteredCarmenRecipes({
+    mealType: 'dinner',
+    dietStyle: diet as any,
+    excludedAllergens
+  });
 
-  const dinnerPool = matchingBlueprints.filter(b => b.type === 'dinner').length > 0 
-    ? matchingBlueprints.filter(b => b.type === 'dinner')
-    : fallbackBlueprints.filter(b => b.type === 'dinner');
+  // Fallback si el filtro es muy restrictivo
+  const fallbackLunch = CARMEN_RECIPES_DATABASE.filter(r => r.mealType === 'lunch' || r.mealType === 'universal');
+  const fallbackDinner = CARMEN_RECIPES_DATABASE.filter(r => r.mealType === 'dinner' || r.mealType === 'universal');
+
+  const finalLunchPool = lunchPool.length > 0 ? lunchPool : fallbackLunch;
+  const finalDinnerPool = dinnerPool.length > 0 ? dinnerPool : fallbackDinner;
 
   const generatedDishes: BatchDish[] = [];
   let lunchIdx = 0;
   let dinnerIdx = 0;
 
   structure.allocations.forEach((alloc, i) => {
-    let bp: RecipeBlueprint;
+    let recipe: CanonicalRecipe;
     if (alloc.mealType === 'lunch') {
-      bp = lunchPool[lunchIdx % lunchPool.length];
+      recipe = finalLunchPool[lunchIdx % finalLunchPool.length];
       lunchIdx++;
     } else {
-      bp = dinnerPool[dinnerIdx % dinnerPool.length];
+      recipe = finalDinnerPool[dinnerIdx % finalDinnerPool.length];
       dinnerIdx++;
     }
 
     const totalServingsForThisDish = alloc.servings; // familyMeals * peopleCount
 
     const dish: BatchDish = {
-      id: `dish_${Date.now()}_${i}_${Math.random().toString(36).substr(2, 4)}`,
-      name: bp.name,
-      category: bp.category,
+      id: `dish_${recipe.id}_${Date.now()}_${i}`,
+      name: recipe.name,
+      category: recipe.category,
       servings: totalServingsForThisDish,
-      prepTime: bp.prepTime,
-      cookingMethod: bp.station,
-      storageAdvice: bp.storageAdvice,
+      prepTime: recipe.prepTimeFormatted,
+      cookingMethod: recipe.station,
+      storageAdvice: recipe.storageAdvice,
       isFavorite: false,
       rating: 5,
-      shelfLifeDaysFridge: bp.shelfLifeDaysFridge,
-      shelfLifeMonthsFreezer: 3,
-      ingredients: bp.ingredientsPerServing.map(ing => ({
+      image: recipe.image,
+      shelfLifeDaysFridge: recipe.shelfLifeDaysFridge,
+      shelfLifeMonthsFreezer: recipe.canFreeze ? 3 : 0,
+      ingredients: recipe.ingredientsPerServing.map(ing => ({
         name: ing.name,
         quantity: Number((ing.quantity * totalServingsForThisDish).toFixed(2)),
         unit: ing.unit,
         category: ing.category as any
       })),
-      instructions: bp.instructions
+      instructions: recipe.instructions
     };
 
     const initialized = initializeDishPortions(dish, structure.daysCount);
