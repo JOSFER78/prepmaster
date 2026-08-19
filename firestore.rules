@@ -105,19 +105,31 @@ service cloud.firestore {
     // 5. COLECCIONES: BATCH PROJECTS / PLANES / DESPENSA / COMPRA
     // =========================================================================
     match /batch_projects/{projectId} {
-      allow read, write: if isSuperAdmin() || (isAuthenticated() && (resource == null || resource.data.userId == request.auth.uid) && request.resource.data.userId == request.auth.uid);
+      allow read: if isSuperAdmin() || (isAuthenticated() && resource.data.userId == request.auth.uid);
+      allow create: if isSuperAdmin() || (isAuthenticated() && request.resource.data.userId == request.auth.uid);
+      allow update: if isSuperAdmin() || (isAuthenticated() && resource.data.userId == request.auth.uid && request.resource.data.userId == request.auth.uid);
+      allow delete: if isSuperAdmin() || (isAuthenticated() && resource.data.userId == request.auth.uid);
     }
 
     match /menu_plans/{planId} {
-      allow read, write: if isSuperAdmin() || (isAuthenticated() && (resource == null || resource.data.userId == request.auth.uid) && request.resource.data.userId == request.auth.uid);
+      allow read: if isSuperAdmin() || (isAuthenticated() && resource.data.userId == request.auth.uid);
+      allow create: if isSuperAdmin() || (isAuthenticated() && request.resource.data.userId == request.auth.uid);
+      allow update: if isSuperAdmin() || (isAuthenticated() && resource.data.userId == request.auth.uid && request.resource.data.userId == request.auth.uid);
+      allow delete: if isSuperAdmin() || (isAuthenticated() && resource.data.userId == request.auth.uid);
     }
 
     match /pantry_items/{itemId} {
-      allow read, write: if isSuperAdmin() || (isAuthenticated() && (resource == null || resource.data.userId == request.auth.uid) && request.resource.data.userId == request.auth.uid);
+      allow read: if isSuperAdmin() || (isAuthenticated() && resource.data.userId == request.auth.uid);
+      allow create: if isSuperAdmin() || (isAuthenticated() && request.resource.data.userId == request.auth.uid);
+      allow update: if isSuperAdmin() || (isAuthenticated() && resource.data.userId == request.auth.uid && request.resource.data.userId == request.auth.uid);
+      allow delete: if isSuperAdmin() || (isAuthenticated() && resource.data.userId == request.auth.uid);
     }
 
     match /shopping_items/{itemId} {
-      allow read, write: if isSuperAdmin() || (isAuthenticated() && (resource == null || resource.data.userId == request.auth.uid) && request.resource.data.userId == request.auth.uid);
+      allow read: if isSuperAdmin() || (isAuthenticated() && resource.data.userId == request.auth.uid);
+      allow create: if isSuperAdmin() || (isAuthenticated() && request.resource.data.userId == request.auth.uid);
+      allow update: if isSuperAdmin() || (isAuthenticated() && resource.data.userId == request.auth.uid && request.resource.data.userId == request.auth.uid);
+      allow delete: if isSuperAdmin() || (isAuthenticated() && resource.data.userId == request.auth.uid);
     }
 
     // =========================================================================
