@@ -359,3 +359,77 @@ export interface SupermarketProviderConfig {
   badge: string;                 // ej: "Recomendado Batch Cooking"
   directCheckoutSupported: boolean;
 }
+
+// ----------------------------------------------------
+// NOTIFICACIONES EN TIEMPO REAL & CHAT PROTEGIDO
+// ----------------------------------------------------
+
+export type NotificationType = 
+  | 'booking_broadcast_new'       // Evento 1: Nuevo encargo publicado en la zona
+  | 'chef_application_received'   // Evento 2: Cocinero postula/acepta encargo
+  | 'chat_message_new'            // Evento 3: Mensaje nuevo en el chat protegido
+  | 'booking_confirmed_chef'      // Evento 4A: Cocinero elegido confirmado (Ganador)
+  | 'booking_closed_unselected'   // Evento 4B: Cierre de encargo a candidatos no elegidos
+  | 'booking_status_change';      // Cambio de estado general de la reserva
+
+export interface AppNotification {
+  id: string;
+  recipientId: string;            // UID del destinatario
+  recipientRole: 'client' | 'chef' | 'all_chefs';
+  type: NotificationType;
+  title: string;
+  body: string;
+  bookingId?: string;
+  conversationId?: string;
+  senderId: string;
+  senderName: string;
+  senderAvatar?: string;
+  geoZone?: string;               // ej. "Madrid (Chamberí)"
+  isRead: boolean;
+  priority?: 'low' | 'normal' | 'high' | 'urgent';
+  metadata?: Record<string, any>;
+  createdAt: string;
+  readAt?: string | null;
+}
+
+export interface ConversationDoc {
+  id: string;
+  bookingId: string;
+  customerId: string;
+  customerName: string;
+  customerAvatar?: string;
+  chefId: string;
+  chefName: string;
+  chefAvatar?: string;
+  bookingStatus: ChefBookingStatus;
+  isProtectedMode: boolean;       // true mientras bookingStatus !== 'confirmed' & !== 'completed'
+  lastMessage?: {
+    text: string;
+    senderId: string;
+    createdAt: string;
+  };
+  unreadCount: {
+    [uid: string]: number;
+  };
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface ChatMessageDoc {
+  id: string;
+  conversationId: string;
+  senderId: string;
+  senderRole: 'client' | 'chef' | 'system';
+  recipientId: string;
+  text: string;
+  originalText?: string;
+  hasAntiLeakViolation: boolean;
+  violationTypes?: ('phone' | 'email' | 'iban' | 'bizum' | 'social_network')[];
+  status: 'sending' | 'sent' | 'delivered' | 'read';
+  deliveryTimestamps: {
+    sentAt: string;
+    deliveredAt?: string | null;
+    readAt?: string | null;
+  };
+}
+
