@@ -1,148 +1,157 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo, useRef, useEffect } from 'react';
 import { 
   Sparkles, 
-  ChefHat, 
-  Check, 
-  ArrowRight, 
-  Flame, 
-  RefreshCw, 
   Clock, 
-  Users,
-  ShoppingBag,
-  Sliders,
-  Utensils,
-  Refrigerator,
+  Users, 
+  Calendar, 
+  Flame, 
+  ArrowRight, 
+  Check, 
+  RefreshCw, 
+  Sliders, 
+  ChevronDown, 
+  ChevronUp, 
+  X, 
+  Zap, 
+  Utensils, 
+  ShieldCheck, 
+  ShoppingBag, 
+  ChefHat, 
   CheckCircle2,
-  Calendar,
   MessageSquare,
-  Layers,
-  Snowflake,
-  ShieldCheck,
-  Sun,
-  Moon
+  Box,
+  SlidersHorizontal
 } from 'lucide-react';
-import { TouChefIsotype } from '../components/TouChefLogo';
-import { GeneratedMenuPlan, SimulatorContext, BatchProject, BatchDish, BatchShoppingItem } from '../types';
+import { GeneratedMenuPlan, MealPlanConfig, BatchProject, BatchDish, BatchShoppingItem } from '../types';
 import { initialFridgeStock } from '../data';
+import { PlanActionBridge } from '../components/PlanActionBridge';
 import { 
   calculateBatchStructure, 
-  generateDynamicBatchDishes, 
-  BatchCalculationConfig 
+  generateDynamicBatchDishes 
 } from '../lib/batchEngine';
 
 interface AIGeneratorViewProps {
   onMenuApproved: (plan: GeneratedMenuPlan) => void;
   onNavigateToShopping: () => void;
-  initialContext?: SimulatorContext | null;
+  initialContext?: MealPlanConfig | null;
   onBatchProjectCreated?: (project: BatchProject) => void;
+  onHireChefForBatch?: (project: BatchProject) => void;
 }
 
 export function AIGeneratorView({ 
   onMenuApproved, 
   onNavigateToShopping, 
   initialContext, 
-  onBatchProjectCreated 
+  onBatchProjectCreated,
+  onHireChefForBatch 
 }: AIGeneratorViewProps) {
   
   const [currentStep, setCurrentStep] = useState<1 | 2>(1);
-  const [peopleCount, setPeopleCount] = useState<number>(initialContext?.peopleCount || 2);
+  const [selectedArchetype, setSelectedArchetype] = useState<'familiar' | 'fitness' | 'gourmet' | 'custom'>('familiar');
+  const [peopleCount, setPeopleCount] = useState<number>(initialContext?.peopleCount || 4);
   const [daysCount, setDaysCount] = useState<number>(initialContext?.daysCount || 5);
   const [mealCoverage, setMealCoverage] = useState<'lunches' | 'dinners' | 'both'>(initialContext?.mealCoverage || 'both');
   const [dietStyle, setDietStyle] = useState<'mediterranean' | 'fitness' | 'veggie' | 'lowcarb' | 'traditional'>(
     (initialContext?.dietStyle as any) || 'mediterranean'
   );
   const [varietyPreference, setVarietyPreference] = useState<'max_efficiency' | 'balanced' | 'high_variety'>('balanced');
-  const [cravings, setCravings] = useState<string>('Guisos reconfortantes, cremas suaves y verduras de temporada');
+  
+  // Secondary collapsed settings
+  const [cravings, setCravings] = useState<string>('');
   const [includeFridge, setIncludeFridge] = useState<boolean>(true);
+  const [microwaveWatts, setMicrowaveWatts] = useState<number>(800);
+  const [hasSteamValve, setHasSteamValve] = useState<boolean>(true);
+  const [selectedAllergens, setSelectedAllergens] = useState<string[]>([]);
+  const [preferredSupermarket, setPreferredSupermarket] = useState<string>('Supermercados DIA');
+  const [activeDrawer, setActiveDrawer] = useState<'none' | 'cravings' | 'microwave' | 'containers' | 'allergens' | 'aisles'>('none');
 
-  // Live calculation of batch structure
-  const structure = calculateBatchStructure({
-    peopleCount,
-    daysCount,
-    mealCoverage,
-    dietStyle,
-    varietyPreference,
-    cravings,
-    includeFridge
-  });
-
-  // Generation state
+  const ribbonRef = useRef<HTMLDivElement>(null);
   const [isGenerating, setIsGenerating] = useState<boolean>(false);
-  const [generationProgress, setGenerationProgress] = useState<number>(0);
-  const [generationStatusText, setGenerationStatusText] = useState<string>('');
-  const [generatedDishes, setGeneratedDishes] = useState<BatchDish[]>([]);
   const [generatedPlan, setGeneratedPlan] = useState<GeneratedMenuPlan | null>(null);
+  const [generatedDishes, setGeneratedDishes] = useState<BatchDish[]>([]);
 
-  const getDietStyleLabel = () => {
-    switch (dietStyle) {
-      case 'mediterranean': return 'Mediterránea Equilibrada';
-      case 'fitness': return 'Alto en Proteína & Fitness';
-      case 'veggie': return '100% Vegetal & Plant-Based';
-      case 'lowcarb': return 'Low Carb / Keto';
-      case 'traditional': return 'Tradicional de Cuchara';
+  // Click outside to collapse
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (ribbonRef.current && !ribbonRef.current.contains(event.target as Node)) {
+        setActiveDrawer('none');
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
+  // DYNAMIC BATCH ENGINE CALCULATION
+  const structure = useMemo(() => {
+    return calculateBatchStructure({
+      peopleCount,
+      daysCount,
+      mealCoverage,
+      dietStyle,
+      varietyPreference
+    });
+  }, [peopleCount, daysCount, mealCoverage, dietStyle, varietyPreference]);
+
+  const applyArchetype = (arch: 'familiar' | 'fitness' | 'gourmet') => {
+    setSelectedArchetype(arch);
+    if (arch === 'familiar') {
+      setPeopleCount(4);
+      setDaysCount(5);
+      setMealCoverage('both');
+      setDietStyle('mediterranean');
+      setVarietyPreference('balanced');
+    } else if (arch === 'fitness') {
+      setPeopleCount(2);
+      setDaysCount(4);
+      setMealCoverage('both');
+      setDietStyle('fitness');
+      setVarietyPreference('max_efficiency');
+    } else if (arch === 'gourmet') {
+      setPeopleCount(3);
+      setDaysCount(3);
+      setMealCoverage('both');
+      setDietStyle('traditional');
+      setVarietyPreference('high_variety');
     }
   };
 
-  // Generate Menu Execution
+  const toggleAllergen = (allergen: string) => {
+    setSelectedAllergens(prev => 
+      prev.includes(allergen) ? prev.filter(a => a !== allergen) : [...prev, allergen]
+    );
+  };
+
   const handleGenerate = () => {
     setIsGenerating(true);
-    setGenerationProgress(20);
-    setGenerationStatusText(`Dimensionando ${structure.peopleCount} comensales × ${structure.daysCount} días = ${structure.totalIndividualServings} raciones (${structure.totalFamilyMeals} tomas)...`);
+    setActiveDrawer('none');
 
     setTimeout(() => {
-      setGenerationProgress(45);
-      setGenerationStatusText(`Optimizando variedad: ${structure.dishCount} recetas (${structure.lunchDishCount} almuerzos + ${structure.dinnerDishCount} cenas)...`);
-    }, 350);
-
-    setTimeout(() => {
-      setGenerationProgress(70);
-      setGenerationStatusText(`Cruzando con despensa viva y preferencias (${cravings})...`);
-    }, 750);
-
-    setTimeout(() => {
-      setGenerationProgress(90);
-      setGenerationStatusText(`Orquestando estaciones simultáneas (Horno + Fuegos + Olla)...`);
-    }, 1100);
-
-    setTimeout(() => {
-      setGenerationProgress(100);
-      
       const dishes = generateDynamicBatchDishes({
         peopleCount,
         daysCount,
         mealCoverage,
         dietStyle,
-        varietyPreference,
-        cravings,
-        includeFridge
+        varietyPreference
       });
 
       setGeneratedDishes(dishes);
 
       const plan: GeneratedMenuPlan = {
-        id: `plan_${Date.now()}`,
-        title: `Sesión ${getDietStyleLabel()} (${structure.totalIndividualServings} rac · ${structure.dishCount} platos)`,
-        mode: 'AUTO_BATCH',
-        peopleCount,
-        daysCount,
-        referenceChannelName: 'TouChef Batch Engine',
-        items: dishes.map((d, idx) => ({
-          dayName: `Estación ${idx + 1} (${d.cookingMethod.toUpperCase()})`,
-          mealType: d.category === 'cremas' || d.category === 'pescados' ? 'Cena' : 'Almuerzo',
-          dishName: d.name,
-          servings: d.servings,
-          prepTime: d.prepTime,
-          isFromFridge: true,
-          ingredients: d.ingredients,
-          instructions: d.instructions
-        })),
+        id: `plan-${Date.now()}`,
+        title: `Plan Batch Cooking ${dietStyle.toUpperCase()} (${structure.totalIndividualServings} Raciones)`,
+        philosophy: `Estructura optimizada para ${peopleCount} personas durante ${daysCount} días. ${structure.dishCount} recetas coordinadas en paralelo en ${structure.estimatedCookTimeFormatted}.`,
+        macrosTarget: {
+          protein: dietStyle === 'fitness' ? '30%' : '20%',
+          carbs: dietStyle === 'lowcarb' ? '15%' : '45%',
+          fats: '35%'
+        },
+        meals: [],
         batchCookingSummary: {
           totalTime: structure.estimatedCookTimeFormatted,
-          sessionsCount: 1,
-          recommendedTechniques: [
-            'Mise en place unificada: Picar todas las cebollas, ajos y verduras antes de encender fogones.',
-            'Aprovechar el horno encendido para asar tubérculos y proteínas simultáneamente.',
-            'Enfriamiento rápido a temperatura ambiente y envasado hermético para nevera (días 1-3) y congelador (días 4+).'
+          parallelSteps: [
+            'Mise en place unificada: Picar todas las verduras antes de encender fuegos.',
+            'Cocción concurrente: Horno y fogones en paralelo para máxima eficiencia térmica.',
+            'Envasado hermético: Nevera (días 1-3) y congelador (días 4+) en vidrio borosilicato.'
           ]
         }
       };
@@ -151,57 +160,44 @@ export function AIGeneratorView({
       setIsGenerating(false);
       setCurrentStep(2);
       onMenuApproved(plan);
-    }, 1500);
+    }, 900);
   };
 
-  const handleApproveAndSave = () => {
-    if (!generatedDishes || generatedDishes.length === 0) return;
-
-    // Compile smart shopping list with pantry deduction
+  const createBatchProjectFromState = (status: BatchProject['status'] = 'planning'): BatchProject => {
     const shoppingMap = new Map<string, BatchShoppingItem>();
 
     generatedDishes.forEach(dish => {
       dish.ingredients.forEach(ing => {
-        const key = ing.name.toLowerCase().trim();
-        const existing = shoppingMap.get(key);
-        
-        let inPantry = 0;
-        if (includeFridge) {
-          const matchInFridge = initialFridgeStock.find(f => 
-            key.includes(f.name.toLowerCase()) || f.name.toLowerCase().includes(key)
-          );
-          if (matchInFridge) {
-            inPantry = matchInFridge.quantity > 50 ? Number((matchInFridge.quantity / 1000).toFixed(2)) : matchInFridge.quantity;
-          }
-        }
+        const pantryMatch = initialFridgeStock.find(
+          item => item.name.toLowerCase() === ing.name.toLowerCase()
+        );
 
-        if (existing) {
-          existing.requiredQty = Number((existing.requiredQty + ing.quantity).toFixed(2));
-          existing.toBuyQty = Math.max(0, Number((existing.requiredQty - existing.inPantryQty).toFixed(2)));
-        } else {
-          const required = ing.quantity;
-          const toBuy = Math.max(0, Number((required - inPantry).toFixed(2)));
-          
-          shoppingMap.set(key, {
-            id: `shop_${Date.now()}_${Math.random().toString(36).substr(2, 5)}`,
-            name: ing.name,
-            requiredQty: required,
-            inPantryQty: inPantry,
-            toBuyQty: toBuy,
-            unit: ing.unit,
-            category: (ing.category || 'despensa') as any,
-            isBought: false,
-            isFromPantryDeduction: inPantry > 0,
-            estimatedPriceEuros: Number((toBuy * 2.8).toFixed(2))
-          });
-        }
+        const current = shoppingMap.get(ing.name) || {
+          id: `shop-${ing.name.toLowerCase().replace(/\s+/g, '-')}`,
+          name: ing.name,
+          requiredQty: 0,
+          inPantryQty: pantryMatch ? pantryMatch.quantity : 0,
+          toBuyQty: 0,
+          unit: ing.unit,
+          category: (ing.category as any) || 'despensa',
+          isBought: false,
+          isFromPantryDeduction: !!pantryMatch
+        };
+
+        current.requiredQty += ing.quantity;
+        shoppingMap.set(ing.name, current);
       });
     });
 
-    const project: BatchProject = {
-      id: `batch_proj_${Date.now()}`,
-      title: `Sesión ${getDietStyleLabel()} (${structure.totalIndividualServings} rac)`,
-      status: 'shopping',
+    shoppingMap.forEach(item => {
+      const needed = Math.max(0, item.requiredQty - item.inPantryQty);
+      item.toBuyQty = Math.round(needed * 10) / 10;
+    });
+
+    return {
+      id: `batch-${Date.now()}`,
+      title: generatedPlan ? generatedPlan.title : `Sesión Batch Cooking (${structure.totalIndividualServings} raciones)`,
+      status,
       createdAt: new Date().toISOString(),
       plannedShoppingDate: new Date().toISOString().split('T')[0],
       peopleCount,
@@ -215,496 +211,496 @@ export function AIGeneratorView({
       hoursSavedWeekly: structure.hoursSavedWeekly,
       totalConsumedServings: 0
     };
+  };
 
-    if (onBatchProjectCreated) {
-      onBatchProjectCreated(project);
-    }
-
+  const handleApproveAndSave = () => {
+    if (!generatedDishes || generatedDishes.length === 0) return;
+    const project = createBatchProjectFromState('planning');
+    if (onBatchProjectCreated) onBatchProjectCreated(project);
     onNavigateToShopping();
   };
 
+  const handleApproveAndHireChef = () => {
+    if (!generatedDishes || generatedDishes.length === 0) return;
+    const project = createBatchProjectFromState('planning');
+    if (onHireChefForBatch) onHireChefForBatch(project);
+    else {
+      if (onBatchProjectCreated) onBatchProjectCreated(project);
+      onNavigateToShopping();
+    }
+  };
+
   return (
-    <div className="space-y-4 animate-fade-in pb-12 text-zinc-900 dark:text-zinc-100 max-w-5xl mx-auto">
+    <div className="w-full max-w-4xl mx-auto space-y-8 animate-fade-in pb-16 text-zinc-900 dark:text-zinc-100">
       
-      {/* HEADER BAR */}
-      <div className="glass-surface-elevated rounded-3xl p-4 sm:p-5 border border-zinc-200 dark:border-white/10 shadow-xs flex flex-wrap items-center justify-between gap-3">
-        <div className="flex items-center gap-3.5">
-          <TouChefIsotype size={40} />
-          <div>
-            <h1 className="text-sm sm:text-base font-display font-black text-zinc-900 dark:text-white leading-tight">
-              {currentStep === 1 ? 'Planificador Inteligente de Batch Cooking' : 'Plan Maestro de Cocina Generado'}
-            </h1>
-            <p className="text-xs text-zinc-500 dark:text-zinc-400">
-              {currentStep === 1 
-                ? 'Dimensiona comensales, días, tomas y variedad de recetas con balance térmico' 
-                : `${structure.totalIndividualServings} raciones en ${structure.dishCount} recetas coordinadas para cocinar en una sola sesión`}
-            </p>
-          </div>
-        </div>
-
-        {/* Step Indicator */}
-        <div className="flex items-center gap-2">
-          <div className="flex items-center gap-2 text-xs font-bold glass-surface px-3.5 py-1.5 rounded-xl border border-zinc-200 dark:border-zinc-700">
-            <span className="w-2 h-2 rounded-full bg-[#E07A5F] animate-pulse" />
-            <span>Paso {currentStep} de 2</span>
-          </div>
-        </div>
-      </div>
-
-      {/* STEP 1: PARAMS FORM */}
+      {/* STEP 1: UNIFIED SINGLE HERO CARD + AUTO-COLLAPSE RIBBON */}
       {currentStep === 1 && (
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+        <div className="space-y-6">
           
-          {/* Main Form (2 cols) */}
-          <div className="lg:col-span-2 space-y-4">
+          {/* ========================================================================= */}
+          {/* 1. SINGLE UNIFIED HERO CARD (NO BOX-IN-A-BOX / HAUTE MINIMAL)             */}
+          {/* ========================================================================= */}
+          <div className="glass-surface-elevated rounded-3xl p-6 sm:p-8 border border-zinc-200/80 dark:border-white/10 shadow-xl space-y-7">
             
-            {/* 1. Dimensionamiento del Hogar */}
-            <div className="glass-surface rounded-3xl p-5 border border-zinc-200 dark:border-white/10 shadow-xs space-y-4">
-              <h2 className="text-xs font-bold uppercase tracking-wider text-[#E07A5F] flex items-center gap-2">
-                <Users size={15} />
-                <span>1. Dimensionamiento del Hogar & Cobertura</span>
-              </h2>
-
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                {/* People */}
-                <div className="p-3.5 bg-zinc-50/80 dark:bg-zinc-800/60 rounded-2xl border border-zinc-200/80 dark:border-zinc-700/60 space-y-2">
-                  <div className="flex justify-between items-center">
-                    <span className="text-xs font-bold text-zinc-700 dark:text-zinc-300">Comensales:</span>
-                    <span className="font-mono font-black text-[#E07A5F] text-xs">{peopleCount} pers</span>
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <button 
-                      onClick={() => setPeopleCount(Math.max(1, peopleCount - 1))}
-                      className="w-8 h-8 rounded-xl bg-white dark:bg-zinc-700 border border-zinc-200 dark:border-zinc-600 font-bold text-zinc-700 dark:text-zinc-200 flex items-center justify-center hover:bg-zinc-100 cursor-pointer"
-                    >
-                      -
-                    </button>
-                    <span className="text-lg font-black text-zinc-900 dark:text-white font-mono">{peopleCount}</span>
-                    <button 
-                      onClick={() => setPeopleCount(Math.min(12, peopleCount + 1))}
-                      className="w-8 h-8 rounded-xl bg-white dark:bg-zinc-700 border border-zinc-200 dark:border-zinc-600 font-bold text-zinc-700 dark:text-zinc-200 flex items-center justify-center hover:bg-zinc-100 cursor-pointer"
-                    >
-                      +
-                    </button>
-                  </div>
-                  {/* Quick people pills */}
-                  <div className="flex justify-between gap-1 pt-1">
-                    {[1, 2, 4, 6].map(p => (
-                      <button
-                        key={p}
-                        onClick={() => setPeopleCount(p)}
-                        className={`text-[10px] font-bold py-0.5 px-1.5 rounded-md transition-all cursor-pointer ${
-                          peopleCount === p ? 'bg-[#E07A5F] text-white' : 'bg-zinc-200/60 dark:bg-zinc-700/50 text-zinc-500 hover:text-zinc-900 dark:hover:text-white'
-                        }`}
-                      >
-                        {p}p
-                      </button>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Days */}
-                <div className="p-3.5 bg-zinc-50/80 dark:bg-zinc-800/60 rounded-2xl border border-zinc-200/80 dark:border-zinc-700/60 space-y-2">
-                  <div className="flex justify-between items-center">
-                    <span className="text-xs font-bold text-zinc-700 dark:text-zinc-300">Días a Cubrir:</span>
-                    <span className="font-mono font-black text-[#E07A5F] text-xs">{daysCount} días</span>
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <button 
-                      onClick={() => setDaysCount(Math.max(2, daysCount - 1))}
-                      className="w-8 h-8 rounded-xl bg-white dark:bg-zinc-700 border border-zinc-200 dark:border-zinc-600 font-bold text-zinc-700 dark:text-zinc-200 flex items-center justify-center hover:bg-zinc-100 cursor-pointer"
-                    >
-                      -
-                    </button>
-                    <span className="text-lg font-black text-zinc-900 dark:text-white font-mono">{daysCount}</span>
-                    <button 
-                      onClick={() => setDaysCount(Math.min(14, daysCount + 1))}
-                      className="w-8 h-8 rounded-xl bg-white dark:bg-zinc-700 border border-zinc-200 dark:border-zinc-600 font-bold text-zinc-700 dark:text-zinc-200 flex items-center justify-center hover:bg-zinc-100 cursor-pointer"
-                    >
-                      +
-                    </button>
-                  </div>
-                  {/* Quick days pills */}
-                  <div className="flex justify-between gap-1 pt-1">
-                    {[3, 5, 7, 10].map(d => (
-                      <button
-                        key={d}
-                        onClick={() => setDaysCount(d)}
-                        className={`text-[10px] font-bold py-0.5 px-1.5 rounded-md transition-all cursor-pointer ${
-                          daysCount === d ? 'bg-[#E07A5F] text-white' : 'bg-zinc-200/60 dark:bg-zinc-700/50 text-zinc-500 hover:text-zinc-900 dark:hover:text-white'
-                        }`}
-                      >
-                        {d}d
-                      </button>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Meals per day (Coverage) */}
-                <div className="p-3.5 bg-zinc-50/80 dark:bg-zinc-800/60 rounded-2xl border border-zinc-200/80 dark:border-zinc-700/60 space-y-2">
-                  <span className="text-xs font-bold text-zinc-700 dark:text-zinc-300 block">Tomas / Día:</span>
-                  <div className="flex flex-col gap-1.5">
-                    <button
-                      onClick={() => setMealCoverage('lunches')}
-                      className={`py-1 px-2 rounded-xl text-[11px] font-bold transition-all flex items-center justify-between cursor-pointer ${
-                        mealCoverage === 'lunches' 
-                          ? 'bg-[#E07A5F] text-white shadow-xs' 
-                          : 'bg-white dark:bg-zinc-700 text-zinc-600 dark:text-zinc-300'
-                      }`}
-                    >
-                      <span>Solo Comidas</span>
-                      <Sun size={12} />
-                    </button>
-                    <button
-                      onClick={() => setMealCoverage('dinners')}
-                      className={`py-1 px-2 rounded-xl text-[11px] font-bold transition-all flex items-center justify-between cursor-pointer ${
-                        mealCoverage === 'dinners' 
-                          ? 'bg-[#E07A5F] text-white shadow-xs' 
-                          : 'bg-white dark:bg-zinc-700 text-zinc-600 dark:text-zinc-300'
-                      }`}
-                    >
-                      <span>Solo Cenas</span>
-                      <Moon size={12} />
-                    </button>
-                    <button
-                      onClick={() => setMealCoverage('both')}
-                      className={`py-1 px-2 rounded-xl text-[11px] font-bold transition-all flex items-center justify-between cursor-pointer ${
-                        mealCoverage === 'both' 
-                          ? 'bg-[#E07A5F] text-white shadow-xs' 
-                          : 'bg-white dark:bg-zinc-700 text-zinc-600 dark:text-zinc-300'
-                      }`}
-                    >
-                      <span>Comida + Cena</span>
-                      <span className="text-[9px] bg-white/20 px-1 rounded">2 tomas</span>
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* 2. Preferencia de Variedad & Repetición de Recetas */}
-            <div className="glass-surface rounded-3xl p-5 border border-zinc-200 dark:border-white/10 shadow-xs space-y-3">
+            {/* SEGMENTED ARCHETYPE SWITCHER (TOP OF HERO CARD) */}
+            <div className="space-y-2">
               <div className="flex items-center justify-between">
-                <h2 className="text-xs font-bold uppercase tracking-wider text-[#E07A5F] flex items-center gap-2">
-                  <Layers size={15} />
-                  <span>2. Variedad & Repetición de Platos</span>
-                </h2>
-                <span className="text-xs font-mono font-bold text-zinc-500">
-                  {structure.dishCount} recetas distintas
+                <span className="text-[11px] font-black uppercase tracking-wider text-[#E07A5F]">
+                  1. Arquetipo de Semana
+                </span>
+                <span className="text-xs font-mono font-bold text-zinc-400">
+                  {structure.totalIndividualServings} raciones calculadas
                 </span>
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
-                {[
-                  {
-                    id: 'max_efficiency' as const,
-                    title: '⚡ Máxima Eficiencia',
-                    desc: 'Menos recetas, lotes más grandes. Cada plato se come ~2.5 veces. Cocinado más rápido.'
-                  },
-                  {
-                    id: 'balanced' as const,
-                    title: '⭐ Equilibrado (Recomendado)',
-                    desc: 'Variedad óptima. Cada receta se repite 2 veces en el ciclo. Balance perfecto.'
-                  },
-                  {
-                    id: 'high_variety' as const,
-                    title: '🌟 Alta Variedad Gourmet',
-                    desc: 'Más recetas distintas. Menos repetición (1-1.5 tomas por plato). Máxima frescura.'
-                  }
-                ].map(v => (
-                  <button
-                    key={v.id}
-                    onClick={() => setVarietyPreference(v.id)}
-                    className={`p-3 rounded-2xl border text-left transition-all flex flex-col justify-between cursor-pointer ${
-                      varietyPreference === v.id
-                        ? 'bg-[#E07A5F]/15 border-[#E07A5F] text-zinc-900 dark:text-white shadow-xs'
-                        : 'bg-zinc-50/80 dark:bg-zinc-800/50 border-zinc-200/80 dark:border-zinc-700/60 text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100'
-                    }`}
-                  >
-                    <div>
-                      <span className={`text-xs font-black block ${varietyPreference === v.id ? 'text-[#E07A5F]' : ''}`}>
-                        {v.title}
-                      </span>
-                      <p className="text-[10px] text-zinc-500 dark:text-zinc-400 mt-1 leading-tight">
-                        {v.desc}
-                      </p>
-                    </div>
-                  </button>
-                ))}
+              <div className="grid grid-cols-3 gap-2 bg-zinc-100 dark:bg-zinc-900 p-1.5 rounded-2xl border border-zinc-200 dark:border-zinc-800">
+                <button
+                  type="button"
+                  onClick={() => applyArchetype('familiar')}
+                  className={`py-3 px-2 sm:px-4 rounded-xl text-xs font-bold transition-all text-center cursor-pointer ${
+                    selectedArchetype === 'familiar'
+                      ? 'btn-hero-copper text-white shadow-md'
+                      : 'text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white'
+                  }`}
+                >
+                  <span className="block text-sm">👨‍👩‍👧‍👦 Familiar 5D</span>
+                  <span className="text-[10px] opacity-80 block font-normal mt-0.5">4 pers · 40 rac</span>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => applyArchetype('fitness')}
+                  className={`py-3 px-2 sm:px-4 rounded-xl text-xs font-bold transition-all text-center cursor-pointer ${
+                    selectedArchetype === 'fitness'
+                      ? 'btn-hero-copper text-white shadow-md'
+                      : 'text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white'
+                  }`}
+                >
+                  <span className="block text-sm">⚡ Fitness 4D</span>
+                  <span className="text-[10px] opacity-80 block font-normal mt-0.5">2 pers · 16 rac</span>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => applyArchetype('gourmet')}
+                  className={`py-3 px-2 sm:px-4 rounded-xl text-xs font-bold transition-all text-center cursor-pointer ${
+                    selectedArchetype === 'gourmet'
+                      ? 'btn-hero-copper text-white shadow-md'
+                      : 'text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white'
+                  }`}
+                >
+                  <span className="block text-sm">🍷 Gourmet 3D</span>
+                  <span className="text-[10px] opacity-80 block font-normal mt-0.5">3 pers · 18 rac</span>
+                </button>
               </div>
             </div>
 
-            {/* 3. Estilo Culinario */}
-            <div className="glass-surface rounded-3xl p-5 border border-zinc-200 dark:border-white/10 shadow-xs space-y-3">
-              <h2 className="text-xs font-bold uppercase tracking-wider text-[#E07A5F] flex items-center gap-2">
-                <ChefHat size={15} />
-                <span>3. Estilo Gastronómico de la Sesión</span>
-              </h2>
-
-              <div className="grid grid-cols-2 sm:grid-cols-5 gap-2">
-                {[
-                  { id: 'mediterranean' as const, label: 'Mediterránea', desc: 'Legumbres, carnes magras, verduras' },
-                  { id: 'fitness' as const, label: 'Fitness & Proteico', desc: 'Aves, salmón, batata, verduras' },
-                  { id: 'veggie' as const, label: '100% Vegetal', desc: 'Currys, legumbres, cremas' },
-                  { id: 'lowcarb' as const, label: 'Low Carb / Keto', desc: 'Guisos sin féculas, pescados' },
-                  { id: 'traditional' as const, label: 'Tradicional', desc: 'Guisos de cuchara y asados' }
-                ].map(style => (
-                  <button
-                    key={style.id}
-                    onClick={() => setDietStyle(style.id)}
-                    className={`p-2.5 rounded-2xl border text-left transition-all flex flex-col justify-between cursor-pointer ${
-                      dietStyle === style.id
-                        ? 'bg-[#E07A5F] text-white border-[#E07A5F] shadow-xs'
-                        : 'bg-zinc-50/80 dark:bg-zinc-800/50 border-zinc-200/80 dark:border-zinc-700/60 text-zinc-700 dark:text-zinc-300 hover:bg-zinc-100'
-                    }`}
-                  >
-                    <span className="text-xs font-black block leading-tight">{style.label}</span>
-                    <span className={`text-[9px] mt-1 leading-tight ${dietStyle === style.id ? 'text-white/80' : 'text-zinc-500'}`}>
-                      {style.desc}
-                    </span>
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            {/* 4. Preferencias & Despensa */}
-            <div className="glass-surface rounded-3xl p-5 border border-zinc-200 dark:border-white/10 shadow-xs space-y-3">
-              <h2 className="text-xs font-bold uppercase tracking-wider text-[#E07A5F] flex items-center gap-2">
-                <MessageSquare size={15} />
-                <span>4. Peticiones Especiales & Aprovechamiento de Despensa</span>
-              </h2>
-
-              <div className="space-y-3">
+            {/* INLINE FLUID SCRUBBERS (PEOPLE & DAYS) */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-2 border-t border-zinc-200/50 dark:border-zinc-800/60">
+              <div className="space-y-2">
+                <div className="flex justify-between items-center">
+                  <span className="text-xs font-bold text-zinc-700 dark:text-zinc-300 flex items-center gap-1.5">
+                    <Users size={14} className="text-[#E07A5F]" />
+                    <span>Comensales en la mesa:</span>
+                  </span>
+                  <strong className="text-sm font-mono font-black text-[#E07A5F]">{peopleCount} personas</strong>
+                </div>
                 <input
-                  type="text"
-                  value={cravings}
-                  onChange={(e) => setCravings(e.target.value)}
-                  placeholder="Ej. Mucha calabaza, sin picante, legumbres tiernas..."
-                  className="w-full p-3 text-xs rounded-xl glass-surface text-zinc-900 dark:text-white focus:outline-none focus:border-[#E07A5F]"
+                  type="range"
+                  min={1}
+                  max={8}
+                  value={peopleCount}
+                  onChange={(e) => { setPeopleCount(Number(e.target.value)); setSelectedArchetype('custom'); }}
+                  className="w-full accent-[#E07A5F] cursor-pointer"
                 />
+              </div>
 
-                <label className="flex items-center gap-2.5 p-3 rounded-xl bg-zinc-50/80 dark:bg-zinc-800/50 border border-zinc-200/80 dark:border-zinc-700/60 cursor-pointer">
-                  <input
-                    type="checkbox"
-                    checked={includeFridge}
-                    onChange={(e) => setIncludeFridge(e.target.checked)}
-                    className="w-4 h-4 accent-[#E07A5F] rounded"
-                  />
-                  <div className="text-xs">
-                    <strong className="text-zinc-900 dark:text-white">Aprovechamiento Zero Waste (Descontar de Despensa)</strong>
-                    <p className="text-zinc-500 dark:text-zinc-400 text-[11px]">
-                      Cruzar automáticamente con el stock de tu despensa para no comprar ingredientes que ya tienes.
-                    </p>
-                  </div>
-                </label>
+              <div className="space-y-2">
+                <div className="flex justify-between items-center">
+                  <span className="text-xs font-bold text-zinc-700 dark:text-zinc-300 flex items-center gap-1.5">
+                    <Calendar size={14} className="text-[#E07A5F]" />
+                    <span>Días de cobertura:</span>
+                  </span>
+                  <strong className="text-sm font-mono font-black text-[#E07A5F]">{daysCount} días</strong>
+                </div>
+                <input
+                  type="range"
+                  min={2}
+                  max={7}
+                  value={daysCount}
+                  onChange={(e) => { setDaysCount(Number(e.target.value)); setSelectedArchetype('custom'); }}
+                  className="w-full accent-[#E07A5F] cursor-pointer"
+                />
               </div>
             </div>
+
+            {/* LIVE PRODUCTION METRICS (INLINE ROW) */}
+            <div className="grid grid-cols-4 gap-2 text-center py-4 px-3 bg-zinc-50 dark:bg-zinc-800/80 rounded-2xl border border-zinc-200/60 dark:border-zinc-800">
+              <div>
+                <span className="text-[10px] text-zinc-400 uppercase font-bold block">Raciones</span>
+                <strong className="text-lg sm:text-xl font-mono font-black text-[#E07A5F]">{structure.totalIndividualServings}</strong>
+              </div>
+              <div>
+                <span className="text-[10px] text-zinc-400 uppercase font-bold block">Recetas</span>
+                <strong className="text-lg sm:text-xl font-mono font-black text-zinc-900 dark:text-white">{structure.dishCount}</strong>
+              </div>
+              <div>
+                <span className="text-[10px] text-zinc-400 uppercase font-bold block">Cocina</span>
+                <strong className="text-lg sm:text-xl font-mono font-black text-amber-500">~{structure.estimatedCookTimeFormatted}</strong>
+              </div>
+              <div>
+                <span className="text-[10px] text-zinc-400 uppercase font-bold block">Ahorro</span>
+                <strong className="text-lg sm:text-xl font-mono font-black text-emerald-500">+{structure.hoursSavedWeekly}h</strong>
+              </div>
+            </div>
+
+            {/* SINGLE MAGNETIC PRIMARY CTA */}
+            <button
+              onClick={handleGenerate}
+              disabled={isGenerating}
+              className="w-full py-4 btn-hero-copper text-white font-black text-sm rounded-2xl shadow-lg transition-all flex items-center justify-center gap-2 active:scale-98 cursor-pointer"
+            >
+              {isGenerating ? (
+                <div className="flex items-center gap-2">
+                  <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                  <span>Coordinando 4 fuegos y despensa...</span>
+                </div>
+              ) : (
+                <>
+                  <Sparkles size={18} />
+                  <span>Generar Menú de {structure.totalIndividualServings} Raciones en 1 Clic</span>
+                  <ArrowRight size={16} />
+                </>
+              )}
+            </button>
 
           </div>
 
-          {/* Right Summary Sidebar (1 col) */}
-          <div className="space-y-4">
-            <div className="glass-surface-elevated rounded-3xl p-6 border border-[#E07A5F]/30 space-y-5">
-              <div className="flex items-center justify-between">
-                <span className="text-xs font-bold uppercase tracking-wider text-[#E07A5F]">
-                  Matriz de Producción TouChef
-                </span>
-                <Sparkles size={16} className="text-[#E07A5F]" />
+          {/* ========================================================================= */}
+          {/* 2. SMART AUTO-COLLAPSE RIBBON (MICRO-CHIPS ACCORDION)                     */}
+          {/* ========================================================================= */}
+          <div ref={ribbonRef} className="space-y-2">
+            
+            {/* MICRO-CHIPS RIBBON (1 ROW 36px) */}
+            <div className="flex items-center justify-between gap-2 p-2 rounded-2xl bg-zinc-100/80 dark:bg-zinc-900/80 border border-zinc-200/80 dark:border-white/5 overflow-x-auto no-scrollbar">
+              
+              <div className="flex items-center gap-1 text-[11px] font-bold text-zinc-500 shrink-0 pl-1">
+                <SlidersHorizontal size={13} className="text-[#E07A5F]" />
+                <span className="hidden sm:inline">Ajustes Finos (Opcional):</span>
               </div>
 
-              {/* LIVE METRICS BREAKDOWN */}
-              <div className="space-y-2.5">
-                <div className="p-3 bg-zinc-100/90 dark:bg-zinc-900/60 rounded-2xl border border-zinc-200/80 dark:border-white/10 flex justify-between items-center shadow-xs">
-                  <div>
-                    <span className="text-xs font-bold text-zinc-700 dark:text-zinc-300 block">Raciones Individuales:</span>
-                    <span className="text-[10px] text-zinc-500">{peopleCount} personas × {structure.totalFamilyMeals} tomas</span>
-                  </div>
-                  <span className="text-xl font-black text-[#E07A5F] font-mono">{structure.totalIndividualServings} rac</span>
-                </div>
+              <div className="flex items-center gap-1.5 overflow-x-auto py-0.5">
+                
+                {/* Chip 1: Antojos */}
+                <button
+                  type="button"
+                  onClick={() => setActiveDrawer(d => d === 'cravings' ? 'none' : 'cravings')}
+                  className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition-all flex items-center gap-1.5 cursor-pointer whitespace-nowrap ${
+                    activeDrawer === 'cravings'
+                      ? 'bg-[#E07A5F] text-white shadow-xs'
+                      : cravings.trim().length > 0
+                      ? 'bg-[#E07A5F]/15 border border-[#E07A5F]/40 text-[#E07A5F] font-bold'
+                      : 'bg-white dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 hover:bg-zinc-50'
+                  }`}
+                >
+                  <MessageSquare size={13} />
+                  <span>{cravings.trim().length > 0 ? `Antojos (${cravings.slice(0, 12)}...)` : 'Antojos'}</span>
+                </button>
 
-                <div className="p-3 bg-zinc-100/90 dark:bg-zinc-900/60 rounded-2xl border border-zinc-200/80 dark:border-white/10 flex justify-between items-center shadow-xs">
-                  <div>
-                    <span className="text-xs font-bold text-zinc-700 dark:text-zinc-300 block">Servicios Familiares:</span>
-                    <span className="text-[10px] text-zinc-500">
-                      {mealCoverage === 'both' ? `${daysCount} almuerzos + ${daysCount} cenas` : `${daysCount} tomas`}
-                    </span>
-                  </div>
-                  <span className="text-sm font-bold text-zinc-900 dark:text-white font-mono">{structure.totalFamilyMeals} tomas</span>
-                </div>
+                {/* Chip 2: Microondas */}
+                <button
+                  type="button"
+                  onClick={() => setActiveDrawer(d => d === 'microwave' ? 'none' : 'microwave')}
+                  className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition-all flex items-center gap-1.5 cursor-pointer whitespace-nowrap ${
+                    activeDrawer === 'microwave'
+                      ? 'bg-[#E07A5F] text-white shadow-xs'
+                      : 'bg-white dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 hover:bg-zinc-50'
+                  }`}
+                >
+                  <Zap size={13} className="text-amber-500" />
+                  <span>{microwaveWatts}W</span>
+                </button>
 
-                <div className="p-3 bg-zinc-100/90 dark:bg-zinc-900/60 rounded-2xl border border-zinc-200/80 dark:border-white/10 flex justify-between items-center shadow-xs">
-                  <div>
-                    <span className="text-xs font-bold text-zinc-700 dark:text-zinc-300 block">Recetas Coordinadas:</span>
-                    <span className="text-[10px] text-zinc-500">~{structure.averageRepetition} tomas por receta</span>
-                  </div>
-                  <span className="text-sm font-bold text-zinc-900 dark:text-white font-mono">{structure.dishCount} platos</span>
-                </div>
+                {/* Chip 3: Envases */}
+                <button
+                  type="button"
+                  onClick={() => setActiveDrawer(d => d === 'containers' ? 'none' : 'containers')}
+                  className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition-all flex items-center gap-1.5 cursor-pointer whitespace-nowrap ${
+                    activeDrawer === 'containers'
+                      ? 'bg-[#E07A5F] text-white shadow-xs'
+                      : 'bg-white dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 hover:bg-zinc-50'
+                  }`}
+                >
+                  <Box size={13} className="text-emerald-500" />
+                  <span>Borosilicato</span>
+                </button>
 
-                <div className="p-3 bg-zinc-100/90 dark:bg-zinc-900/60 rounded-2xl border border-zinc-200/80 dark:border-white/10 flex justify-between items-center shadow-xs">
-                  <span className="text-xs font-bold text-zinc-700 dark:text-zinc-300">Tiempo Sesión Paralela:</span>
-                  <span className="text-sm font-bold text-[#84A98C] font-mono">~{structure.estimatedCookTimeFormatted}</span>
-                </div>
+                {/* Chip 4: Alérgenos */}
+                <button
+                  type="button"
+                  onClick={() => setActiveDrawer(d => d === 'allergens' ? 'none' : 'allergens')}
+                  className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition-all flex items-center gap-1.5 cursor-pointer whitespace-nowrap ${
+                    activeDrawer === 'allergens'
+                      ? 'bg-red-600 text-white shadow-xs'
+                      : selectedAllergens.length > 0
+                      ? 'bg-red-500/15 border border-red-500/40 text-red-500 font-bold'
+                      : 'bg-white dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 hover:bg-zinc-50'
+                  }`}
+                >
+                  <ShieldCheck size={13} />
+                  <span>{selectedAllergens.length > 0 ? `Alérgenos (${selectedAllergens.length})` : 'Alérgenos'}</span>
+                </button>
 
-                <div className="p-3 bg-zinc-100/90 dark:bg-zinc-900/60 rounded-2xl border border-zinc-200/80 dark:border-white/10 flex justify-between items-center shadow-xs">
-                  <span className="text-xs font-bold text-zinc-700 dark:text-zinc-300">Tiempo Libre Ganado:</span>
-                  <span className="text-sm font-bold text-[#84A98C] font-mono">+{structure.hoursSavedWeekly}h de L a V</span>
-                </div>
+                {/* Chip 5: Pasillos DIA */}
+                <button
+                  type="button"
+                  onClick={() => setActiveDrawer(d => d === 'aisles' ? 'none' : 'aisles')}
+                  className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition-all flex items-center gap-1.5 cursor-pointer whitespace-nowrap ${
+                    activeDrawer === 'aisles'
+                      ? 'bg-[#E07A5F] text-white shadow-xs'
+                      : 'bg-white dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 hover:bg-zinc-50'
+                  }`}
+                >
+                  <ShoppingBag size={13} />
+                  <span>{preferredSupermarket.replace('Supermercados ', '')}</span>
+                </button>
+
               </div>
 
-              {/* GENERATE CTA BUTTON */}
               <button
-                onClick={handleGenerate}
-                disabled={isGenerating}
-                className="w-full py-4 btn-hero-copper text-white font-black text-sm rounded-2xl shadow-md transition-all flex items-center justify-center gap-2 active:scale-95 disabled:opacity-50 cursor-pointer"
+                type="button"
+                onClick={() => setActiveDrawer(d => d === 'none' ? 'cravings' : 'none')}
+                className="p-1.5 text-zinc-400 hover:text-white transition-colors cursor-pointer shrink-0"
               >
-                {isGenerating ? (
-                  <>
-                    <RefreshCw size={16} className="animate-spin" />
-                    <span>Orquestando {structure.totalIndividualServings} Raciones...</span>
-                  </>
-                ) : (
-                  <>
-                    <Sparkles size={18} />
-                    <span>Planificar Sesión Inteligente</span>
-                    <ArrowRight size={16} />
-                  </>
-                )}
+                {activeDrawer !== 'none' ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
               </button>
 
-              {isGenerating && (
-                <div className="space-y-2 pt-2">
-                  <div className="w-full bg-zinc-800 rounded-full h-2 overflow-hidden">
-                    <div 
-                      className="bg-[#E07A5F] h-full rounded-full transition-all duration-300"
-                      style={{ width: `${generationProgress}%` }}
-                    />
-                  </div>
-                  <p className="text-[11px] text-zinc-400 text-center font-mono">
-                    {generationStatusText}
-                  </p>
-                </div>
-              )}
             </div>
+
+            {/* EXPANDABLE ACCORDION (CSS GRID 0fr -> 1fr ZERO CLS) */}
+            <div 
+              className={`grid transition-all duration-300 ease-out ${
+                activeDrawer !== 'none' ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0 pointer-events-none'
+              }`}
+            >
+              <div className="overflow-hidden">
+                <div className="p-5 rounded-3xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 shadow-xl space-y-4">
+                  
+                  <div className="flex items-center justify-between pb-3 border-b border-zinc-100 dark:border-zinc-800">
+                    <span className="text-xs font-bold text-[#E07A5F] flex items-center gap-1.5 uppercase">
+                      {activeDrawer === 'cravings' && <><MessageSquare size={14} /> Notas, Antojos & Despensa</>}
+                      {activeDrawer === 'microwave' && <><Zap size={14} /> Microondas & Potencia (600W - 1200W)</>}
+                      {activeDrawer === 'containers' && <><Box size={14} /> Envases de Vidrio Borosilicato</>}
+                      {activeDrawer === 'allergens' && <><ShieldCheck size={14} /> Alérgenos Clínicos (14 UE)</>}
+                      {activeDrawer === 'aisles' && <><ShoppingBag size={14} /> Pasillos de Supermercado</>}
+                    </span>
+
+                    <button
+                      type="button"
+                      onClick={() => setActiveDrawer('none')}
+                      className="text-xs font-bold text-zinc-400 hover:text-zinc-900 dark:hover:text-white px-2.5 py-1 bg-zinc-100 dark:bg-zinc-800 rounded-lg cursor-pointer"
+                    >
+                      Listo ✓
+                    </button>
+                  </div>
+
+                  {/* TAB 1: ANTOJOS */}
+                  {activeDrawer === 'cravings' && (
+                    <div className="space-y-3">
+                      <div className="flex flex-wrap gap-1.5">
+                        {['Guisos reconfortantes', 'Cremas suaves', 'Sin picante', 'Platos proteicos', 'Verduras de temporada'].map(tag => (
+                          <button
+                            key={tag}
+                            type="button"
+                            onClick={() => setCravings(tag)}
+                            className="text-[11px] font-semibold px-2.5 py-1 rounded-lg bg-zinc-100 dark:bg-zinc-800 hover:bg-[#E07A5F]/20 text-zinc-700 dark:text-zinc-300 hover:text-[#E07A5F] transition-colors cursor-pointer"
+                          >
+                            + {tag}
+                          </button>
+                        ))}
+                      </div>
+                      <input
+                        type="text"
+                        value={cravings}
+                        onChange={(e) => setCravings(e.target.value)}
+                        placeholder="Ej: Mucha calabaza, patatas con fundamento, salsas ligeras..."
+                        className="w-full p-3 text-xs rounded-xl bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 text-zinc-900 dark:text-white focus:outline-none focus:border-[#E07A5F]"
+                      />
+                      <label className="flex items-center gap-2 text-xs font-bold text-zinc-700 dark:text-zinc-300 cursor-pointer">
+                        <input
+                          type="checkbox"
+                          checked={includeFridge}
+                          onChange={(e) => setIncludeFridge(e.target.checked)}
+                          className="accent-[#E07A5F]"
+                        />
+                        <span>Descontar automáticamente de Despensa Viva Zero Waste</span>
+                      </label>
+                    </div>
+                  )}
+
+                  {/* TAB 2: MICROONDAS */}
+                  {activeDrawer === 'microwave' && (
+                    <div className="space-y-3">
+                      <span className="text-xs text-zinc-500 block">Potencia de regeneración de tu microondas:</span>
+                      <div className="grid grid-cols-3 sm:grid-cols-6 gap-2">
+                        {[600, 750, 800, 900, 1000, 1200].map(watts => (
+                          <button
+                            key={watts}
+                            type="button"
+                            onClick={() => setMicrowaveWatts(watts)}
+                            className={`p-2.5 rounded-xl border text-center font-bold text-xs cursor-pointer transition-all ${
+                              microwaveWatts === watts 
+                                ? 'bg-[#E07A5F] text-white border-[#E07A5F] shadow-xs' 
+                                : 'bg-zinc-50 dark:bg-zinc-800 border-zinc-200 dark:border-zinc-700 text-zinc-700 dark:text-zinc-300'
+                            }`}
+                          >
+                            <span className="block font-mono text-sm">{watts}W</span>
+                            <span className="text-[9px] opacity-75">{watts === 800 ? 'Estándar' : 'Potencia'}</span>
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  {/* TAB 3: BOROSILICATO */}
+                  {activeDrawer === 'containers' && (
+                    <div className="space-y-3 text-xs">
+                      <p className="text-zinc-500">
+                        Los recipientes de vidrio de borosilicato son aptos para horno directo (400°C) y microondas sin transferir sabores ni microplásticos.
+                      </p>
+                      <label className="flex items-center gap-2 cursor-pointer font-semibold">
+                        <input
+                          type="checkbox"
+                          checked={hasSteamValve}
+                          onChange={(e) => setHasSteamValve(e.target.checked)}
+                          className="accent-[#E07A5F]"
+                        />
+                        <span>Tapas con válvula de vapor (calentar en microondas sin salpicaduras)</span>
+                      </label>
+                    </div>
+                  )}
+
+                  {/* TAB 4: ALÉRGENOS */}
+                  {activeDrawer === 'allergens' && (
+                    <div className="space-y-3">
+                      <span className="text-xs text-zinc-500 block">Selecciona restricciones a excluir de tus recetas:</span>
+                      <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                        {[
+                          'Gluten', 'Lactosa', 'Frutos Secos', 'Mariscos',
+                          'Pescado', 'Huevos', 'Soja', 'FODMAP'
+                        ].map(al => (
+                          <button
+                            key={al}
+                            type="button"
+                            onClick={() => toggleAllergen(al)}
+                            className={`p-2.5 rounded-xl border text-xs text-left transition-all cursor-pointer flex items-center justify-between ${
+                              selectedAllergens.includes(al)
+                                ? 'bg-red-600 text-white border-red-600 font-bold'
+                                : 'bg-zinc-50 dark:bg-zinc-800 border-zinc-200 dark:border-zinc-700 text-zinc-600 dark:text-zinc-300'
+                            }`}
+                          >
+                            <span>Sin {al}</span>
+                            {selectedAllergens.includes(al) && <Check size={13} />}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  {/* TAB 5: PASILLOS */}
+                  {activeDrawer === 'aisles' && (
+                    <div className="space-y-3">
+                      <span className="text-xs text-zinc-500 block">Supermercado preferido para ordenar la ruta física:</span>
+                      <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                        {['Supermercados DIA', 'Mercadona', 'Carrefour', 'Lidl'].map(sup => (
+                          <button
+                            key={sup}
+                            type="button"
+                            onClick={() => setPreferredSupermarket(sup)}
+                            className={`p-2.5 rounded-xl border text-xs font-bold transition-all cursor-pointer flex items-center justify-between ${
+                              preferredSupermarket === sup
+                                ? 'bg-[#E07A5F] text-white border-[#E07A5F]'
+                                : 'bg-zinc-50 dark:bg-zinc-800 border-zinc-200 dark:border-zinc-700 text-zinc-700 dark:text-zinc-300'
+                            }`}
+                          >
+                            <span>{sup}</span>
+                            {preferredSupermarket === sup && <Check size={13} />}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                </div>
+              </div>
+            </div>
+
           </div>
 
         </div>
       )}
 
-      {/* STEP 2: GENERATED PLAN OVERVIEW */}
+      {/* STEP 2: GENERATED PLAN & ORCHESTRATION BRIDGE */}
       {currentStep === 2 && generatedPlan && (
-        <div className="space-y-5 animate-slide-up">
+        <div className="space-y-6 animate-in fade-in duration-300">
           
-          <div className="glass-surface-elevated rounded-3xl p-6 border border-zinc-200 dark:border-white/10 shadow-xs space-y-5">
-            
-            {/* Summary Top Banner */}
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-zinc-100 dark:border-zinc-800 pb-5">
+          <PlanActionBridge
+            totalServings={structure.totalIndividualServings}
+            dishCount={structure.dishCount}
+            cookTime={structure.estimatedCookTimeFormatted}
+            onCookMyself={handleApproveAndSave}
+            onHireChef={handleApproveAndHireChef}
+            onSupermarketOrder={handleApproveAndSave}
+          />
+
+          <div className="glass-surface-elevated rounded-3xl p-6 sm:p-8 border border-zinc-200/80 dark:border-white/10 shadow-xs space-y-6">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-4 border-b border-zinc-100 dark:border-zinc-800 gap-2">
               <div>
-                <span className="text-[10px] font-bold text-[#E07A5F] uppercase bg-[#E07A5F]/15 px-3 py-1 rounded-full border border-[#E07A5F]/25">
-                  {generatedDishes.length} Recetas Coordinadas • {structure.totalIndividualServings} Raciones ({peopleCount} comensales)
-                </span>
-                <h2 className="text-xl font-display font-black text-zinc-900 dark:text-white mt-2">
-                  {generatedPlan.title}
-                </h2>
-                <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-1">
-                  Tiempo de cocción en paralelo: <strong>{generatedPlan.batchCookingSummary.totalTime}</strong> • Frecuencia media: <strong>~{structure.averageRepetition} tomas por plato</strong>
+                <h3 className="text-base font-black text-zinc-900 dark:text-white">
+                  Menú de Producción Optimizado ({generatedDishes.length} recetas coordinadas)
+                </h3>
+                <p className="text-xs text-zinc-500">
+                  Elaboración simultánea en 4 fuegos + horno con envasado diferido.
                 </p>
               </div>
-
-              {/* Action Buttons */}
-              <div className="flex items-center gap-2">
-                <button
-                  onClick={() => setCurrentStep(1)}
-                  className="px-4 py-2.5 rounded-xl border border-zinc-200 dark:border-zinc-700 text-xs font-bold text-zinc-700 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-800 cursor-pointer"
-                >
-                  Ajustar Parámetros
-                </button>
-
-                <button
-                  onClick={handleApproveAndSave}
-                  className="btn-hero-copper font-bold text-xs px-5 py-2.5 rounded-xl shadow-xs transition-all flex items-center gap-2 active:scale-95 cursor-pointer"
-                >
-                  <Check size={16} />
-                  <span>Aprobar y Generar Compra</span>
-                </button>
-              </div>
-            </div>
-
-            {/* Dynamic Dishes Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {generatedDishes.map((dish, idx) => {
-                const isLunch = dish.category === 'legumbres' || dish.category === 'carnes' || dish.category === 'acompanamientos';
-                const familyMealsForThis = Math.round(dish.servings / peopleCount);
-
-                return (
-                  <div 
-                    key={dish.id || idx}
-                    className="bg-zinc-50/80 dark:bg-zinc-800/60 rounded-2xl border border-zinc-200/80 dark:border-zinc-700/80 p-5 space-y-3 flex flex-col justify-between"
-                  >
-                    <div className="space-y-2">
-                      <div className="flex items-center justify-between gap-2">
-                        <div className="flex items-center gap-1.5">
-                          <span className={`text-[10px] font-black px-2.5 py-0.5 rounded-md uppercase ${
-                            isLunch ? 'bg-amber-500/15 text-amber-600 dark:text-amber-400' : 'bg-indigo-500/15 text-indigo-600 dark:text-indigo-400'
-                          }`}>
-                            {isLunch ? '☀️ Almuerzo' : '🌙 Cena Ligera'}
-                          </span>
-                          <span className="text-[10px] font-bold text-zinc-400 uppercase bg-zinc-200 dark:bg-zinc-700 px-2 py-0.5 rounded">
-                            {dish.cookingMethod.replace('_', ' ')}
-                          </span>
-                        </div>
-                        <span className="text-xs font-mono font-black text-[#E07A5F]">
-                          {dish.servings} raciones ({familyMealsForThis} tomas)
-                        </span>
-                      </div>
-
-                      <h3 className="text-sm font-bold text-zinc-900 dark:text-white leading-snug">
-                        {dish.name}
-                      </h3>
-
-                      <div className="text-xs text-zinc-500 dark:text-zinc-400 space-y-1 pt-1">
-                        <p className="font-semibold text-zinc-700 dark:text-zinc-300">Ingredientes Principales ({dish.servings}p):</p>
-                        <ul className="grid grid-cols-2 gap-1 text-[11px]">
-                          {dish.ingredients.map((ing, i) => (
-                            <li key={i} className="truncate">
-                              • {ing.name}: <strong>{ing.quantity} {ing.unit}</strong>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    </div>
-
-                    <div className="pt-3 border-t border-zinc-200/60 dark:border-zinc-700/60 text-[11px] text-zinc-500 flex items-center justify-between">
-                      <div className="flex items-center gap-1.5">
-                        <Clock size={13} className="text-[#E07A5F] shrink-0" />
-                        <span>{dish.prepTime}</span>
-                      </div>
-                      <div className="flex items-center gap-1 text-[10px] text-zinc-400">
-                        <Refrigerator size={12} className="text-[#52796F]" />
-                        <span>{dish.storageAdvice}</span>
-                      </div>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-
-            {/* Bottom Final CTA */}
-            <div className="p-5 bg-[#E07A5F]/10 border border-[#E07A5F]/25 rounded-2xl flex flex-col sm:flex-row items-center justify-between gap-4">
-              <div className="text-xs text-zinc-300 space-y-0.5">
-                <strong className="text-white block">¿Listo para el siguiente paso?</strong>
-                <span>Al aprobar se generará tu cesta de compra optimizada descontando lo que ya tienes en la despensa.</span>
-              </div>
-
               <button
-                onClick={handleApproveAndSave}
-                className="w-full sm:w-auto px-6 py-3.5 btn-hero-copper font-black text-xs rounded-2xl shadow-md transition-all flex items-center justify-center gap-2 active:scale-95 shrink-0 cursor-pointer"
+                onClick={() => setCurrentStep(1)}
+                className="text-xs font-bold text-[#E07A5F] hover:underline self-start sm:self-center cursor-pointer"
               >
-                <Check size={16} />
-                <span>Aprobar y Generar Lista de Compra</span>
-                <ArrowRight size={16} />
+                ← Modificar Parámetros
               </button>
             </div>
 
+            <div className="grid grid-cols-1 md:grid-cols-2 2xl:grid-cols-3 gap-4">
+              {generatedDishes.map(dish => (
+                <div
+                  key={dish.id}
+                  className="p-5 rounded-2xl bg-zinc-50 dark:bg-zinc-800/80 border border-zinc-200 dark:border-zinc-700/70 shadow-xs flex flex-col justify-between space-y-3"
+                >
+                  <div className="space-y-2">
+                    <div className="flex items-center justify-between">
+                      <span className="text-[10px] font-bold uppercase tracking-wider bg-zinc-200 dark:bg-zinc-700 px-2 py-0.5 rounded text-zinc-600 dark:text-zinc-300">
+                        {dish.cookingMethod.replace('_', ' ')}
+                      </span>
+                      <strong className="font-mono text-sm font-black text-[#E07A5F]">
+                        {dish.servings} raciones
+                      </strong>
+                    </div>
+                    <strong className="text-sm font-black text-zinc-900 dark:text-white block">
+                      {dish.name}
+                    </strong>
+                    <p className="text-xs text-zinc-500 dark:text-zinc-400 leading-relaxed">
+                      {dish.description}
+                    </p>
+                  </div>
+
+                  <div className="pt-2 border-t border-zinc-200/60 dark:border-zinc-700/60 flex items-center justify-between text-[11px] text-zinc-400">
+                    <span>Conservación: <strong className="text-zinc-300">{dish.storageAdvice}</strong></span>
+                    <span>{dish.estimatedTimeMinutes} min</span>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
 
         </div>

@@ -31,12 +31,26 @@ import {
   Wind,
   Box,
   Layers,
-  Sparkle
+  Sparkle,
+  Lock,
+  Mail,
+  Store,
+  Info,
+  FileText,
+  Award,
+  DollarSign,
+  UtensilsCrossed,
+  ArrowRight,
+  Stamp
 } from 'lucide-react';
-import { KitchenEquipmentItem, KitchenProfile } from '../types';
+import { KitchenEquipmentItem, KitchenProfile, ChefProfile } from '../types';
+import { HouseholdMemoryCard } from '../components/HouseholdMemoryCard';
+import { MOCK_CHEFS } from '../lib/chefsData';
 
 interface ProfileViewProps {
   onPeopleCountChange?: (count: number) => void;
+  onNavigateToChefPortal?: () => void;
+  onOpenChefOnboarding?: () => void;
 }
 
 const initialEquipmentCatalog: KitchenEquipmentItem[] = [
@@ -165,23 +179,24 @@ const availableAllergies = [
 ];
 
 const availableSupermarkets = [
+  'Supermercados DIA',
   'Mercadona',
   'Carrefour',
   'Lidl',
-  'Día',
   'Alcampo',
   'Eroski',
   'Aldi',
   'Mercado Local / Frutería'
 ];
 
-export function ProfileView({ onPeopleCountChange }: ProfileViewProps) {
+export function ProfileView({ onPeopleCountChange, onNavigateToChefPortal, onOpenChefOnboarding }: ProfileViewProps) {
   const [user, setUser] = useState<User | null>(null);
-  const [activeTab, setActiveTab] = useState<'household' | 'kitchen' | 'shopping' | 'account'>('kitchen');
+  const [activeTab, setActiveTab] = useState<'kitchen' | 'household' | 'shopping' | 'chef_contract' | 'account'>('kitchen');
   const [saving, setSaving] = useState(false);
   const [savedToast, setSavedToast] = useState(false);
 
   // Household state
+  const [displayName, setDisplayName] = useState<string>('');
   const [peopleCount, setPeopleCount] = useState<number>(4);
   const [adultsCount, setAdultsCount] = useState<number>(2);
   const [kidsCount, setKidsCount] = useState<number>(2);
@@ -199,17 +214,43 @@ export function ProfileView({ onPeopleCountChange }: ProfileViewProps) {
   // Shopping & Schedule state
   const [preferredShoppingDay, setPreferredShoppingDay] = useState<string>('Sábado por la mañana');
   const [preferredBatchDay, setPreferredBatchDay] = useState<string>('Domingo por la mañana');
-  const [selectedSupermarkets, setSelectedSupermarkets] = useState<string[]>(['Mercadona', 'Mercado Local / Frutería']);
+  const [selectedSupermarkets, setSelectedSupermarkets] = useState<string[]>(['Supermercados DIA', 'Mercado Local / Frutería']);
+
+  // Professional Chef Verification & Contract State
+  const [isVerifiedChef, setIsVerifiedChef] = useState<boolean>(() => {
+    if (typeof window !== 'undefined') {
+      return localStorage.getItem('touchef_chef_verified') === 'true';
+    }
+    return false;
+  });
+  const [chefTitle, setChefTitle] = useState<string>('Chef Especialista en Batch Cooking & Mediterránea');
+  const [chefCity, setChefCity] = useState<string>('Madrid');
+  const [chefZones, setChefZones] = useState<string>('Chamberí, Salamanca, Retiro, Pozuelo');
+  const [chefBio, setChefBio] = useState<string>('Cocinero con formación en hostelería y pasión por la cocina saludable en hogares.');
+  const [chefExperienceYears, setChefExperienceYears] = useState<number>(5);
+  const [chefSchool, setChefSchool] = useState<string>('Escuela Superior de Hostelería');
+  const [chefSanitaryCert, setChefSanitaryCert] = useState<string>('SAN-MAD-2025-9920');
+  const [chefCookingRate, setChefCookingRate] = useState<number>(22);
+  const [chefOffersShopping, setChefOffersShopping] = useState<boolean>(true);
+  const [chefShoppingRate, setChefShoppingRate] = useState<number>(18);
+  const [chefBringsTools, setChefBringsTools] = useState<boolean>(true);
+  const [chefOffersAssistant, setChefOffersAssistant] = useState<boolean>(false);
+  const [chefIncludesCleaning, setChefIncludesCleaning] = useState<boolean>(true);
+  const [chefDni, setChefDni] = useState<string>('12345678Z');
+  const [chefContractSigned, setChefContractSigned] = useState<boolean>(false);
+  const [chefContractDate, setChefContractDate] = useState<string>('');
 
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, async (currentUser) => {
       setUser(currentUser);
       if (currentUser) {
+        setDisplayName(currentUser.displayName || currentUser.email?.split('@')[0] || '');
         try {
           const docRef = doc(db, 'users', currentUser.uid);
           const snap = await getDoc(docRef);
           if (snap.exists()) {
             const data = snap.data();
+            if (data.displayName) setDisplayName(data.displayName);
             if (data.peopleCount) {
               setPeopleCount(data.peopleCount);
               setAdultsCount(Math.max(1, Math.round(data.peopleCount * 0.6)));
@@ -217,6 +258,22 @@ export function ProfileView({ onPeopleCountChange }: ProfileViewProps) {
             }
             if (data.dietPreferences) setSelectedDiets(data.dietPreferences);
             if (data.allergies) setSelectedAllergies(data.allergies);
+            if (data.isVerifiedChef) setIsVerifiedChef(data.isVerifiedChef);
+            if (data.chefProfile) {
+              const cp = data.chefProfile;
+              if (cp.title) setChefTitle(cp.title);
+              if (cp.city) setChefCity(cp.city);
+              if (cp.zones) setChefZones(cp.zones);
+              if (cp.bio) setChefBio(cp.bio);
+              if (cp.yearsExperience) setChefExperienceYears(cp.yearsExperience);
+              if (cp.school) setChefSchool(cp.school);
+              if (cp.sanitaryCert) setChefSanitaryCert(cp.sanitaryCert);
+              if (cp.cookingRate) setChefCookingRate(cp.cookingRate);
+              if (cp.contractSigned) {
+                setChefContractSigned(cp.contractSigned);
+                setChefContractDate(cp.contractDate || '');
+              }
+            }
             if (data.kitchenProfile) {
               const kp = data.kitchenProfile;
               if (kp.stoveType) setStoveType(kp.stoveType);
@@ -245,12 +302,6 @@ export function ProfileView({ onPeopleCountChange }: ProfileViewProps) {
     ));
   };
 
-  const handleUpdateEquipmentNotes = (id: string, notes: string) => {
-    setEquipmentList(prev => prev.map(item => 
-      item.id === id ? { ...item, brandOrNotes: notes } : item
-    ));
-  };
-
   const toggleDiet = (diet: string) => {
     setSelectedDiets(prev => 
       prev.includes(diet) ? prev.filter(d => d !== diet) : [...prev, diet]
@@ -267,15 +318,6 @@ export function ProfileView({ onPeopleCountChange }: ProfileViewProps) {
     setSelectedSupermarkets(prev => 
       prev.includes(supermarket) ? prev.filter(s => s !== supermarket) : [...prev, supermarket]
     );
-  };
-
-  const handleAddCustomDiet = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!customDiet.trim()) return;
-    if (!selectedDiets.includes(customDiet.trim())) {
-      setSelectedDiets([...selectedDiets, customDiet.trim()]);
-    }
-    setCustomDiet('');
   };
 
   const handleSaveProfile = async () => {
@@ -305,7 +347,7 @@ export function ProfileView({ onPeopleCountChange }: ProfileViewProps) {
     if (user) {
       try {
         await setDoc(doc(db, 'users', user.uid), {
-          displayName: user.displayName || user.email?.split('@')[0] || 'Cocinero',
+          displayName: displayName || user.displayName || user.email?.split('@')[0] || 'Cocinero',
           email: user.email,
           peopleCount: totalPeople,
           dietPreferences: selectedDiets,
@@ -331,15 +373,94 @@ export function ProfileView({ onPeopleCountChange }: ProfileViewProps) {
     setTimeout(() => setSavedToast(false), 3000);
   };
 
+  const handleSignChefContract = async () => {
+    if (!chefDni.trim()) {
+      alert('Por favor, indica tu DNI/NIE para formalizar el contrato.');
+      return;
+    }
+    if (!chefSanitaryCert.trim()) {
+      alert('Es obligatorio indicar el identificador de tu Certificado de Manipulador de Alimentos.');
+      return;
+    }
+
+    setSaving(true);
+    const dateNow = new Date().toLocaleDateString('es-ES', { day: '2-digit', month: 'long', year: 'numeric' });
+    setChefContractSigned(true);
+    setChefContractDate(dateNow);
+    setIsVerifiedChef(true);
+    localStorage.setItem('touchef_chef_verified', 'true');
+
+    // Register into MOCK_CHEFS
+    const newChef: ChefProfile = {
+      id: `chef-${user?.uid || Date.now()}`,
+      name: displayName || user?.displayName || 'Chef TouChef',
+      slug: (displayName || 'chef').toLowerCase().replace(/\s+/g, '-'),
+      title: chefTitle,
+      avatar: user?.photoURL || 'https://images.unsplash.com/photo-1577219491135-ce391730fb2c?w=400&auto=format&fit=crop&q=80',
+      bio: chefBio,
+      rating: 5.0,
+      reviewsCount: 0,
+      completedBookingsCount: 0,
+      locationCity: `${chefCity} (${chefZones})`,
+      zones: chefZones.split(',').map(z => z.trim()),
+      isVerified: true,
+      yearsExperience: chefExperienceYears,
+      specialties: ['Batch Cooking', 'Mediterránea', 'Saludable'],
+      pricing: {
+        cookingHourRate: chefCookingRate,
+        groceryShoppingHourRate: chefOffersShopping ? chefShoppingRate : 0,
+        travelFee: 5,
+        travelRadiusKm: 15,
+        toolsIncluded: chefBringsTools,
+        toolsExtraFee: 0,
+        cleaningIncluded: chefIncludesCleaning
+      },
+      availabilityDays: ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábados'],
+      timeSlots: ['Mañanas (09:00 - 14:00)', 'Tardes (16:00 - 21:00)'],
+      badges: ['Chef Verificado', 'Contrato Firmado', 'Manipulador Certificado'],
+      featuredDishes: [],
+      reviews: []
+    };
+
+    MOCK_CHEFS.unshift(newChef);
+
+    if (user) {
+      try {
+        await setDoc(doc(db, 'users', user.uid), {
+          isVerifiedChef: true,
+          chefProfile: {
+            title: chefTitle,
+            city: chefCity,
+            zones: chefZones,
+            bio: chefBio,
+            yearsExperience: chefExperienceYears,
+            school: chefSchool,
+            sanitaryCert: chefSanitaryCert,
+            cookingRate: chefCookingRate,
+            shoppingRate: chefShoppingRate,
+            contractSigned: true,
+            contractDate: dateNow,
+            dni: chefDni
+          }
+        }, { merge: true });
+      } catch (err) {
+        console.error('Error saving chef contract in Firestore:', err);
+      }
+    }
+
+    setSaving(false);
+    setSavedToast(true);
+    setTimeout(() => setSavedToast(false), 3000);
+  };
+
   const handleLogout = async () => {
     try {
       await firebaseSignOut(auth);
+      window.location.reload();
     } catch (e) {
       console.error('Logout error:', e);
     }
   };
-
-  const availableEquipmentCount = equipmentList.filter(e => e.available).length;
 
   return (
     <div className="space-y-6 animate-fade-in pb-16 text-zinc-900 dark:text-zinc-100 max-w-5xl mx-auto">
@@ -357,7 +478,7 @@ export function ProfileView({ onPeopleCountChange }: ProfileViewProps) {
                   <ChefHat size={32} />
                 )}
               </div>
-              <span className="absolute -bottom-1 -right-1 w-5 h-5 rounded-full bg-[#E07A5F] border-2 border-white dark:border-zinc-900 flex items-center justify-center text-[10px] text-white">
+              <span className="absolute -bottom-1 -right-1 w-5 h-5 rounded-full bg-[#E07A5F] border-2 border-white dark:border-zinc-900 flex items-center justify-center text-[10px] text-white font-bold">
                 ✓
               </span>
             </div>
@@ -365,18 +486,55 @@ export function ProfileView({ onPeopleCountChange }: ProfileViewProps) {
             <div>
               <div className="flex flex-wrap items-center gap-2">
                 <h1 className="text-xl font-black text-zinc-900 dark:text-white leading-tight">
-                  Mi Hogar & Equipamiento de Cocina
+                  {displayName || 'Mi Cocina & Ajustes del Hogar'}
                 </h1>
-                <span className="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-[#E07A5F]/10 text-[#E07A5F] dark:text-[#F4A261] border border-[#E07A5F]/20 uppercase tracking-wider">
-                  Configuración del Hogar
-                </span>
+                {isVerifiedChef ? (
+                  <span className="text-[10px] font-black px-2.5 py-0.5 rounded-full bg-amber-500/20 text-amber-600 dark:text-amber-300 border border-amber-500/30 uppercase tracking-wider flex items-center gap-1">
+                    <Award size={12} /> Chef Profesional Homologado
+                  </span>
+                ) : (
+                  <span className="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-[#E07A5F]/10 text-[#E07A5F] dark:text-[#F4A261] border border-[#E07A5F]/20 uppercase tracking-wider">
+                    Configuración del Hogar
+                  </span>
+                )}
               </div>
+              
               <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-0.5">
-                {user ? `Cuenta vinculada: ${user.email}` : 'Modo local / Invitado'} • Sincronización en la Nube
+                {user ? `Cuenta activa: ${user.email}` : 'Modo Local / Invitado'} • Sincronización en la Nube
               </p>
+
+              {/* DISCRETE BECOME-A-CHEF / PRO ACCESS BUTTON */}
+              <div className="mt-2.5 flex flex-wrap items-center gap-2">
+                {isVerifiedChef ? (
+                  <button
+                    type="button"
+                    onClick={onNavigateToChefPortal}
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-amber-500/15 text-amber-600 dark:text-amber-300 hover:bg-amber-500/25 border border-amber-500/30 text-xs font-bold transition-all cursor-pointer"
+                    title="Acceder a mi panel de chef"
+                  >
+                    <Award size={13} className="text-amber-500" />
+                    <span>Panel de Cocinero Verificado · Ver Portal Pro →</span>
+                  </button>
+                ) : (
+                  <button
+                    type="button"
+                    onClick={() => {
+                      if (onOpenChefOnboarding) {
+                        onOpenChefOnboarding();
+                      } else {
+                        setActiveTab('chef_contract');
+                      }
+                    }}
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-amber-500/10 hover:bg-amber-500/20 text-amber-700 dark:text-amber-300 border border-amber-500/30 text-xs font-bold transition-all cursor-pointer shadow-2xs group"
+                    title="Darse de alta como cocinero profesional"
+                  >
+                    <ChefHat size={14} className="text-amber-500 group-hover:rotate-12 transition-transform" />
+                    <span>¿Quieres cocinar en hogares? Conviértete en Cocinero →</span>
+                  </button>
+                )}
+              </div>
             </div>
           </div>
-
 
           <div className="flex items-center gap-2.5 self-end sm:self-center">
             <button
@@ -391,442 +549,471 @@ export function ProfileView({ onPeopleCountChange }: ProfileViewProps) {
             {user && (
               <button
                 onClick={handleLogout}
-                className="p-2.5 rounded-xl bg-rose-500/10 hover:bg-rose-500/20 text-rose-600 dark:text-rose-400 border border-rose-500/20 transition-all active:scale-95 text-xs font-bold"
+                className="px-3 py-2 rounded-xl bg-rose-500/10 hover:bg-rose-500/20 text-rose-600 dark:text-rose-400 border border-rose-500/20 transition-all active:scale-95 text-xs font-bold flex items-center gap-1.5 cursor-pointer"
                 title="Cerrar Sesión"
               >
-                <LogOut size={16} />
+                <LogOut size={14} />
+                <span>Cerrar Sesión</span>
               </button>
             )}
           </div>
 
         </div>
 
-        {/* TOAST FEEDBACK */}
         {savedToast && (
-          <div className="mt-4 p-3 bg-[#E07A5F]/10 border border-[#E07A5F]/30 rounded-2xl flex items-center gap-2 text-xs font-bold text-zinc-800 dark:text-zinc-200 animate-fade-in">
-            <CheckCircle2 size={16} className="text-[#E07A5F] shrink-0" />
-            <span>Perfil familiar y equipamiento de cocina guardados con éxito en Firestore.</span>
+          <div className="mt-4 p-3 bg-emerald-500/15 border border-emerald-500/30 rounded-xl text-emerald-600 dark:text-emerald-400 text-xs font-bold flex items-center gap-2 animate-in fade-in">
+            <CheckCircle2 size={16} />
+            <span>¡Configuración y datos actualizados correctamente!</span>
           </div>
         )}
       </div>
 
-      {/* TABS SELECTOR */}
-      <div className="flex border-b border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 rounded-2xl p-1 shadow-xs overflow-x-auto hide-scrollbar">
-        <button
-          onClick={() => setActiveTab('kitchen')}
-          className={`flex-1 min-w-[140px] py-2.5 px-3 text-center text-xs font-bold rounded-xl transition-all flex items-center justify-center gap-2 ${
-            activeTab === 'kitchen'
-              ? 'bg-[#E07A5F] text-white shadow-xs'
-              : 'text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white'
-          }`}
-        >
-          <Flame size={15} />
-          <span>Mi Cocina & Equipamiento ({availableEquipmentCount})</span>
-        </button>
-
-        <button
-          onClick={() => setActiveTab('household')}
-          className={`flex-1 min-w-[140px] py-2.5 px-3 text-center text-xs font-bold rounded-xl transition-all flex items-center justify-center gap-2 ${
-            activeTab === 'household'
-              ? 'bg-[#E07A5F] text-white shadow-xs'
-              : 'text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white'
-          }`}
-        >
-          <Users size={15} />
-          <span>Comensales & Dietas ({adultsCount + kidsCount}p)</span>
-        </button>
-
-        <button
-          onClick={() => setActiveTab('shopping')}
-          className={`flex-1 min-w-[140px] py-2.5 px-3 text-center text-xs font-bold rounded-xl transition-all flex items-center justify-center gap-2 ${
-            activeTab === 'shopping'
-              ? 'bg-[#E07A5F] text-white shadow-xs'
-              : 'text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white'
-          }`}
-        >
-          <ShoppingBag size={15} />
-          <span>Compras & Horarios</span>
-        </button>
+      {/* TABS SWITCHER */}
+      <div className="flex items-center gap-2 border-b border-zinc-200 dark:border-zinc-800 pb-2 overflow-x-auto">
+        {[
+          { id: 'kitchen' as const, label: '🍳 Mi Cocina & Equipamiento' },
+          { id: 'household' as const, label: '👨‍👩‍👧‍👦 Hogar & Comensales' },
+          { id: 'shopping' as const, label: '🛒 Supermercados & Hábitos' },
+          { id: 'account' as const, label: '👤 Mi Cuenta & Seguridad' },
+          ...(isVerifiedChef ? [{ id: 'chef_contract' as const, label: '📜 Mi Contrato de Chef' }] : [])
+        ].map(t => (
+          <button
+            key={t.id}
+            onClick={() => setActiveTab(t.id)}
+            className={`px-4 py-2 rounded-xl text-xs font-bold transition-all whitespace-nowrap cursor-pointer ${
+              activeTab === t.id
+                ? 'btn-hero-copper text-white shadow-xs'
+                : 'bg-zinc-100 dark:bg-zinc-800/80 text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white'
+            }`}
+          >
+            {t.label}
+          </button>
+        ))}
       </div>
 
-      {/* TAB 1: MI COCINA & EQUIPAMIENTO CON FOTOS */}
+      {/* TAB 1: MI COCINA & EQUIPAMIENTO */}
       {activeTab === 'kitchen' && (
-        <div className="space-y-6 animate-fade-in">
-          
-          {/* Quick Metrics Bar */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-            <div className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-2xl p-3.5 text-center shadow-xs">
-              <span className="text-[10px] uppercase tracking-wider text-zinc-400 font-bold block">Fuegos de Cocina</span>
-              <div className="flex items-center justify-center gap-1 mt-1">
-                {[2, 3, 4, 5].map(num => (
-                  <button
-                    key={num}
-                    onClick={() => setBurnersCount(num)}
-                    className={`w-7 h-7 rounded-lg text-xs font-black transition-all ${
-                      burnersCount === num 
-                        ? 'bg-[#E07A5F] text-white shadow-xs' 
-                        : 'bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 hover:bg-zinc-200'
-                    }`}
-                  >
-                    {num}
-                  </button>
-                ))}
+        <div className="space-y-6">
+          <HouseholdMemoryCard />
+
+          <div className="bg-white dark:bg-zinc-900 rounded-3xl border border-zinc-200 dark:border-zinc-800 p-6 shadow-xs space-y-4">
+            <div className="flex items-center justify-between pb-3 border-b border-zinc-100 dark:border-zinc-800">
+              <div>
+                <h3 className="font-bold text-sm text-zinc-900 dark:text-white">Inventario de Electrodomésticos y Menaje</h3>
+                <p className="text-xs text-zinc-500">Selecciona el equipamiento disponible para que la IA y tus chefs coordinen recetas compatibles.</p>
               </div>
+              <span className="text-xs font-mono font-bold text-[#E07A5F]">
+                {equipmentList.filter(e => e.available).length} disponibles
+              </span>
             </div>
 
-            <div className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-2xl p-3.5 text-center shadow-xs">
-              <span className="text-[10px] uppercase tracking-wider text-zinc-400 font-bold block">Tipo de Placa</span>
-              <select
-                value={stoveType}
-                onChange={(e) => setStoveType(e.target.value as any)}
-                className="mt-1 bg-zinc-100 dark:bg-zinc-800 text-zinc-900 dark:text-white text-xs font-bold py-1 px-2 rounded-lg border border-zinc-200 dark:border-zinc-700 outline-none w-full text-center"
-              >
-                <option value="induccion">⚡ Inducción</option>
-                <option value="vitro">🔥 Vitrocerámica</option>
-                <option value="gas">🔵 Gas</option>
-                <option value="mixta">🔄 Mixta</option>
-              </select>
-            </div>
-
-            <div className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-2xl p-3.5 text-center shadow-xs">
-              <span className="text-[10px] uppercase tracking-wider text-zinc-400 font-bold block">Cajones Congelador</span>
-              <div className="flex items-center justify-center gap-1 mt-1">
-                {[1, 2, 3, 4].map(num => (
-                  <button
-                    key={num}
-                    onClick={() => setFreezerDrawers(num)}
-                    className={`w-7 h-7 rounded-lg text-xs font-black transition-all ${
-                      freezerDrawers === num 
-                        ? 'bg-[#E07A5F] text-white shadow-xs' 
-                        : 'bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 hover:bg-zinc-200'
-                    }`}
-                  >
-                    {num}
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            <div className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-2xl p-3.5 text-center shadow-xs">
-              <span className="text-[10px] uppercase tracking-wider text-zinc-400 font-bold block">Tuppers de Cristal</span>
-              <div className="flex items-center justify-center gap-2 mt-1">
-                <input
-                  type="number"
-                  min={2}
-                  max={40}
-                  value={tupperContainersCount}
-                  onChange={(e) => setTupperContainersCount(Number(e.target.value))}
-                  className="w-14 bg-zinc-100 dark:bg-zinc-800 text-zinc-900 dark:text-white text-xs font-black py-1 rounded-lg border border-zinc-200 dark:border-zinc-700 text-center outline-none"
-                />
-                <span className="text-xs text-zinc-400 font-bold">uds.</span>
-              </div>
-            </div>
-          </div>
-
-          {/* Explanation Callout */}
-          <div className="p-4 bg-[#E07A5F]/10 border border-[#E07A5F]/20 rounded-2xl flex items-start gap-3 text-xs text-zinc-800 dark:text-zinc-200">
-            <Sparkles size={18} className="text-[#E07A5F] shrink-0 mt-0.5" />
-            <p className="leading-relaxed">
-              <strong>Optimización del Algoritmo Batch:</strong> La IA cruzará este perfil con tus menús para calcular la distribución exacta de fuegos simultáneos. Si desactivas un equipo (ej. olla exprés o robot), el planificador nunca te pedirá recetas que lo requieran.
-            </p>
-          </div>
-
-          {/* Equipment Cards Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {equipmentList.map((item) => (
-              <div 
-                key={item.id}
-                className={`rounded-3xl border p-4 sm:p-5 flex flex-col justify-between gap-4 transition-all ${
-                  item.available 
-                    ? 'bg-white dark:bg-zinc-900 border-zinc-200 dark:border-zinc-800 shadow-xs' 
-                    : 'bg-zinc-50 dark:bg-zinc-900/40 border-zinc-200 dark:border-zinc-800/60 opacity-60'
-                }`}
-              >
-                <div className="flex items-start gap-3.5">
-                  <div className="w-20 h-20 rounded-2xl overflow-hidden shrink-0 border border-zinc-200 dark:border-zinc-700 bg-zinc-100 dark:bg-zinc-800 relative">
-                    <img 
-                      src={item.image} 
-                      alt={item.name} 
-                      className="w-full h-full object-cover" 
-                    />
-                    {item.available && (
-                      <span className="absolute top-1 right-1 w-4 h-4 rounded-full bg-[#E07A5F] text-white flex items-center justify-center text-[9px] font-black shadow-xs">
-                        ✓
-                      </span>
-                    )}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+              {equipmentList.map(item => (
+                <div
+                  key={item.id}
+                  onClick={() => handleToggleEquipment(item.id)}
+                  className={`p-3.5 rounded-2xl border transition-all flex items-start gap-3 cursor-pointer select-none ${
+                    item.available
+                      ? 'bg-zinc-50 dark:bg-zinc-800/80 border-[#E07A5F]/40 shadow-xs'
+                      : 'bg-zinc-50/40 dark:bg-zinc-800/40 border-zinc-200 dark:border-zinc-800 opacity-60'
+                  }`}
+                >
+                  <div className={`w-6 h-6 rounded-lg border flex items-center justify-center shrink-0 mt-0.5 ${
+                    item.available 
+                      ? 'bg-[#E07A5F] border-[#E07A5F] text-white' 
+                      : 'border-zinc-300 dark:border-zinc-600 bg-white dark:bg-zinc-700'
+                  }`}>
+                    {item.available && <Check size={14} strokeWidth={3} />}
                   </div>
 
-                  <div className="flex-1 min-w-0">
-                    <div className="flex items-start justify-between gap-1">
-                      <h4 className="text-xs sm:text-sm font-black text-zinc-900 dark:text-white leading-tight">
-                        {item.name}
-                      </h4>
-                    </div>
-                    <p className="text-[11px] text-zinc-500 dark:text-zinc-400 mt-1 leading-relaxed line-clamp-2">
+                  <div className="min-w-0 flex-1 space-y-1">
+                    <strong className="text-xs font-bold text-zinc-900 dark:text-white block leading-snug">
+                      {item.name}
+                    </strong>
+                    <p className="text-[11px] text-zinc-500 dark:text-zinc-400 leading-relaxed">
                       {item.description}
                     </p>
-                    {item.countOrCapacity && (
-                      <span className="inline-block text-[10px] font-bold text-[#E07A5F] dark:text-[#F4A261] bg-[#E07A5F]/10 px-2 py-0.5 rounded-md mt-1.5">
-                        {item.countOrCapacity}
-                      </span>
-                    )}
                   </div>
                 </div>
-
-                {/* Bottom Toggle & Model notes */}
-                <div className="flex items-center justify-between gap-2 pt-3 border-t border-zinc-100 dark:border-zinc-800/80">
-                  <input
-                    type="text"
-                    value={item.brandOrNotes || ''}
-                    onChange={(e) => handleUpdateEquipmentNotes(item.id, e.target.value)}
-                    placeholder="Modelo / Marca (ej. Cosori 5.5L)"
-                    className="flex-1 bg-zinc-50 dark:bg-zinc-800/60 border border-zinc-200 dark:border-zinc-700 rounded-xl px-2.5 py-1.5 text-xs text-zinc-900 dark:text-white outline-none focus:border-[#E07A5F]"
-                  />
-
-                  <button
-                    onClick={() => handleToggleEquipment(item.id)}
-                    className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all shrink-0 active:scale-95 cursor-pointer ${
-                      item.available 
-                        ? 'bg-[#E07A5F] text-white shadow-xs' 
-                        : 'bg-zinc-200 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400'
-                    }`}
-                  >
-                    {item.available ? '✅ En mi cocina' : '❌ No disponible'}
-                  </button>
-                </div>
-
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
-
         </div>
       )}
 
-      {/* TAB 2: COMENSALES & DIETAS */}
+      {/* TAB 2: HOGAR & COMENSALES */}
       {activeTab === 'household' && (
-        <div className="space-y-6 animate-fade-in">
-          
-          {/* Family Composition Card */}
+        <div className="space-y-6">
           <div className="bg-white dark:bg-zinc-900 rounded-3xl border border-zinc-200 dark:border-zinc-800 p-6 shadow-xs space-y-5">
-            <div>
-              <h3 className="text-sm font-black text-zinc-900 dark:text-white flex items-center gap-2">
-                <Users className="text-[#E07A5F]" size={18} />
-                <span>Composición del Hogar</span>
-              </h3>
-              <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-0.5">
-                Define cuántas raciones base se cocinan en cada tanda
-              </p>
-            </div>
+            <h3 className="font-bold text-sm text-zinc-900 dark:text-white pb-3 border-b border-zinc-100 dark:border-zinc-800">
+              Dimensiones del Hogar & Comensales
+            </h3>
 
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-              <div className="p-4 bg-zinc-50 dark:bg-zinc-800/40 rounded-2xl border border-zinc-200 dark:border-zinc-700/60 text-center space-y-2">
-                <span className="text-xs font-bold text-zinc-600 dark:text-zinc-400 block">Adultos</span>
-                <div className="flex items-center justify-center gap-3">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="p-4 bg-zinc-50 dark:bg-zinc-800/60 rounded-2xl border border-zinc-200 dark:border-zinc-700 space-y-2">
+                <span className="text-xs font-bold text-zinc-700 dark:text-zinc-300 block">Adultos en casa:</span>
+                <div className="flex items-center gap-3">
                   <button 
                     onClick={() => setAdultsCount(Math.max(1, adultsCount - 1))}
-                    className="w-8 h-8 rounded-xl bg-zinc-200 dark:bg-zinc-700 font-black text-sm text-zinc-800 dark:text-zinc-200 active:scale-90"
+                    className="w-8 h-8 rounded-xl bg-white dark:bg-zinc-700 border border-zinc-200 dark:border-zinc-600 font-bold"
                   >-</button>
-                  <span className="text-xl font-black text-zinc-900 dark:text-white">{adultsCount}</span>
+                  <span className="text-lg font-black font-mono">{adultsCount}</span>
                   <button 
                     onClick={() => setAdultsCount(adultsCount + 1)}
-                    className="w-8 h-8 rounded-xl bg-zinc-200 dark:bg-zinc-700 font-black text-sm text-zinc-800 dark:text-zinc-200 active:scale-90"
+                    className="w-8 h-8 rounded-xl bg-white dark:bg-zinc-700 border border-zinc-200 dark:border-zinc-600 font-bold"
                   >+</button>
                 </div>
               </div>
 
-              <div className="p-4 bg-zinc-50 dark:bg-zinc-800/40 rounded-2xl border border-zinc-200 dark:border-zinc-700/60 text-center space-y-2">
-                <span className="text-xs font-bold text-zinc-600 dark:text-zinc-400 block">Niños / Raciones Pequeñas</span>
-                <div className="flex items-center justify-center gap-3">
+              <div className="p-4 bg-zinc-50 dark:bg-zinc-800/60 rounded-2xl border border-zinc-200 dark:border-zinc-700 space-y-2">
+                <span className="text-xs font-bold text-zinc-700 dark:text-zinc-300 block">Niños / Raciones infantiles:</span>
+                <div className="flex items-center gap-3">
                   <button 
                     onClick={() => setKidsCount(Math.max(0, kidsCount - 1))}
-                    className="w-8 h-8 rounded-xl bg-zinc-200 dark:bg-zinc-700 font-black text-sm text-zinc-800 dark:text-zinc-200 active:scale-90"
+                    className="w-8 h-8 rounded-xl bg-white dark:bg-zinc-700 border border-zinc-200 dark:border-zinc-600 font-bold"
                   >-</button>
-                  <span className="text-xl font-black text-zinc-900 dark:text-white">{kidsCount}</span>
+                  <span className="text-lg font-black font-mono">{kidsCount}</span>
                   <button 
                     onClick={() => setKidsCount(kidsCount + 1)}
-                    className="w-8 h-8 rounded-xl bg-zinc-200 dark:bg-zinc-700 font-black text-sm text-zinc-800 dark:text-zinc-200 active:scale-90"
+                    className="w-8 h-8 rounded-xl bg-white dark:bg-zinc-700 border border-zinc-200 dark:border-zinc-600 font-bold"
                   >+</button>
                 </div>
               </div>
-
-              <div className="p-4 bg-[#E07A5F]/10 rounded-2xl border border-[#E07A5F]/30 text-center flex flex-col justify-center">
-                <span className="text-xs font-bold text-zinc-800 dark:text-zinc-200 block">Total Comensales</span>
-                <span className="text-2xl font-black text-[#E07A5F] dark:text-[#F4A261] mt-1">
-                  {adultsCount + kidsCount} personas
-                </span>
-              </div>
-            </div>
-          </div>
-
-          {/* Diet Preferences Card */}
-          <div className="bg-white dark:bg-zinc-900 rounded-3xl border border-zinc-200 dark:border-zinc-800 p-6 shadow-xs space-y-4">
-            <div>
-              <h3 className="text-sm font-black text-zinc-900 dark:text-white flex items-center gap-2">
-                <Heart className="text-[#E07A5F]" size={18} />
-                <span>Estilo Dietético & Preferencias</span>
-              </h3>
-              <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-0.5">
-                Selecciona los patrones de alimentación para tus menús
-              </p>
             </div>
 
-            <div className="flex flex-wrap gap-2">
-              {availableDietStyles.map((diet) => {
-                const isSelected = selectedDiets.includes(diet);
-                return (
+            <div className="space-y-2 pt-2">
+              <label className="text-xs font-bold text-zinc-700 dark:text-zinc-300 block">
+                Estilos de Alimentación Preferidos:
+              </label>
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                {availableDietStyles.map(diet => (
                   <button
                     key={diet}
                     onClick={() => toggleDiet(diet)}
-                    className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 active:scale-95 cursor-pointer ${
-                      isSelected
-                        ? 'bg-[#E07A5F] text-white shadow-xs'
-                        : 'bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 hover:bg-zinc-200 dark:hover:bg-zinc-700'
+                    className={`p-2.5 rounded-xl border text-xs text-left transition-all cursor-pointer ${
+                      selectedDiets.includes(diet)
+                        ? 'bg-[#E07A5F]/15 border-[#E07A5F] text-zinc-900 dark:text-white font-bold'
+                        : 'bg-zinc-50 dark:bg-zinc-800/40 border-zinc-200 dark:border-zinc-800 text-zinc-600 dark:text-zinc-400'
                     }`}
                   >
-                    {isSelected && <Check size={13} />}
-                    <span>{diet}</span>
+                    {selectedDiets.includes(diet) ? `✓ ${diet}` : diet}
                   </button>
-                );
-              })}
+                ))}
+              </div>
             </div>
 
-            <form onSubmit={handleAddCustomDiet} className="flex gap-2 pt-2">
-              <input
-                type="text"
-                value={customDiet}
-                onChange={(e) => setCustomDiet(e.target.value)}
-                placeholder="Añadir otra preferencia (ej: Sin picante, Alto en fibra)..."
-                className="flex-1 bg-zinc-50 dark:bg-zinc-800/60 border border-zinc-200 dark:border-zinc-700 rounded-xl px-3.5 py-2 text-xs text-zinc-900 dark:text-white outline-none focus:border-[#E07A5F]"
-              />
-              <button
-                type="submit"
-                className="bg-zinc-200 dark:bg-zinc-700 hover:bg-[#E07A5F] hover:text-white text-zinc-800 dark:text-zinc-200 text-xs font-bold px-4 py-2 rounded-xl transition-colors"
-              >
-                Añadir
-              </button>
-            </form>
-          </div>
-
-          {/* Allergies & Intolerances */}
-          <div className="bg-white dark:bg-zinc-900 rounded-3xl border border-zinc-200 dark:border-zinc-800 p-6 shadow-xs space-y-4">
-            <div>
-              <h3 className="text-sm font-black text-zinc-900 dark:text-white flex items-center gap-2">
-                <AlertCircle className="text-rose-500" size={18} />
-                <span>Alergias & Restricciones Médicas</span>
-              </h3>
-              <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-0.5">
-                Ingredientes que nunca deben incluirse en las recetas
-              </p>
-            </div>
-
-            <div className="flex flex-wrap gap-2">
-              {availableAllergies.map((allergy) => {
-                const isSelected = selectedAllergies.includes(allergy);
-                return (
+            <div className="space-y-2 pt-2">
+              <label className="text-xs font-bold text-zinc-700 dark:text-zinc-300 block">
+                Alérgenos e Intolerancias a Evitar:
+              </label>
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                {availableAllergies.map(allergy => (
                   <button
                     key={allergy}
                     onClick={() => toggleAllergy(allergy)}
-                    className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 active:scale-95 cursor-pointer ${
-                      isSelected
-                        ? 'bg-rose-600 text-white shadow-xs'
-                        : 'bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 hover:bg-zinc-200 dark:hover:bg-zinc-700'
+                    className={`p-2.5 rounded-xl border text-xs text-left transition-all cursor-pointer ${
+                      selectedAllergies.includes(allergy)
+                        ? 'bg-rose-500/15 border-rose-500 text-rose-600 dark:text-rose-400 font-bold'
+                        : 'bg-zinc-50 dark:bg-zinc-800/40 border-zinc-200 dark:border-zinc-800 text-zinc-600 dark:text-zinc-400'
                     }`}
                   >
-                    {isSelected && <Check size={13} />}
-                    <span>{allergy}</span>
+                    {selectedAllergies.includes(allergy) ? `⚠️ ${allergy}` : allergy}
                   </button>
-                );
-              })}
+                ))}
+              </div>
             </div>
+          </div>
+        </div>
+      )}
+
+      {/* TAB 3: SUPERMERCADOS & HÁBITOS */}
+      {activeTab === 'shopping' && (
+        <div className="bg-white dark:bg-zinc-900 rounded-3xl border border-zinc-200 dark:border-zinc-800 p-6 shadow-xs space-y-5">
+          <h3 className="font-bold text-sm text-zinc-900 dark:text-white pb-3 border-b border-zinc-100 dark:border-zinc-800">
+            Supermercados Habituales & Días de Rutina
+          </h3>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label className="text-xs font-bold text-zinc-700 dark:text-zinc-300 block mb-1">Día Habitual de Compra:</label>
+              <input
+                type="text"
+                value={preferredShoppingDay}
+                onChange={(e) => setPreferredShoppingDay(e.target.value)}
+                placeholder="Ej. Sábado por la mañana"
+                className="w-full bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 rounded-xl p-2.5 text-xs text-zinc-900 dark:text-white"
+              />
+            </div>
+
+            <div>
+              <label className="text-xs font-bold text-zinc-700 dark:text-zinc-300 block mb-1">Día Habitual de Batch Cooking / Cocinero:</label>
+              <input
+                type="text"
+                value={preferredBatchDay}
+                onChange={(e) => setPreferredBatchDay(e.target.value)}
+                placeholder="Ej. Domingo por la tarde"
+                className="w-full bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 rounded-xl p-2.5 text-xs text-zinc-900 dark:text-white"
+              />
+            </div>
+          </div>
+
+          <div className="space-y-2 pt-2">
+            <label className="text-xs font-bold text-zinc-700 dark:text-zinc-300 block">Supermercados de Confianza:</label>
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+              {availableSupermarkets.map(sm => (
+                <button
+                  key={sm}
+                  onClick={() => toggleSupermarket(sm)}
+                  className={`p-2.5 rounded-xl border text-xs text-left transition-all cursor-pointer ${
+                    selectedSupermarkets.includes(sm)
+                      ? 'bg-rose-500/15 border-rose-500 text-zinc-900 dark:text-white font-bold'
+                      : 'bg-zinc-50 dark:bg-zinc-800/40 border-zinc-200 dark:border-zinc-800 text-zinc-600 dark:text-zinc-400'
+                  }`}
+                >
+                  {selectedSupermarkets.includes(sm) ? `✓ ${sm}` : sm}
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* TAB 4: MODO COCINERO & FIRMA DE CONTRATO */}
+      {activeTab === 'chef_contract' && (
+        <div className="bg-white dark:bg-zinc-900 rounded-3xl border border-zinc-200 dark:border-zinc-800 p-6 shadow-xs space-y-6">
+          
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-4 border-b border-zinc-100 dark:border-zinc-800 gap-3">
+            <div>
+              <div className="flex items-center gap-2">
+                <ChefHat className="text-amber-500" size={20} />
+                <h3 className="font-bold text-sm text-zinc-900 dark:text-white">
+                  Verificación de Cocinero Profesional & Contrato
+                </h3>
+              </div>
+              <p className="text-xs text-zinc-500 mt-0.5">
+                Completa tus datos profesionales, tarifas y firma el contrato mercantil para cocinar en hogares.
+              </p>
+            </div>
+
+            {isVerifiedChef && (
+              <span className="px-3 py-1 bg-emerald-500/15 border border-emerald-500/30 text-emerald-600 dark:text-emerald-400 rounded-full text-xs font-black flex items-center gap-1.5 self-start sm:self-center">
+                <ShieldCheck size={14} /> Contrato Activo y Verificado
+              </span>
+            )}
+          </div>
+
+          {/* Form fields */}
+          <div className="space-y-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label className="text-xs font-bold text-zinc-700 dark:text-zinc-300 block mb-1">Título Profesional</label>
+                <input
+                  type="text"
+                  value={chefTitle}
+                  onChange={(e) => setChefTitle(e.target.value)}
+                  className="w-full bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 rounded-xl p-2.5 text-xs text-zinc-900 dark:text-white"
+                />
+              </div>
+
+              <div>
+                <label className="text-xs font-bold text-zinc-700 dark:text-zinc-300 block mb-1">DNI / NIE del Titular *</label>
+                <input
+                  type="text"
+                  value={chefDni}
+                  onChange={(e) => setChefDni(e.target.value)}
+                  placeholder="12345678X"
+                  className="w-full bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 rounded-xl p-2.5 text-xs text-zinc-900 dark:text-white font-mono"
+                />
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label className="text-xs font-bold text-zinc-700 dark:text-zinc-300 block mb-1">Ciudad de Cobertura</label>
+                <input
+                  type="text"
+                  value={chefCity}
+                  onChange={(e) => setChefCity(e.target.value)}
+                  className="w-full bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 rounded-xl p-2.5 text-xs text-zinc-900 dark:text-white"
+                />
+              </div>
+
+              <div>
+                <label className="text-xs font-bold text-zinc-700 dark:text-zinc-300 block mb-1">Nº Registro Manipulador Sanitario *</label>
+                <input
+                  type="text"
+                  value={chefSanitaryCert}
+                  onChange={(e) => setChefSanitaryCert(e.target.value)}
+                  className="w-full bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 rounded-xl p-2.5 text-xs text-zinc-900 dark:text-white font-mono"
+                />
+              </div>
+            </div>
+
+            {/* Rates */}
+            <div className="p-4 bg-zinc-50 dark:bg-zinc-800/60 rounded-2xl border border-zinc-200 dark:border-zinc-700 grid grid-cols-1 sm:grid-cols-3 gap-4">
+              <div>
+                <label className="text-xs font-bold text-zinc-700 dark:text-zinc-300 block mb-1">Tarifa Cocina / h:</label>
+                <div className="flex items-center gap-2">
+                  <input
+                    type="range"
+                    min={18}
+                    max={40}
+                    value={chefCookingRate}
+                    onChange={(e) => setChefCookingRate(Number(e.target.value))}
+                    className="accent-amber-500 flex-1"
+                  />
+                  <span className="font-mono font-bold text-amber-500 text-sm">{chefCookingRate} €/h</span>
+                </div>
+              </div>
+
+              <div>
+                <label className="text-xs font-bold text-zinc-700 dark:text-zinc-300 block mb-1">Tarifa Compra DIA / h:</label>
+                <div className="flex items-center gap-2">
+                  <input
+                    type="range"
+                    min={12}
+                    max={25}
+                    value={chefShoppingRate}
+                    onChange={(e) => setChefShoppingRate(Number(e.target.value))}
+                    className="accent-amber-500 flex-1"
+                  />
+                  <span className="font-mono font-bold text-zinc-700 dark:text-zinc-300 text-sm">{chefShoppingRate} €/h</span>
+                </div>
+              </div>
+
+              <div className="space-y-1.5 pt-1">
+                <label className="flex items-center gap-2 text-xs text-zinc-700 dark:text-zinc-300 cursor-pointer">
+                  <input
+                    type="checkbox"
+                    checked={chefBringsTools}
+                    onChange={(e) => setChefBringsTools(e.target.checked)}
+                    className="w-4 h-4 accent-amber-500 rounded"
+                  />
+                  <span>Lleva cuchillos propios</span>
+                </label>
+                <label className="flex items-center gap-2 text-xs text-zinc-700 dark:text-zinc-300 cursor-pointer">
+                  <input
+                    type="checkbox"
+                    checked={chefIncludesCleaning}
+                    onChange={(e) => setChefIncludesCleaning(e.target.checked)}
+                    className="w-4 h-4 accent-emerald-500 rounded"
+                  />
+                  <span>Incluye limpieza de cocina</span>
+                </label>
+              </div>
+            </div>
+
+            {/* CONTRACT DOCUMENT VIEWER */}
+            <div className="p-4 rounded-2xl bg-amber-500/5 border border-amber-500/30 space-y-3">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <FileText className="text-amber-500" size={18} />
+                  <strong className="text-xs font-bold text-zinc-900 dark:text-white">
+                    Contrato Marco de Colaboración de Cocineros TouChef
+                  </strong>
+                </div>
+                <span className="text-[10px] bg-amber-500/20 text-amber-600 dark:text-amber-300 px-2 py-0.5 rounded-full font-mono">
+                  VERSIÓN 2026-ESP
+                </span>
+              </div>
+
+              <div className="p-3 bg-white dark:bg-zinc-800 rounded-xl border border-zinc-200 dark:border-zinc-700 text-[11px] text-zinc-600 dark:text-zinc-400 space-y-2 max-h-36 overflow-y-auto leading-relaxed">
+                <p>
+                  <strong>CLÁUSULA 1: OBJETO Y PRESTACIÓN.</strong> El profesional independiente se compromete a prestar servicios de cocinado y preparación de menús batch cooking en los domicilios particulares concertados a través de TouChef.
+                </p>
+                <p>
+                  <strong>CLÁUSULA 2: CUMPLIMIENTO SANITARIO.</strong> El cocinero declara formalmente estar en posesión del Certificado de Manipulador de Alimentos en vigor, cumpliendo con la normativa higiénico-sanitaria vigente en España.
+                </p>
+                <p>
+                  <strong>CLÁUSULA 3: LIQUIDACIÓN Y FONDOS.</strong> Los cobros se liquidarán una vez completados satisfactoriamente los 5 hitos del servicio según las tarifas estipuladas ({chefCookingRate} €/h).
+                </p>
+              </div>
+
+              {chefContractSigned ? (
+                <div className="p-3 bg-emerald-500/10 border border-emerald-500/20 rounded-xl text-xs text-emerald-600 dark:text-emerald-400 flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <CheckCircle2 size={16} />
+                    <span>Contrato formalizado digitalmente por <strong>{displayName || 'Usuario'}</strong> (DNI: {chefDni}) el {chefContractDate || 'recientemente'}.</span>
+                  </div>
+                  {onNavigateToChefPortal && (
+                    <button
+                      onClick={onNavigateToChefPortal}
+                      className="px-3 py-1.5 bg-amber-500 hover:bg-amber-400 text-stone-950 font-bold rounded-lg text-xs transition-all cursor-pointer shrink-0"
+                    >
+                      Ir al Portal Pro
+                    </button>
+                  )}
+                </div>
+              ) : (
+                <div className="pt-2 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                  <span className="text-[11px] text-zinc-500">
+                    Al firmar, el sistema te autoriza y publica tu perfil en el directorio oficial.
+                  </span>
+                  <button
+                    onClick={handleSignChefContract}
+                    disabled={saving}
+                    className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-amber-400 hover:from-amber-400 hover:to-amber-300 text-stone-950 font-black text-xs shadow-md transition-all flex items-center gap-2 cursor-pointer active:scale-95"
+                  >
+                    <Stamp size={16} />
+                    <span>Firmar Contrato y Autorizar Perfil</span>
+                  </button>
+                </div>
+              )}
+            </div>
+
           </div>
 
         </div>
       )}
 
-      {/* TAB 3: COMPRAS & HORARIOS */}
-      {activeTab === 'shopping' && (
-        <div className="space-y-6 animate-fade-in">
-          
-          <div className="bg-white dark:bg-zinc-900 rounded-3xl border border-zinc-200 dark:border-zinc-800 p-6 shadow-xs space-y-5">
+      {/* TAB 5: MI CUENTA & SEGURIDAD */}
+      {activeTab === 'account' && (
+        <div className="bg-white dark:bg-zinc-900 rounded-3xl border border-zinc-200 dark:border-zinc-800 p-6 shadow-xs space-y-5">
+          <h3 className="font-bold text-sm text-zinc-900 dark:text-white pb-3 border-b border-zinc-100 dark:border-zinc-800">
+            Detalles de Usuario y Seguridad
+          </h3>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <h3 className="text-sm font-black text-zinc-900 dark:text-white flex items-center gap-2">
-                <Calendar className="text-[#E07A5F]" size={18} />
-                <span>Rutinas Semanales de Batch Cooking</span>
-              </h3>
-              <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-0.5">
-                Configura tus días favoritos para comprar y cocinar
-              </p>
+              <label className="text-xs font-bold text-zinc-700 dark:text-zinc-300 block mb-1">Nombre Mostrado:</label>
+              <input
+                type="text"
+                value={displayName}
+                onChange={(e) => setDisplayName(e.target.value)}
+                placeholder="Tu nombre"
+                className="w-full bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 rounded-xl p-2.5 text-xs text-zinc-900 dark:text-white"
+              />
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div className="p-4 bg-zinc-50 dark:bg-zinc-800/40 rounded-2xl border border-zinc-200 dark:border-zinc-700/60 space-y-2">
-                <label className="text-xs font-bold text-zinc-700 dark:text-zinc-300 block">
-                  Día Habitual de Compra
-                </label>
-                <select
-                  value={preferredShoppingDay}
-                  onChange={(e) => setPreferredShoppingDay(e.target.value)}
-                  className="w-full bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-700 rounded-xl p-2.5 text-xs font-bold text-zinc-900 dark:text-white outline-none"
-                >
-                  <option>Viernes por la tarde</option>
-                  <option>Sábado por la mañana</option>
-                  <option>Sábado por la tarde</option>
-                  <option>Domingo por la mañana</option>
-                  <option>Lunes por la mañana</option>
-                </select>
-              </div>
-
-              <div className="p-4 bg-zinc-50 dark:bg-zinc-800/40 rounded-2xl border border-zinc-200 dark:border-zinc-700/60 space-y-2">
-                <label className="text-xs font-bold text-zinc-700 dark:text-zinc-300 block">
-                  Día Habitual de Cocinado Simultáneo
-                </label>
-                <select
-                  value={preferredBatchDay}
-                  onChange={(e) => setPreferredBatchDay(e.target.value)}
-                  className="w-full bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-700 rounded-xl p-2.5 text-xs font-bold text-zinc-900 dark:text-white outline-none"
-                >
-                  <option>Domingo por la mañana (Recomendado)</option>
-                  <option>Domingo por la tarde</option>
-                  <option>Sábado por la mañana</option>
-                  <option>Lunes por la tarde</option>
-                </select>
-              </div>
+            <div>
+              <label className="text-xs font-bold text-zinc-700 dark:text-zinc-300 block mb-1">Email Vinculado:</label>
+              <input
+                type="email"
+                disabled
+                value={user?.email || 'modo_invitado@touchef.local'}
+                className="w-full bg-zinc-100 dark:bg-zinc-800/50 border border-zinc-200 dark:border-zinc-700 rounded-xl p-2.5 text-xs text-zinc-500 cursor-not-allowed"
+              />
             </div>
           </div>
 
-          {/* Supermarkets Card */}
-          <div className="bg-white dark:bg-zinc-900 rounded-3xl border border-zinc-200 dark:border-zinc-800 p-6 shadow-xs space-y-4">
+          <div className="pt-4 border-t border-zinc-100 dark:border-zinc-800 flex justify-between items-center">
             <div>
-              <h3 className="text-sm font-black text-zinc-900 dark:text-white flex items-center gap-2">
-                <ShoppingBag className="text-[#E07A5F]" size={18} />
-                <span>Supermercados & Mercados Preferidos</span>
-              </h3>
-              <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-0.5">
-                Para clasificar los ingredientes por pasillos según tus tiendas habituales
-              </p>
+              <strong className="text-xs text-zinc-900 dark:text-white block">Cerrar Sesión Activa</strong>
+              <span className="text-[11px] text-zinc-500">Desvincula este dispositivo y regresa a la portada.</span>
             </div>
 
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
-              {availableSupermarkets.map((store) => {
-                const isSelected = selectedSupermarkets.includes(store);
-                return (
-                  <button
-                    key={store}
-                    onClick={() => toggleSupermarket(store)}
-                    className={`p-3 rounded-2xl border text-xs font-bold transition-all text-center flex flex-col items-center justify-center gap-1 active:scale-95 cursor-pointer ${
-                      isSelected
-                        ? 'bg-[#E07A5F]/10 border-[#E07A5F] text-[#E07A5F] dark:text-[#F4A261] shadow-2xs'
-                        : 'bg-zinc-50 dark:bg-zinc-800/40 border-zinc-200 dark:border-zinc-700/60 text-zinc-700 dark:text-zinc-300 hover:border-zinc-300'
-                    }`}
-                  >
-                    <span>{store}</span>
-                    {isSelected && <span className="text-[10px] text-[#E07A5F]">✓ Preferido</span>}
-                  </button>
-                );
-              })}
-            </div>
+            {user ? (
+              <button
+                onClick={handleLogout}
+                className="px-4 py-2 rounded-xl bg-rose-500/10 hover:bg-rose-500/20 text-rose-600 dark:text-rose-400 border border-rose-500/30 text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5"
+              >
+                <LogOut size={14} />
+                <span>Cerrar Sesión</span>
+              </button>
+            ) : (
+              <span className="text-xs text-zinc-400">Modo local / No autenticado</span>
+            )}
           </div>
-
         </div>
       )}
 

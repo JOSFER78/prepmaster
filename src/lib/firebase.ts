@@ -9,6 +9,7 @@ import {
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
   sendPasswordResetEmail,
+  sendEmailVerification,
   updateProfile,
   signOut as firebaseSignOut, 
   onAuthStateChanged,
@@ -49,6 +50,7 @@ export {
   signInWithEmailAndPassword, 
   createUserWithEmailAndPassword, 
   sendPasswordResetEmail, 
+  sendEmailVerification,
   updateProfile, 
   firebaseSignOut, 
   firebaseSignOut as signOut,
@@ -56,6 +58,3 @@ export {
   getIdToken 
 };
 export type { User };
-
-
-

@@ -1,5 +1,13 @@
 import { useState, useEffect } from 'react';
-import { ViewState, GeneratedMenuPlan, SimulatorContext, BatchProject, BatchStatus } from './types';
+import { 
+  ViewState, 
+  GeneratedMenuPlan, 
+  MealPlanConfig, 
+  BatchProject, 
+  BatchStatus,
+  ChefBookingRequest,
+  ChefProfile
+} from './types';
 import { Layout } from './components/Layout';
 import { LandingView } from './views/LandingView';
 import { HomeView } from './views/HomeView';
@@ -11,7 +19,17 @@ import { ShoppingListView } from './views/ShoppingListView';
 import { InteractiveCookView } from './views/InteractiveCookView';
 import { ReferenceRAGView } from './views/ReferenceRAGView';
 import { ProfileView } from './views/ProfileView';
+import { ChefDirectoryView } from './views/ChefDirectoryView';
+import { MyBookingsView } from './views/MyBookingsView';
+import { SupermarketCheckoutView } from './views/SupermarketCheckoutView';
+import { ChefPortalView } from './views/ChefPortalView';
+import { SuperAdminView } from './views/SuperAdminView';
 import { AuthModal } from './components/AuthModal';
+import { CreateChefRequestModal } from './components/CreateChefRequestModal';
+import { ChefDetailModal } from './components/ChefDetailModal';
+import { ChefOnboardingModal } from './components/ChefOnboardingModal';
+import { CookieBanner } from './components/CookieBanner';
+import { LegalModals } from './components/LegalModals';
 import { auth, db, onAuthStateChanged, signInAnonymously, User } from './lib/firebase';
 import { doc, getDoc, setDoc } from 'firebase/firestore';
 import { 
@@ -20,6 +38,11 @@ import {
   cloneBatchProjectAsNew,
   consumeDishPortion
 } from './lib/batchProjects';
+import { 
+  loadChefBookingsFromStorage, 
+  saveChefBookingsToStorage, 
+  MOCK_CHEFS 
+} from './lib/chefsData';
 
 export default function App() {
   const [currentUser, setCurrentUser] = useState<User | null>(null);
@@ -29,11 +52,36 @@ export default function App() {
   const [isAuthModalOpen, setIsAuthModalOpen] = useState<boolean>(false);
   const [authModalMode, setAuthModalMode] = useState<'login' | 'register'>('login');
 
+  // Legal Modals state
+  const [activeLegalModal, setActiveLegalModal] = useState<'privacy' | 'terms' | 'cookies' | null>(null);
+
   // Batch Projects System (Active Project & Batch History)
   const [batchProjects, setBatchProjects] = useState<BatchProject[]>(() => loadBatchProjectsFromStorage());
 
+  // Chef Marketplace & Bookings State
+  const [chefBookings, setChefBookings] = useState<ChefBookingRequest[]>(() => loadChefBookingsFromStorage());
+  const [isChefBookingModalOpen, setIsChefBookingModalOpen] = useState<boolean>(false);
+  const [selectedChefForBooking, setSelectedChefForBooking] = useState<ChefProfile | null>(null);
+  const [selectedChefForDetailModal, setSelectedChefForDetailModal] = useState<ChefProfile | null>(null);
+  const [isChefDetailModalOpen, setIsChefDetailModalOpen] = useState<boolean>(false);
+  const [isChefOnboardingOpen, setIsChefOnboardingOpen] = useState<boolean>(false);
+
   const activeProject = batchProjects.find(p => p.status !== 'archived') || null;
   const batchHistory = batchProjects.filter(p => p.status === 'archived');
+
+  useEffect(() => {
+    if (currentView.name === 'create-chef-request') {
+      const chefId = (currentView as any).chefId;
+      if (chefId) {
+        const found = MOCK_CHEFS.find(c => c.id === chefId) || null;
+        setSelectedChefForBooking(found);
+      } else {
+        setSelectedChefForBooking(null);
+      }
+      setIsChefBookingModalOpen(true);
+      setCurrentView({ name: 'home' });
+    }
+  }, [currentView]);
 
   const handleSaveProjects = (updated: BatchProject[]) => {
     setBatchProjects(updated);
@@ -45,6 +93,53 @@ export default function App() {
         updatedAt: new Date().toISOString()
       }, { merge: true }).catch(console.error);
     }
+  };
+
+  const handleSaveChefBookings = (updated: ChefBookingRequest[]) => {
+    setChefBookings(updated);
+    saveChefBookingsToStorage(updated);
+
+    if (currentUser) {
+      setDoc(doc(db, 'users', currentUser.uid), {
+        chefBookings: updated,
+        updatedAt: new Date().toISOString()
+      }, { merge: true }).catch(console.error);
+    }
+  };
+
+  const handleCreateChefBooking = (newBooking: ChefBookingRequest) => {
+    const updated = [newBooking, ...chefBookings];
+    handleSaveChefBookings(updated);
+    setIsChefBookingModalOpen(false);
+    setCurrentView({ name: 'my-bookings' });
+  };
+
+  const handleSelectChefToBook = (chef: ChefProfile) => {
+    setSelectedChefForBooking(chef);
+    setIsChefDetailModalOpen(false);
+    setIsChefBookingModalOpen(true);
+  };
+
+  const handleOpenChefDetail = (chef: ChefProfile) => {
+    setSelectedChefForDetailModal(chef);
+    setIsChefDetailModalOpen(true);
+  };
+
+  const handleRepeatBooking = (booking: ChefBookingRequest) => {
+    const chef = MOCK_CHEFS.find(c => c.id === booking.chefId) || MOCK_CHEFS[0];
+    setSelectedChefForBooking(chef);
+    setIsChefBookingModalOpen(true);
+  };
+
+  const handleOpenChefBookingForActiveProject = () => {
+    setSelectedChefForBooking(null);
+    setIsChefBookingModalOpen(true);
+  };
+
+  const handleChefRegistered = (newChef: ChefProfile) => {
+    MOCK_CHEFS.unshift(newChef);
+    setIsChefOnboardingOpen(false);
+    setCurrentView({ name: 'chef-portal' });
   };
 
   const handleUpdateActiveProjectStatus = (newStatus: BatchStatus) => {
@@ -118,13 +213,17 @@ export default function App() {
             return {
               ...d,
               servings: newServings,
-              fridgePortions: Math.round(newServings * 0.6),
-              freezerPortions: Math.max(0, newServings - Math.round(newServings * 0.6))
+              ingredients: d.ingredients.map(ing => ({
+                ...ing,
+                quantity: Math.round(((ing.quantity / d.servings) * newServings) * 10) / 10
+              }))
             };
           }
           return d;
         });
+
         const totalServings = updatedDishes.reduce((acc, d) => acc + d.servings, 0);
+
         return {
           ...p,
           dishes: updatedDishes,
@@ -157,14 +256,14 @@ export default function App() {
     setCurrentView({ name: 'shopping-list' });
   };
 
-  // Shared Simulator Context (Sync between Landing & App)
-  const [simulatorContext, setSimulatorContext] = useState<SimulatorContext | null>(() => {
+  // Shared Meal Plan Config (Sync between Landing & App)
+  const [activePlanConfig, setActivePlanConfig] = useState<MealPlanConfig | null>(() => {
     if (typeof window !== 'undefined') {
       try {
-        const saved = localStorage.getItem('touchef_sim_context');
+        const saved = localStorage.getItem('touchef_plan_config');
         if (saved) return JSON.parse(saved);
       } catch (e) {
-        console.error('Failed to parse saved sim context', e);
+        console.error('Failed to parse saved plan config', e);
       }
     }
     return {
@@ -176,17 +275,17 @@ export default function App() {
     };
   });
 
-  const handleUpdateSimulatorContext = (ctx: SimulatorContext) => {
-    setSimulatorContext(ctx);
+  const handleUpdatePlanConfig = (ctx: MealPlanConfig) => {
+    setActivePlanConfig(ctx);
     try {
-      localStorage.setItem('touchef_sim_context', JSON.stringify(ctx));
+      localStorage.setItem('touchef_plan_config', JSON.stringify(ctx));
     } catch (e) {
-      console.error('Failed to store sim context', e);
+      console.error('Failed to store plan config', e);
     }
 
     if (currentUser) {
       setDoc(doc(db, 'users', currentUser.uid), {
-        simulatorContext: ctx,
+        mealPlanConfig: ctx,
         peopleCount: ctx.peopleCount,
         coverageDays: ctx.daysCount,
         updatedAt: new Date().toISOString()
@@ -204,15 +303,17 @@ export default function App() {
             const userDoc = await getDoc(doc(db, 'users', user.uid));
             if (userDoc.exists()) {
               const data = userDoc.data();
-              if (data.simulatorContext) setSimulatorContext(data.simulatorContext);
+              if (data.mealPlanConfig) setActivePlanConfig(data.mealPlanConfig);
               if (data.batchProjects && Array.isArray(data.batchProjects)) {
                 setBatchProjects(data.batchProjects);
+              }
+              if (data.chefBookings && Array.isArray(data.chefBookings)) {
+                setChefBookings(data.chefBookings);
               }
             }
           } catch (err) {
             console.error('Error fetching user profile:', err);
           }
-          setCurrentView({ name: 'home' });
         }
       }
     });
@@ -220,17 +321,17 @@ export default function App() {
     return () => unsubscribe();
   }, [authInitialized]);
 
-  const handleOpenAuth = (mode: 'login' | 'register' = 'login', pendingContext?: SimulatorContext) => {
+  const handleOpenAuth = (mode: 'login' | 'register' = 'login', pendingContext?: MealPlanConfig) => {
     if (pendingContext) {
-      handleUpdateSimulatorContext(pendingContext);
+      handleUpdatePlanConfig(pendingContext);
     }
     setAuthModalMode(mode);
     setIsAuthModalOpen(true);
   };
 
-  const handleEnterAsGuest = async (context?: SimulatorContext) => {
+  const handleEnterAsGuest = async (context?: MealPlanConfig) => {
     if (context) {
-      handleUpdateSimulatorContext(context);
+      handleUpdatePlanConfig(context);
     }
     try {
       if (!currentUser) {
@@ -253,8 +354,10 @@ export default function App() {
           onOpenAuth={handleOpenAuth} 
           onEnterAsGuest={handleEnterAsGuest}
           onNavigate={setCurrentView}
-          initialSimulatorContext={simulatorContext}
-          onSimulatorContextChange={handleUpdateSimulatorContext}
+          currentUser={currentUser}
+          onOpenLegal={(type) => setActiveLegalModal(type)}
+          initialPlanConfig={activePlanConfig}
+          onPlanConfigChange={handleUpdatePlanConfig}
         />
       ) : (
         <Layout 
@@ -263,29 +366,39 @@ export default function App() {
           hideNav={shouldHideAppNav}
           activeProject={activeProject}
           onOpenAuth={handleOpenAuth}
+          onOpenChefOnboarding={() => setIsChefOnboardingOpen(true)}
+          onOpenLegal={(type) => setActiveLegalModal(type)}
           currentUser={currentUser}
+          activeBookingsCount={chefBookings.filter(b => b.status === 'confirmed' || b.status === 'in_progress').length}
         >
 
           {currentView.name === 'home' && (
             <HomeView 
               onNavigate={setCurrentView} 
-              simulatorContext={simulatorContext}
+              mealPlanConfig={activePlanConfig}
               activeProject={activeProject}
               batchHistory={batchHistory}
+              chefBookings={chefBookings}
               onRepeatBatch={handleRepeatBatch}
               onUpdateActiveProjectStatus={handleUpdateActiveProjectStatus}
               onRateDish={handleRateDish}
               onArchiveActiveBatch={() => handleUpdateActiveProjectStatus('archived')}
               onConsumePortion={handleConsumePortion}
+              onHireChefForBatch={handleOpenChefBookingForActiveProject}
+              onRepeatChefBooking={handleRepeatBooking}
             />
           )}
           
           {currentView.name === 'profile' && (
-            <ProfileView onPeopleCountChange={(count) => {
-              if (simulatorContext) {
-                handleUpdateSimulatorContext({ ...simulatorContext, peopleCount: count });
-              }
-            }} />
+            <ProfileView 
+              onPeopleCountChange={(count) => {
+                if (activePlanConfig) {
+                  handleUpdatePlanConfig({ ...activePlanConfig, peopleCount: count });
+                }
+              }} 
+              onOpenChefOnboarding={() => setIsChefOnboardingOpen(true)}
+              onNavigateToChefPortal={() => setCurrentView({ name: 'chef-portal' })}
+            />
           )}
 
           {currentView.name === 'planner' && (
@@ -294,24 +407,35 @@ export default function App() {
               currentMenuPlan={activeApprovedPlan} 
               activeProject={activeProject}
               onUpdateDishServings={handleUpdateDishServings}
+              onHireChefForPlan={handleOpenChefBookingForActiveProject}
             />
           )}
           
           {currentView.name === 'recipe' && <RecipeView onNavigate={setCurrentView} />}
           
-          {currentView.name === 'batch-session' && <InteractiveCookView onBack={() => setCurrentView({ name: 'home' })} activeProject={activeProject} onFinishCooking={() => {
-            handleUpdateActiveProjectStatus('in_fridge');
-            setCurrentView({ name: 'home' });
-          }} />}
+          {currentView.name === 'batch-session' && (
+            <InteractiveCookView 
+              onBack={() => setCurrentView({ name: 'home' })} 
+              activeProject={activeProject} 
+              onFinishCooking={() => {
+                handleUpdateActiveProjectStatus('in_fridge');
+                setCurrentView({ name: 'home' });
+              }} 
+            />
+          )}
           
           {currentView.name === 'ai-generator' && (
             <AIGeneratorView 
               onMenuApproved={setActiveApprovedPlan} 
               onNavigateToShopping={() => setCurrentView({ name: 'shopping-list' })} 
-              initialContext={simulatorContext}
+              initialContext={activePlanConfig}
               onBatchProjectCreated={(proj) => {
                 handleBatchProjectCreated(proj);
                 setCurrentView({ name: 'shopping-list' });
+              }}
+              onHireChefForBatch={(proj) => {
+                handleBatchProjectCreated(proj);
+                handleOpenChefBookingForActiveProject();
               }}
             />
           )}
@@ -327,7 +451,37 @@ export default function App() {
                 setCurrentView({ name: 'interactive-cook' });
               }}
               onUpdateShoppingDate={handleUpdateShoppingDate}
+              onHireChefToCook={handleOpenChefBookingForActiveProject}
             />
+          )}
+
+          {currentView.name === 'supermarket-checkout' && (
+            <SupermarketCheckoutView 
+              activeProject={activeProject}
+              onNavigate={setCurrentView}
+              onOrderConfirmed={() => {
+                handleUpdateActiveProjectStatus('ready_to_cook');
+                setCurrentView({ name: 'home' });
+              }}
+            />
+          )}
+
+          {currentView.name === 'chef-portal' && (
+            <ChefPortalView 
+              onNavigate={setCurrentView}
+              onAcceptBooking={(bookingId) => {
+                const updated = chefBookings.map(b => b.id === bookingId ? { ...b, status: 'confirmed' as const } : b);
+                handleSaveChefBookings(updated);
+              }}
+              onRejectBooking={(bookingId) => {
+                const updated = chefBookings.filter(b => b.id !== bookingId);
+                handleSaveChefBookings(updated);
+              }}
+            />
+          )}
+
+          {currentView.name === 'superadmin' && (
+            <SuperAdminView onNavigate={setCurrentView} />
           )}
 
           {currentView.name === 'interactive-cook' && (
@@ -342,23 +496,76 @@ export default function App() {
             />
           )}
 
+          {(currentView.name === 'chefs' || (currentView as any).name === 'chef-directory') && (
+            <ChefDirectoryView 
+              onNavigate={setCurrentView} 
+              onSelectChefToBook={handleSelectChefToBook} 
+            />
+          )}
+
+          {currentView.name === 'my-bookings' && (
+            <MyBookingsView 
+              bookings={chefBookings} 
+              onNavigate={setCurrentView} 
+              onRepeatBooking={handleRepeatBooking} 
+            />
+          )}
+
           {currentView.name === 'reference-rag' && <ReferenceRAGView />}
 
           {currentView.name === 'explore' && <ReferenceRAGView />}
         </Layout>
       )}
 
+      {/* Global Create Chef Booking Modal */}
+      <CreateChefRequestModal
+        isOpen={isChefBookingModalOpen}
+        onClose={() => setIsChefBookingModalOpen(false)}
+        activeProject={activeProject}
+        selectedChef={selectedChefForBooking}
+        onSuccess={handleCreateChefBooking}
+      />
+
+      {/* Global Chef Detail Modal */}
+      <ChefDetailModal
+        isOpen={isChefDetailModalOpen}
+        chef={selectedChefForDetailModal}
+        onClose={() => setIsChefDetailModalOpen(false)}
+        onBookChef={handleSelectChefToBook}
+      />
+
+      {/* Global Chef Onboarding & Verification Modal */}
+      <ChefOnboardingModal
+        isOpen={isChefOnboardingOpen}
+        onClose={() => setIsChefOnboardingOpen(false)}
+        onChefRegistered={handleChefRegistered}
+      />
+
+      {/* Global Cookie Consent Banner */}
+      <CookieBanner
+        onOpenCookiesPolicy={() => setActiveLegalModal('cookies')}
+        onOpenPrivacyPolicy={() => setActiveLegalModal('privacy')}
+      />
+
+      {/* Global Legal Modals (Privacy, Terms, Cookies) */}
+      <LegalModals
+        isOpen={!!activeLegalModal}
+        type={activeLegalModal}
+        onClose={() => setActiveLegalModal(null)}
+      />
+
       {/* Global Authentication Modal */}
       <AuthModal
         isOpen={isAuthModalOpen}
         onClose={() => setIsAuthModalOpen(false)}
         initialMode={authModalMode}
+        onOpenChefOnboarding={() => setIsChefOnboardingOpen(true)}
         onSuccess={() => {
-          if (simulatorContext && currentUser) {
+          if (activePlanConfig && currentUser) {
             setDoc(doc(db, 'users', currentUser.uid), {
-              simulatorContext,
-              peopleCount: simulatorContext.peopleCount,
-              coverageDays: simulatorContext.daysCount,
+              mealPlanConfig: activePlanConfig,
+              peopleCount: activePlanConfig.peopleCount,
+              coverageDays: activePlanConfig.daysCount,
               updatedAt: new Date().toISOString()
             }, { merge: true }).catch(console.error);
           }
