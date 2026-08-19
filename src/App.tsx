@@ -43,6 +43,12 @@ import {
   saveChefBookingsToStorage, 
   MOCK_CHEFS 
 } from './lib/chefsData';
+import { 
+  loadFavoriteBatchesFromStorage, 
+  loadFavoriteDishesFromStorage, 
+  saveFavoriteBatchesToStorage, 
+  saveFavoriteDishesToStorage 
+} from './lib/favoritesEngine';
 
 export default function App() {
   const [currentUser, setCurrentUser] = useState<User | null>(null);
@@ -57,6 +63,10 @@ export default function App() {
 
   // Batch Projects System (Active Project & Batch History)
   const [batchProjects, setBatchProjects] = useState<BatchProject[]>(() => loadBatchProjectsFromStorage());
+
+  // Favorites & Vault System (Batches & Individual Dishes)
+  const [favoriteBatches, setFavoriteBatches] = useState<BatchProject[]>(() => loadFavoriteBatchesFromStorage());
+  const [favoriteDishes, setFavoriteDishes] = useState<BatchDish[]>(() => loadFavoriteDishesFromStorage());
 
   // Chef Marketplace & Bookings State
   const [chefBookings, setChefBookings] = useState<ChefBookingRequest[]>(() => loadChefBookingsFromStorage());
@@ -344,6 +354,28 @@ export default function App() {
     }
   };
 
+  const handleLaunchBatchToChefNetwork = (batch: BatchProject) => {
+    setSelectedChefForBooking(null);
+    setIsChefBookingModalOpen(true);
+  };
+
+  const handleActivateBatchForCooking = (batch: BatchProject) => {
+    const cloned = cloneBatchProjectAsNew(batch);
+    const updated = [cloned, ...batchProjects.filter(p => p.id !== cloned.id)];
+    handleSaveProjects(updated);
+    setCurrentView({ name: 'batch-session' });
+  };
+
+  const handleUpdateFavoriteBatches = (updated: BatchProject[]) => {
+    setFavoriteBatches(updated);
+    saveFavoriteBatchesToStorage(updated, currentUser?.uid);
+  };
+
+  const handleUpdateFavoriteDishes = (updated: BatchDish[]) => {
+    setFavoriteDishes(updated);
+    saveFavoriteDishesToStorage(updated, currentUser?.uid);
+  };
+
   const isLandingView = currentView.name === 'landing';
   const shouldHideAppNav = isLandingView;
 
@@ -378,6 +410,8 @@ export default function App() {
               mealPlanConfig={activePlanConfig}
               activeProject={activeProject}
               batchHistory={batchHistory}
+              favoriteBatches={favoriteBatches}
+              favoriteDishes={favoriteDishes}
               chefBookings={chefBookings}
               onRepeatBatch={handleRepeatBatch}
               onUpdateActiveProjectStatus={handleUpdateActiveProjectStatus}
@@ -386,6 +420,10 @@ export default function App() {
               onConsumePortion={handleConsumePortion}
               onHireChefForBatch={handleOpenChefBookingForActiveProject}
               onRepeatChefBooking={handleRepeatBooking}
+              onLaunchBatchToChefNetwork={handleLaunchBatchToChefNetwork}
+              onActivateBatchForCooking={handleActivateBatchForCooking}
+              onUpdateFavoriteBatches={handleUpdateFavoriteBatches}
+              onUpdateFavoriteDishes={handleUpdateFavoriteDishes}
             />
           )}
           
