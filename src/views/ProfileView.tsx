@@ -45,7 +45,8 @@ import {
 } from 'lucide-react';
 import { KitchenEquipmentItem, KitchenProfile, ChefProfile } from '../types';
 import { HouseholdMemoryCard } from '../components/HouseholdMemoryCard';
-import { MOCK_CHEFS } from '../lib/chefsData';
+import { APPROVED_CHEFS } from '../lib/chefsData';
+import { saveChefProfile } from '../services/chefService';
 
 interface ProfileViewProps {
   onPeopleCountChange?: (count: number) => void;
@@ -415,7 +416,13 @@ export function ProfileView({ onPeopleCountChange, onNavigateToChefPortal, onOpe
       reviews: []
     };
 
-    MOCK_CHEFS.unshift(newChef);
+    APPROVED_CHEFS.unshift(newChef);
+
+    try {
+      await saveChefProfile(newChef);
+    } catch (e) {
+      console.warn('Firestore chef save error in ProfileView:', e);
+    }
 
     if (user) {
       try {

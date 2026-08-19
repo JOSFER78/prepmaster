@@ -216,8 +216,6 @@ export function generateAvailableDeliverySlots(dateStr: string, cookTimeSlot: st
   });
 }
 
-export const generateMockDeliverySlots = generateAvailableDeliverySlots;
-
 // ----------------------------------------------------
 // IN-MEMORY CACHE FOR SUPERMARKET ORDERS
 // ----------------------------------------------------

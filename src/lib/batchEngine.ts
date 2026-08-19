@@ -525,3 +525,34 @@ export function generateDynamicBatchDishes(
 
   return generatedDishes;
 }
+
+/**
+ * Convierte una receta canónica individual de Carmen en un BatchDish con las raciones especificadas
+ */
+export function createDishFromCanonicalRecipe(recipe: CanonicalRecipe, servings: number): BatchDish {
+  const safeServings = Math.max(1, servings || 4);
+  const dish: BatchDish = {
+    id: `dish_${recipe.id}_${Date.now()}`,
+    name: recipe.name,
+    category: recipe.category as any,
+    servings: safeServings,
+    prepTime: recipe.prepTimeFormatted,
+    cookingMethod: recipe.station,
+    storageAdvice: recipe.storageAdvice,
+    isFavorite: false,
+    rating: 5,
+    image: recipe.image,
+    shelfLifeDaysFridge: recipe.shelfLifeDaysFridge,
+    shelfLifeMonthsFreezer: recipe.canFreeze ? 3 : 0,
+    ingredients: recipe.ingredientsPerServing.map(ing => ({
+      name: ing.name,
+      quantity: Number((ing.quantity * safeServings).toFixed(2)),
+      unit: ing.unit,
+      category: ing.category as any
+    })),
+    instructions: recipe.instructions
+  };
+
+  return initializeDishPortions(dish, 5);
+}
+

@@ -19,9 +19,10 @@ import {
   ShoppingBag,
   ListOrdered
 } from 'lucide-react';
-import { MOCK_CHEFS } from '../lib/chefsData';
 import { ChefProfile, BatchProject, ViewState } from '../types';
 import { ChefDetailModal } from '../components/ChefDetailModal';
+import { subscribeToChefs } from '../services/chefService';
+import { APPROVED_CHEFS } from '../lib/chefsData';
 
 interface ChefDirectoryViewProps {
   onNavigate?: (view: ViewState) => void;
@@ -36,16 +37,22 @@ export function ChefDirectoryView({
   onOpenProtectedChat,
   activeBatchProject
 }: ChefDirectoryViewProps) {
+  const [chefs, setChefs] = useState<ChefProfile[]>(APPROVED_CHEFS);
   const [selectedCity, setSelectedCity] = useState<string>('Todas');
   const [selectedSpecialty, setSelectedSpecialty] = useState<string>('Todas');
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [selectedChefForDetail, setSelectedChefForDetail] = useState<ChefProfile | null>(null);
   const [isDetailOpen, setIsDetailOpen] = useState<boolean>(false);
 
+  React.useEffect(() => {
+    const unsub = subscribeToChefs(setChefs);
+    return () => unsub();
+  }, []);
+
   const cities = ['Todas', 'Madrid', 'Barcelona', 'Valencia'];
   const specialties = ['Todas', 'Batch Cooking Tradicional', 'Fitness & Macros', 'Mediterránea', 'Sin Gluten'];
 
-  const filteredChefs = MOCK_CHEFS.filter(chef => {
+  const filteredChefs = chefs.filter(chef => {
     const matchesCity = selectedCity === 'Todas' || chef.locationCity.toLowerCase().includes(selectedCity.toLowerCase());
     const matchesSpecialty = selectedSpecialty === 'Todas' || chef.specialties.some(s => s.toLowerCase().includes(selectedSpecialty.toLowerCase()));
     const matchesSearch = searchQuery === '' || 

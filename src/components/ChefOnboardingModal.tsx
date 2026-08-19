@@ -23,7 +23,7 @@ import {
   CreditCard
 } from 'lucide-react';
 import { ChefProfile } from '../types';
-import { MOCK_CHEFS } from '../lib/chefsData';
+import { APPROVED_CHEFS } from '../lib/chefsData';
 import { auth, db } from '../lib/firebase';
 import { doc, setDoc } from 'firebase/firestore';
 import { saveChefProfile } from '../services/chefService';
@@ -101,9 +101,10 @@ export function ChefOnboardingModal({ isOpen, onClose, onChefRegistered }: ChefO
     );
   };
 
-  const handleFileUploadMock = (type: 'dni' | 'sanitary' | 'diploma', e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileUpload = (type: 'dni' | 'sanitary' | 'diploma', e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
-      const fileName = e.target.files[0].name;
+      const file = e.target.files[0];
+      const fileName = file.name;
       if (type === 'dni') setDniFileName(fileName);
       if (type === 'sanitary') setSanitaryFileName(fileName);
       if (type === 'diploma') setDiplomaFileName(fileName);
@@ -173,7 +174,7 @@ export function ChefOnboardingModal({ isOpen, onClose, onChefRegistered }: ChefO
     };
 
     // Update in memory list
-    MOCK_CHEFS.unshift(newChef);
+    APPROVED_CHEFS.unshift(newChef);
 
     // Save to Firestore /chefs SSOT
     try {
@@ -539,7 +540,7 @@ export function ChefOnboardingModal({ isOpen, onClose, onChefRegistered }: ChefO
                         <span className="text-[10px] text-zinc-400 truncate block">{dniFileName}</span>
                         <label className="inline-block px-3 py-1.5 rounded-xl bg-zinc-800 hover:bg-zinc-700 text-[10px] font-bold text-zinc-200 cursor-pointer transition-colors">
                           <span>Adjuntar PDF/JPG</span>
-                          <input type="file" className="hidden" onChange={(e) => handleFileUploadMock('dni', e)} />
+                          <input type="file" className="hidden" onChange={(e) => handleFileUpload('dni', e)} />
                         </label>
                       </div>
 
@@ -550,7 +551,7 @@ export function ChefOnboardingModal({ isOpen, onClose, onChefRegistered }: ChefO
                         <span className="text-[10px] text-zinc-400 truncate block">{sanitaryFileName}</span>
                         <label className="inline-block px-3 py-1.5 rounded-xl bg-zinc-800 hover:bg-zinc-700 text-[10px] font-bold text-zinc-200 cursor-pointer transition-colors">
                           <span>Adjuntar PDF</span>
-                          <input type="file" className="hidden" onChange={(e) => handleFileUploadMock('sanitary', e)} />
+                          <input type="file" className="hidden" onChange={(e) => handleFileUpload('sanitary', e)} />
                         </label>
                       </div>
 
@@ -561,7 +562,7 @@ export function ChefOnboardingModal({ isOpen, onClose, onChefRegistered }: ChefO
                         <span className="text-[10px] text-zinc-400 truncate block">{diplomaFileName}</span>
                         <label className="inline-block px-3 py-1.5 rounded-xl bg-zinc-800 hover:bg-zinc-700 text-[10px] font-bold text-zinc-200 cursor-pointer transition-colors">
                           <span>Adjuntar Opcional</span>
-                          <input type="file" className="hidden" onChange={(e) => handleFileUploadMock('diploma', e)} />
+                          <input type="file" className="hidden" onChange={(e) => handleFileUpload('diploma', e)} />
                         </label>
                       </div>
                     </div>

@@ -35,7 +35,6 @@ import { ViewState, MealPlanConfig } from '../types';
 import { useTheme } from '../lib/theme';
 import { TouChefLogo } from '../components/TouChefLogo';
 import { calculateBatchStructure, generateDynamicBatchDishes } from '../lib/batchEngine';
-import { MOCK_CHEFS } from '../lib/chefsData';
 import { User as FirebaseUser } from '../lib/firebase';
 
 interface LandingViewProps {

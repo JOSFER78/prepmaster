@@ -45,7 +45,6 @@ export const BOOTSTRAP_CHEF_PROFILE: ChefProfile = {
 };
 
 export const APPROVED_CHEFS: ChefProfile[] = [BOOTSTRAP_CHEF_PROFILE];
-export const MOCK_CHEFS: ChefProfile[] = APPROVED_CHEFS;
 
 // Claves de almacenamiento Firestore
 export const CHEF_BOOKINGS_STORAGE_KEY = 'touchef_chef_bookings_v2';

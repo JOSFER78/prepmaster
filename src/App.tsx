@@ -7,7 +7,8 @@ import {
   BatchStatus,
   ChefBookingRequest,
   ChefProfile,
-  BatchDish
+  BatchDish,
+  ChefServicePackage
 } from './types';
 import { Layout } from './components/Layout';
 import { LandingView } from './views/LandingView';
@@ -39,7 +40,7 @@ import {
 } from './lib/batchProjects';
 import { 
   BOOTSTRAP_CHEF_PROFILE,
-  MOCK_CHEFS 
+  APPROVED_CHEFS 
 } from './lib/chefsData';
 import { 
   loadFavoriteBatchesFromStorage, 
@@ -76,7 +77,8 @@ export default function App() {
 
   // Chef Marketplace & Bookings State (Real-time Firestore)
   const [chefBookings, setChefBookings] = useState<ChefBookingRequest[]>([]);
-  const [isChefBookingModalOpen, setIsChefBookingModalOpen] = useState<boolean>(false);
+  const [isChefBookingModalOpen, setIsChefBookingModalOpen] = useState(false);
+  const [chefBookingInitialPackage, setChefBookingInitialPackage] = useState<ChefServicePackage>('with_grocery');
   const [selectedChefForBooking, setSelectedChefForBooking] = useState<ChefProfile | null>(null);
   const [selectedChefForDetailModal, setSelectedChefForDetailModal] = useState<ChefProfile | null>(null);
   const [isChefDetailModalOpen, setIsChefDetailModalOpen] = useState<boolean>(false);
@@ -106,7 +108,7 @@ export default function App() {
     if (currentView.name === 'create-chef-request') {
       const chefId = (currentView as any).chefId;
       if (chefId) {
-        const found = MOCK_CHEFS.find(c => c.id === chefId) || null;
+        const found = APPROVED_CHEFS.find(c => c.id === chefId) || null;
         setSelectedChefForBooking(found);
       } else {
         setSelectedChefForBooking(null);
@@ -150,18 +152,19 @@ export default function App() {
   };
 
   const handleRepeatBooking = (booking: ChefBookingRequest) => {
-    const chef = MOCK_CHEFS.find(c => c.id === booking.chefId) || MOCK_CHEFS[0];
+    const chef = APPROVED_CHEFS.find(c => c.id === booking.chefId) || APPROVED_CHEFS[0];
     setSelectedChefForBooking(chef);
     setIsChefBookingModalOpen(true);
   };
 
-  const handleOpenChefBookingForActiveProject = () => {
+  const handleOpenChefBookingForActiveProject = (servicePackage: ChefServicePackage = 'with_grocery') => {
+    setChefBookingInitialPackage(servicePackage);
     setSelectedChefForBooking(null);
     setIsChefBookingModalOpen(true);
   };
 
   const handleChefRegistered = (newChef: ChefProfile) => {
-    MOCK_CHEFS.unshift(newChef);
+    APPROVED_CHEFS.unshift(newChef);
     setIsChefOnboardingOpen(false);
     setCurrentView({ name: 'chef-portal' });
   };
@@ -470,9 +473,13 @@ export default function App() {
                 handleBatchProjectCreated(proj);
                 setCurrentView({ name: 'shopping-list' });
               }}
-              onHireChefForBatch={(proj) => {
+              onHireChefForBatch={(proj, pkg) => {
                 handleBatchProjectCreated(proj);
-                handleOpenChefBookingForActiveProject();
+                handleOpenChefBookingForActiveProject(pkg || 'with_grocery');
+              }}
+              onCookMyself={(proj) => {
+                handleBatchProjectCreated(proj);
+                setCurrentView({ name: 'batch-session' });
               }}
             />
           )}
@@ -554,12 +561,13 @@ export default function App() {
         </Layout>
       )}
 
-      {/* Global Create Chef Booking Modal */}
+      {/* Global Create Chef Request Modal */}
       <CreateChefRequestModal
         isOpen={isChefBookingModalOpen}
         onClose={() => setIsChefBookingModalOpen(false)}
         activeProject={activeProject}
         selectedChef={selectedChefForBooking}
+        initialServicePackage={chefBookingInitialPackage}
         onSuccess={handleCreateChefBooking}
       />
 

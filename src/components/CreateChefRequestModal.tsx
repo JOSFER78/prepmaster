@@ -17,7 +17,7 @@ import {
   PackageCheck
 } from 'lucide-react';
 import { ChefProfile, BatchProject, ChefBookingRequest, ChefServicePackage } from '../types';
-import { MOCK_CHEFS, calculateBookingQuote, BOOTSTRAP_CHEF_PROFILE } from '../lib/chefsData';
+import { APPROVED_CHEFS, calculateBookingQuote, BOOTSTRAP_CHEF_PROFILE } from '../lib/chefsData';
 import { saveBooking } from '../services/bookingService';
 import { auth } from '../lib/firebase';
 
@@ -27,6 +27,7 @@ interface CreateChefRequestModalProps {
   onSuccess: (booking: ChefBookingRequest) => void;
   activeProject?: BatchProject | null;
   selectedChef?: ChefProfile | null;
+  initialServicePackage?: ChefServicePackage;
 }
 
 export const CreateChefRequestModal: React.FC<CreateChefRequestModalProps> = ({
@@ -34,14 +35,15 @@ export const CreateChefRequestModal: React.FC<CreateChefRequestModalProps> = ({
   onClose,
   onSuccess,
   activeProject,
-  selectedChef
+  selectedChef,
+  initialServicePackage = 'with_grocery'
 }) => {
   const [step, setStep] = useState<1 | 2 | 3>(1);
   const [selectionMode, setSelectionMode] = useState<'broadcast' | 'direct'>(selectedChef ? 'direct' : 'broadcast');
   const [targetChefId, setTargetChefId] = useState<string>(selectedChef?.id || 'any');
   
-  // Paquetes de servicio
-  const [servicePackage, setServicePackage] = useState<ChefServicePackage>('with_grocery');
+  // Paquetes de servicio (Solo Cocina, Con Herramientas, Con Compra DIA, Con Ayudante)
+  const [servicePackage, setServicePackage] = useState<ChefServicePackage>(initialServicePackage);
   
   const [date, setDate] = useState<string>(() => {
     const d = new Date();
@@ -57,6 +59,12 @@ export const CreateChefRequestModal: React.FC<CreateChefRequestModalProps> = ({
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
 
   useEffect(() => {
+    if (initialServicePackage) {
+      setServicePackage(initialServicePackage);
+    }
+  }, [initialServicePackage]);
+
+  useEffect(() => {
     if (selectedChef) {
       setSelectionMode('direct');
       setTargetChefId(selectedChef.id);
@@ -66,7 +74,7 @@ export const CreateChefRequestModal: React.FC<CreateChefRequestModalProps> = ({
   if (!isOpen) return null;
 
   const assignedChef = selectionMode === 'direct' && targetChefId !== 'any'
-    ? MOCK_CHEFS.find(c => c.id === targetChefId) || selectedChef || BOOTSTRAP_CHEF_PROFILE
+    ? APPROVED_CHEFS.find(c => c.id === targetChefId) || selectedChef || BOOTSTRAP_CHEF_PROFILE
     : BOOTSTRAP_CHEF_PROFILE;
 
   const dishes = activeProject?.dishes.map(d => ({ name: d.name, servings: d.servings })) || [

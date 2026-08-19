@@ -33,7 +33,7 @@ import {
 import { TouChefIsotype } from '../components/TouChefLogo';
 import { ViewState, MealPlanConfig, BatchProject, BatchDish, ChefBookingRequest } from '../types';
 import { calculateProjectMetrics } from '../lib/batchProjects';
-import { MOCK_CHEFS } from '../lib/chefsData';
+import { APPROVED_CHEFS } from '../lib/chefsData';
 import { FavoritesUnifiedHub } from '../components/FavoritesUnifiedHub';
 
 interface HomeViewProps {
@@ -327,11 +327,11 @@ export function HomeView({
 
               <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
                 <button
-                  onClick={() => onNavigate({ name: 'planner' })}
-                  className="btn-hero-copper text-white text-xs font-black px-5 py-2.5 rounded-xl shadow-xs transition-all flex items-center gap-2 cursor-pointer"
+                  onClick={() => onNavigate({ name: 'ai-generator' })}
+                  className="btn-hero-copper text-white text-xs font-black px-5 py-2.5 rounded-xl shadow-xs transition-all flex items-center gap-2 cursor-pointer hover:scale-[1.02]"
                 >
                   <Sparkles size={14} />
-                  <span>Planificar Lote con IA</span>
+                  <span>Crear Plan de Batch Cooking con IA</span>
                 </button>
 
                 <button
@@ -413,7 +413,7 @@ export function HomeView({
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                {MOCK_CHEFS.slice(0, 3).map(chef => (
+                {APPROVED_CHEFS.slice(0, 3).map(chef => (
                   <div
                     key={chef.id}
                     className="p-4 rounded-2xl bg-zinc-50 dark:bg-zinc-800/60 border border-zinc-200/80 dark:border-zinc-700/60 flex flex-col justify-between space-y-3"

@@ -103,10 +103,10 @@ export type BatchStatus =
 export interface BatchDish {
   id: string;
   name: string;
-  category: 'legumbres' | 'carnes' | 'pescados' | 'verduras' | 'cremas' | 'acompanamientos';
+  category: 'legumbres' | 'carnes' | 'pescados' | 'verduras' | 'cremas' | 'acompanamientos' | 'tapas' | 'masas' | 'postres' | 'arroces_pastas';
   servings: number;
   prepTime: string;
-  cookingMethod: 'horno' | 'fuego_1' | 'fuego_2' | 'fuego_3' | 'olla_expres' | 'robot';
+  cookingMethod: 'horno' | 'fuego_1' | 'fuego_2' | 'fuego_3' | 'olla_expres' | 'robot' | 'frio';
   storageAdvice: string; // ej: 'Nevera Días 1-3' | 'Congelador tras día 3'
   isFavorite?: boolean;
   rating?: number; // 1 to 5 stars

@@ -15,6 +15,7 @@ import {
 } from 'lucide-react';
 import { ChefProfile } from '../types';
 import { calculateAntiFugaQuote } from '../lib/antiFugaEngine';
+import { BOOTSTRAP_CHEF_PROFILE } from '../lib/chefsData';
 
 interface AntiFugaEconomicsModalProps {
   isOpen: boolean;
@@ -31,38 +32,10 @@ export const AntiFugaEconomicsModal: React.FC<AntiFugaEconomicsModalProps> = ({
 }) => {
   if (!isOpen) return null;
 
-  const mockChef: ChefProfile = chef || {
-    id: 'chef-carmen',
-    name: 'Carmen Delgado',
-    slug: 'carmen-delgado',
-    title: 'Especialista en Batch Cooking & Mediterránea',
-    avatar: 'https://images.unsplash.com/photo-1577219491135-ce391730fb2c?w=400&auto=format&fit=crop&q=80',
-    bio: 'Chef ejecutiva.',
-    rating: 4.95,
-    reviewsCount: 38,
-    completedBookingsCount: 84,
-    locationCity: 'Madrid - Chamberí',
-    zones: ['Chamberí', 'Salamanca'],
-    isVerified: true,
-    yearsExperience: 12,
-    specialties: ['Batch Cooking'],
-    pricing: {
-      cookingHourRate: 22,
-      groceryShoppingHourRate: 18,
-      travelFee: 5,
-      travelRadiusKm: 15,
-      toolsIncluded: true,
-      cleaningIncluded: true
-    },
-    availabilityDays: ['Lunes', 'Miércoles'],
-    timeSlots: ['16:00 - 20:00'],
-    badges: ['Chef Verificado'],
-    featuredDishes: [],
-    reviews: []
-  };
+  const activeChef: ChefProfile = chef || BOOTSTRAP_CHEF_PROFILE;
 
   const sampleQuote1 = calculateAntiFugaQuote({
-    chef: mockChef,
+    chef: activeChef,
     hours: 3,
     includeGrocery: true,
     completedBookingsWithChef: 0,
@@ -70,7 +43,7 @@ export const AntiFugaEconomicsModal: React.FC<AntiFugaEconomicsModalProps> = ({
   });
 
   const sampleQuote2 = calculateAntiFugaQuote({
-    chef: mockChef,
+    chef: activeChef,
     hours: 3,
     includeGrocery: true,
     completedBookingsWithChef: 2,
@@ -78,7 +51,7 @@ export const AntiFugaEconomicsModal: React.FC<AntiFugaEconomicsModalProps> = ({
   });
 
   const sampleQuote5 = calculateAntiFugaQuote({
-    chef: mockChef,
+    chef: activeChef,
     hours: 3,
     includeGrocery: true,
     completedBookingsWithChef: 5,
