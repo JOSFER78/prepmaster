@@ -287,7 +287,7 @@ export const SuperAdminView: React.FC<SuperAdminViewProps> = ({ onNavigate }) =>
                       {o.status}
                     </span>
                   </div>
-                  <span className="text-zinc-500">{o.items?.length || 0} artículos frescos · Entrega {o.deliverySlot?.date}</span>
+                  <span className="text-zinc-500">{o.items?.length || 0} artículos frescos · Entrega {o.selectedSlot?.date}</span>
                 </div>
                 <div className="font-mono font-bold text-zinc-900 dark:text-white">
                   {o.totalOrderPrice} €

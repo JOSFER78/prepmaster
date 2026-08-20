@@ -74,10 +74,84 @@ export interface Meal {
   ingredients: { name: string; quantity: number; unit: string }[];
 }
 
+export interface Recipe {
+  id: string;
+  title: string;
+  description?: string;
+  time: string;
+  servings?: number;
+  calories?: number;
+  tags?: string[];
+  image?: string;
+  ingredients?: { name: string; quantity: string }[];
+  steps?: string[];
+}
+
+export interface DailyPlan {
+  day: string;
+  isPrepDay?: boolean;
+  totalKcal?: number;
+  macros?: { c: number; p: number; g: number };
+  meals: {
+    id: string;
+    type: string;
+    title: string;
+    calories?: number;
+    image?: string;
+    macros?: { c: number; p: number; g: number };
+  }[];
+}
+
+export interface BatchCookingPlan {
+  id: string;
+  title: string;
+  description: string;
+  prepTime: string;
+  defaultServings: number;
+  totalMealsPrepared: number;
+  tags: string[];
+  dishes: {
+    name: string;
+    servings: number;
+    calories: number;
+    image?: string;
+  }[];
+  ingredientGroups: {
+    category: string;
+    items: {
+      name: string;
+      baseQuantity: number;
+      unit: string;
+      notes?: string;
+    }[];
+  }[];
+  timeline: {
+    timeBlock: string;
+    title: string;
+    description: string;
+    icon?: string;
+    tasks: string[];
+  }[];
+  storageProtocols?: {
+    title?: string;
+    type?: string;
+    technique?: string;
+    description?: string;
+    duration: string;
+    container: string;
+    tip: string;
+  }[];
+}
+
 export interface GeneratedMenuPlan {
   id: string;
   title: string;
   philosophy: string;
+  mode?: string;
+  peopleCount?: number;
+  daysCount?: number;
+  referenceChannelName?: string;
+  items?: any[];
   macrosTarget: {
     protein: string;
     carbs: string;
@@ -85,7 +159,9 @@ export interface GeneratedMenuPlan {
   };
   batchCookingSummary: {
     totalTime: string;
-    parallelSteps: string[];
+    sessionsCount?: number;
+    parallelSteps?: string[];
+    recommendedTechniques?: string[];
   };
   meals: Meal[];
 }

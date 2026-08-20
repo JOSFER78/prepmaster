@@ -179,7 +179,7 @@ export function Layout({
               className="flex items-center gap-2 text-left focus:outline-hidden group cursor-pointer"
               title="Ir al Inicio"
             >
-              <TouChefLogo size={30} />
+              <TouChefLogo size="md" />
             </button>
 
             <button
@@ -390,7 +390,7 @@ export function Layout({
           <div className="w-72 bg-white dark:bg-zinc-900 h-full p-6 shadow-2xl flex flex-col justify-between border-l border-zinc-200 dark:border-zinc-800 space-y-6 overflow-y-auto">
             <div className="space-y-6">
               <div className="flex items-center justify-between pb-4 border-b border-zinc-100 dark:border-zinc-800">
-                <TouChefLogo size={28} />
+                <TouChefLogo size="md" />
                 <button onClick={() => setIsMobileDrawerOpen(false)} className="text-zinc-400 hover:text-white p-1">
                   <X size={20} />
                 </button>
