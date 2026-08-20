@@ -4,7 +4,6 @@ import {
   googleProvider, 
   signInWithPopup, 
   signInWithGoogleNativeOrWeb,
-  signInAnonymously, 
   signInWithEmailAndPassword, 
   createUserWithEmailAndPassword, 
   sendPasswordResetEmail,
@@ -237,22 +236,6 @@ export function AuthModal({
     } catch (err: any) {
       console.error('Google Auth error:', err);
       setError(getFriendlyErrorMessage(err.code, err.message));
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const handleGuestAccess = async () => {
-    setError(null);
-    setLoading(true);
-    try {
-      await signInAnonymously(auth);
-      if (onSuccess) onSuccess();
-      onClose();
-    } catch (err: any) {
-      console.warn('Firebase anonymous auth fallback to local demo mode:', err);
-      if (onSuccess) onSuccess();
-      onClose();
     } finally {
       setLoading(false);
     }
@@ -560,14 +543,6 @@ export function AuthModal({
                     <path fill="#34A853" d="M12 23c3.2 0 6-1.1 8-3l-3.7-2.9c-1.1.7-2.5 1.2-4.3 1.2-3 0-5.5-2.4-6.4-5.2L1.9 16c1.8 3.7 5.6 7 10.1 7z" />
                   </svg>
                   <span>Continuar con Google</span>
-                </button>
-
-                <button
-                  type="button"
-                  onClick={handleGuestAccess}
-                  className="w-full text-center text-xs text-zinc-400 hover:text-zinc-200 pt-2 transition-colors cursor-pointer"
-                >
-                  Acceder como invitado (Modo local)
                 </button>
               </>
             )}

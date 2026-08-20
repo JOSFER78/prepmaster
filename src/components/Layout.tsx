@@ -328,37 +328,39 @@ export function Layout({
 
       </div>
 
-      {/* 3. MOBILE BOTTOM TAB BAR (NO SQUEEZED TOP HEADERS) */}
-      <nav className="lg:hidden fixed bottom-0 left-0 right-0 z-40 bg-[#FBF9F5]/95 dark:bg-[#0C0D0E]/95 backdrop-blur-md border-t border-zinc-200/80 dark:border-white/10 px-2 py-2 flex items-center justify-around">
-        <MobileTabItem 
-          icon={<Flame size={18} />} 
-          label="Hoy" 
-          isActive={isTodayActive} 
-          onClick={() => onNavigate({ name: 'home' })} 
-        />
-        <MobileTabItem 
-          icon={<Sparkles size={18} />} 
-          label="Planificador" 
-          isActive={isPlannerActive} 
-          onClick={() => onNavigate({ name: 'ai-generator' })} 
-        />
-        <MobileTabItem 
-          icon={<ChefHat size={18} className="text-amber-400" />} 
-          label="Chefs & DIA" 
-          isActive={isChefsDiaActive} 
-          badge={activeBookingsCount > 0 ? `${activeBookingsCount}` : undefined}
-          onClick={() => onNavigate({ name: 'chefs' })} 
-        />
-        <MobileTabItem 
-          icon={<UtensilsCrossed size={18} />} 
-          label="Mi Cocina" 
-          isActive={isKitchenActive} 
-          onClick={() => onNavigate({ name: 'profile' })} 
-        />
-      </nav>
+      {/* 3. MOBILE BOTTOM TAB BAR (NO SQUEEZED TOP HEADERS - ONLY FOR AUTHENTICATED USERS) */}
+      {currentUser && (
+        <nav className="lg:hidden fixed bottom-0 left-0 right-0 z-40 bg-[#FBF9F5]/95 dark:bg-[#0C0D0E]/95 backdrop-blur-md border-t border-zinc-200/80 dark:border-white/10 px-2 py-2 flex items-center justify-around">
+          <MobileTabItem 
+            icon={<Flame size={18} />} 
+            label="Hoy" 
+            isActive={isTodayActive} 
+            onClick={() => onNavigate({ name: 'home' })} 
+          />
+          <MobileTabItem 
+            icon={<Sparkles size={18} />} 
+            label="Planificador" 
+            isActive={isPlannerActive} 
+            onClick={() => onNavigate({ name: 'ai-generator' })} 
+          />
+          <MobileTabItem 
+            icon={<ChefHat size={18} className="text-amber-400" />} 
+            label="Chefs & DIA" 
+            isActive={isChefsDiaActive} 
+            badge={activeBookingsCount > 0 ? `${activeBookingsCount}` : undefined}
+            onClick={() => onNavigate({ name: 'chefs' })} 
+          />
+          <MobileTabItem 
+            icon={<UtensilsCrossed size={18} />} 
+            label="Mi Cocina" 
+            isActive={isKitchenActive} 
+            onClick={() => onNavigate({ name: 'profile' })} 
+          />
+        </nav>
+      )}
 
       {/* 4. MOBILE DRAWER */}
-      {isMobileDrawerOpen && (
+      {isMobileDrawerOpen && currentUser && (
         <div className="lg:hidden fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex justify-end animate-in fade-in duration-200">
           <div className="w-72 bg-white dark:bg-zinc-900 h-full p-6 shadow-2xl flex flex-col justify-between border-l border-zinc-200 dark:border-zinc-800 space-y-6 overflow-y-auto">
             <div className="space-y-6">

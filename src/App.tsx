@@ -32,7 +32,7 @@ import { ChefDetailModal } from './components/ChefDetailModal';
 import { ChefOnboardingModal } from './components/ChefOnboardingModal';
 import { CookieBanner } from './components/CookieBanner';
 import { LegalModals } from './components/LegalModals';
-import { auth, db, onAuthStateChanged, signInAnonymously, User } from './lib/firebase';
+import { auth, db, onAuthStateChanged, User } from './lib/firebase';
 import { doc, getDoc, setDoc } from 'firebase/firestore';
 import { 
   cloneBatchProjectAsNew,
@@ -425,19 +425,16 @@ export default function App() {
     setIsAuthModalOpen(true);
   };
 
-  const handleEnterAsGuest = async (context?: MealPlanConfig) => {
-    if (context) {
-      handleUpdatePlanConfig(context);
+  const handleNavigate = (view: ViewState) => {
+    if (view.name === 'landing') {
+      setCurrentView(view);
+      return;
     }
-    try {
-      if (!currentUser) {
-        await signInAnonymously(auth);
-      }
-      setCurrentView({ name: 'home' });
-    } catch (err) {
-      console.error('Guest login error:', err);
-      setCurrentView({ name: 'home' });
+    if (!currentUser) {
+      handleOpenAuth('register');
+      return;
     }
+    setCurrentView(view);
   };
 
   const handleLaunchBatchToChefNetwork = (batch: BatchProject) => {
@@ -462,7 +459,7 @@ export default function App() {
     saveFavoriteDishesToStorage(updated, currentUser?.uid);
   };
 
-  const isLandingView = currentView.name === 'landing';
+  const isLandingView = currentView.name === 'landing' || !currentUser;
   const shouldHideAppNav = isLandingView;
 
   return (
@@ -470,8 +467,7 @@ export default function App() {
       {isLandingView ? (
         <LandingView 
           onOpenAuth={handleOpenAuth} 
-          onEnterAsGuest={handleEnterAsGuest}
-          onNavigate={setCurrentView}
+          onNavigate={handleNavigate}
           currentUser={currentUser}
           onOpenLegal={(type) => setActiveLegalModal(type)}
           initialPlanConfig={activePlanConfig}
@@ -480,7 +476,7 @@ export default function App() {
       ) : (
         <Layout 
           currentView={currentView} 
-          onNavigate={setCurrentView} 
+          onNavigate={handleNavigate} 
           hideNav={shouldHideAppNav}
           activeProject={activeProject}
           onOpenAuth={handleOpenAuth}

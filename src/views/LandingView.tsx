@@ -35,7 +35,8 @@ import {
   BookOpen,
   Smartphone,
   Zap,
-  Award
+  Award,
+  Download
 } from 'lucide-react';
 import { ViewState, MealPlanConfig } from '../types';
 import { useTheme } from '../lib/theme';
@@ -45,7 +46,6 @@ import { User as FirebaseUser } from '../lib/firebase';
 
 interface LandingViewProps {
   onOpenAuth: (mode?: 'login' | 'register', pendingContext?: MealPlanConfig) => void;
-  onEnterAsGuest: (context?: MealPlanConfig) => void;
   onNavigate: (view: ViewState) => void;
   currentUser?: FirebaseUser | null;
   onOpenLegal?: (type: 'privacy' | 'terms' | 'cookies') => void;
@@ -58,7 +58,6 @@ type MealCoverage = 'lunches' | 'dinners' | 'both';
 
 export function LandingView({ 
   onOpenAuth, 
-  onEnterAsGuest, 
   onNavigate,
   currentUser,
   onOpenLegal,
@@ -103,7 +102,10 @@ export function LandingView({
   const handleLaunchPlan = (intent: 'cook' | 'chef' | 'supermarket' = 'cook') => {
     const ctx = getPlanConfig();
     if (onPlanConfigChange) onPlanConfigChange(ctx);
-    onEnterAsGuest(ctx);
+    if (!currentUser) {
+      onOpenAuth('register', ctx);
+      return;
+    }
     if (intent === 'chef') {
       onNavigate({ name: 'chefs' });
     } else if (intent === 'supermarket') {
@@ -125,8 +127,8 @@ export function LandingView({
             <TouChefLogo size="md" showWordmark={true} />
           </div>
 
-            {/* Nav links */}
-          <nav className="hidden md:flex items-center gap-6 text-xs font-semibold text-zinc-600 dark:text-zinc-400">
+          {/* Nav links */}
+          <nav className="hidden md:flex items-center gap-5 lg:gap-6 text-xs font-semibold text-zinc-600 dark:text-zinc-400">
             <a href="#que-hacer" className="hover:text-[#E07A5F] dark:hover:text-[#F4A261] transition-colors">
               ¿Qué quieres hacer?
             </a>
@@ -137,26 +139,19 @@ export function LandingView({
               3 Formas de Uso
             </a>
             <a href="#planificador" className="hover:text-[#E07A5F] dark:hover:text-[#F4A261] transition-colors flex items-center gap-1">
-              <Sparkles size={13} className="text-[#E07A5F]" /> Planificador Semanal
+              <Sparkles size={13} className="text-[#E07A5F]" /> Planificador
+            </a>
+            <a href="#descargar-apk" className="hover:text-emerald-500 transition-colors flex items-center gap-1 text-emerald-600 dark:text-emerald-400 font-bold">
+              <Smartphone size={13} /> App Android (APK)
             </a>
             <a href="#faq" className="hover:text-[#E07A5F] dark:hover:text-[#F4A261] transition-colors">
-              Preguntas Frecuentes
+              FAQ
             </a>
           </nav>
 
           {/* Right Action buttons */}
           <div className="flex items-center gap-2 sm:gap-3">
             
-            {/* Direct Exploration button */}
-            <button
-              onClick={() => onEnterAsGuest(getPlanConfig())}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-zinc-200 dark:border-zinc-700 bg-white/80 dark:bg-zinc-800/80 text-xs font-bold text-zinc-700 dark:text-zinc-300 hover:text-[#E07A5F] dark:hover:text-[#F4A261] transition-all cursor-pointer shadow-2xs"
-              title="Explorar la aplicación y el planificador"
-            >
-              <Compass size={14} className="text-[#E07A5F]" />
-              <span className="hidden sm:inline">Explorar App</span>
-            </button>
-
             <button
               onClick={toggleTheme}
               className="p-2 rounded-xl text-zinc-500 hover:text-zinc-900 dark:hover:text-white hover:bg-zinc-200/50 dark:hover:bg-zinc-800 transition-colors cursor-pointer"
@@ -223,11 +218,11 @@ export function LandingView({
             </button>
 
             <button
-              onClick={() => onEnterAsGuest(getPlanConfig())}
+              onClick={() => onOpenAuth('login', getPlanConfig())}
               className="w-full sm:w-auto px-6 py-3.5 rounded-2xl bg-zinc-200 dark:bg-zinc-800 hover:bg-zinc-300 dark:hover:bg-zinc-700 text-zinc-900 dark:text-white font-bold text-xs sm:text-sm shadow-md transition-all flex items-center justify-center gap-2 cursor-pointer"
             >
-              <Compass size={16} className="text-[#E07A5F]" />
-              <span>Entrar y Probar Sin Registro</span>
+              <Lock size={15} className="text-[#E07A5F]" />
+              <span>Ya tengo cuenta · Iniciar Sesión</span>
             </button>
           </div>
 
@@ -455,7 +450,7 @@ export function LandingView({
                 </div>
               </div>
               <button
-                onClick={() => onEnterAsGuest()}
+                onClick={() => currentUser ? onNavigate({ name: 'ai-generator' }) : onOpenAuth('register', getPlanConfig())}
                 className="px-5 py-3 rounded-xl bg-zinc-100 dark:bg-zinc-800 hover:bg-zinc-200 dark:hover:bg-zinc-700 text-zinc-900 dark:text-white font-bold text-xs transition-all inline-flex items-center gap-2 cursor-pointer shadow-xs"
               >
                 <BookOpen size={15} className="text-amber-500" />
@@ -712,6 +707,116 @@ export function LandingView({
         </div>
       </section>
 
+      {/* SECCIÓN OFICIAL DESCARGA APK ANDROID */}
+      <section id="descargar-apk" className="py-16 px-4 sm:px-8 bg-gradient-to-b from-zinc-100/80 to-white dark:from-zinc-900/60 dark:to-zinc-950 border-t border-zinc-200 dark:border-zinc-800">
+        <div className="max-w-5xl mx-auto space-y-8">
+          
+          <div className="text-center space-y-3">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 dark:text-emerald-400 text-xs font-bold">
+              <Smartphone size={14} />
+              <span>APP NATIVA DISPONIBLE · ANDROID 8.0 A 15+</span>
+            </div>
+            <h2 className="text-2xl sm:text-4xl font-display font-black text-zinc-900 dark:text-white">
+              TouChef en tu Smartphone Android
+            </h2>
+            <p className="text-xs sm:text-sm text-zinc-600 dark:text-zinc-400 max-w-2xl mx-auto leading-relaxed">
+              Descarga e instala directamente la aplicación oficial (APK v1.0.0). Cocina con el modo fuegos interactivo, sincroniza tus pedidos con DIA y gestiona tus reservas de cocineros desde la palma de tu mano.
+            </p>
+          </div>
+
+          <div className="bg-white dark:bg-zinc-900 rounded-3xl border border-zinc-200 dark:border-zinc-800 p-6 sm:p-10 shadow-2xl grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+            
+            <div className="lg:col-span-7 space-y-5">
+              <div className="flex items-center gap-3.5">
+                {/* SVG Android Logo */}
+                <div className="w-13 h-13 rounded-2xl bg-emerald-500/15 border border-emerald-500/30 flex items-center justify-center text-emerald-600 dark:text-emerald-400 shrink-0">
+                  <svg className="w-8 h-8" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M17.523 15.3414c-.5511 0-.9993-.4486-.9993-.9997s.4482-.9993.9993-.9993c.551 0 .9993.4482.9993.9993.0001.5511-.4483.9997-.9993.9997m-11.046 0c-.5511 0-.9993-.4486-.9993-.9997s.4482-.9993.9993-.9993c.5511 0 .9993.4482.9993.9993 0 .5511-.4482.9997-.9993.9997m11.4045-6.02l1.9973-3.4592a.416.416 0 00-.1521-.5676.416.416 0 00-.5676.1521l-2.0223 3.503C15.5833 8.3554 13.8436 8 12 8s-3.5833.3554-5.1368.9507L4.8409 5.4477a.416.416 0 00-.5676-.1521.416.416 0 00-.1521.5676l1.9973 3.4592C2.6889 10.9867 0 14.7397 0 19.12h24c0-4.3803-2.6889-8.1333-6.1185-9.7986"/>
+                  </svg>
+                </div>
+                <div>
+                  <div className="flex items-center gap-2">
+                    <strong className="text-lg sm:text-xl font-display font-black text-zinc-900 dark:text-white">
+                      TouChef App Android
+                    </strong>
+                    <span className="px-2 py-0.5 rounded-md bg-emerald-500/15 text-emerald-700 dark:text-emerald-300 font-black text-[10px] uppercase">
+                      v1.0.0 Oficial
+                    </span>
+                  </div>
+                  <span className="text-xs text-zinc-500 dark:text-zinc-400 block">
+                    Paquete: app.touchef.app · Build 100 · 132 MB
+                  </span>
+                </div>
+              </div>
+
+              <div className="space-y-2.5 text-xs text-zinc-700 dark:text-zinc-300">
+                <div className="flex items-start gap-2.5">
+                  <CheckCircle2 size={16} className="text-emerald-500 shrink-0 mt-0.5" />
+                  <span><strong>Modo Cocina en Vivo:</strong> Temporizadores secuenciales paso a paso que mantienen la pantalla encendida mientras cocinas.</span>
+                </div>
+                <div className="flex items-start gap-2.5">
+                  <CheckCircle2 size={16} className="text-emerald-500 shrink-0 mt-0.5" />
+                  <span><strong>Sincronización Total en la Nube:</strong> Mismo lote de cocina, despensa y reservas compartidas entre web y app móvil.</span>
+                </div>
+                <div className="flex items-start gap-2.5">
+                  <CheckCircle2 size={16} className="text-emerald-500 shrink-0 mt-0.5" />
+                  <span><strong>Instalación Segura:</strong> Binario certificado y firmado, libre de anuncios y con verificación de integridad SHA-256.</span>
+                </div>
+              </div>
+
+              <div className="pt-2 flex flex-wrap gap-3 items-center">
+                <a
+                  href="/download/touchef_v1.0.0.apk"
+                  download="touchef_v1.0.0.apk"
+                  className="btn-hero-copper text-white font-black text-xs sm:text-sm px-6 py-3.5 rounded-2xl shadow-xl transition-all inline-flex items-center gap-2.5 hover:scale-[1.02] active:scale-95 cursor-pointer"
+                >
+                  <Download size={18} />
+                  <span>Descargar APK Oficial (132 MB)</span>
+                </a>
+
+                <a
+                  href="/download/touchef_v1.0.0.zip"
+                  download="touchef_v1.0.0.zip"
+                  className="px-4 py-3.5 rounded-2xl bg-zinc-100 dark:bg-zinc-800 hover:bg-zinc-200 dark:hover:bg-zinc-700 text-zinc-700 dark:text-zinc-200 font-bold text-xs transition-all inline-flex items-center gap-2 cursor-pointer"
+                  title="Descargar paquete ZIP con instalador"
+                >
+                  <span>Descargar ZIP</span>
+                </a>
+              </div>
+            </div>
+
+            <div className="lg:col-span-5 bg-zinc-50 dark:bg-zinc-950/70 rounded-2xl p-5 border border-zinc-200/80 dark:border-zinc-800 space-y-3.5">
+              <strong className="text-xs font-bold uppercase tracking-wider text-zinc-900 dark:text-white flex items-center gap-2">
+                <ShieldCheck size={16} className="text-emerald-500" />
+                Guía Rápida de Instalación (3 Pasos)
+              </strong>
+              
+              <ol className="space-y-3 text-xs text-zinc-600 dark:text-zinc-400">
+                <li className="flex items-start gap-2.5">
+                  <span className="w-5 h-5 rounded-full bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 font-black text-[11px] flex items-center justify-center shrink-0 mt-0.5">1</span>
+                  <span>Pulsa en <strong>Descargar APK</strong> para guardar el instalador en tu smartphone Android.</span>
+                </li>
+                <li className="flex items-start gap-2.5">
+                  <span className="w-5 h-5 rounded-full bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 font-black text-[11px] flex items-center justify-center shrink-0 mt-0.5">2</span>
+                  <span>Si el móvil muestra una alerta, selecciona <strong>"Permitir descargar / Instalar desde esta fuente"</strong>.</span>
+                </li>
+                <li className="flex items-start gap-2.5">
+                  <span className="w-5 h-5 rounded-full bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 font-black text-[11px] flex items-center justify-center shrink-0 mt-0.5">3</span>
+                  <span>Abre el archivo descargado, pulsa <strong>Instalar</strong> e inicia sesión en TouChef.</span>
+                </li>
+              </ol>
+
+              <div className="pt-2 border-t border-zinc-200 dark:border-zinc-800 text-[10px] text-zinc-500 dark:text-zinc-400 flex items-center justify-between">
+                <span>SHA-256 Verificado</span>
+                <span className="font-mono text-[9px] text-zinc-400">FA:D9:05:86:4C...</span>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </section>
+
       {/* FAQ SECTION */}
       <section id="faq" className="py-14 bg-zinc-100/60 dark:bg-zinc-900/40 border-t border-zinc-200 dark:border-zinc-800 px-4 sm:px-8">
         <div className="max-w-3xl mx-auto space-y-6">
@@ -771,6 +876,15 @@ export function LandingView({
                 <li><button onClick={() => handleLaunchPlan('chef')} className="hover:text-amber-500 cursor-pointer">Directorio de Cocineros</button></li>
                 <li><button onClick={() => handleLaunchPlan('supermarket')} className="hover:text-rose-500 cursor-pointer">Supermercados DIA</button></li>
                 <li><button onClick={() => onOpenAuth('register')} className="hover:text-[#E07A5F] cursor-pointer">Alta de Cocinero Pro</button></li>
+                <li className="pt-1">
+                  <a 
+                    href="#descargar-apk" 
+                    className="hover:text-emerald-500 font-bold text-emerald-600 dark:text-emerald-400 flex items-center gap-1.5 cursor-pointer"
+                  >
+                    <Smartphone size={13} />
+                    <span>Descargar APK Android (v1.0.0)</span>
+                  </a>
+                </li>
               </ul>
             </div>
 
