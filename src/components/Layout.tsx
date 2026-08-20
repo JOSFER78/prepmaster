@@ -140,33 +140,6 @@ export function Layout({
 
   return (
     <div className="min-h-screen bg-[#FBF9F5] dark:bg-[#0C0D0E] text-zinc-900 dark:text-zinc-100 flex flex-col font-sans transition-colors">
-      
-      {/* 0. COMPACT DEMO BANNER */}
-      {!currentUser && (
-        <div className="bg-amber-500/10 dark:bg-amber-950/30 border-b border-amber-500/20 px-4 sm:px-8 py-2 text-xs text-amber-800 dark:text-amber-300 flex flex-wrap items-center justify-between gap-2">
-          <div className="flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-amber-500 animate-pulse shrink-0" />
-            <span className="text-[11px] sm:text-xs">
-              <strong>Modo Demo (Solo Lectura):</strong> Crea tu cuenta gratis para guardar menús con IA, despensa y contratar chefs.
-            </span>
-          </div>
-
-          <div className="flex items-center gap-2 shrink-0">
-            <button
-              onClick={() => onOpenAuth && onOpenAuth('register')}
-              className="px-3 py-1 rounded-xl bg-amber-500 hover:bg-amber-400 text-stone-950 font-black text-xs transition-all cursor-pointer shadow-xs"
-            >
-              Crear Cuenta Gratis
-            </button>
-            <button
-              onClick={() => onOpenAuth && onOpenAuth('login')}
-              className="text-xs font-bold text-amber-700 dark:text-amber-300 hover:underline cursor-pointer"
-            >
-              Acceder
-            </button>
-          </div>
-        </div>
-      )}
 
       {/* 1. TOP HEADER (CLEAN & SPACIOUS) */}
       <header className="sticky top-0 z-40 bg-[#FBF9F5]/95 dark:bg-[#0C0D0E]/95 backdrop-blur-md border-b border-zinc-200/80 dark:border-white/10 transition-colors">

@@ -58,14 +58,19 @@ targetDirs.forEach(dir => {
 const primaryZip = path.join(targetDirs[0], zipVersionedName);
 console.log(`⚡ Comprimiendo ${apkVersionedName} en archivo ZIP...`);
 try {
-  // Intentar con comando zip nativo de Linux
-  execSync(`cd "${tempDir}" && zip -9 "${primaryZip}" "${apkVersionedName}"`, { stdio: 'inherit' });
+  // Intentar con python3 zipfile (universal en Linux)
+  execSync(`python3 -c "import zipfile, os; zf = zipfile.ZipFile('${primaryZip}', 'w', zipfile.ZIP_DEFLATED); zf.write('${tempVersionedApk}', arcname='${apkVersionedName}'); zf.close()"`);
 } catch (err) {
   try {
-    // Fallback con PowerShell si estuviese en Windows
-    execSync(`powershell -Command "Compress-Archive -Path '${tempVersionedApk}' -DestinationPath '${primaryZip}' -Force"`);
+    // Intentar con comando zip nativo de Linux
+    execSync(`cd "${tempDir}" && zip -9 "${primaryZip}" "${apkVersionedName}"`, { stdio: 'inherit' });
   } catch (err2) {
-    console.warn('Advertencia al generar ZIP:', err2.message);
+    try {
+      // Fallback con PowerShell si estuviese en Windows
+      execSync(`powershell -Command "Compress-Archive -Path '${tempVersionedApk}' -DestinationPath '${primaryZip}' -Force"`);
+    } catch (err3) {
+      console.warn('Advertencia al generar ZIP:', err3.message);
+    }
   }
 }
 

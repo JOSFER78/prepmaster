@@ -1,0 +1,13 @@
+{
+  "appName": "TouChef",
+  "packageName": "app.touchef.app",
+  "version": "1.0.0",
+  "buildNumber": 100,
+  "releaseDate": "2026-08-20T13:39:42.804Z",
+  "apkFileName": "touchef_v1.0.0.apk",
+  "zipFileName": "touchef_v1.0.0.zip",
+  "apkDownloadUrl": "/download/touchef_v1.0.0.apk",
+  "zipDownloadUrl": "/download/touchef_v1.0.0.zip",
+  "sha1": "E5:86:04:B7:37:9A:83:CA:5F:22:0C:9A:BF:57:84:8E:CA:4B:5A:7B",
+  "sha256": "FA:D9:05:86:4C:88:6D:52:65:DD:3B:71:B7:28:52:D4:74:D7:AB:F7:8E:D8:3D:A4:9B:3A:D4:43:42:84:CF:5C"
+}

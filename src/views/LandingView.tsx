@@ -29,7 +29,13 @@ import {
   FileText,
   Lock,
   Truck,
-  Eye
+  Eye,
+  Compass,
+  Mic,
+  BookOpen,
+  Smartphone,
+  Zap,
+  Award
 } from 'lucide-react';
 import { ViewState, MealPlanConfig } from '../types';
 import { useTheme } from '../lib/theme';
@@ -124,6 +130,9 @@ export function LandingView({
             <a href="#que-hacer" className="hover:text-[#E07A5F] dark:hover:text-[#F4A261] transition-colors">
               ¿Qué quieres hacer?
             </a>
+            <a href="#ventajas" className="hover:text-[#E07A5F] dark:hover:text-[#F4A261] transition-colors flex items-center gap-1">
+              <Zap size={13} className="text-amber-500" /> Ventajas &amp; Capturas
+            </a>
             <a href="#modos" className="hover:text-[#E07A5F] dark:hover:text-[#F4A261] transition-colors">
               3 Formas de Uso
             </a>
@@ -138,14 +147,14 @@ export function LandingView({
           {/* Right Action buttons */}
           <div className="flex items-center gap-2 sm:gap-3">
             
-            {/* Direct Demo Mode button */}
+            {/* Direct Exploration button */}
             <button
               onClick={() => onEnterAsGuest(getPlanConfig())}
               className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-zinc-200 dark:border-zinc-700 bg-white/80 dark:bg-zinc-800/80 text-xs font-bold text-zinc-700 dark:text-zinc-300 hover:text-[#E07A5F] dark:hover:text-[#F4A261] transition-all cursor-pointer shadow-2xs"
-              title="Explorar la app en modo demostración con datos estándar"
+              title="Explorar la aplicación y el planificador"
             >
-              <Eye size={14} className="text-amber-500" />
-              <span className="hidden sm:inline">Modo Demo</span>
+              <Compass size={14} className="text-[#E07A5F]" />
+              <span className="hidden sm:inline">Explorar App</span>
             </button>
 
             <button
@@ -217,8 +226,8 @@ export function LandingView({
               onClick={() => onEnterAsGuest(getPlanConfig())}
               className="w-full sm:w-auto px-6 py-3.5 rounded-2xl bg-zinc-200 dark:bg-zinc-800 hover:bg-zinc-300 dark:hover:bg-zinc-700 text-zinc-900 dark:text-white font-bold text-xs sm:text-sm shadow-md transition-all flex items-center justify-center gap-2 cursor-pointer"
             >
-              <Eye size={16} className="text-amber-500" />
-              <span>Explorar en Modo Demo (Solo Lectura)</span>
+              <Compass size={16} className="text-[#E07A5F]" />
+              <span>Entrar y Probar Sin Registro</span>
             </button>
           </div>
 
@@ -309,6 +318,234 @@ export function LandingView({
               </button>
             </div>
 
+          </div>
+
+        </div>
+      </section>
+
+      {/* SECCIÓN VENTAJAS, CAPTURAS & COPYWRITING EXCLUSIVO */}
+      <section id="ventajas" className="py-20 px-4 sm:px-8 bg-linear-to-b from-transparent via-amber-500/5 to-transparent border-b border-zinc-200 dark:border-zinc-800">
+        <div className="max-w-6xl mx-auto space-y-16">
+          
+          {/* Header */}
+          <div className="text-center space-y-3 max-w-3xl mx-auto">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#E07A5F]/15 border border-[#E07A5F]/30 text-[#E07A5F] text-xs font-black uppercase tracking-wider">
+              <Zap size={14} />
+              <span>Tecnología Culinaria de Vanguardia</span>
+            </div>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-display font-black text-zinc-900 dark:text-white tracking-tight">
+              Diseñado para Ahorrarte 6 Horas a la Semana y Comer Mejor que Nunca
+            </h2>
+            <p className="text-sm sm:text-base text-zinc-600 dark:text-zinc-400 leading-relaxed">
+              Mira por dentro cómo TouChef combina inteligencia artificial, recetas canónicas tradicionales y coordinación termodinámica para que cocinar sea rápido, placentero y sin estrés.
+            </p>
+          </div>
+
+          {/* Metric Highlights Bar */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div className="bg-white dark:bg-zinc-900 p-5 rounded-3xl border border-zinc-200 dark:border-zinc-800 shadow-xs text-center space-y-1">
+              <span className="text-2xl sm:text-3xl font-mono font-black text-[#E07A5F]">247</span>
+              <strong className="text-xs text-zinc-900 dark:text-white block">Recetas Canónicas Técnicas</strong>
+              <p className="text-[11px] text-zinc-500">Con gramajes exactos y fotos en 3 pasos</p>
+            </div>
+            <div className="bg-white dark:bg-zinc-900 p-5 rounded-3xl border border-zinc-200 dark:border-zinc-800 shadow-xs text-center space-y-1">
+              <span className="text-2xl sm:text-3xl font-mono font-black text-emerald-500">&lt;120m</span>
+              <strong className="text-xs text-zinc-900 dark:text-white block">Batch Cooking Completo</strong>
+              <p className="text-[11px] text-zinc-500">14 raciones semanales listas al unísono</p>
+            </div>
+            <div className="bg-white dark:bg-zinc-900 p-5 rounded-3xl border border-zinc-200 dark:border-zinc-800 shadow-xs text-center space-y-1">
+              <span className="text-2xl sm:text-3xl font-mono font-black text-amber-500">-35%</span>
+              <strong className="text-xs text-zinc-900 dark:text-white block">Ahorro en Supermercado DIA</strong>
+              <p className="text-[11px] text-zinc-500">Cero ingredientes sobrantes en despensa</p>
+            </div>
+            <div className="bg-white dark:bg-zinc-900 p-5 rounded-3xl border border-zinc-200 dark:border-zinc-800 shadow-xs text-center space-y-1">
+              <span className="text-2xl sm:text-3xl font-mono font-black text-rose-500">100%</span>
+              <strong className="text-xs text-zinc-900 dark:text-white block">Seguridad &amp; Alérgenos</strong>
+              <p className="text-[11px] text-zinc-500">Normativa europea UE 1169 y Cook &amp; Chill</p>
+            </div>
+          </div>
+
+          {/* Feature 1: Asistente en Directo por Voz */}
+          <div className="bg-white dark:bg-zinc-900 rounded-3xl border border-zinc-200 dark:border-zinc-800 p-6 sm:p-10 shadow-xl grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+            <div className="lg:col-span-6 space-y-5">
+              <div className="flex flex-wrap gap-2">
+                <span className="px-3 py-1 rounded-full bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 font-bold text-xs">
+                  🎙️ Control por Voz Manos Libres
+                </span>
+                <span className="px-3 py-1 rounded-full bg-[#E07A5F]/10 text-[#E07A5F] font-bold text-xs">
+                  🔥 4 Fuegos + Horno en Paralelo
+                </span>
+              </div>
+              <h3 className="text-2xl sm:text-3xl font-display font-black text-zinc-900 dark:text-white">
+                1. Asistente de Cocina en Directo: Tu Copiloto Culinario en Tiempo Real
+              </h3>
+              <p className="text-xs sm:text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed">
+                Olvídate de manchar la pantalla del móvil o tablet con aceite mientras cocinas. Nuestro Asistente de Cocina escucha tus órdenes por voz, sincroniza hasta 5 temporizadores térmicos y te canta en qué momento exacto añadir cada ingrediente o bajar el fuego.
+              </p>
+              <div className="space-y-2.5 text-xs text-zinc-700 dark:text-zinc-300">
+                <div className="flex items-start gap-2.5">
+                  <CheckCircle2 size={16} className="text-emerald-500 shrink-0 mt-0.5" />
+                  <span><strong>Comandos por voz instantáneos:</strong> «Siguiente paso», «¿A qué fuego va la salsa?», «Añade 3 minutos al fuego 2».</span>
+                </div>
+                <div className="flex items-start gap-2.5">
+                  <CheckCircle2 size={16} className="text-emerald-500 shrink-0 mt-0.5" />
+                  <span><strong>Cronometraje dinámico por fuego:</strong> Nunca más se te pasará un arroz o se quemará un sofrito mientras atiendes otra cazuela.</span>
+                </div>
+                <div className="flex items-start gap-2.5">
+                  <CheckCircle2 size={16} className="text-emerald-500 shrink-0 mt-0.5" />
+                  <span><strong>Pautas de abatimiento Cook &amp; Chill:</strong> Tiempos exactos para enfriar y cerrar tus táperes garantizando máxima jugosidad y seguridad.</span>
+                </div>
+              </div>
+              <button
+                onClick={() => handleLaunchPlan('cook')}
+                className="btn-hero-copper text-white font-bold text-xs px-5 py-3 rounded-xl shadow-xs transition-all inline-flex items-center gap-2 cursor-pointer"
+              >
+                <Flame size={15} />
+                <span>Probar Asistente de Cocinado</span>
+              </button>
+            </div>
+
+            <div className="lg:col-span-6">
+              <div className="relative rounded-2xl overflow-hidden border border-zinc-200 dark:border-zinc-700 shadow-2xl group">
+                <img 
+                  src="/assets/showcase/asistente_en_directo_preview.jpg" 
+                  alt="Asistente de Cocina en Directo TouChef con ondas de voz y temporizadores" 
+                  className="w-full h-auto object-cover transform group-hover:scale-105 transition-transform duration-500"
+                  loading="lazy"
+                />
+                <div className="absolute bottom-3 left-3 right-3 bg-zinc-950/80 backdrop-blur-md text-white px-4 py-2.5 rounded-xl text-xs flex items-center justify-between border border-white/10">
+                  <span className="font-bold flex items-center gap-1.5">
+                    <Mic size={14} className="text-cyan-400 animate-pulse" /> Modo Escucha Activa
+                  </span>
+                  <span className="font-mono text-amber-400 font-bold">4 fuegos activos</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Feature 2: 247 Recetas Canónicas & 3 Pasos */}
+          <div className="bg-white dark:bg-zinc-900 rounded-3xl border border-zinc-200 dark:border-zinc-800 p-6 sm:p-10 shadow-xl grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+            <div className="lg:col-span-6 lg:order-2 space-y-5">
+              <div className="flex flex-wrap gap-2">
+                <span className="px-3 py-1 rounded-full bg-amber-500/10 text-amber-600 dark:text-amber-400 font-bold text-xs">
+                  🥘 174 Recetas Tradicionales
+                </span>
+                <span className="px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 font-bold text-xs">
+                  👨‍🍳 73 Recetas Karlos Arguiñano
+                </span>
+              </div>
+              <h3 className="text-2xl sm:text-3xl font-display font-black text-zinc-900 dark:text-white">
+                2. Catálogo Canónico Técnico: Fotos en 3 Pasos &amp; Gramajes Exactos
+              </h3>
+              <p className="text-xs sm:text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed">
+                Sin ambigüedades ni medidas al ojo. Cada una de nuestras 247 recetas incluye mise en place en gramos y mililitros, fotos secuenciales (1. Ingredientes, 2. Elaboración en cazuela, 3. Resultado final en táper), cálculo nutricional del Plato de Harvard y 69 infografías de elaboración.
+              </p>
+              <div className="space-y-2.5 text-xs text-zinc-700 dark:text-zinc-300">
+                <div className="flex items-start gap-2.5">
+                  <CheckCircle2 size={16} className="text-emerald-500 shrink-0 mt-0.5" />
+                  <span><strong>Sistema Fotográfico 3 Pasos:</strong> Conoce visualmente el corte de verdura, el punto de pochado y la textura de la salsa antes de empezar.</span>
+                </div>
+                <div className="flex items-start gap-2.5">
+                  <CheckCircle2 size={16} className="text-emerald-500 shrink-0 mt-0.5" />
+                  <span><strong>Nutrición Inteligente:</strong> Desglose automático de macronutrientes, calorías por ración y balance vegetal vs. proteico.</span>
+                </div>
+                <div className="flex items-start gap-2.5">
+                  <CheckCircle2 size={16} className="text-emerald-500 shrink-0 mt-0.5" />
+                  <span><strong>Consejos de Conservación:</strong> Indicaciones específicas de cuántos días aguanta cada plato en nevera o si admite congelación.</span>
+                </div>
+              </div>
+              <button
+                onClick={() => onEnterAsGuest()}
+                className="px-5 py-3 rounded-xl bg-zinc-100 dark:bg-zinc-800 hover:bg-zinc-200 dark:hover:bg-zinc-700 text-zinc-900 dark:text-white font-bold text-xs transition-all inline-flex items-center gap-2 cursor-pointer shadow-xs"
+              >
+                <BookOpen size={15} className="text-amber-500" />
+                <span>Explorar Catálogo de 247 Recetas</span>
+              </button>
+            </div>
+
+            <div className="lg:col-span-6 lg:order-1">
+              <div className="relative rounded-2xl overflow-hidden border border-zinc-200 dark:border-zinc-700 shadow-2xl group">
+                <img 
+                  src="/assets/showcase/batch_recetas_canonicas_preview.jpg" 
+                  alt="Catálogo de Recetas Canónicas y Planificador Batch Cooking TouChef" 
+                  className="w-full h-auto object-cover transform group-hover:scale-105 transition-transform duration-500"
+                  loading="lazy"
+                />
+                <div className="absolute bottom-3 left-3 right-3 bg-zinc-950/80 backdrop-blur-md text-white px-4 py-2.5 rounded-xl text-xs flex items-center justify-between border border-white/10">
+                  <span className="font-bold flex items-center gap-1.5">
+                    <Sparkles size={14} className="text-[#E07A5F]" /> 247 Recetas Técnicas
+                  </span>
+                  <span className="font-bold text-emerald-400">Fotos Paso a Paso</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Feature 3: Marketplace de Chefs & DIA Supermercados */}
+          <div className="bg-white dark:bg-zinc-900 rounded-3xl border border-zinc-200 dark:border-zinc-800 p-6 sm:p-10 shadow-xl grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+            <div className="lg:col-span-6 space-y-5">
+              <div className="flex flex-wrap gap-2">
+                <span className="px-3 py-1 rounded-full bg-rose-500/10 text-rose-600 dark:text-rose-400 font-bold text-xs">
+                  🛒 Integración DIA Supermercados
+                </span>
+                <span className="px-3 py-1 rounded-full bg-amber-500/10 text-amber-600 dark:text-amber-400 font-bold text-xs">
+                  👨‍🍳 Chefs Verificados a Domicilio
+                </span>
+              </div>
+              <h3 className="text-2xl sm:text-3xl font-display font-black text-zinc-900 dark:text-white">
+                3. Máxima Flexibilidad: Compra en DIA o Deja que un Chef Cocine por Ti
+              </h3>
+              <p className="text-xs sm:text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed">
+                Tú decides cada semana: si tienes tiempo, generas tu lista agrupada por pasillos y sincronizas la cesta en Supermercados DIA para recogerla o recibirla en casa. Si tu semana es una locura, contratas a un cocinero verificado con carné sanitario que cocina en tu casa y te deja todo envasado.
+              </p>
+              <div className="space-y-2.5 text-xs text-zinc-700 dark:text-zinc-300">
+                <div className="flex items-start gap-2.5">
+                  <CheckCircle2 size={16} className="text-emerald-500 shrink-0 mt-0.5" />
+                  <span><strong>Ahorro Real de hasta un 35%:</strong> La optimización cruzada de ingredientes evita que compres de más o tires comida caducada.</span>
+                </div>
+                <div className="flex items-start gap-2.5">
+                  <CheckCircle2 size={16} className="text-emerald-500 shrink-0 mt-0.5" />
+                  <span><strong>Cocineros Profesionales de Confianza:</strong> Perfiles verificados, valoraciones reales de clientes y cobertura de seguro.</span>
+                </div>
+                <div className="flex items-start gap-2.5">
+                  <CheckCircle2 size={16} className="text-emerald-500 shrink-0 mt-0.5" />
+                  <span><strong>App Android y Web Sincronizada:</strong> Acceso en vivo en touchef.web.app o desde la APK oficial instalada en tu smartphone.</span>
+                </div>
+              </div>
+              <div className="flex flex-wrap gap-3 pt-2">
+                <button
+                  onClick={() => handleLaunchPlan('chef')}
+                  className="bg-amber-500 hover:bg-amber-400 text-stone-950 font-black text-xs px-5 py-3 rounded-xl shadow-xs transition-all inline-flex items-center gap-2 cursor-pointer"
+                >
+                  <ChefHat size={15} />
+                  <span>Ver Cocineros Disponibles</span>
+                </button>
+                <button
+                  onClick={() => handleLaunchPlan('supermarket')}
+                  className="bg-rose-500/10 hover:bg-rose-500 hover:text-white text-rose-600 dark:text-rose-400 font-bold text-xs px-5 py-3 rounded-xl transition-all inline-flex items-center gap-2 cursor-pointer"
+                >
+                  <Truck size={15} />
+                  <span>Cesta Inteligente DIA</span>
+                </button>
+              </div>
+            </div>
+
+            <div className="lg:col-span-6">
+              <div className="relative rounded-2xl overflow-hidden border border-zinc-200 dark:border-zinc-700 shadow-2xl group">
+                <img 
+                  src="/assets/showcase/marketplace_chefs_dia_preview.jpg" 
+                  alt="Marketplace de Chefs a Domicilio y Sincronización DIA Supermercados" 
+                  className="w-full h-auto object-cover transform group-hover:scale-105 transition-transform duration-500"
+                  loading="lazy"
+                />
+                <div className="absolute bottom-3 left-3 right-3 bg-zinc-950/80 backdrop-blur-md text-white px-4 py-2.5 rounded-xl text-xs flex items-center justify-between border border-white/10">
+                  <span className="font-bold flex items-center gap-1.5">
+                    <ShieldCheck size={14} className="text-emerald-400" /> Chefs Sanitariamente Certificados
+                  </span>
+                  <span className="font-bold text-rose-400">Sincronizado con DIA</span>
+                </div>
+              </div>
+            </div>
           </div>
 
         </div>

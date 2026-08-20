@@ -1,0 +1,14 @@
+{
+  "projects": {
+    "default": "gen-lang-client-0115864240"
+  },
+  "targets": {
+    "gen-lang-client-0115864240": {
+      "hosting": {
+        "touchef": [
+          "touchef"
+        ]
+      }
+    }
+  }
+}
