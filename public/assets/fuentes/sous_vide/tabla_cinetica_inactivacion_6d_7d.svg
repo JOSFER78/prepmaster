@@ -1,0 +1,271 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 620" width="100%" height="100%">
+  <defs>
+    <!-- Background Gradient -->
+    <linearGradient id="bgGrad2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0b0f19" />
+      <stop offset="50%" stop-color="#0f172a" />
+      <stop offset="100%" stop-color="#030712" />
+    </linearGradient>
+
+    <!-- Card Gradient -->
+    <linearGradient id="cardGrad2" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1e293b" stop-opacity="0.8" />
+      <stop offset="100%" stop-color="#0f172a" stop-opacity="0.9" />
+    </linearGradient>
+
+    <!-- Gradients for Curves -->
+    <linearGradient id="gradSalm" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f59e0b" />
+      <stop offset="100%" stop-color="#ef4444" />
+    </linearGradient>
+    <linearGradient id="gradList" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#06b6d4" />
+      <stop offset="100%" stop-color="#3b82f6" />
+    </linearGradient>
+
+    <!-- Table Header Gradient -->
+    <linearGradient id="thGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#1e293b" />
+      <stop offset="100%" stop-color="#334155" />
+    </linearGradient>
+
+    <filter id="glowSalm" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="3" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+    <filter id="glowList" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="3" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+
+    <filter id="cardShadow2" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="6" stdDeviation="10" flood-color="#000000" flood-opacity="0.6" />
+    </filter>
+  </defs>
+
+  <style>
+    .title { font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif; font-size: 20px; font-weight: 700; fill: #f8fafc; letter-spacing: 0.5px; }
+    .subtitle { font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif; font-size: 12px; fill: #94a3b8; }
+    .badge { font-family: 'JetBrains Mono', 'Fira Code', Consolas, monospace; font-size: 11px; font-weight: 600; }
+    .axis-label { font-family: 'Segoe UI', sans-serif; font-size: 12px; font-weight: 600; fill: #94a3b8; }
+    .tick-label { font-family: 'JetBrains Mono', monospace; font-size: 11px; fill: #64748b; }
+    .card-title { font-family: 'Segoe UI', sans-serif; font-size: 13px; font-weight: 700; fill: #e2e8f0; }
+    .card-text { font-family: 'Segoe UI', sans-serif; font-size: 11px; fill: #cbd5e1; }
+    .mono { font-family: 'JetBrains Mono', monospace; }
+    .formula { font-family: 'Cambria Math', 'Times New Roman', serif; font-size: 13px; font-style: italic; fill: #38bdf8; }
+    .grid-line { stroke: #1e293b; stroke-width: 1; stroke-dasharray: 3 3; }
+    .axis-line { stroke: #334155; stroke-width: 1.5; }
+    .table-cell { font-family: 'JetBrains Mono', monospace; font-size: 10.5px; fill: #e2e8f0; }
+    .table-th { font-family: 'Segoe UI', sans-serif; font-size: 10.5px; font-weight: 700; fill: #94a3b8; }
+  </style>
+
+  <!-- Background -->
+  <rect width="1000" height="620" fill="url(#bgGrad2)" />
+
+  <!-- Outer Frame -->
+  <rect x="15" y="15" width="970" height="590" rx="12" fill="none" stroke="#1e293b" stroke-width="1.5" />
+
+  <!-- Header Section -->
+  <g transform="translate(40, 45)">
+    <rect x="0" y="0" width="36" height="36" rx="8" fill="#ef4444" fill-opacity="0.2" stroke="#ef4444" stroke-width="1" />
+    <path d="M18 10 L18 20 M18 24 L18 26" stroke="#f87171" stroke-width="2.5" stroke-linecap="round" />
+    <circle cx="18" cy="18" r="11" fill="none" stroke="#ef4444" stroke-width="1.5" />
+
+    <text x="48" y="18" class="title">CINÉTICA DE INACTIVACIÓN LOGARÍTMICA 6D / 7D Y VALORES D &amp; z</text>
+    <text x="48" y="34" class="subtitle">Microbiología Cuantitativa Aplicada: Dinámica de Destrucción Térmica de Patógenos Diana (FDA / USDA / Baldwin)</text>
+
+    <!-- Tag Standard -->
+    <rect x="740" y="4" width="180" height="24" rx="12" fill="#1e1b4b" fill-opacity="0.6" stroke="#6366f1" stroke-width="1" />
+    <circle cx="754" cy="16" r="4" fill="#818cf8" />
+    <text x="764" y="20" class="badge" fill="#a5b4fc">USDA 9 CFR 318.17</text>
+  </g>
+
+  <!-- Left: Logarithmic Reduction Plot (X: 0 to 30 min, Y: Log N/N0 from 0 to -7D) -->
+  <!-- Chart Box: Origin (90, 470), Top-Left (90, 130), Width: 380, Height: 340 -->
+  <g transform="translate(0, 0)">
+    <!-- Chart Background -->
+    <rect x="90" y="125" width="390" height="345" rx="8" fill="#0f172a" fill-opacity="0.5" stroke="#1e293b" stroke-width="1" />
+
+    <!-- Horizontal Grid Lines (Log Reductions: 0D, -1D, -2D, -3D, -4D, -5D, -6D, -7D) -->
+    <!-- Step = 340 / 7 = 48.57 px -->
+    <line x1="90" y1="130" x2="480" y2="130" class="axis-line" />
+    <line x1="90" y1="178" x2="480" y2="178" class="grid-line" />
+    <line x1="90" y1="227" x2="480" y2="227" class="grid-line" />
+    <line x1="90" y1="275" x2="480" y2="275" class="grid-line" />
+    <line x1="90" y1="324" x2="480" y2="324" class="grid-line" />
+    <line x1="90" y1="373" x2="480" y2="373" class="grid-line" />
+    <line x1="90" y1="421" x2="480" y2="421" class="grid-line" />
+    <line x1="90" y1="470" x2="480" y2="470" class="axis-line" />
+
+    <!-- Y-Axis Labels -->
+    <text x="80" y="134" class="tick-label" text-anchor="end">10⁰ (100%)</text>
+    <text x="80" y="182" class="tick-label" text-anchor="end">10⁻¹ (-1D / 90%)</text>
+    <text x="80" y="231" class="tick-label" text-anchor="end">10⁻² (-2D)</text>
+    <text x="80" y="279" class="tick-label" text-anchor="end">10⁻³ (-3D)</text>
+    <text x="80" y="328" class="tick-label" text-anchor="end">10⁻⁴ (-4D)</text>
+    <text x="80" y="377" class="tick-label" text-anchor="end">10⁻⁵ (-5D)</text>
+    <text x="80" y="425" class="badge" fill="#38bdf8" text-anchor="end">10⁻⁶ (6D LISTERIA)</text>
+    <text x="80" y="474" class="badge" fill="#f87171" text-anchor="end">10⁻⁷ (7D SALMONELLA)</text>
+
+    <!-- Vertical Grid Lines (Time at 60.0°C in minutes: 0 to 30 min, step = 5 min -> 390/30 = 13 px/min) -->
+    <!-- 0 min (90), 5 min (155), 10 min (220), 15 min (285), 20 min (350), 25 min (415), 30 min (480) -->
+    <line x1="155" y1="130" x2="155" y2="470" class="grid-line" />
+    <line x1="220" y1="130" x2="220" y2="470" class="grid-line" />
+    <line x1="285" y1="130" x2="285" y2="470" class="grid-line" />
+    <line x1="350" y1="130" x2="350" y2="470" class="grid-line" />
+    <line x1="415" y1="130" x2="415" y2="470" class="grid-line" />
+    <line x1="480" y1="130" x2="480" y2="470" class="axis-line" />
+
+    <text x="90" y="490" class="tick-label" text-anchor="middle">0'</text>
+    <text x="155" y="490" class="tick-label" text-anchor="middle">5'</text>
+    <text x="220" y="490" class="tick-label" text-anchor="middle">10'</text>
+    <text x="285" y="490" class="tick-label" text-anchor="middle">15'</text>
+    <text x="350" y="490" class="tick-label" text-anchor="middle">20'</text>
+    <text x="415" y="490" class="tick-label" text-anchor="middle">25'</text>
+    <text x="480" y="490" class="tick-label" text-anchor="middle">30'</text>
+
+    <!-- Axis Titles -->
+    <text x="285" y="515" class="axis-label" text-anchor="middle">TIEMPO ISOTÉRMICO A 60.0°C (MINUTOS)</text>
+    <text x="24" y="300" class="axis-label" text-anchor="middle" transform="rotate(-90 24 300)">SUPERVIVENCIA LOGARÍTMICA [log₁₀(N / N₀)]</text>
+
+    <!-- Curves at 60.0°C:
+         1) Salmonella spp. (D_60 = 2.2 min):
+            0 min -> 0D (90, 130)
+            2.2 min (118.6) -> -1D (178)
+            7D = 15.4 min -> (90 + 15.4*13 = 290.2, 470)
+         2) Listeria monocytogenes (D_60 = 5.0 min):
+            0 min -> 0D (90, 130)
+            5.0 min (155) -> -1D (178)
+            6D = 30.0 min -> (90 + 30*13 = 480, 421)
+    -->
+
+    <!-- Salmonella Line -->
+    <line x1="90" y1="130" x2="290" y2="470" stroke="url(#gradSalm)" stroke-width="3.5" filter="url(#glowSalm)" />
+    <circle cx="290" cy="470" r="5" fill="#ef4444" stroke="#fff" stroke-width="1.5" />
+
+    <!-- Listeria Line -->
+    <line x1="90" y1="130" x2="480" y2="421" stroke="url(#gradList)" stroke-width="3.5" filter="url(#glowList)" />
+    <circle cx="480" cy="421" r="5" fill="#3b82f6" stroke="#fff" stroke-width="1.5" />
+
+    <!-- Badges / Callouts on Curve -->
+    <g transform="translate(145, 230)">
+      <rect width="130" height="36" rx="6" fill="#1e1b4b" fill-opacity="0.9" stroke="#ef4444" stroke-width="1" />
+      <text x="8" y="15" class="badge" fill="#fca5a5">Salmonella (7D)</text>
+      <text x="8" y="29" class="tick-label" fill="#fecaca">t = 15.4 min @ 60°C</text>
+    </g>
+
+    <g transform="translate(310, 340)">
+      <rect width="145" height="36" rx="6" fill="#0c4a6e" fill-opacity="0.9" stroke="#0284c7" stroke-width="1" />
+      <text x="8" y="15" class="badge" fill="#7dd3fc">Listeria mono. (6D)</text>
+      <text x="8" y="29" class="tick-label" fill="#bae6fd">t = 30.0 min @ 60°C</text>
+    </g>
+  </g>
+
+  <!-- Right: Technical Table & Mathematical Definitions -->
+  <g transform="translate(505, 125)">
+    <!-- Reference Table Card -->
+    <rect width="455" height="235" rx="10" fill="url(#cardGrad2)" stroke="#334155" stroke-width="1" filter="url(#cardShadow2)" />
+    
+    <!-- Table Title -->
+    <rect x="12" y="12" width="431" height="24" rx="4" fill="url(#thGrad)" />
+    <text x="22" y="28" class="card-title" font-size="12">MATRIZ CINÉTICA: TIEMPOS DE LETALIDAD POR TEMPERATURA</text>
+
+    <!-- Table Header -->
+    <text x="20" y="56" class="table-th">T (°C)</text>
+    <text x="80" y="56" class="table-th">D_Listeria</text>
+    <text x="165" y="56" class="table-th">6D Listeria</text>
+    <text x="260" y="56" class="table-th">D_Salmonella</text>
+    <text x="360" y="56" class="table-th">7D Salmonella</text>
+
+    <line x1="15" y1="63" x2="440" y2="63" stroke="#334155" stroke-width="1" />
+
+    <!-- Row 1: 55°C -->
+    <text x="20" y="80" class="table-cell" font-weight="700">55.0°C</text>
+    <text x="80" y="80" class="table-cell">65.0 min</text>
+    <text x="165" y="80" class="table-cell" fill="#38bdf8">390.0 min (6.5h)</text>
+    <text x="260" y="80" class="table-cell">22.0 min</text>
+    <text x="360" y="80" class="table-cell" fill="#f87171">154.0 min (2.5h)</text>
+
+    <!-- Row 2: 58°C -->
+    <text x="20" y="102" class="table-cell" font-weight="700">58.0°C</text>
+    <text x="80" y="102" class="table-cell">18.0 min</text>
+    <text x="165" y="102" class="table-cell" fill="#38bdf8">108.0 min (1.8h)</text>
+    <text x="260" y="102" class="table-cell">5.5 min</text>
+    <text x="360" y="102" class="table-cell" fill="#f87171">38.5 min</text>
+
+    <!-- Row 3: 60°C -->
+    <rect x="15" y="110" width="425" height="22" rx="4" fill="#334155" fill-opacity="0.4" />
+    <text x="20" y="125" class="table-cell" font-weight="700" fill="#fbbf24">60.0°C</text>
+    <text x="80" y="125" class="table-cell" fill="#fbbf24">5.00 min</text>
+    <text x="165" y="125" class="table-cell" fill="#38bdf8" font-weight="700">30.0 min</text>
+    <text x="260" y="125" class="table-cell" fill="#fbbf24">2.20 min</text>
+    <text x="360" y="125" class="table-cell" fill="#f87171" font-weight="700">15.4 min</text>
+
+    <!-- Row 4: 63°C -->
+    <text x="20" y="148" class="table-cell" font-weight="700">63.0°C</text>
+    <text x="80" y="148" class="table-cell">1.80 min</text>
+    <text x="165" y="148" class="table-cell" fill="#38bdf8">10.8 min</text>
+    <text x="260" y="148" class="table-cell">0.60 min</text>
+    <text x="360" y="148" class="table-cell" fill="#f87171">4.2 min</text>
+
+    <!-- Row 5: 65°C -->
+    <text x="20" y="170" class="table-cell" font-weight="700">65.0°C</text>
+    <text x="80" y="170" class="table-cell">0.65 min</text>
+    <text x="165" y="170" class="table-cell" fill="#38bdf8">3.9 min</text>
+    <text x="260" y="170" class="table-cell">0.18 min</text>
+    <text x="360" y="170" class="table-cell" fill="#f87171">1.26 min (75 s)</text>
+
+    <!-- Row 6: 70°C -->
+    <text x="20" y="192" class="table-cell" font-weight="700">70.0°C</text>
+    <text x="80" y="192" class="table-cell">0.06 min</text>
+    <text x="165" y="192" class="table-cell" fill="#38bdf8">0.36 min (21 s)</text>
+    <text x="260" y="192" class="table-cell">0.015 min</text>
+    <text x="360" y="192" class="table-cell" fill="#f87171">0.10 min (6 s)</text>
+
+    <line x1="15" y1="202" x2="440" y2="202" stroke="#334155" stroke-width="1" />
+    <text x="20" y="220" class="tick-label" font-size="9.5">Parámetros cinéticos: Listeria (z = 7.5°C) | Salmonella (z = 5.5°C)</text>
+  </g>
+
+  <!-- Right Bottom: Mathematical Formulation & Lethality Integral -->
+  <g transform="translate(505, 375)">
+    <rect width="455" height="175" rx="10" fill="url(#cardGrad2)" stroke="#334155" stroke-width="1" filter="url(#cardShadow2)" />
+
+    <!-- Title Bar -->
+    <text x="18" y="24" class="card-title" fill="#38bdf8">DEFINICIÓN DE VALOR D, VALOR z E INTEGRAL DE LETALIDAD (P)</text>
+
+    <!-- Box D & z -->
+    <g transform="translate(18, 38)">
+      <rect width="205" height="70" rx="6" fill="#0f172a" stroke="#1e293b" />
+      <text x="10" y="18" class="badge" fill="#fbbf24">VALOR D_T (Decimal Reduction):</text>
+      <text x="10" y="34" class="formula" font-size="11.5">D_T = t / (log₁₀ N₀ - log₁₀ N)</text>
+      <text x="10" y="52" class="card-text" font-size="10">Tiempo a T constante para destruir 90% (1D).</text>
+    </g>
+
+    <!-- Box z & P -->
+    <g transform="translate(232, 38)">
+      <rect width="205" height="70" rx="6" fill="#0f172a" stroke="#1e293b" />
+      <text x="10" y="18" class="badge" fill="#38bdf8">VALOR z (Sensibilidad Térmica):</text>
+      <text x="10" y="34" class="formula" font-size="11.5">z = (T₂ - T₁) / (log₁₀ D₁ - log₁₀ D₂)</text>
+      <text x="10" y="52" class="card-text" font-size="10">ΔT (°C) para cambiar D en un factor 10.</text>
+    </g>
+
+    <!-- Integral of Lethality Banner -->
+    <g transform="translate(18, 118)">
+      <rect width="419" height="42" rx="6" fill="#0284c7" fill-opacity="0.15" stroke="#0284c7" stroke-width="1" />
+      <text x="12" y="18" class="badge" fill="#38bdf8">INTEGRAL DE PASTEURIZACIÓN ACUMULADA (P):</text>
+      <text x="12" y="34" class="formula" font-size="12" fill="#e2e8f0">P = ∫₀ᵗ 10^[(T(t) - T_ref) / z] dt  ≥  P_target  (Garantía de Pasteurización Dinámica)</text>
+    </g>
+  </g>
+
+  <!-- Bottom Legend Footer -->
+  <g transform="translate(40, 565)">
+    <rect width="920" height="32" rx="6" fill="#0f172a" fill-opacity="0.9" stroke="#1e293b" stroke-width="1" />
+    <text x="16" y="20" class="card-text" font-size="10.5" fill="#94a3b8">Normativa Científica: <tspan fill="#e2e8f0" font-weight="600">FDA Food Code Annex 3</tspan> | FSIS Salmonella Performance Standards (9 CFR 381.150) | EFSA Journal Biohazards | TouChef Bio-Safety Lab</text>
+  </g>
+</svg>

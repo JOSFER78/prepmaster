@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "957412850410",
+    "project_id": "gen-lang-client-0115864240",
+    "storage_bucket": "gen-lang-client-0115864240.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:957412850410:android:2440a25a700764137db593",
+        "android_client_info": {
+          "package_name": "app.touchef.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "957412850410-5ftfhg21gmisa09r42ggtls0fnkoijes.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDvND0oo-PBOc9WXaeksACkitMcnAQsTEw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "957412850410-2oi9onakk0g6u8pljegajl92ruthu3ri.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

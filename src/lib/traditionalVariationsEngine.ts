@@ -85,7 +85,8 @@ const FAMILY_DEFINITIONS: Array<{
  */
 export function detectIngredientFamilies(
   query: string,
-  excludedAllergens: string[] = []
+  excludedAllergens: string[] = [],
+  sourceFilter: string = 'all'
 ): IngredientFamilyGroup[] {
   if (!query || !query.trim()) return [];
 
@@ -96,6 +97,8 @@ export function detectIngredientFamilies(
     const hasMatch = fam.keywords.some(kw => normalized.includes(kw));
     if (hasMatch) {
       const variations = TRADITIONAL_RECIPES_DATABASE.filter(r => {
+        if (sourceFilter === 'cocina_tradicional' && r.source !== 'Cocina Tradicional') return false;
+        if (sourceFilter === 'karlos_arguinano' && r.source !== 'Karlos Arguiñano') return false;
         if (excludedAllergens.length > 0 && r.allergens.some(a => excludedAllergens.includes(a))) {
           return false;
         }
@@ -125,13 +128,16 @@ export function detectIngredientFamilies(
  */
 export function getAlternativeRecipesFor(
   recipeId: string,
-  excludedAllergens: string[] = []
+  excludedAllergens: string[] = [],
+  sourceFilter: string = 'all'
 ): CanonicalRecipe[] {
   const current = TRADITIONAL_RECIPES_DATABASE.find(r => r.id === recipeId);
   if (!current) return [];
 
   return TRADITIONAL_RECIPES_DATABASE.filter(r => {
     if (r.id === recipeId) return false;
+    if (sourceFilter === 'cocina_tradicional' && r.source !== 'Cocina Tradicional') return false;
+    if (sourceFilter === 'karlos_arguinano' && r.source !== 'Karlos Arguiñano') return false;
     if (excludedAllergens.length > 0 && r.allergens.some(a => excludedAllergens.includes(a))) return false;
 
     // Priorizar misma familia de ingrediente o misma categoría
@@ -142,6 +148,123 @@ export function getAlternativeRecipesFor(
   });
 }
 
+export interface BatchMenuConfiguration {
+  id: string;
+  title: string;
+  badge: string;
+  description: string;
+  tagline: string;
+  recipes: CanonicalRecipe[];
+  totalEstMinutes: number;
+  stationsSummary: string[];
+}
+
+/**
+ * Genera hasta 3 propuestas o configuraciones completas de menú inteligentes
+ * basadas en las preferencias del usuario pero explorando distintas técnicas culinarias
+ * (ej: Tradicional de Cuchara vs Express Horno & Salteados vs Marinero & Huerta)
+ */
+export function generateMenuConfigurations(
+  query: string,
+  targetDishesCount: number = 4,
+  dietStyle: string = 'mediterranean',
+  excludedAllergens: string[] = [],
+  sourceFilter: string = 'all'
+): BatchMenuConfiguration[] {
+  const families = detectIngredientFamilies(query, excludedAllergens, sourceFilter);
+  const configs: BatchMenuConfiguration[] = [];
+
+  // Helper para filtrar por alérgenos y dieta
+  const isEligible = (r: CanonicalRecipe) => {
+    if (sourceFilter === 'cocina_tradicional' && r.source !== 'Cocina Tradicional') return false;
+    if (sourceFilter === 'karlos_arguinano' && r.source !== 'Karlos Arguiñano') return false;
+    if (excludedAllergens.length > 0 && r.allergens.some(a => excludedAllergens.includes(a))) return false;
+    if (dietStyle && dietStyle !== 'all' && dietStyle !== 'mediterranean') {
+      if (!r.suitableDiets.includes(dietStyle as any)) return false;
+    }
+    return true;
+  };
+
+  // CONFIGURACIÓN 1: "Clásica de Cuchara & Guisos Tradicionales"
+  const cucharaRecipes: CanonicalRecipe[] = [];
+  const cucharaStations = new Set<string>();
+
+  for (const fam of families) {
+    const matchingVar = fam.variations.find(v => 
+      isEligible(v) && 
+      (v.category === 'legumbres' || v.category === 'carnes' || v.station === 'olla_expres' || v.station === 'fuego_1' || v.name.toLowerCase().includes('guiso') || v.name.toLowerCase().includes('potaje') || v.name.toLowerCase().includes('pepitoria') || v.name.toLowerCase().includes('marmitako') || v.name.toLowerCase().includes('alubia'))
+    ) || fam.variations[0];
+
+    if (matchingVar && !cucharaRecipes.some(r => r.id === matchingVar.id)) {
+      cucharaRecipes.push(matchingVar);
+      cucharaStations.add(matchingVar.station);
+    }
+  }
+
+  // Rellenar con clásicos tradicionales
+  const cucharaFull = buildSmartMultiStationBatch(cucharaRecipes.map(r => r.id), targetDishesCount, dietStyle, excludedAllergens, sourceFilter);
+  configs.push({
+    id: 'config_cuchara_abuela',
+    title: 'Propuesta 1: Guisos de Cuchara & Cocina de Fondo',
+    badge: '👵 Sabor Profundo & Fondos Lentos',
+    tagline: 'Guisos tradicionales, fondos caseros y potajes de cuchara',
+    description: 'Aprovecha tus ingredientes en elaboraciones melosas de cocción pausada y potajes con sofrito noble.',
+    recipes: cucharaFull,
+    totalEstMinutes: 110,
+    stationsSummary: Array.from(new Set(cucharaFull.map(r => r.station)))
+  });
+
+  // CONFIGURACIÓN 2: "Express 90 Min & Asados al Horno"
+  const expressRecipes: CanonicalRecipe[] = [];
+  for (const fam of families) {
+    const matchingVar = fam.variations.find(v => 
+      isEligible(v) && 
+      (v.station === 'horno' || v.station === 'fuego_2' || v.name.toLowerCase().includes('ajoarriero') || v.name.toLowerCase().includes('ajillo') || v.name.toLowerCase().includes('asado') || v.name.toLowerCase().includes('tortilla') || v.name.toLowerCase().includes('pil-pil'))
+    ) || fam.variations[fam.variations.length - 1];
+
+    if (matchingVar && !expressRecipes.some(r => r.id === matchingVar.id)) {
+      expressRecipes.push(matchingVar);
+    }
+  }
+  const expressFull = buildSmartMultiStationBatch(expressRecipes.map(r => r.id), targetDishesCount, 'express_90min', excludedAllergens, sourceFilter);
+  configs.push({
+    id: 'config_express_horno',
+    title: 'Propuesta 2: Express 90 Min & Asados / Salteados',
+    badge: '⚡ Máxima Rapidez & Horno',
+    tagline: 'Técnicas de calor directo, asados en bandeja y salteados vivos',
+    description: 'Cocción optimizada en paralelo: proteínas al horno o sartén rápida para reducir tiempos totales.',
+    recipes: expressFull,
+    totalEstMinutes: 85,
+    stationsSummary: Array.from(new Set(expressFull.map(r => r.station)))
+  });
+
+  // CONFIGURACIÓN 3: "Cazuela Marinera & Huerta Fresca"
+  const marineraRecipes: CanonicalRecipe[] = [];
+  for (const fam of families) {
+    const matchingVar = fam.variations.find(v => 
+      isEligible(v) && 
+      (v.category === 'arroces_pastas' || v.name.toLowerCase().includes('arroz') || v.name.toLowerCase().includes('salsa verde') || v.name.toLowerCase().includes('tortilla') || v.category === 'verduras' || v.name.toLowerCase().includes('marinera'))
+    ) || fam.variations[Math.floor(fam.variations.length / 2)];
+
+    if (matchingVar && !marineraRecipes.some(r => r.id === matchingVar.id)) {
+      marineraRecipes.push(matchingVar);
+    }
+  }
+  const marineraFull = buildSmartMultiStationBatch(marineraRecipes.map(r => r.id), targetDishesCount, dietStyle, excludedAllergens, sourceFilter);
+  configs.push({
+    id: 'config_marinera_huerta',
+    title: 'Propuesta 3: Arroces Melosos & Huerta Fresca',
+    badge: '🌊 Fresco, Marinero & Huerta',
+    tagline: 'Cazuelas de arroz meloso, salsas verdes y verduras confitadas',
+    description: 'Platos ligeros y vibrantes combinados con guarniciones hortícolas y tortillas jugosas.',
+    recipes: marineraFull,
+    totalEstMinutes: 95,
+    stationsSummary: Array.from(new Set(marineraFull.map(r => r.station)))
+  });
+
+  return configs;
+}
+
 /**
  * Construye un lote inteligente equilibrado con concurrencia de estaciones térmicas
  */
@@ -149,7 +272,8 @@ export function buildSmartMultiStationBatch(
   primaryRecipeIds: string[],
   targetCount: number = 4,
   dietStyle?: string,
-  excludedAllergens: string[] = []
+  excludedAllergens: string[] = [],
+  sourceFilter: string = 'all'
 ): CanonicalRecipe[] {
   const selected: CanonicalRecipe[] = [];
   const usedStations = new Set<string>();
@@ -158,8 +282,10 @@ export function buildSmartMultiStationBatch(
   for (const id of primaryRecipeIds) {
     const r = TRADITIONAL_RECIPES_DATABASE.find(x => x.id === id);
     if (r && (!excludedAllergens.length || !r.allergens.some(a => excludedAllergens.includes(a)))) {
-      selected.push(r);
-      usedStations.add(r.station);
+      if (sourceFilter === 'all' || (sourceFilter === 'cocina_tradicional' && r.source === 'Cocina Tradicional') || (sourceFilter === 'karlos_arguinano' && r.source === 'Karlos Arguiñano')) {
+        selected.push(r);
+        usedStations.add(r.station);
+      }
     }
   }
 
@@ -170,8 +296,9 @@ export function buildSmartMultiStationBatch(
   // 2. Rellenar priorizando estaciones térmicas no utilizadas (horno, olla_expres, fuegos, robot)
   const remaining = TRADITIONAL_RECIPES_DATABASE.filter(r => 
     !selected.some(s => s.id === r.id) &&
+    (sourceFilter === 'all' || (sourceFilter === 'cocina_tradicional' && r.source === 'Cocina Tradicional') || (sourceFilter === 'karlos_arguinano' && r.source === 'Karlos Arguiñano')) &&
     (!excludedAllergens.length || !r.allergens.some(a => excludedAllergens.includes(a))) &&
-    (!dietStyle || r.suitableDiets.includes(dietStyle as any))
+    (!dietStyle || dietStyle === 'all' || dietStyle === 'mediterranean' || dietStyle === 'express_90min' || r.suitableDiets.includes(dietStyle as any))
   );
 
   // Ordenar priorizando estaciones térmicas libres

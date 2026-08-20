@@ -4,7 +4,7 @@ export type ViewState =
   | { name: 'batch-session' }
   | { name: 'ai-generator' }
   | { name: 'shopping-list' }
-  | { name: 'interactive-cook'; dishName?: string }
+  | { name: 'interactive-cook'; dishName?: string; recipeId?: string; selectedRecipeIds?: string[]; peopleCount?: number }
   | { name: 'reference-rag' }
   | { name: 'chefs' }
   | { name: 'chef-detail'; chefId: string }

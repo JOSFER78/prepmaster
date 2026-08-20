@@ -44,16 +44,46 @@ export const isSuperAdmin = (userOrEmail?: string | User | null): boolean => {
   return !!email && email.trim().toLowerCase() === SUPERADMIN_EMAIL.toLowerCase();
 };
 
+import { Capacitor } from '@capacitor/core';
+import { FirebaseAuthentication } from '@capacitor-firebase/authentication';
+
+export async function signInWithGoogleNativeOrWeb(): Promise<{ uid: string; email?: string | null; displayName?: string | null; photoURL?: string | null }> {
+  if (Capacitor.isNativePlatform()) {
+    try {
+      const result = await FirebaseAuthentication.signInWithGoogle();
+      if (result.user) {
+        return {
+          uid: result.user.uid,
+          email: result.user.email,
+          displayName: result.user.displayName,
+          photoURL: result.user.photoUrl
+        };
+      }
+    } catch (nativeErr) {
+      console.warn('Native Google Sign-In failed, attempting web fallback:', nativeErr);
+    }
+  }
+
+  // Web fallback
+  const userCred = await signInWithPopup(auth, googleProvider);
+  return {
+    uid: userCred.user.uid,
+    email: userCred.user.email,
+    displayName: userCred.user.displayName,
+    photoURL: userCred.user.photoURL
+  };
+}
+
 export { 
   signInWithPopup, 
   signInAnonymously, 
   signInWithEmailAndPassword, 
   createUserWithEmailAndPassword, 
   sendPasswordResetEmail, 
-  sendEmailVerification,
+  sendEmailVerification, 
   updateProfile, 
   firebaseSignOut, 
-  firebaseSignOut as signOut,
+  firebaseSignOut as signOut, 
   onAuthStateChanged, 
   getIdToken 
 };

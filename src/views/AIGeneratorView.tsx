@@ -64,12 +64,17 @@ import {
   TRADITIONAL_RECIPES_DATABASE, 
   getFilteredTraditionalRecipes, 
   CanonicalRecipe,
-  matchTraditionalRecipesByPrompt 
+  matchTraditionalRecipesByPrompt,
+  CULINARY_SOURCES,
+  SYSTEM_INFOGRAPHICS,
+  SystemInfographic
 } from '../data/recipesTraditionalDatabase';
 import {
   detectIngredientFamilies,
   getAlternativeRecipesFor,
   buildSmartMultiStationBatch,
+  generateMenuConfigurations,
+  BatchMenuConfiguration,
   IngredientFamilyGroup
 } from '../lib/traditionalVariationsEngine';
 import { 
@@ -136,9 +141,10 @@ export function AIGeneratorView({
   const [peopleCount, setPeopleCount] = useState<number>(initialContext?.peopleCount || 4);
   const [daysCount, setDaysCount] = useState<number>(initialContext?.daysCount || 5);
   const [mealCoverage, setMealCoverage] = useState<'lunches' | 'dinners' | 'both'>(initialContext?.mealCoverage || 'both');
-  const [dietStyle, setDietStyle] = useState<'mediterranean' | 'fitness' | 'veggie' | 'lowcarb' | 'traditional'>(
+  const [dietStyle, setDietStyle] = useState<'mediterranean' | 'fitness' | 'veggie' | 'lowcarb' | 'traditional' | 'express_90min'>(
     (initialContext?.dietStyle as any) || 'mediterranean'
   );
+  const [assistanceMode, setAssistanceMode] = useState<'auto' | 'interactive' | 'manual'>('interactive');
   const [varietyPreference, setVarietyPreference] = useState<'max_efficiency' | 'balanced' | 'high_variety'>('balanced');
   const [selectedAllergens, setSelectedAllergens] = useState<string[]>([]);
   const [includeFridge, setIncludeFridge] = useState<boolean>(true);
@@ -162,14 +168,8 @@ export function AIGeneratorView({
   const [isListening, setIsListening] = useState<boolean>(false);
   const [speechTarget, setSpeechTarget] = useState<'step1' | 'chat'>('chat');
 
-  // Batch manual / auto selection
-  const [manuallySelectedRecipeIds, setManuallySelectedRecipeIds] = useState<string[]>([
-    'trad-lentejas-chorizo',
-    'trad-pollo-pepitoria',
-    'trad-pisto-manchego',
-    'trad-crema-calabacin-suave',
-    'trad-croquetas-jamon-iberico'
-  ]);
+  // Batch manual / auto selection (starts empty so user choices / prompt are dynamically calculated without hardcodes)
+  const [manuallySelectedRecipeIds, setManuallySelectedRecipeIds] = useState<string[]>([]);
 
   // Modal para añadir recetas rápidas desde el catálogo
   const [isAddRecipeModalOpen, setIsAddRecipeModalOpen] = useState<boolean>(false);
@@ -192,14 +192,23 @@ export function AIGeneratorView({
     });
   }, [peopleCount, daysCount, mealCoverage, dietStyle, varietyPreference]);
 
+  // Filtro de Fuente Canónica (Cocina Tradicional / Karlos Arguiñano / Todas)
+  const [selectedCulinarySource, setSelectedCulinarySource] = useState<'all' | 'cocina_tradicional' | 'karlos_arguinano'>('all');
+  
+  // Modales de Infografía y Seguimiento Fotográfico Paso a Paso
+  const [activeInfographicUrl, setActiveInfographicUrl] = useState<string | null>(null);
+  const [activeStepPhotosRecipe, setActiveStepPhotosRecipe] = useState<CanonicalRecipe | null>(null);
+  const [isSystemInfographicsOpen, setIsSystemInfographicsOpen] = useState<boolean>(false);
+
   // Available filtered recipes from Traditional SSOT
   const availableTraditionalRecipes = useMemo(() => {
-    return getFilteredTraditionalRecipes({
-      category: recipeCategoryFilter === 'all' ? undefined : (recipeCategoryFilter as any),
-      excludedAllergens: selectedAllergens,
-      searchQuery: recipeSearchQuery
-    });
-  }, [recipeCategoryFilter, selectedAllergens, recipeSearchQuery]);
+    return getFilteredTraditionalRecipes(
+      recipeCategoryFilter === 'all' ? undefined : (recipeCategoryFilter as any),
+      dietStyle,
+      selectedAllergens,
+      selectedCulinarySource
+    );
+  }, [recipeCategoryFilter, dietStyle, selectedAllergens, selectedCulinarySource]);
 
   // Modal para ver/cambiar variaciones culinarias de un ingrediente o plato
   const [activeVariationsRecipeId, setActiveVariationsRecipeId] = useState<string | null>(null);
@@ -207,13 +216,24 @@ export function AIGeneratorView({
   // Live preview of matched recipes in Step 1 based on userSpecificGoal
   const step1MatchedPreview = useMemo(() => {
     if (!userSpecificGoal.trim()) return [];
-    return matchTraditionalRecipesByPrompt(userSpecificGoal, selectedAllergens, dietStyle, 4);
-  }, [userSpecificGoal, selectedAllergens, dietStyle]);
+    return matchTraditionalRecipesByPrompt(userSpecificGoal, selectedAllergens, dietStyle, 4, selectedCulinarySource);
+  }, [userSpecificGoal, selectedAllergens, dietStyle, selectedCulinarySource]);
 
-  // Explorador de familias y variaciones culinarias canónicas de Cocina Tradicional
+  // Explorador de familias y variaciones culinarias canónicas
   const detectedFamilies = useMemo(() => {
-    return detectIngredientFamilies(userSpecificGoal, selectedAllergens);
-  }, [userSpecificGoal, selectedAllergens]);
+    return detectIngredientFamilies(userSpecificGoal, selectedAllergens, selectedCulinarySource);
+  }, [userSpecificGoal, selectedAllergens, selectedCulinarySource]);
+
+  // Generador de 3 propuestas completas e inteligentes de lote adaptadas al prompt
+  const menuConfigurations = useMemo(() => {
+    return generateMenuConfigurations(
+      userSpecificGoal,
+      structure.dishCount || 4,
+      dietStyle,
+      selectedAllergens,
+      selectedCulinarySource
+    );
+  }, [userSpecificGoal, structure.dishCount, dietStyle, selectedAllergens, selectedCulinarySource]);
 
   // Auto-scroll chat
   useEffect(() => {
@@ -230,6 +250,25 @@ export function AIGeneratorView({
     setManuallySelectedRecipeIds(prev => 
       prev.includes(recipeId) ? prev.filter(id => id !== recipeId) : [...prev, recipeId]
     );
+  };
+
+  const handleApplyMenuConfiguration = (config: BatchMenuConfiguration) => {
+    const ids = config.recipes.map(r => r.id);
+    setManuallySelectedRecipeIds(ids);
+  };
+
+  const handleSelectVariationForFamily = (familyKey: string, recipeId: string) => {
+    setManuallySelectedRecipeIds(prev => {
+      const famGroup = detectedFamilies.find(f => f.familyKey === familyKey);
+      const famIds = famGroup ? famGroup.variations.map(v => v.id) : [];
+      
+      if (prev.includes(recipeId)) {
+        return prev.filter(id => id !== recipeId);
+      }
+      
+      const withoutOtherFromFamily = prev.filter(id => !famIds.includes(id));
+      return [...withoutOtherFromFamily, recipeId];
+    });
   };
 
   // Toggle ingredient chip in Step 1
@@ -307,21 +346,41 @@ export function AIGeneratorView({
 
   // TRANSITION STEP 1 -> STEP 2 (PERSONALIZED & DETERMINISTIC MATCHING WITH MULTI-STATION CONCURRENCY)
   const handleProceedToStep2 = () => {
-    // 1. Calculate best matching recipes from Traditional catalogue for user's goal / preferences
-    const baseIds = manuallySelectedRecipeIds.length > 0
-      ? manuallySelectedRecipeIds
-      : matchTraditionalRecipesByPrompt(userSpecificGoal, selectedAllergens, dietStyle, 4).map(r => r.id);
+    const targetDishesCount = Math.max(3, Math.min(6, structure.dishCount || 4));
 
-    const matched = buildSmartMultiStationBatch(baseIds, 4, dietStyle, selectedAllergens);
+    // 1. Calculate best matching recipes from Traditional catalogue for user's goal / preferences
+    let candidateIds: string[] = [...manuallySelectedRecipeIds];
+
+    if (candidateIds.length < targetDishesCount) {
+      const promptMatches = matchTraditionalRecipesByPrompt(
+        userSpecificGoal, 
+        selectedAllergens, 
+        dietStyle, 
+        targetDishesCount
+      );
+      for (const rec of promptMatches) {
+        if (!candidateIds.includes(rec.id)) {
+          candidateIds.push(rec.id);
+        }
+      }
+    }
+
+    const matched = buildSmartMultiStationBatch(candidateIds, targetDishesCount, dietStyle, selectedAllergens);
     const matchedIds = matched.map(r => r.id);
     setManuallySelectedRecipeIds(matchedIds);
+
+    if (assistanceMode === 'manual') {
+      setStep2SubMode('manual_catalog');
+    } else {
+      setStep2SubMode('ai_copilot');
+    }
 
     // 2. Prepare personalized welcome greeting acknowledging user's input
     let welcomeContent = '';
     if (userSpecificGoal.trim()) {
-      welcomeContent = `¡Oído cocina! He analizado tu petición: **"${userSpecificGoal}"** para **${peopleCount} personas** durante **${daysCount} días** (${structure.totalIndividualServings} raciones en estilo ${dietStyle}).\n\nHe configurado tu lote equilibrando estaciones térmicas concurrentes (horno, olla y fuegos) con recetas canónicas tradicionales:${selectedAllergens.length > 0 ? `\n• Alérgenos excluidos: ${selectedAllergens.join(', ')}` : ''}\n\n${matched.map(r => `• **${r.name}** (${r.prepTimeFormatted} · Estación: *${r.station}*)`).join('\n')}\n\n💡 **Variaciones Culinarias**: Puedes pulsar en *"🔄 Variantes"* sobre cualquier plato para cambiar su técnica gastronómica (ej. salsa, guiso, ajillo, horno o cazuela) o pedirme sugerencias en el chat.`;
+      welcomeContent = `¡Oído cocina! He interpretado tu petición semántica: **"${userSpecificGoal}"** para **${peopleCount} personas** durante **${daysCount} días** (${structure.totalIndividualServings} raciones en perfil *${dietStyle}*).\n\nHe equilibrado el lote con recetas canónicas de Cocina Tradicional distribuidas entre estaciones térmicas concurrentes (horno, olla rápida, fuegos y frío):${selectedAllergens.length > 0 ? `\n• Alérgenos excluidos: ${selectedAllergens.join(', ')}` : ''}\n\n${matched.map(r => `• **${r.name}** (${r.prepTimeFormatted} · Estación: *${r.station}*)`).join('\n')}\n\n💡 **Variaciones Culinarias**: Puedes pulsar en *"Variantes"* sobre cualquier plato para cambiar su técnica gastronómica (ej. salsa, guiso, ajillo, horno o cazuela) o pedirme sugerencias en el chat.`;
     } else {
-      welcomeContent = `¡Hola! Soy tu **Copiloto Culinario TouChef con IA**, entrenado con las recetas y técnicas de *Cocina Tradicional* y compendios de cocción simultánea.\n\nHe configurado tu menú de **Batch Cooking Semanal** para **${peopleCount} personas** durante **${daysCount} días** (${structure.totalIndividualServings} raciones en estilo ${dietStyle}).${selectedAllergens.length > 0 ? ` He excluido automáticamente: ${selectedAllergens.join(', ')}.` : ''}\n\n${matched.map(r => `• **${r.name}** (${r.prepTimeFormatted} · Estación: *${r.station}*)`).join('\n')}\n\nPuedes seleccionar ingredientes en los paneles interactivos, cambiar variantes de técnicas en cada plato o pedirme ajustes por chat.`;
+      welcomeContent = `¡Hola! Soy tu **Copiloto Culinario TouChef con IA**, entrenado con el catálogo maestro de *Cocina Tradicional* (150 recetas canónicas de docs/fuentes).\n\nHe configurado tu menú de **Batch Cooking Semanal** para **${peopleCount} personas** durante **${daysCount} días** (${structure.totalIndividualServings} raciones en estilo ${dietStyle}).${selectedAllergens.length > 0 ? ` He excluido automáticamente: ${selectedAllergens.join(', ')}.` : ''}\n\n${matched.map(r => `• **${r.name}** (${r.prepTimeFormatted} · Estación: *${r.station}*)`).join('\n')}\n\nPuedes seleccionar ingredientes en los paneles interactivos, cambiar variantes de técnicas en cada plato o pedirme ajustes por chat.`;
     }
 
     const initialMsg: AIChatMessage = {
@@ -604,6 +663,38 @@ export function AIGeneratorView({
     else onNavigateToShopping();
   };
 
+  const handleExecuteCookSingleDish = (recipe: CanonicalRecipe) => {
+    const singleDish = createDishFromCanonicalRecipe(recipe, peopleCount);
+    const project: BatchProject = {
+      id: `batch-${Date.now()}`,
+      title: `Cocinado de ${recipe.name}`,
+      status: 'ready_to_cook',
+      createdAt: new Date().toISOString(),
+      peopleCount,
+      daysCount: 1,
+      mealCoverage: 'both',
+      dietStyle,
+      totalServings: peopleCount,
+      dishes: [singleDish],
+      shoppingList: singleDish.ingredients.map(ing => ({
+        id: `shop-${ing.name.toLowerCase().replace(/\s+/g, '-')}`,
+        name: ing.name,
+        requiredQty: ing.quantity,
+        inPantryQty: 0,
+        toBuyQty: ing.quantity,
+        unit: ing.unit,
+        category: (ing.category as any) || 'frescos',
+        isBought: false,
+        isFromPantryDeduction: false
+      })),
+      totalCookingTime: recipe.prepTimeFormatted,
+      hoursSavedWeekly: 1,
+      totalConsumedServings: 0
+    };
+    if (onBatchProjectCreated) onBatchProjectCreated(project);
+    if (onCookMyself) onCookMyself(project);
+  };
+
   const handleExecuteHireChef = (pkg: ChefServicePackage = 'with_grocery') => {
     const project = createBatchProjectFromState('planning');
     if (onBatchProjectCreated) onBatchProjectCreated(project);
@@ -781,14 +872,112 @@ export function AIGeneratorView({
                   onChange={(e) => setDietStyle(e.target.value as any)}
                   className="w-full px-3 py-2 rounded-xl bg-white dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 text-xs font-bold text-zinc-800 dark:text-zinc-200 focus:outline-none cursor-pointer"
                 >
-                  <option value="mediterranean">Mediterránea Tradicional</option>
-                  <option value="traditional">Tradicional y Guisos de la Abuela</option>
-                  <option value="fitness">Fitness High Protein</option>
-                  <option value="veggie">Vegetariana & Legumbres</option>
-                  <option value="lowcarb">Low Carb & Pescados</option>
+                  <option value="mediterranean">🥘 Mediterránea Tradicional (AOVE, legumbres, pescados, verduras)</option>
+                  <option value="traditional">👵 Guisos de la Abuela & Cuchara (Estofados lentos y cocidos)</option>
+                  <option value="fitness">💪 Fitness High Protein (Carnes magras, pescados y saciedad)</option>
+                  <option value="veggie">🥦 Huerta & Vegetariana (Pistos, menestras, cremas vegetales)</option>
+                  <option value="lowcarb">🐟 Low Carb & Pescados (Proteínas limpias y verduras sin harinas)</option>
+                  <option value="express_90min">⚡ Express 90 Minutos (Olla rápida y horno simultáneo)</option>
                 </select>
               </div>
 
+            </div>
+
+            {/* SELECTOR DE FUENTE CANÓNICA (COCINA TRADICIONAL / KARLOS ARGUIÑANO) & BOTÓN DE INFOGRAFÍAS */}
+            <div className="p-3.5 rounded-2xl bg-zinc-100/90 dark:bg-zinc-900/80 border border-zinc-200 dark:border-zinc-800 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+              <div className="flex items-center gap-2">
+                <ChefHat size={16} className="text-[#E07A5F]" />
+                <span className="text-xs font-black text-zinc-800 dark:text-zinc-200">
+                  Fuente de Recetario Canónico:
+                </span>
+              </div>
+              
+              <div className="flex flex-wrap items-center gap-2 w-full sm:w-auto">
+                {CULINARY_SOURCES.map(src => {
+                  const isActive = selectedCulinarySource === src.id;
+                  return (
+                    <button
+                      key={src.id}
+                      type="button"
+                      onClick={() => setSelectedCulinarySource(src.id as any)}
+                      className={`px-3 py-1.5 rounded-xl text-xs font-black transition-all flex items-center gap-1.5 cursor-pointer ${
+                        isActive
+                          ? 'bg-[#E07A5F] text-white shadow-xs scale-[1.02]'
+                          : 'bg-white dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 border border-zinc-200 dark:border-zinc-700 hover:border-[#E07A5F]/50'
+                      }`}
+                    >
+                      <span>{src.name}</span>
+                    </button>
+                  );
+                })}
+
+                <button
+                  type="button"
+                  onClick={() => setIsSystemInfographicsOpen(true)}
+                  className="px-3 py-1.5 rounded-xl text-xs font-black bg-amber-500/15 text-amber-700 dark:text-amber-300 border border-amber-500/30 hover:bg-amber-500/25 transition-all flex items-center gap-1.5 cursor-pointer shadow-2xs ml-auto sm:ml-0"
+                >
+                  <Sparkles size={13} className="text-amber-500" />
+                  <span>📊 Infografías de Sistemas</span>
+                </button>
+              </div>
+            </div>
+
+            {/* MODO DE ASISTENCIA CULINARIA */}
+            <div className="p-3.5 rounded-2xl bg-zinc-100/80 dark:bg-zinc-900/60 border border-zinc-200 dark:border-zinc-800 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+              <div className="flex items-center gap-2">
+                <span className="text-xs font-black text-zinc-800 dark:text-zinc-200">
+                  Modo de Asistencia:
+                </span>
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 w-full sm:w-auto">
+                <button
+                  type="button"
+                  onClick={() => setAssistanceMode('interactive')}
+                  className={`px-3 py-2 rounded-xl text-xs font-bold transition-all text-left flex items-center gap-2 cursor-pointer ${
+                    assistanceMode === 'interactive'
+                      ? 'btn-hero-copper text-white shadow-xs font-black'
+                      : 'bg-white dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 border border-zinc-200 dark:border-zinc-700'
+                  }`}
+                >
+                  <Sparkles size={14} className={assistanceMode === 'interactive' ? 'text-white' : 'text-[#E07A5F]'} />
+                  <div>
+                    <span className="block leading-tight">Guiado Interactivo</span>
+                    <span className="text-[10px] opacity-75 font-normal block">Exploras y eliges técnicas</span>
+                  </div>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => setAssistanceMode('auto')}
+                  className={`px-3 py-2 rounded-xl text-xs font-bold transition-all text-left flex items-center gap-2 cursor-pointer ${
+                    assistanceMode === 'auto'
+                      ? 'btn-hero-copper text-white shadow-xs font-black'
+                      : 'bg-white dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 border border-zinc-200 dark:border-zinc-700'
+                  }`}
+                >
+                  <Bot size={14} className={assistanceMode === 'auto' ? 'text-white' : 'text-emerald-500'} />
+                  <div>
+                    <span className="block leading-tight">Autoasistido IA</span>
+                    <span className="text-[10px] opacity-75 font-normal block">Equilibrio 100% automático</span>
+                  </div>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => setAssistanceMode('manual')}
+                  className={`px-3 py-2 rounded-xl text-xs font-bold transition-all text-left flex items-center gap-2 cursor-pointer ${
+                    assistanceMode === 'manual'
+                      ? 'btn-hero-copper text-white shadow-xs font-black'
+                      : 'bg-white dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 border border-zinc-200 dark:border-zinc-700'
+                  }`}
+                >
+                  <BookOpen size={14} className={assistanceMode === 'manual' ? 'text-white' : 'text-amber-500'} />
+                  <div>
+                    <span className="block leading-tight">Catálogo Manual</span>
+                    <span className="text-[10px] opacity-75 font-normal block">247 recetas canónicas</span>
+                  </div>
+                </button>
+              </div>
             </div>
           </div>
 
@@ -849,87 +1038,159 @@ export function AIGeneratorView({
               </button>
             </div>
 
-            {/* REAL-TIME PREVIEW / EXPLORADOR DE VARIACIONES CULINARIAS POR INGREDIENTE */}
-            {detectedFamilies.length > 0 ? (
-              <div className="p-4 rounded-2xl bg-amber-500/10 dark:bg-amber-950/20 border border-amber-500/30 space-y-4 animate-fade-in">
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 text-[11px]">
-                  <span className="font-black text-amber-700 dark:text-amber-400 flex items-center gap-1.5">
-                    <Sparkles size={14} className="text-amber-500" />
-                    Explorador de Variaciones Tradicionales ({detectedFamilies.length} ingredientes detectados):
-                  </span>
-                  <span className="text-zinc-500 dark:text-zinc-400 text-[10px]">
-                    Toca para preseleccionar la técnica que te apetece o deja que la IA equilibre el lote
-                  </span>
-                </div>
-
-                <div className="space-y-3">
-                  {detectedFamilies.map(fam => (
-                    <div key={fam.familyKey} className="p-3.5 rounded-xl bg-white dark:bg-zinc-900 border border-zinc-200/80 dark:border-zinc-800 space-y-2.5 shadow-2xs">
-                      <div className="flex items-center justify-between gap-2">
-                        <div className="flex items-center gap-2">
-                          <span className="text-base">{fam.icon}</span>
-                          <strong className="text-xs font-black text-zinc-900 dark:text-white">{fam.displayName}</strong>
-                        </div>
-                        <span className="text-[10px] font-mono text-[#E07A5F] bg-[#E07A5F]/10 px-2 py-0.5 rounded-md font-bold">
-                          {fam.variations.length} técnicas disponibles
-                        </span>
-                      </div>
-                      <p className="text-[11px] text-zinc-600 dark:text-zinc-400">{fam.description}</p>
-
-                      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 pt-1">
-                        {fam.variations.map(rec => {
-                          const isSelected = manuallySelectedRecipeIds.includes(rec.id);
-                          return (
-                            <button
-                              key={rec.id}
-                              type="button"
-                              onClick={() => toggleManualRecipe(rec.id)}
-                              className={`p-2.5 rounded-xl border text-left flex items-start gap-2.5 transition-all cursor-pointer ${
-                                isSelected
-                                  ? 'bg-amber-500/15 border-amber-500 text-zinc-900 dark:text-white shadow-xs font-bold ring-1 ring-amber-500/50'
-                                  : 'bg-zinc-50 dark:bg-zinc-800/60 border-zinc-200/80 dark:border-zinc-700/60 text-zinc-700 dark:text-zinc-300 hover:border-amber-500/50 hover:bg-amber-500/5'
-                              }`}
-                            >
-                              <img src={rec.image} alt={rec.name} className="w-10 h-10 rounded-lg object-cover shrink-0 mt-0.5 shadow-2xs" />
-                              <div className="min-w-0 flex-1">
-                                <div className="flex items-center justify-between gap-1">
-                                  <span className="text-[9px] font-black uppercase text-[#E07A5F] block truncate">
-                                    {rec.culinaryTechnique || rec.category} · {rec.station}
-                                  </span>
-                                  {isSelected && <Check size={13} className="text-amber-500 font-black shrink-0" />}
-                                </div>
-                                <strong className="text-[11px] font-bold block leading-snug line-clamp-1 mt-0.5">{rec.name}</strong>
-                                <span className="text-[10px] text-zinc-400 block mt-0.5">⏱️ {rec.prepTimeFormatted}</span>
-                              </div>
-                            </button>
-                          );
-                        })}
-                      </div>
+            {/* PROPUETAS DE MENÚ COMPLETAS & EXPLORADOR DE VARIACIONES POR INGREDIENTE */}
+            {(detectedFamilies.length > 0 || userSpecificGoal.trim().length > 0) && (
+              <div className="space-y-4 animate-fade-in">
+                
+                {/* 1. SECCIÓN DE PROPUESTAS DE MENÚ COMPLETAS (3 CONFIGURACIONES INTELIGENTES) */}
+                <div className="p-4.5 rounded-2xl bg-stone-900/5 dark:bg-stone-900/60 border border-amber-500/30 space-y-3">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 text-[11px]">
+                    <div className="flex items-center gap-2">
+                      <Sparkles size={15} className="text-amber-500" />
+                      <strong className="text-xs font-black text-zinc-900 dark:text-white">
+                        Propuestas de Menú de Lote adaptadas a tus preferencias (3 Configuraciones):
+                      </strong>
                     </div>
-                  ))}
-                </div>
-              </div>
-            ) : (
-              step1MatchedPreview.length > 0 && (
-                <div className="p-3.5 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 space-y-2 animate-fade-in">
-                  <div className="flex items-center justify-between text-[11px]">
-                    <span className="font-black text-emerald-700 dark:text-emerald-400 flex items-center gap-1.5">
-                      <CheckCircle2 size={13} /> {step1MatchedPreview.length} platos tradicionales identificados:
+                    <span className="text-[10px] text-zinc-500 dark:text-zinc-400">
+                      Elige un enfoque de menú completo o selecciona libremente cada técnica abajo
                     </span>
                   </div>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
-                    {step1MatchedPreview.map(rec => (
-                      <div key={rec.id} className="p-2 rounded-xl bg-white dark:bg-zinc-900 border border-emerald-500/20 flex items-center gap-2.5 text-xs">
-                        <img src={rec.image} alt={rec.name} className="w-8 h-8 rounded-lg object-cover" />
-                        <div className="min-w-0">
-                          <strong className="font-bold text-zinc-900 dark:text-white block truncate text-[11px]">{rec.name}</strong>
-                          <span className="text-[10px] text-zinc-400">{rec.prepTimeFormatted} · {rec.station}</span>
+
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+                    {menuConfigurations.map((cfg) => {
+                      const isFullyActive = cfg.recipes.every(r => manuallySelectedRecipeIds.includes(r.id));
+                      return (
+                        <div
+                          key={cfg.id}
+                          className={`p-4 rounded-2xl border transition-all flex flex-col justify-between space-y-3 ${
+                            isFullyActive
+                              ? 'bg-amber-500/15 border-amber-500 shadow-md ring-1 ring-amber-500/40'
+                              : 'bg-white dark:bg-zinc-900 border-zinc-200 dark:border-zinc-800 hover:border-amber-500/40'
+                          }`}
+                        >
+                          <div className="space-y-1.5">
+                            <div className="flex items-center justify-between gap-1">
+                              <span className="text-[10px] font-black uppercase text-amber-600 dark:text-amber-400">
+                                {cfg.badge}
+                              </span>
+                              <span className="text-[10px] font-mono text-zinc-400">⏱️ ~{cfg.totalEstMinutes} min</span>
+                            </div>
+                            <h4 className="text-xs font-black text-zinc-900 dark:text-white leading-tight">
+                              {cfg.title}
+                            </h4>
+                            <p className="text-[11px] text-zinc-500 dark:text-zinc-400 leading-snug">
+                              {cfg.description}
+                            </p>
+
+                            {/* RECIPES LIST PREVIEW */}
+                            <div className="space-y-1 pt-1.5">
+                              {cfg.recipes.map(r => (
+                                <div key={r.id} className="flex items-center gap-2 text-[11px] text-zinc-700 dark:text-zinc-300">
+                                  <span className="text-[#E07A5F] text-[9px] font-black uppercase px-1.5 py-0.5 rounded bg-zinc-100 dark:bg-zinc-800">
+                                    {r.station}
+                                  </span>
+                                  <span className="truncate font-medium">{r.name}</span>
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+
+                          <button
+                            type="button"
+                            onClick={() => handleApplyMenuConfiguration(cfg)}
+                            className={`w-full py-2 rounded-xl text-xs font-black transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
+                              isFullyActive
+                                ? 'bg-amber-500 text-stone-950 shadow-xs'
+                                : 'btn-hero-copper text-white hover:opacity-90'
+                            }`}
+                          >
+                            {isFullyActive ? <Check size={14} /> : <Sparkles size={14} />}
+                            <span>{isFullyActive ? 'Configuración Activa' : '✨ Elegir este Menú'}</span>
+                          </button>
                         </div>
-                      </div>
-                    ))}
+                      );
+                    })}
                   </div>
                 </div>
-              )
+
+                {/* 2. EXPLORADOR DE VARIACIONES Y TÉCNICAS POR INGREDIENTE */}
+                {detectedFamilies.length > 0 && (
+                  <div className="p-4 rounded-2xl bg-amber-500/10 dark:bg-amber-950/20 border border-amber-500/30 space-y-4">
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 text-[11px]">
+                      <div className="flex items-center gap-2">
+                        <span className="font-black text-amber-700 dark:text-amber-400 flex items-center gap-1.5">
+                          <Sparkles size={14} className="text-amber-500" />
+                          Explorador de Técnicas y Variaciones Culinarias ({detectedFamilies.length} ingredientes):
+                        </span>
+                        {manuallySelectedRecipeIds.length > 0 && (
+                          <span className="bg-[#E07A5F] text-white text-[10px] font-black px-2.5 py-0.5 rounded-full shadow-2xs">
+                            {manuallySelectedRecipeIds.length} recetas en tu lote
+                          </span>
+                        )}
+                      </div>
+                      <span className="text-zinc-500 dark:text-zinc-400 text-[10px]">
+                        Toca cualquier técnica para elegir cómo preparar ese ingrediente (guiso, salsa, asado, tortilla, cazuela...)
+                      </span>
+                    </div>
+
+                    <div className="space-y-3">
+                      {detectedFamilies.map(fam => {
+                        const selectedInThisFamily = fam.variations.find(v => manuallySelectedRecipeIds.includes(v.id));
+
+                        return (
+                          <div key={fam.familyKey} className="p-3.5 rounded-xl bg-white dark:bg-zinc-900 border border-zinc-200/80 dark:border-zinc-800 space-y-2.5 shadow-2xs">
+                            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                              <div className="flex items-center gap-2">
+                                <span className="text-base">{fam.icon}</span>
+                                <strong className="text-xs font-black text-zinc-900 dark:text-white">{fam.displayName}</strong>
+                                {selectedInThisFamily && (
+                                  <span className="text-[10px] font-bold bg-amber-500/15 text-amber-700 dark:text-amber-300 border border-amber-500/30 px-2 py-0.5 rounded-md">
+                                    ✓ Tu elección: {selectedInThisFamily.name.split(' ')[0]}...
+                                  </span>
+                                )}
+                              </div>
+                              <span className="text-[10px] font-mono text-[#E07A5F] bg-[#E07A5F]/10 px-2 py-0.5 rounded-md font-bold self-start sm:self-auto">
+                                {fam.variations.length} preparaciones disponibles
+                              </span>
+                            </div>
+                            <p className="text-[11px] text-zinc-600 dark:text-zinc-400">{fam.description}</p>
+
+                            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 pt-1">
+                              {fam.variations.map(rec => {
+                                const isSelected = manuallySelectedRecipeIds.includes(rec.id);
+                                return (
+                                  <button
+                                    key={rec.id}
+                                    type="button"
+                                    onClick={() => handleSelectVariationForFamily(fam.familyKey, rec.id)}
+                                    className={`p-2.5 rounded-xl border text-left flex items-start gap-2.5 transition-all cursor-pointer ${
+                                      isSelected
+                                        ? 'bg-amber-500/15 border-amber-500 text-zinc-900 dark:text-white shadow-xs font-bold ring-1 ring-amber-500/50'
+                                        : 'bg-zinc-50 dark:bg-zinc-800/60 border-zinc-200/80 dark:border-zinc-700/60 text-zinc-700 dark:text-zinc-300 hover:border-amber-500/50 hover:bg-amber-500/5'
+                                    }`}
+                                  >
+                                    <img src={rec.image} alt={rec.name} className="w-10 h-10 rounded-lg object-cover shrink-0 mt-0.5 shadow-2xs" />
+                                    <div className="min-w-0 flex-1">
+                                      <div className="flex items-center justify-between gap-1">
+                                        <span className="text-[9px] font-black uppercase text-[#E07A5F] block truncate">
+                                          {rec.culinaryTechnique || rec.category} · {rec.station}
+                                        </span>
+                                        {isSelected && <Check size={13} className="text-amber-500 font-black shrink-0" />}
+                                      </div>
+                                      <strong className="text-[11px] font-bold block leading-snug line-clamp-1 mt-0.5">{rec.name}</strong>
+                                      <span className="text-[10px] text-zinc-400 block mt-0.5">⏱️ {rec.prepTimeFormatted}</span>
+                                    </div>
+                                  </button>
+                                );
+                              })}
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+                )}
+              </div>
             )}
           </div>
 
@@ -1027,7 +1288,11 @@ export function AIGeneratorView({
               onClick={handleProceedToStep2}
               className="btn-hero-copper text-white font-bold text-xs px-6 py-3 rounded-2xl flex items-center gap-2 cursor-pointer shadow-md hover:scale-[1.02] transition-transform"
             >
-              <span>Abrir Copiloto IA &amp; Selección de Platos</span>
+              <span>
+                {manuallySelectedRecipeIds.length > 0
+                  ? `Configurar Lote con ${manuallySelectedRecipeIds.length} Platos Seleccionados`
+                  : 'Abrir Copiloto IA & Selección de Platos'}
+              </span>
               <ArrowRight size={16} />
             </button>
           </div>
@@ -1098,6 +1363,15 @@ export function AIGeneratorView({
                 <div className="flex items-center gap-2">
                   <button
                     type="button"
+                    onClick={handleExecuteCookMyself}
+                    className="px-3 py-1.5 rounded-xl btn-hero-copper text-white font-black text-[11px] transition-all flex items-center gap-1.5 cursor-pointer shadow-xs"
+                  >
+                    <Flame size={13} />
+                    <span>👨‍🍳 Cocinar Todo en Directo</span>
+                  </button>
+
+                  <button
+                    type="button"
                     onClick={() => setIsAddRecipeModalOpen(true)}
                     className="px-3 py-1.5 rounded-xl bg-zinc-200 dark:bg-zinc-800 hover:bg-[#E07A5F] hover:text-white text-zinc-800 dark:text-zinc-200 font-bold text-[11px] transition-all flex items-center gap-1 cursor-pointer"
                   >
@@ -1153,9 +1427,14 @@ export function AIGeneratorView({
                       <div className="flex items-start gap-3">
                         <img src={rec.image} alt={rec.name} className="w-12 h-12 rounded-xl object-cover shrink-0 shadow-2xs" />
                         <div className="min-w-0 flex-1">
-                          <span className="text-[9px] font-black uppercase text-[#E07A5F] block truncate">
-                            {rec.category} · {rec.station}
-                          </span>
+                          <div className="flex items-center justify-between gap-1">
+                            <span className="text-[9px] font-black uppercase text-[#E07A5F] block truncate">
+                              {rec.category} · {rec.station}
+                            </span>
+                            <span className="text-[9px] font-bold text-zinc-400 shrink-0">
+                              {rec.source === 'Karlos Arguiñano' ? '👨‍🍳 Arguiñano' : '🥘 Tradicional'}
+                            </span>
+                          </div>
                           <strong className="text-xs font-black text-zinc-900 dark:text-white block line-clamp-1 mt-0.5">
                             {rec.name}
                           </strong>
@@ -1165,16 +1444,53 @@ export function AIGeneratorView({
                         </div>
                       </div>
 
+                      {/* MEDIA BUTTONS (INFOGRAFIA & 3 PASOS) */}
+                      {(rec.infografia || rec.stepPhotos?.ingredientes) && (
+                        <div className="flex items-center gap-1.5 pt-1">
+                          {rec.infografia && (
+                            <button
+                              type="button"
+                              onClick={() => setActiveInfographicUrl(rec.infografia!)}
+                              title="Ver Infografía Técnica"
+                              className="px-2 py-0.5 rounded-lg bg-amber-500/15 text-amber-700 dark:text-amber-300 text-[10px] font-bold hover:bg-amber-500/25 flex items-center gap-1 cursor-pointer transition-all"
+                            >
+                              <FileText size={10} className="text-amber-500" />
+                              <span>📊 Infografía</span>
+                            </button>
+                          )}
+                          {rec.stepPhotos?.ingredientes && (
+                            <button
+                              type="button"
+                              onClick={() => setActiveStepPhotosRecipe(rec)}
+                              title="Ver 3 Pasos de Elaboración"
+                              className="px-2 py-0.5 rounded-lg bg-emerald-500/15 text-emerald-700 dark:text-emerald-300 text-[10px] font-bold hover:bg-emerald-500/25 flex items-center gap-1 cursor-pointer transition-all"
+                            >
+                              <Video size={10} className="text-emerald-500" />
+                              <span>📸 3 Pasos</span>
+                            </button>
+                          )}
+                          <button
+                            type="button"
+                            onClick={() => handleExecuteCookSingleDish(rec)}
+                            title="Cocinar este plato con el asistente interactivo paso a paso"
+                            className="px-2 py-0.5 rounded-lg bg-[#E07A5F]/15 text-[#E07A5F] text-[10px] font-black hover:bg-[#E07A5F]/25 flex items-center gap-1 cursor-pointer transition-all"
+                          >
+                            <Flame size={10} />
+                            <span>👨‍🍳 Cocinar</span>
+                          </button>
+                        </div>
+                      )}
+
                       <div className="pt-2 border-t border-zinc-100 dark:border-zinc-700/60 flex items-center justify-between gap-1.5">
                         <div className="flex items-center gap-1">
                           <button
                             type="button"
                             onClick={() => setActiveVariationsRecipeId(rec.id)}
                             title="Ver técnicas y variantes alternativas de este plato o ingrediente"
-                            className="px-2 py-1 rounded-lg bg-amber-500/10 hover:bg-amber-500/20 text-[10px] font-bold text-amber-700 dark:text-amber-300 transition-all flex items-center gap-1 cursor-pointer"
+                            className="px-2.5 py-1.5 rounded-xl bg-amber-500/15 hover:bg-amber-500/25 text-[11px] font-black text-amber-700 dark:text-amber-300 transition-all flex items-center gap-1.5 cursor-pointer shadow-2xs"
                           >
-                            <Sparkles size={11} className="text-amber-500" />
-                            <span>Variantes</span>
+                            <Sparkles size={13} className="text-amber-500" />
+                            <span>🔄 Cambiar Técnica</span>
                           </button>
 
                           <button
@@ -1745,6 +2061,226 @@ export function AIGeneratorView({
           </div>
         );
       })()}
+
+      {/* ========================================================================= */}
+      {/* MODAL DE INFOGRAFÍA TÉCNICA EDUCATIVA EN ALTA DEFINICIÓN                   */}
+      {/* ========================================================================= */}
+      {activeInfographicUrl && (
+        <div className="fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-4 animate-fade-in">
+          <div className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-3xl p-6 max-w-4xl w-full shadow-2xl space-y-4 max-h-[92vh] flex flex-col">
+            <div className="flex items-center justify-between pb-3 border-b border-zinc-100 dark:border-zinc-800">
+              <div className="flex items-center gap-2">
+                <div className="w-8 h-8 rounded-xl bg-amber-500/20 text-amber-600 flex items-center justify-center font-bold">
+                  <FileText size={18} />
+                </div>
+                <div>
+                  <h3 className="font-black text-sm text-zinc-900 dark:text-white">Infografía Técnica Oficial TouChef</h3>
+                  <span className="text-[11px] text-zinc-400">Diagrama visual de elaboración, alérgenos y termodinámica</span>
+                </div>
+              </div>
+              <button 
+                onClick={() => setActiveInfographicUrl(null)}
+                className="p-2 rounded-xl hover:bg-zinc-100 dark:hover:bg-zinc-800 text-zinc-500 hover:text-zinc-900 dark:hover:text-white transition-colors cursor-pointer"
+              >
+                <X size={20} />
+              </button>
+            </div>
+
+            <div className="flex-1 overflow-auto rounded-2xl bg-zinc-950 flex items-center justify-center p-2 min-h-[400px]">
+              <img 
+                src={activeInfographicUrl} 
+                alt="Infografía Técnica" 
+                className="max-h-[70vh] w-auto object-contain rounded-xl shadow-2xl" 
+              />
+            </div>
+
+            <div className="flex items-center justify-between text-xs text-zinc-500 pt-2">
+              <span>💡 Puedes consultar todos los puntos de cocción y alérgenos en esta infografía</span>
+              <a 
+                href={activeInfographicUrl} 
+                target="_blank" 
+                rel="noreferrer"
+                className="btn-hero-copper text-white text-xs font-bold px-4 py-2 rounded-xl"
+              >
+                Abrir en tamaño completo
+              </a>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ========================================================================= */}
+      {/* MODAL DE SEGUIMIENTO FOTOGRÁFICO PASO A PASO (MISE EN PLACE -> EMPLATADO)  */}
+      {/* ========================================================================= */}
+      {activeStepPhotosRecipe && (
+        <div className="fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-4 animate-fade-in">
+          <div className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-3xl p-6 sm:p-8 max-w-4xl w-full shadow-2xl space-y-5 max-h-[90vh] overflow-y-auto">
+            
+            <div className="flex items-center justify-between pb-3 border-b border-zinc-100 dark:border-zinc-800">
+              <div>
+                <div className="flex items-center gap-2">
+                  <span className="text-[10px] font-black uppercase text-[#E07A5F] bg-[#E07A5F]/10 px-2 py-0.5 rounded">
+                    {activeStepPhotosRecipe.source} · {activeStepPhotosRecipe.category}
+                  </span>
+                  <span className="text-[10px] text-zinc-400 font-mono">
+                    Estación: {activeStepPhotosRecipe.station}
+                  </span>
+                </div>
+                <h3 className="text-base font-black text-zinc-900 dark:text-white mt-1">
+                  Seguimiento Fotográfico de Proceso: {activeStepPhotosRecipe.name}
+                </h3>
+              </div>
+              <button
+                type="button"
+                onClick={() => setActiveStepPhotosRecipe(null)}
+                className="p-2 rounded-xl hover:bg-zinc-100 dark:hover:bg-zinc-800 text-zinc-500 hover:text-zinc-900 dark:hover:text-white transition-colors cursor-pointer"
+              >
+                <X size={20} />
+              </button>
+            </div>
+
+            {/* 3 STEPS PHOTO GRID */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              
+              {/* PASO 1: MISE EN PLACE & INGREDIENTES */}
+              <div className="p-3.5 rounded-2xl bg-zinc-50 dark:bg-zinc-800/70 border border-zinc-200/80 dark:border-zinc-700/80 space-y-2.5">
+                <div className="flex items-center justify-between">
+                  <span className="text-[10px] font-black uppercase tracking-wider text-amber-600 dark:text-amber-400">
+                    1. Mise en Place
+                  </span>
+                  <span className="text-[10px] text-zinc-400">Pesos & Cortes</span>
+                </div>
+                <div className="relative h-44 rounded-xl overflow-hidden bg-zinc-950">
+                  <img 
+                    src={activeStepPhotosRecipe.stepPhotos?.ingredientes || activeStepPhotosRecipe.image} 
+                    alt="Ingredientes y Mise en Place" 
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+                <p className="text-[11px] text-zinc-600 dark:text-zinc-300 leading-snug">
+                  Preparación y corte homogéneo de ingredientes antes de encender fogones.
+                </p>
+              </div>
+
+              {/* PASO 2: ELABORACIÓN Y COCCIÓN */}
+              <div className="p-3.5 rounded-2xl bg-zinc-50 dark:bg-zinc-800/70 border border-zinc-200/80 dark:border-zinc-700/80 space-y-2.5">
+                <div className="flex items-center justify-between">
+                  <span className="text-[10px] font-black uppercase tracking-wider text-[#E07A5F]">
+                    2. Elaboración
+                  </span>
+                  <span className="text-[10px] text-zinc-400">Estación {activeStepPhotosRecipe.station}</span>
+                </div>
+                <div className="relative h-44 rounded-xl overflow-hidden bg-zinc-950">
+                  <img 
+                    src={activeStepPhotosRecipe.stepPhotos?.elaboracion || activeStepPhotosRecipe.image} 
+                    alt="Técnica de Elaboración" 
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+                <p className="text-[11px] text-zinc-600 dark:text-zinc-300 leading-snug">
+                  Ejecución técnica respetando tiempos de pochado y temperaturas de seguridad.
+                </p>
+              </div>
+
+              {/* PASO 3: RESULTADO FINAL Y EMPLATADO */}
+              <div className="p-3.5 rounded-2xl bg-zinc-50 dark:bg-zinc-800/70 border border-zinc-200/80 dark:border-zinc-700/80 space-y-2.5">
+                <div className="flex items-center justify-between">
+                  <span className="text-[10px] font-black uppercase tracking-wider text-emerald-600 dark:text-emerald-400">
+                    3. Resultado Final
+                  </span>
+                  <span className="text-[10px] text-zinc-400">Emplatado / Batch</span>
+                </div>
+                <div className="relative h-44 rounded-xl overflow-hidden bg-zinc-950">
+                  <img 
+                    src={activeStepPhotosRecipe.stepPhotos?.resultadoFinal || activeStepPhotosRecipe.image} 
+                    alt="Emplatado y Resultado Final" 
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+                <p className="text-[11px] text-zinc-600 dark:text-zinc-300 leading-snug">
+                  Textura óptima, ligazón del jugo y protocolo de conservación ({activeStepPhotosRecipe.shelfLifeDaysFridge}d en nevera).
+                </p>
+              </div>
+
+            </div>
+
+            {/* INSTRUCTIONS LIST */}
+            <div className="p-4 rounded-2xl bg-zinc-100/80 dark:bg-zinc-800/50 space-y-2 text-xs">
+              <strong className="text-zinc-900 dark:text-white font-black block">Pasos de Elaboración Técnica:</strong>
+              <ol className="list-decimal list-inside space-y-1 text-zinc-600 dark:text-zinc-300">
+                {activeStepPhotosRecipe.instructions.map((inst, i) => (
+                  <li key={i} className="leading-relaxed">{inst}</li>
+                ))}
+              </ol>
+            </div>
+
+          </div>
+        </div>
+      )}
+
+      {/* ========================================================================= */}
+      {/* MODAL DE BIBLIOTECA DE INFOGRAFÍAS DE SISTEMA (BATCH COOKING & NUTRICIÓN)   */}
+      {/* ========================================================================= */}
+      {isSystemInfographicsOpen && (
+        <div className="fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-4 animate-fade-in">
+          <div className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-3xl p-6 sm:p-8 max-w-4xl w-full shadow-2xl space-y-5 max-h-[90vh] overflow-y-auto">
+            
+            <div className="flex items-center justify-between pb-3 border-b border-zinc-100 dark:border-zinc-800">
+              <div className="flex items-center gap-2">
+                <div className="w-8 h-8 rounded-xl bg-amber-500/20 text-amber-600 flex items-center justify-center font-bold">
+                  <Sparkles size={18} />
+                </div>
+                <div>
+                  <h3 className="font-black text-base text-zinc-900 dark:text-white">Biblioteca de Infografías de Sistemas TouChef</h3>
+                  <span className="text-[11px] text-zinc-400">Protocolos científicos de Batch Cooking, HACCP, Alérgenos y Nutrición</span>
+                </div>
+              </div>
+              <button 
+                onClick={() => setIsSystemInfographicsOpen(false)}
+                className="p-2 rounded-xl hover:bg-zinc-100 dark:hover:bg-zinc-800 text-zinc-500 hover:text-zinc-900 dark:hover:text-white transition-colors cursor-pointer"
+              >
+                <X size={20} />
+              </button>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {SYSTEM_INFOGRAPHICS.map(info => (
+                <div
+                  key={info.id}
+                  className="p-4 rounded-2xl bg-zinc-50 dark:bg-zinc-800/80 border border-zinc-200 dark:border-zinc-700/80 flex flex-col justify-between space-y-3 hover:border-amber-500/50 transition-colors"
+                >
+                  <div className="space-y-2">
+                    <div className="relative h-44 rounded-xl overflow-hidden bg-zinc-950">
+                      <img src={info.path} alt={info.title} className="w-full h-full object-cover hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <div>
+                      <span className="text-[9px] font-black uppercase text-[#E07A5F] block">
+                        {info.category.replace('_', ' ')}
+                      </span>
+                      <strong className="text-xs font-black text-zinc-900 dark:text-white block mt-0.5">
+                        {info.title}
+                      </strong>
+                      <p className="text-[11px] text-zinc-500 dark:text-zinc-400 mt-1 leading-snug">
+                        {info.description}
+                      </p>
+                    </div>
+                  </div>
+
+                  <button
+                    type="button"
+                    onClick={() => setActiveInfographicUrl(info.path)}
+                    className="w-full py-2 rounded-xl btn-hero-copper text-white text-xs font-black flex items-center justify-center gap-1.5 cursor-pointer shadow-xs"
+                  >
+                    <FileText size={13} />
+                    <span>Ver Infografía en Grande</span>
+                  </button>
+                </div>
+              ))}
+            </div>
+
+          </div>
+        </div>
+      )}
 
     </div>
   );

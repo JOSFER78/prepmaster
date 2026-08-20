@@ -25,6 +25,7 @@ La cocina tradicional española —y muy especialmente la de inspiración andalu
 7. [🍲 Fabada Rápida Casera de Carmen con Compango Asturiano](#7--fabada-rápida-casera-de-carmen-con-compango-asturiano)
 8. [🦪 Almejas a la Marinera Tradicionales con Vino Fino y Pimentón](#8--almejas-a-la-marinera-tradicionales-con-vino-fino-y-pimentón)
 9. [🥘 Guiso Marinero de Sepia con Patatas y Guisantes Tiernos](#9--guiso-marinero-de-sepia-con-patatas-y-guisantes-tiernos)
+10. [🐟 Bacalao al Pil Pil (Técnica Tradicional con el Truco del Colador)](#10--bacalao-al-pil-pil-técnica-tradicional-con-el-truco-del-colador)
 
 ---
 
@@ -818,6 +819,94 @@ Un guiso tradicional de cuchara de los pueblos costeros andaluces. La sepia (o j
 
 ---
 
+## 10. 🐟 Bacalao al Pil Pil (Técnica Tradicional con el Truco del Colador)
+
+![Bacalao al Pil Pil (Técnica Tradicional con el Truco del Colador)](assets/bacalao_al_pil_pil_truco_colador_portada.jpg)
+
+> 📺 **Vídeo Oficial de Elaboración:** [Ver en YouTube: Bacalao al Pil Pil - Receta Fácil y Deliciosa](https://www.youtube.com/watch?v=rEkKSxf9lhk)  
+> 📊 **Infografía Educativa TouChef:** [Ver Infografía Técnica](assets/infografia_bacalao_al_pil_pil_truco_colador.jpg)
+
+![Infografía Educativa TouChef](assets/infografia_bacalao_al_pil_pil_truco_colador.jpg)
+
+El gran desafío histórico de este tótem de la cocina vasca e ibérica es lograr la emulsión perfecta entre el aceite de oliva y la gelatina natural del bacalao sin requerir 30 minutos de extenuante vaivén de cazuela ni aparatos de laboratorio. El truco magistral de Carmen mediante el uso del **colador metálico invertido** permite una fricción superficial de alta frecuencia que monta un pil-pil espeso, dorado, brillante y aterciopelado en apenas 2 minutos de reloj.
+
+```
+                    ┌───────────────────────────────┐
+                    │      BACALAO AL PIL PIL       │
+                    │      (TRUCO DEL COLADOR)      │
+                    └───────────────┬───────────────┘
+                                    │
+           ┌────────────────────────┴────────────────────────┐
+           ▼                                                 ▼
+┌──────────────────────┐                          ┌──────────────────────┐
+│  CONFITADO GELATINA  │                          │ EMULSIÓN POR COLADOR │
+│ AOVE templado (50°C) │                          │ Fricción mecánica    │
+│ Piel arriba y abajo  │                          │ Aireación + colágeno │
+│ Exudación de suero   │                          │ Pil-pil denso en 2m  │
+└──────────────────────┘                          └──────────────────────┘
+```
+
+### 📋 Ficha Resumen
+- **Tiempo de preparación:** 10 minutos
+- **Tiempo de cocción:** 10 minutos
+- **Tiempo total:** 20 minutos
+- **Dificultad:** Media-Baja (Simplificada por técnica de fricción)
+- **Raciones:** 4 personas (4 lomos de 200 g)
+- **Coste estimado:** Medio (aprox. 3,50 € / ración)
+
+### ⚠️ Declaración de Alérgenos (Reglamento UE 1169/2011)
+- **Pescado** (Lomos de bacalao desalado con piel)
+- *100% Libre de Gluten*
+- *100% Libre de Lácteos*
+- *100% Libre de Huevos y Frutos de Cáscara*
+
+### ⚖️ Ingredientes Exactos
+
+![Ingredientes y Mise en Place](assets/bacalao_al_pil_pil_truco_colador_01_ingredientes.jpg)
+| Ingrediente | Cantidad Exacta | Notas de Selección y Corte |
+| :--- | :--- | :--- |
+| **Lomos de bacalao desalado con piel** | 800 g (4 lomos de 200 g) | Desalado perfecto en frío 48h. Imprescindible piel intacta |
+| **Aceite de oliva virgen extra (AOVE)** | 220 ml (1 vaso generoso) | Variedad hojiblanca o arbequina de baja acidez |
+| **Dientes de ajo morado** | 6 unidades (30 g) | Pelados y cortados en láminas regulares de 2 mm |
+| **Guindilla seca (cayena)** | 1 unidad grande | Cortada en aros finos (sin semillas para picante elegante) |
+| **Perejil fresco** | 5 g | Opcional, para decorar en hoja al pase final |
+
+### 🍳 Equipamiento Necesario
+- Cazuela ancha y baja (sauté antiadherente o cazuela de barro de 28-30 cm).
+- Colador metálico de malla fina (de mano, de 14 a 18 cm de diámetro).
+- Espumadera o espátula ancha para girar lomos sin romper la piel.
+- Plato auxiliar limpio para reposo de lomos y aromáticos.
+
+### 👨‍🍳 Paso a Paso Técnico y Minucioso
+
+![Técnica de Elaboración](assets/bacalao_al_pil_pil_truco_colador_02_elaboracion.jpg)
+1. **Aromatizado en frío del AOVE:** En la cazuela fría, verter los 220 ml de AOVE. Añadir los ajos laminados y la guindilla en aros. Encender a fuego suave para que el aceite extraiga pausadamente los aceites esenciales del ajo sin dorarlo bruscamente.
+2. **Retirada de aromáticos:** En cuanto los ajos alcancen un tono dorado pajizo crujiente (aprox. 3-4 minutos), retirarlos junto con los aros de guindilla con una espumadera y reservarlos en un plato seco.
+3. **Atemperado del aceite:** Dejar templar el aceite fuera del fuego 1 minuto para estabilizar la temperatura a 50-55°C (no debe freír, sino confitar suavemente).
+4. **Confitado pasivo del bacalao:** 
+   - Introducir los 4 lomos con la piel hacia arriba. Confitar a fuego mínimo durante **4 minutos**.
+   - Con la espátula, voltear con delicadeza dejando la piel hacia abajo otros **4 minutos**.
+   - Observar cómo el fondo se llena de perlas blanquecinas: es la gelatina natural y el agua intersticial del bacalao.
+5. **Reserva del bacalao:** Retirar los lomos a un plato limpio. Verter los jugos gelatinosos que suelte el plato de vuelta a la cazuela templada.
+6. **Técnica del colador invertido (Emulsión en 2 minutos):** 
+   - Con la cazuela fuera del fuego y el aceite tibio (nunca hirviendo), colocar el colador de malla fina boca abajo en el fondo.
+   - Realizar movimientos circulares continuos y enérgicos frotando la base de la cazuela con el colador.
+   - La malla rompe la tensión superficial y dispersa las microgotas de colágeno acuoso en la fase lipídica, montando una emulsión amarilla, densa, brillante y cremosa en 120 segundos exactos.
+7. **Integración y golpe de calor:** Devolver los lomos de bacalao a la cazuela bañándolos con la salsa montada (*nappe* perfecto). Coronar con los ajos laminados crujientes y la guindilla. Dar un golpe de calor suave de 60 segundos y servir de inmediato.
+
+![Resultado Final y Emplatado](assets/bacalao_al_pil_pil_truco_colador_03_resultado_final.jpg)
+
+### 🧊 Conservación y Seguridad en Batch Cooking
+- **Refrigeración (3-4°C):** Hasta 72 horas en recipiente hermético de vidrio. La emulsión se solidifica por la gelatina y el aceite en frío.
+- **Congelación (-18°C):** **Desaconsejada**. El proceso de descongelación desestabiliza la emulsión agua-aceite y destruye la textura del bacalao confitado.
+- **Seguridad e inocuidad:** Al ser una emulsión mecánica de grasa y colágeno sin huevo, tiene una excelente estabilidad microbiológica siempre que se refrigere antes de 90 minutos.
+
+### ♨️ Guía de Regeneración Óptima
+- **En cazuela a fuego mínimo (Método preferente):** Disponer el bacalao y el pil-pil solidificado en sartén a fuego mínimo (1 sobre 9). Añadir 1 cucharadita de agua tibia. Mover suavemente en vaivén a baja temperatura (máx. 50°C) hasta que la salsa vuelva a fluidificarse brillante y sedosa sin separarse el aceite.
+- **Microondas:** Desaconsejado a alta potencia (cortaría la emulsión). Si es necesario, usar 250W durante 1 minuto con intervalos de 20 segundos agitando el recipiente.
+
+---
+
 ## 📊 MATRIZ RESUMEN: CONTROL TÉRMICO, BATCH COOKING Y REGENERACIÓN
 
 | Receta | Temp. Corazón / Punto Óptimo | Vida en Frío (3-4°C) | ¿Apto Congelar? | Método Óptimo de Regeneración |
@@ -831,6 +920,7 @@ Un guiso tradicional de cuchara de los pueblos costeros andaluces. La sepia (o j
 | **Fabada Rápida Casera** | 90 - 95 °C (Emulsión ligada) | 4 días | ✔️ Sí (3 meses) | Cazuela a fuego lento + 50 ml agua tibia agitando |
 | **Almejas a la Marinera** | Vapor rápido (2-3 min máx) | 24 horas | ❌ No | Sartén con tapa a fuego muy suave 90 segundos |
 | **Guiso de Sepia y Patatas**| Sepia tierna / Patata melosa | 48-72 horas | ❌ No (por patata) | Cazuela a fuego lento con tapa 5 min |
+| **Bacalao al Pil Pil (Colador)**| 50 - 55 °C (Gelatina emulsionada) | 72 horas | ❌ No recomendado | Sartén a fuego mínimo + 1 cdita agua tibia con vaivén suave |
 
 ---
 

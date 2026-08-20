@@ -5,7 +5,7 @@ export interface BatchCalculationConfig {
   peopleCount: number;
   daysCount: number;
   mealCoverage: 'lunches' | 'dinners' | 'both';
-  dietStyle: 'mediterranean' | 'fitness' | 'veggie' | 'lowcarb' | 'traditional';
+  dietStyle: 'mediterranean' | 'fitness' | 'veggie' | 'lowcarb' | 'traditional' | 'express_90min';
   varietyPreference?: 'high_variety' | 'balanced' | 'max_efficiency';
   cravings?: string;
   includeFridge?: boolean;

@@ -8,25 +8,25 @@ import { createDishFromCanonicalRecipe } from './batchEngine';
 const FAVORITE_BATCHES_STORAGE_KEY = 'touchef_favorite_batches_v3';
 const FAVORITE_DISHES_STORAGE_KEY = 'touchef_favorite_dishes_v3';
 
-// Platos favoritos canónicos generados 100% desde las recetas reales de Cocina Tradicional
-export const DEFAULT_FAVORITE_DISHES: BatchDish[] = [
-  'trad-lentejas-chorizo',
-  'trad-pollo-pepitoria',
-  'trad-bacalao-ajoarriero',
-  'trad-crema-calabacin-suave',
-  'trad-pisto-manchego'
-].map(id => {
-  const rec = TRADITIONAL_RECIPES_DATABASE.find(r => r.id === id) || TRADITIONAL_RECIPES_DATABASE[0];
-  const dish = createDishFromCanonicalRecipe(rec, 4);
-  dish.isFavorite = true;
-  dish.rating = 5;
-  return dish;
-});
-
+// Platos y lotes favoritos: 100% vacíos por defecto (cero hardcodes, sólo los que el usuario guarde)
+export const DEFAULT_FAVORITE_DISHES: BatchDish[] = [];
 export const DEFAULT_FAVORITE_BATCHES: BatchProject[] = [];
 
 let inMemoryFavoriteBatches: BatchProject[] = [];
-let inMemoryFavoriteDishes: BatchDish[] = DEFAULT_FAVORITE_DISHES;
+let inMemoryFavoriteDishes: BatchDish[] = [];
+
+export function clearFavoritesStorage(): void {
+  inMemoryFavoriteBatches = [];
+  inMemoryFavoriteDishes = [];
+  if (typeof window !== 'undefined') {
+    localStorage.removeItem(FAVORITE_BATCHES_STORAGE_KEY);
+    localStorage.removeItem(FAVORITE_DISHES_STORAGE_KEY);
+    localStorage.removeItem('touchef_favorite_batches_v1');
+    localStorage.removeItem('touchef_favorite_dishes_v1');
+    localStorage.removeItem('touchef_favorite_batches_v2');
+    localStorage.removeItem('touchef_favorite_dishes_v2');
+  }
+}
 
 export function loadFavoriteBatchesFromStorage(): BatchProject[] {
   if (typeof window !== 'undefined') {

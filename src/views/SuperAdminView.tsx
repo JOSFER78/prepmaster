@@ -17,7 +17,9 @@ import {
   Layers,
   Sparkles,
   Radio,
-  BadgeCheck
+  BadgeCheck,
+  RotateCcw,
+  Trash2
 } from 'lucide-react';
 import { ChefBookingRequest, ViewState, ChefProfile } from '../types';
 import { subscribeToBookings } from '../services/bookingService';
@@ -27,9 +29,10 @@ import { SupermarketOrder } from '../lib/supermarketEngine';
 
 interface SuperAdminViewProps {
   onNavigate: (view: ViewState) => void;
+  onFullReset?: () => void;
 }
 
-export const SuperAdminView: React.FC<SuperAdminViewProps> = ({ onNavigate }) => {
+export const SuperAdminView: React.FC<SuperAdminViewProps> = ({ onNavigate, onFullReset }) => {
   const [activeTab, setActiveTab] = useState<'overview' | 'bookings' | 'chefs' | 'supermarket'>('overview');
   
   const [bookings, setBookings] = useState<ChefBookingRequest[]>([]);
@@ -321,6 +324,37 @@ export const SuperAdminView: React.FC<SuperAdminViewProps> = ({ onNavigate }) =>
               <span className="font-bold text-zinc-900 dark:text-white block">Garantía Sanitaria</span>
               <p className="text-zinc-500 text-[11px]">Protocolo de seguridad alimentaria APPCC y manipulador de alimentos certificado.</p>
             </div>
+          </div>
+
+          {/* PURGA TOTAL DE DATOS & RESET A CERO */}
+          <div className="p-5 rounded-2xl bg-rose-500/10 border-2 border-rose-500/30 space-y-3 pt-4">
+            <div className="flex items-center gap-2">
+              <AlertTriangle className="text-rose-500" size={18} />
+              <h4 className="text-sm font-black text-rose-700 dark:text-rose-400">
+                Zona de Mantenimiento: Purga Total de Datos a Cero
+              </h4>
+            </div>
+            <p className="text-xs text-zinc-600 dark:text-zinc-400">
+              Elimina todos los lotes de prueba, borra el almacenamiento local (LocalStorage) y restablece el panel de todos los módulos a cero absoluto para comenzar en limpio.
+            </p>
+            <button
+              onClick={() => {
+                if (window.confirm('⚠️ ATENCIÓN: ¿Deseas ejecutar la purga total de datos? Se vaciarán todos los lotes y datos de prueba a 0.')) {
+                  if (typeof window !== 'undefined') {
+                    localStorage.clear();
+                  }
+                  if (onFullReset) {
+                    onFullReset();
+                  }
+                  setActionSuccess('✓ Purga total completada: Todos los datos y almacenamiento restablecidos a 0.');
+                  setTimeout(() => setActionSuccess(null), 4000);
+                }
+              }}
+              className="px-4 py-2 rounded-xl bg-rose-600 hover:bg-rose-700 text-white font-black text-xs transition-all shadow-sm flex items-center gap-2 cursor-pointer"
+            >
+              <RotateCcw size={14} />
+              <span>Ejecutar Purga Total &amp; Reset a 0</span>
+            </button>
           </div>
         </div>
       )}

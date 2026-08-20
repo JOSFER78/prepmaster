@@ -46,7 +46,8 @@ import {
   loadFavoriteBatchesFromStorage, 
   loadFavoriteDishesFromStorage, 
   saveFavoriteBatchesToStorage, 
-  saveFavoriteDishesToStorage 
+  saveFavoriteDishesToStorage,
+  clearFavoritesStorage
 } from './lib/favoritesEngine';
 import { 
   subscribeToBookings, 
@@ -55,7 +56,8 @@ import {
 import { 
   subscribeToUserBatchProjects, 
   saveBatchProject,
-  deleteBatchProject
+  deleteBatchProject,
+  deleteAllUserBatchProjects
 } from './services/batchProjectService';
 
 export default function App() {
@@ -159,17 +161,26 @@ export default function App() {
   };
 
   const handleClearAllBatchProjects = async () => {
+    clearFavoritesStorage();
     if (typeof window !== 'undefined') {
       localStorage.removeItem('touchef_batch_projects_v2');
+      localStorage.removeItem('touchef_batch_projects_v1');
+      localStorage.removeItem('touchef_favorite_batches_v3');
+      localStorage.removeItem('touchef_favorite_batches_v2');
       localStorage.removeItem('touchef_favorite_batches_v1');
+      localStorage.removeItem('touchef_favorite_dishes_v3');
+      localStorage.removeItem('touchef_favorite_dishes_v2');
       localStorage.removeItem('touchef_favorite_dishes_v1');
+      localStorage.removeItem('touchef_pantry_v1');
+      localStorage.removeItem('touchef_active_plan');
     }
     if (currentUser) {
-      for (const p of batchProjects) {
-        await deleteBatchProject(currentUser.uid, p.id);
-      }
+      await deleteAllUserBatchProjects(currentUser.uid);
     }
     setBatchProjects([]);
+    setFavoriteBatches([]);
+    setFavoriteDishes([]);
+    setActiveApprovedPlan(null);
   };
 
   const handleSaveChefBookings = (updated: ChefBookingRequest[]) => {
@@ -605,12 +616,15 @@ export default function App() {
           )}
 
           {currentView.name === 'superadmin' && (
-            <SuperAdminView onNavigate={setCurrentView} />
+            <SuperAdminView onNavigate={setCurrentView} onFullReset={handleClearAllBatchProjects} />
           )}
 
           {currentView.name === 'interactive-cook' && (
             <InteractiveCookView 
               dishName={currentView.dishName} 
+              recipeId={currentView.recipeId}
+              selectedRecipeIds={currentView.selectedRecipeIds}
+              peopleCount={currentView.peopleCount}
               activeProject={activeProject}
               onFinishCooking={() => {
                 handleUpdateActiveProjectStatus('in_fridge');

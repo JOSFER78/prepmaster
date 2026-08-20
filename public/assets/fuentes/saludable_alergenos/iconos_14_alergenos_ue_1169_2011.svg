@@ -1,0 +1,314 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1300 900" width="100%" height="100%" style="background:#090d16; font-family:'Inter', system-ui, -apple-system, sans-serif;">
+  <defs>
+    <!-- Background Gradients -->
+    <linearGradient id="bgGrad2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0a0f1d"/>
+      <stop offset="100%" stop-color="#05070c"/>
+    </linearGradient>
+    <linearGradient id="cardBase" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e293b" stop-opacity="0.85"/>
+      <stop offset="100%" stop-color="#0f172a" stop-opacity="0.95"/>
+    </linearGradient>
+
+    <!-- Specific Color Gradients for 14 Allergens -->
+    <linearGradient id="gGluten" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#fbbf24"/><stop offset="100%" stop-color="#d97706"/></linearGradient>
+    <linearGradient id="gCrust" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#f87171"/><stop offset="100%" stop-color="#dc2626"/></linearGradient>
+    <linearGradient id="gEgg" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#fde047"/><stop offset="100%" stop-color="#ca8a04"/></linearGradient>
+    <linearGradient id="gFish" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#38bdf8"/><stop offset="100%" stop-color="#0284c7"/></linearGradient>
+    <linearGradient id="gPeanut" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#b45309"/><stop offset="100%" stop-color="#78350f"/></linearGradient>
+    <linearGradient id="gSoy" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#a3e635"/><stop offset="100%" stop-color="#4d7c0f"/></linearGradient>
+    <linearGradient id="gMilk" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#93c5fd"/><stop offset="100%" stop-color="#2563eb"/></linearGradient>
+    <linearGradient id="gNuts" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#d97706"/><stop offset="100%" stop-color="#92400e"/></linearGradient>
+    <linearGradient id="gCelery" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#4ade80"/><stop offset="100%" stop-color="#15803d"/></linearGradient>
+    <linearGradient id="gMustard" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#facc15"/><stop offset="100%" stop-color="#a16207"/></linearGradient>
+    <linearGradient id="gSesame" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#fdba74"/><stop offset="100%" stop-color="#c2410c"/></linearGradient>
+    <linearGradient id="gSulfites" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#c084fc"/><stop offset="100%" stop-color="#7e22ce"/></linearGradient>
+    <linearGradient id="gLupin" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#818cf8"/><stop offset="100%" stop-color="#4338ca"/></linearGradient>
+    <linearGradient id="gMolluscs" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#2dd4bf"/><stop offset="100%" stop-color="#0f766e"/></linearGradient>
+
+    <!-- Filters -->
+    <filter id="cardShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="6" stdDeviation="8" flood-color="#000000" flood-opacity="0.5"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1300" height="900" fill="url(#bgGrad2)"/>
+
+  <!-- Top Title Header -->
+  <g transform="translate(50, 30)">
+    <rect x="0" y="0" width="1200" height="75" rx="14" fill="url(#cardBase)" stroke="#334155" stroke-width="1.2" filter="url(#cardShadow)"/>
+    
+    <!-- Shield Icon -->
+    <rect x="18" y="15" width="46" height="46" rx="10" fill="#2563eb"/>
+    <path d="M41 24 l12 5 v8 c0 9 -6 16 -12 19 c-6 -3 -12 -10 -12 -19 v-8 z" fill="#ffffff"/>
+    
+    <!-- Title and Subtitle -->
+    <text x="76" y="35" font-size="20" font-weight="900" fill="#f8fafc" letter-spacing="0.5">MATRIZ OFICIAL DE LOS 14 ALÉRGENOS ALIMENTARIOS</text>
+    <text x="76" y="53" font-size="12" font-weight="600" fill="#94a3b8">Reglamento (UE) nº 1169/2011 (Anexo II) · Información Alimentaria Facilitada al Consumidor · Estándar APPCC TouChef</text>
+    
+    <!-- Right Badge -->
+    <rect x="1005" y="20" width="175" height="35" rx="18" fill="#1e293b" stroke="#f59e0b" stroke-width="1.2"/>
+    <circle cx="1022" cy="37" r="5" fill="#f59e0b"/>
+    <text x="1036" y="42" font-size="11.5" font-weight="700" fill="#fef3c7">DECLARACIÓN OBLIGATORIA</text>
+  </g>
+
+  <!-- Allergen Grid: 4 columns x 3 rows + 2 center bottom = 14 Cards -->
+  <!-- Card size: 280 x 165. Horizontal gap: 25. Vertical gap: 20 -->
+
+  <!-- ROW 1 (y=130): 1 to 4 -->
+  <!-- 1. CEREALES CON GLUTEN -->
+  <g transform="translate(50, 130)" filter="url(#cardShadow)">
+    <rect width="280" height="165" rx="12" fill="url(#cardBase)" stroke="#d97706" stroke-width="1.5"/>
+    <circle cx="34" cy="34" r="20" fill="url(#gGluten)"/>
+    <!-- Wheat Ear Icon -->
+    <path d="M34 20 v28 M34 26 l6 -4 M34 32 l6 -4 M34 38 l6 -4 M34 26 l-6 -4 M34 32 l-6 -4 M34 38 l-6 -4" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" fill="none"/>
+    <text x="64" y="30" font-size="14" font-weight="900" fill="#fbbf24">01. GLUTEN</text>
+    <text x="64" y="46" font-size="10.5" font-weight="700" fill="#f8fafc">Cereales con Gluten</text>
+    
+    <text x="16" y="78" font-size="10.5" fill="#cbd5e1">• Trigo, centeno, cebada, avena, espelta.</text>
+    <text x="16" y="96" font-size="10" fill="#94a3b8">• Proteínas: Gliadina (péptido 33-mer), Glutenina.</text>
+    <text x="16" y="114" font-size="10" fill="#94a3b8">• Límite Celiaquía: &lt; 20 ppm (&lt;20 mg/kg).</text>
+    <rect x="16" y="130" width="248" height="22" rx="6" fill="#451a03"/>
+    <text x="140" y="145" font-size="9.5" font-weight="700" fill="#fed7aa" text-anchor="middle">Riesgo: Atrofia Vellositaria &amp; Alergia</text>
+  </g>
+
+  <!-- 2. CRUSTÁCEOS -->
+  <g transform="translate(355, 130)" filter="url(#cardShadow)">
+    <rect width="280" height="165" rx="12" fill="url(#cardBase)" stroke="#dc2626" stroke-width="1.5"/>
+    <circle cx="34" cy="34" r="20" fill="url(#gCrust)"/>
+    <!-- Shrimp / Crustacean Icon -->
+    <path d="M26 38 c0 -10 16 -12 16 -4 c0 6 -12 8 -8 14 M38 24 c4 -6 10 -6 10 0 M24 38 l-4 4" stroke="#ffffff" stroke-width="2" stroke-linecap="round" fill="none"/>
+    <text x="64" y="30" font-size="14" font-weight="900" fill="#f87171">02. CRUSTÁCEOS</text>
+    <text x="64" y="46" font-size="10.5" font-weight="700" fill="#f8fafc">Crustáceos y Derivados</text>
+    
+    <text x="16" y="78" font-size="10.5" fill="#cbd5e1">• Gambas, langostinos, cigalas, cangrejos.</text>
+    <text x="16" y="96" font-size="10" fill="#94a3b8">• Proteína Mayor: Tropomiosina (34-38 kDa).</text>
+    <text x="16" y="114" font-size="10" fill="#94a3b8">• Alta termorresistencia a la cocción.</text>
+    <rect x="16" y="130" width="248" height="22" rx="6" fill="#450a0a"/>
+    <text x="140" y="145" font-size="9.5" font-weight="700" fill="#fecaca" text-anchor="middle">Riesgo: Shock Anafiláctico Severo</text>
+  </g>
+
+  <!-- 3. HUEVOS -->
+  <g transform="translate(660, 130)" filter="url(#cardShadow)">
+    <rect width="280" height="165" rx="12" fill="url(#cardBase)" stroke="#ca8a04" stroke-width="1.5"/>
+    <circle cx="34" cy="34" r="20" fill="url(#gEgg)"/>
+    <!-- Egg Icon -->
+    <ellipse cx="34" cy="34" rx="10" ry="13" fill="#ffffff"/>
+    <circle cx="34" cy="37" r="5" fill="#ca8a04"/>
+    <text x="64" y="30" font-size="14" font-weight="900" fill="#fde047">03. HUEVOS</text>
+    <text x="64" y="46" font-size="10.5" font-weight="700" fill="#f8fafc">Huevos y Ovoproductos</text>
+    
+    <text x="16" y="78" font-size="10.5" fill="#cbd5e1">• Clara (Ovoalbúmina 54%, Ovomucoide 11%).</text>
+    <text x="16" y="96" font-size="10" fill="#94a3b8">• Yema (Vitelogeninas, Apolipoproteínas).</text>
+    <text x="16" y="114" font-size="10" fill="#94a3b8">• Dosis umbral ED01: 0.03 mg proteína pura.</text>
+    <rect x="16" y="130" width="248" height="22" rx="6" fill="#422006"/>
+    <text x="140" y="145" font-size="9.5" font-weight="700" fill="#fef08a" text-anchor="middle">Oculto: Clarificantes, barnices, pastas</text>
+  </g>
+
+  <!-- 4. PESCADO -->
+  <g transform="translate(965, 130)" filter="url(#cardShadow)">
+    <rect width="280" height="165" rx="12" fill="url(#cardBase)" stroke="#0284c7" stroke-width="1.5"/>
+    <circle cx="34" cy="34" r="20" fill="url(#gFish)"/>
+    <!-- Fish Icon -->
+    <path d="M22 34 c4 -8 16 -8 20 0 c-4 8 -16 8 -20 0 z M42 34 l6 -5 v10 z M27 33 a1.5 1.5 0 1 0 0 -3 a1.5 1.5 0 0 0 0 3 z" fill="#ffffff"/>
+    <text x="64" y="30" font-size="14" font-weight="900" fill="#38bdf8">04. PESCADO</text>
+    <text x="64" y="46" font-size="10.5" font-weight="700" fill="#f8fafc">Pescado y Derivados</text>
+    
+    <text x="16" y="78" font-size="10.5" fill="#cbd5e1">• Pescado blanco, azul, colágeno y gelatinas.</text>
+    <text x="16" y="96" font-size="10" fill="#94a3b8">• Alérgeno Mayor: Parvalbúminas (Gad m 1).</text>
+    <text x="16" y="114" font-size="10" fill="#94a3b8">• Proteína termoestable quelante de calcio.</text>
+    <rect x="16" y="130" width="248" height="22" rx="6" fill="#082f49"/>
+    <text x="140" y="145" font-size="9.5" font-weight="700" fill="#bae6fd" text-anchor="middle">Oculto: Salsas Worcestershire, dashi</text>
+  </g>
+
+  <!-- ROW 2 (y=315): 5 to 8 -->
+  <!-- 5. CACAHUETES -->
+  <g transform="translate(50, 315)" filter="url(#cardShadow)">
+    <rect width="280" height="165" rx="12" fill="url(#cardBase)" stroke="#78350f" stroke-width="1.5"/>
+    <circle cx="34" cy="34" r="20" fill="url(#gPeanut)"/>
+    <!-- Peanut Icon -->
+    <path d="M28 26 c0 -5 12 -5 12 0 c0 4 -4 5 -4 8 c0 3 4 4 4 8 c0 5 -12 5 -12 0 c0 -4 4 -5 4 -8 c0 -3 -4 -4 -4 -8 z" stroke="#ffffff" stroke-width="1.8" fill="#ffffff" fill-opacity="0.4"/>
+    <text x="64" y="30" font-size="14" font-weight="900" fill="#fb923c">05. CACAHUETES</text>
+    <text x="64" y="46" font-size="10.5" font-weight="700" fill="#f8fafc">Cacahuetes y Derivados</text>
+    
+    <text x="16" y="78" font-size="10.5" fill="#cbd5e1">• Leguminosa subterránea (Arachis hypogaea).</text>
+    <text x="16" y="96" font-size="10" fill="#94a3b8">• Proteínas: Ara h 1, Ara h 2, Ara h 6.</text>
+    <text x="16" y="114" font-size="10" fill="#94a3b8">• Dosis umbral ED01: 0.05 mg de proteína pura.</text>
+    <rect x="16" y="130" width="248" height="22" rx="6" fill="#431407"/>
+    <text x="140" y="145" font-size="9.5" font-weight="700" fill="#ffedd5" text-anchor="middle">Máxima Letalidad Anafiláctica</text>
+  </g>
+
+  <!-- 6. SOJA -->
+  <g transform="translate(355, 315)" filter="url(#cardShadow)">
+    <rect width="280" height="165" rx="12" fill="url(#cardBase)" stroke="#4d7c0f" stroke-width="1.5"/>
+    <circle cx="34" cy="34" r="20" fill="url(#gSoy)"/>
+    <!-- Soy Bean Pod Icon -->
+    <path d="M22 34 c4 -10 20 -10 24 0 c-4 10 -20 10 -24 0 z" fill="#ffffff" fill-opacity="0.3" stroke="#ffffff" stroke-width="1.8"/>
+    <circle cx="28" cy="34" r="2.5" fill="#ffffff"/><circle cx="34" cy="34" r="2.5" fill="#ffffff"/><circle cx="40" cy="34" r="2.5" fill="#ffffff"/>
+    <text x="64" y="30" font-size="14" font-weight="900" fill="#a3e635">06. SOJA</text>
+    <text x="64" y="46" font-size="10.5" font-weight="700" fill="#f8fafc">Soja y Productos de Soja</text>
+    
+    <text x="16" y="78" font-size="10.5" fill="#cbd5e1">• Habas de soja, tofu, tempeh, edamame.</text>
+    <text x="16" y="96" font-size="10" fill="#94a3b8">• Proteínas: Glicinina (Gly m 6), β-conglicinina.</text>
+    <text x="16" y="114" font-size="10" fill="#94a3b8">• Lecitina de soja (E322) en chocolates y pan.</text>
+    <rect x="16" y="130" width="248" height="22" rx="6" fill="#14532d"/>
+    <text x="140" y="145" font-size="9.5" font-weight="700" fill="#dcfce7" text-anchor="middle">Oculto: Emulsionantes, fiambres picados</text>
+  </g>
+
+  <!-- 7. LÁCTEOS -->
+  <g transform="translate(660, 315)" filter="url(#cardShadow)">
+    <rect width="280" height="165" rx="12" fill="url(#cardBase)" stroke="#2563eb" stroke-width="1.5"/>
+    <circle cx="34" cy="34" r="20" fill="url(#gMilk)"/>
+    <!-- Milk Bottle Icon -->
+    <path d="M30 20 h8 v4 h-8 z M28 24 h12 l2 6 v14 a2 2 0 0 1 -2 2 h-12 a2 2 0 0 1 -2 -2 v-14 z" fill="#ffffff"/>
+    <text x="64" y="30" font-size="14" font-weight="900" fill="#93c5fd">07. LÁCTEOS</text>
+    <text x="64" y="46" font-size="10.5" font-weight="700" fill="#f8fafc">Leche y Derivados (c/Lactosa)</text>
+    
+    <text x="16" y="78" font-size="10.5" fill="#cbd5e1">• Proteínas: Caseínas (80%), β-lactoglobulina.</text>
+    <text x="16" y="96" font-size="10" fill="#94a3b8">• Azúcar Disacárido: Lactosa (β-D-galactosa).</text>
+    <text x="16" y="114" font-size="10" fill="#94a3b8">• APLV (inmune estricta) vs Intolerancia lactasa.</text>
+    <rect x="16" y="130" width="248" height="22" rx="6" fill="#1e3a8a"/>
+    <text x="140" y="145" font-size="9.5" font-weight="700" fill="#dbeafe" text-anchor="middle">Doble Patología: Inmune / Enzimática</text>
+  </g>
+
+  <!-- 8. FRUTOS DE CÁSCARA -->
+  <g transform="translate(965, 315)" filter="url(#cardShadow)">
+    <rect width="280" height="165" rx="12" fill="url(#cardBase)" stroke="#92400e" stroke-width="1.5"/>
+    <circle cx="34" cy="34" r="20" fill="url(#gNuts)"/>
+    <!-- Walnut / Hazelnut Icon -->
+    <path d="M34 20 c8 0 14 6 14 14 c0 8 -8 14 -14 14 c-6 0 -14 -6 -14 -14 c0 -8 6 -14 14 -14 z M34 24 v20 M26 30 c4 2 12 2 16 0" stroke="#ffffff" stroke-width="1.8" fill="none"/>
+    <text x="64" y="30" font-size="14" font-weight="900" fill="#f59e0b">08. FRUTOS CÁSCARA</text>
+    <text x="64" y="46" font-size="10.5" font-weight="700" fill="#f8fafc">Almendra, Nuez, Avellana...</text>
+    
+    <text x="16" y="78" font-size="10.5" fill="#cbd5e1">• Anacardo, pistacho, pacana, macadamia.</text>
+    <text x="16" y="96" font-size="10" fill="#94a3b8">• Proteínas: Albúminas 2S, Leguminas 11S, LTP.</text>
+    <text x="16" y="114" font-size="10" fill="#94a3b8">• ED01: 0.03 mg en avellana y nuez.</text>
+    <rect x="16" y="130" width="248" height="22" rx="6" fill="#451a03"/>
+    <text x="140" y="145" font-size="9.5" font-weight="700" fill="#fef3c7" text-anchor="middle">Oculto: Pestos, pralinés, curris korma</text>
+  </g>
+
+  <!-- ROW 3 (y=500): 9 to 12 -->
+  <!-- 9. APIO -->
+  <g transform="translate(50, 500)" filter="url(#cardShadow)">
+    <rect width="280" height="165" rx="12" fill="url(#cardBase)" stroke="#15803d" stroke-width="1.5"/>
+    <circle cx="34" cy="34" r="20" fill="url(#gCelery)"/>
+    <!-- Celery Stalk Icon -->
+    <path d="M28 44 l4 -22 c0 -4 6 -4 6 0 l-2 22 M34 26 l6 -6 M32 32 l-6 -4" stroke="#ffffff" stroke-width="2" stroke-linecap="round" fill="none"/>
+    <text x="64" y="30" font-size="14" font-weight="900" fill="#4ade80">09. APIO</text>
+    <text x="64" y="46" font-size="10.5" font-weight="700" fill="#f8fafc">Apio y Productos Derivados</text>
+    
+    <text x="16" y="78" font-size="10.5" fill="#cbd5e1">• Tallo, hojas, apionabo, sal de apio.</text>
+    <text x="16" y="96" font-size="10" fill="#94a3b8">• Proteínas: Api g 1 (polen), Api g 2 (LTP).</text>
+    <text x="16" y="114" font-size="10" fill="#94a3b8">• Reactividad cruzada síndrome polen-apio.</text>
+    <rect x="16" y="130" width="248" height="22" rx="6" fill="#052e16"/>
+    <text x="140" y="145" font-size="9.5" font-weight="700" fill="#bbf7d0" text-anchor="middle">Oculto: Caldos deshidratados, especias</text>
+  </g>
+
+  <!-- 10. MOSTAZA -->
+  <g transform="translate(355, 500)" filter="url(#cardShadow)">
+    <rect width="280" height="165" rx="12" fill="url(#cardBase)" stroke="#a16207" stroke-width="1.5"/>
+    <circle cx="34" cy="34" r="20" fill="url(#gMustard)"/>
+    <!-- Mustard Jar / Flower Icon -->
+    <path d="M28 22 h12 v4 h-12 z M26 26 h16 l2 18 a2 2 0 0 1 -2 2 h-16 a2 2 0 0 1 -2 -2 z M31 34 h6" stroke="#ffffff" stroke-width="1.8" fill="none"/>
+    <text x="64" y="30" font-size="14" font-weight="900" fill="#facc15">10. MOSTAZA</text>
+    <text x="64" y="46" font-size="10.5" font-weight="700" fill="#f8fafc">Mostaza y Derivados</text>
+    
+    <text x="16" y="78" font-size="10.5" fill="#cbd5e1">• Mostaza blanca (Sinapis alba), negra.</text>
+    <text x="16" y="96" font-size="10" fill="#94a3b8">• Proteínas: Sin a 1, Bra n 1 (Albúminas 2S).</text>
+    <text x="16" y="114" font-size="10" fill="#94a3b8">• Termoestabilidad extrema gástrica.</text>
+    <rect x="16" y="130" width="248" height="22" rx="6" fill="#422006"/>
+    <text x="140" y="145" font-size="9.5" font-weight="700" fill="#fef08a" text-anchor="middle">Oculto: Adobos cárnicos, mayonesas</text>
+  </g>
+
+  <!-- 11. SÉSAMO -->
+  <g transform="translate(660, 500)" filter="url(#cardShadow)">
+    <rect width="280" height="165" rx="12" fill="url(#cardBase)" stroke="#c2410c" stroke-width="1.5"/>
+    <circle cx="34" cy="34" r="20" fill="url(#gSesame)"/>
+    <!-- Sesame Seeds Icon -->
+    <path d="M34 20 c4 6 4 10 0 14 c-4 -4 -4 -8 0 -14 z M24 30 c4 6 4 10 0 14 c-4 -4 -4 -8 0 -14 z M44 30 c4 6 4 10 0 14 c-4 -4 -4 -8 0 -14 z" fill="#ffffff"/>
+    <text x="64" y="30" font-size="14" font-weight="900" fill="#fb923c">11. SÉSAMO</text>
+    <text x="64" y="46" font-size="10.5" font-weight="700" fill="#f8fafc">Granos de Sésamo &amp; Tahini</text>
+    
+    <text x="16" y="78" font-size="10.5" fill="#cbd5e1">• Semillas enteras, tahini, aceite sésamo.</text>
+    <text x="16" y="96" font-size="10" fill="#94a3b8">• Proteínas: Ses i 1 (albúmina), Ses i 2, Ses i 3.</text>
+    <text x="16" y="114" font-size="10" fill="#94a3b8">• Dosis umbral ED01: 0.1 mg de proteína pura.</text>
+    <rect x="16" y="130" width="248" height="22" rx="6" fill="#431407"/>
+    <text x="140" y="145" font-size="9.5" font-weight="700" fill="#fed7aa" text-anchor="middle">Oculto: Panes de hamburguesa, hummus</text>
+  </g>
+
+  <!-- 12. SULFITOS -->
+  <g transform="translate(965, 500)" filter="url(#cardShadow)">
+    <rect width="280" height="165" rx="12" fill="url(#cardBase)" stroke="#7e22ce" stroke-width="1.5"/>
+    <circle cx="34" cy="34" r="20" fill="url(#gSulfites)"/>
+    <!-- Wine Glass / SO2 Flask Icon -->
+    <path d="M28 22 h12 l2 12 a6 6 0 0 1 -6 6 h-4 a6 6 0 0 1 -6 -6 z M34 40 v6 M28 46 h12" stroke="#ffffff" stroke-width="1.8" fill="none"/>
+    <text x="64" y="30" font-size="14" font-weight="900" fill="#c084fc">12. SULFITOS (SO₂)</text>
+    <text x="64" y="46" font-size="10.5" font-weight="700" fill="#f8fafc">Dióxido de Azufre E220-E228</text>
+    
+    <text x="16" y="78" font-size="10.5" fill="#cbd5e1">• Vinos, vinagres, frutas desecadas.</text>
+    <text x="16" y="96" font-size="10" fill="#94a3b8">• Umbral Legal Obligatorio: &gt; 10 mg/kg o mg/l.</text>
+    <text x="16" y="114" font-size="10" fill="#94a3b8">• Conservante antioxidante y blanqueante.</text>
+    <rect x="16" y="130" width="248" height="22" rx="6" fill="#3b0764"/>
+    <text x="140" y="145" font-size="9.5" font-weight="700" fill="#f3e8ff" text-anchor="middle">Riesgo: Broncoespasmo en asmáticos</text>
+  </g>
+
+  <!-- ROW 4 (y=685): 13 & 14 (Centered horizontally) -->
+  <!-- 13. ALTRAMUCES (x=355) -->
+  <g transform="translate(355, 685)" filter="url(#cardShadow)">
+    <rect width="280" height="165" rx="12" fill="url(#cardBase)" stroke="#4338ca" stroke-width="1.5"/>
+    <circle cx="34" cy="34" r="20" fill="url(#gLupin)"/>
+    <!-- Lupin Flower Icon -->
+    <path d="M34 44 v-22 M34 22 c3 -4 8 -2 6 2 c-2 4 -6 2 -6 2 z M34 28 c-3 -4 -8 -2 -6 2 c2 4 6 2 6 2 z" stroke="#ffffff" stroke-width="1.8" fill="#ffffff" fill-opacity="0.3"/>
+    <text x="64" y="30" font-size="14" font-weight="900" fill="#818cf8">13. ALTRAMUCES</text>
+    <text x="64" y="46" font-size="10.5" font-weight="700" fill="#f8fafc">Altramuces y Derivados</text>
+    
+    <text x="16" y="78" font-size="10.5" fill="#cbd5e1">• Harina de altramuz (Lupinus albus), grano.</text>
+    <text x="16" y="96" font-size="10" fill="#94a3b8">• Proteína Mayor: β-conglutina (Lup an 1).</text>
+    <text x="16" y="114" font-size="10" fill="#94a3b8">• Alta reactividad cruzada con cacahuete.</text>
+    <rect x="16" y="130" width="248" height="22" rx="6" fill="#1e1b4b"/>
+    <text x="140" y="145" font-size="9.5" font-weight="700" fill="#e0e7ff" text-anchor="middle">Oculto: Panes y pastas sin gluten ind.</text>
+  </g>
+
+  <!-- 14. MOLUSCOS (x=660) -->
+  <g transform="translate(660, 685)" filter="url(#cardShadow)">
+    <rect width="280" height="165" rx="12" fill="url(#cardBase)" stroke="#0f766e" stroke-width="1.5"/>
+    <circle cx="34" cy="34" r="20" fill="url(#gMolluscs)"/>
+    <!-- Clam / Shell Icon -->
+    <path d="M24 38 c0 -12 20 -12 20 0 z M34 26 v12 M28 28 l6 10 M40 28 l-6 10" stroke="#ffffff" stroke-width="1.8" fill="#ffffff" fill-opacity="0.3"/>
+    <text x="64" y="30" font-size="14" font-weight="900" fill="#2dd4bf">14. MOLUSCOS</text>
+    <text x="64" y="46" font-size="10.5" font-weight="700" fill="#f8fafc">Moluscos y Derivados</text>
+    
+    <text x="16" y="78" font-size="10.5" fill="#cbd5e1">• Bivalvos (almejas, mejillones), cefalópodos.</text>
+    <text x="16" y="96" font-size="10" fill="#94a3b8">• Proteína Mayor: Tropomiosina (Cra g 1).</text>
+    <text x="16" y="114" font-size="10" fill="#94a3b8">• Calamar, pulpo, sepia, ostras, caracoles.</text>
+    <rect x="16" y="130" width="248" height="22" rx="6" fill="#042f2e"/>
+    <text x="140" y="145" font-size="9.5" font-weight="700" fill="#ccfbf1" text-anchor="middle">Oculto: Salsa de ostras, tinta, surimis</text>
+  </g>
+
+  <!-- Left/Right Informative Column Banners -->
+  <g transform="translate(50, 685)">
+    <rect width="280" height="165" rx="12" fill="#0f172a" stroke="#334155" stroke-width="1"/>
+    <text x="140" y="32" font-size="12" font-weight="900" fill="#f8fafc" text-anchor="middle">SEGURIDAD TOTAL APPCC</text>
+    <text x="16" y="60" font-size="10" fill="#94a3b8">• Limpieza &gt;65°C con detergente alcalino.</text>
+    <text x="16" y="80" font-size="10" fill="#94a3b8">• Cero bayetas (papel azul desechable).</text>
+    <text x="16" y="100" font-size="10" fill="#94a3b8">• Utensilios morados exclusivos.</text>
+    <text x="16" y="120" font-size="10" fill="#94a3b8">• Horno convección apagado vs aerosoles.</text>
+    <text x="16" y="145" font-size="10" font-weight="700" fill="#38bdf8">Tolerancia Trazas: CERO ABSOLUTO</text>
+  </g>
+
+  <g transform="translate(965, 685)">
+    <rect width="280" height="165" rx="12" fill="#0f172a" stroke="#334155" stroke-width="1"/>
+    <text x="140" y="32" font-size="12" font-weight="900" fill="#f8fafc" text-anchor="middle">MARCO NORMATIVO UE</text>
+    <text x="16" y="60" font-size="10" fill="#94a3b8">• Exigible en alimentos envasados y a granel.</text>
+    <text x="16" y="80" font-size="10" fill="#94a3b8">• Obligatorio en cartas de restaurantes.</text>
+    <text x="16" y="100" font-size="10" fill="#94a3b8">• Tipografía destacada e identificable.</text>
+    <text x="16" y="120" font-size="10" fill="#94a3b8">• Responsabilidad legal directa del chef.</text>
+    <text x="16" y="145" font-size="10" font-weight="700" fill="#fbbf24">Reglamento (UE) 1169/2011</text>
+  </g>
+
+  <!-- Footer Legal Traceability -->
+  <text x="650" y="880" font-size="9.5" font-weight="500" fill="#64748b" text-anchor="middle">
+    Fuente Normativa Oficial: Diario Oficial de la Unión Europea · Reglamento (UE) nº 1169/2011 del Parlamento Europeo y del Consejo · TouChef Master Series
+  </text>
+</svg>

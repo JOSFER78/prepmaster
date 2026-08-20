@@ -292,7 +292,7 @@ export function HomeView({
                     {onDeleteBatchProject && (
                       <button
                         onClick={() => {
-                          if (window.confirm('¿Deseas cancelar y borrar este lote activo de tu cuenta? Se restablecerá el panel a 0.')) {
+                          if (window.confirm('¿Deseas cancelar y borrar este lote activo? Se restablecerá el panel a 0.')) {
                             onDeleteBatchProject(activeProject.id);
                           }
                         }}
@@ -301,6 +301,21 @@ export function HomeView({
                       >
                         <AlertCircle size={14} />
                         <span>Cancelar / Borrar Lote</span>
+                      </button>
+                    )}
+
+                    {onClearAllBatchProjects && (
+                      <button
+                        onClick={() => {
+                          if (window.confirm('⚠️ ¿Deseas purgar y vaciar TODOS los datos de proyectos, favoritos y almacenamiento a 0?')) {
+                            onClearAllBatchProjects();
+                          }
+                        }}
+                        title="Reset total de datos y vaciado a 0"
+                        className="px-3 py-2.5 rounded-xl bg-zinc-200 dark:bg-zinc-800 hover:bg-rose-600 hover:text-white text-zinc-700 dark:text-zinc-300 border border-zinc-300 dark:border-zinc-700 text-xs font-bold transition-all flex items-center gap-1 cursor-pointer"
+                      >
+                        <RotateCcw size={14} />
+                        <span>Reset a 0 (Limpiar Todo)</span>
                       </button>
                     )}
                   </div>

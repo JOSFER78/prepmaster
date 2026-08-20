@@ -23,7 +23,8 @@ La cocina de guiso y cazuela representa el patrimonio gastronómico más reconfo
   │         AVES Y GRANJA           │       │         CARNES ROJAS            │
   │ • 1. Pollo en Pepitoria         │       │ • 3. Ternera a la Jardinera     │
   │ • 7. Pollo al Ajillo Tradicional│       │ • 4. Carrilleras al Vino Tinto  │
-  │ • 8. Conejo al Ajillo/Cazadora  │       │                                 │
+  │ • 8. Conejo al Ajillo/Cazadora  │       │ • 10. Rabo de Toro Cordobesa    │
+  │ • 9. Contramuslos Carrillera    │       │                                 │
   └────────────────┬────────────────┘       └────────────────┬────────────────┘
                    │                                         │
                    └───────────────────┬─────────────────────┘
@@ -922,6 +923,207 @@ La cocina de guiso y cazuela representa el patrimonio gastronómico más reconfo
 
 ---
 
+## 🍗 9. Contramuslos de Pollo Tipo "Carrilleras" (Guiso Meloso y Económico)
+*Categoría: Aves / Adaptación de Guiso Meloso Tradicional*
+
+![Contramuslos de Pollo Tipo Carrilleras](assets/contramuslos_pollo_tipo_carrilleras_portada.jpg)
+
+> 📺 **Vídeo Oficial de Elaboración:** [Ver en YouTube: Contramuslos de pollo guisados en salsa de vino](https://www.youtube.com/watch?v=fCh5Cw9d-dU)  
+> 📊 **Infografía Educativa TouChef:** [Ver Infografía Técnica](assets/infografia_contramuslos_pollo_tipo_carrilleras.jpg)
+
+![Infografía Educativa TouChef](assets/infografia_contramuslos_pollo_tipo_carrilleras.jpg)
+
+> [!NOTE]
+> Las tradicionales carrilleras de ternera o cerdo ibérico destacan por su untuosidad y colágeno, pero exigen casi dos horas de cocción lenta y un coste elevado. Esta adaptación magistral de Carmen traslada la técnica de la salsa de vino tinto y verduras caramelizadas a contramuslos de pollo deshuesados. El truco del toque de miel emula la melosidad gelatinosa de la carrillera en apenas 35 minutos de chup-chup.
+
+### 📋 Ficha Resumen
+| Parámetro | Valor |
+| :--- | :--- |
+| **Tiempo de Preparación** | 15 minutos |
+| **Tiempo de Cocción** | 40 minutos |
+| **Tiempo Total** | 55 minutos |
+| **Dificultad** | Fácil-Media |
+| **Raciones** | 4 personas (aprox. 320g por ración) |
+| **Coste Estimado** | Muy Económico (4,80 € total / 1,20 € ración) |
+
+### ⚠️ Declaración de Alérgenos (Reglamento UE 1169/2011)
+| Alérgeno | Presencia | Ingrediente / Detalle |
+| :--- | :---: | :--- |
+| **Gluten** | 🟢 SÍ | Harina de trigo común para el sellado (sustituible por Maizena) |
+| **Sulfitos** | 🟢 SÍ | Vino tinto / Pedro Ximénez de reducción |
+| **Huevos** | ⚪ NO | Libre de huevo |
+| **Lácteos** | ⚪ NO | Elaborado 100% con AOVE |
+| **Frutos de cáscara** | ⚪ NO | Sin frutos secos |
+
+### ⚖️ Ingredientes Exactos (Mise en Place)
+
+![Ingredientes y Mise en Place](assets/contramuslos_pollo_tipo_carrilleras_01_ingredientes.jpg)
+| Ingrediente | Cantidad Exacta | Notas de Selección y Corte |
+| :--- | :--- | :--- |
+| **Contramuslos de pollo** | 800 g (6 a 8 unidades) | Deshuesados, sin piel y limpios de grasa visible |
+| **Harina de trigo común** | 30 g (2 cucharadas rasas) | Para enharinar ligeramente la carne y espesar el fondo |
+| **Cebollas dulces o reca** | 300 g (2 unidades medianas) | Picadas en brunoise fina |
+| **Puerro fresco** | 120 g (1 unidad, parte blanca) | Lavado y picado fino |
+| **Zanahoria** | 150 g (1 unidad grande) | Pelada y cortada en medias lunas o brunoise |
+| **Dientes de ajo morado** | 2 unidades (10 g) | Pelados, enteros con un golpe suave |
+| **Vino tinto con cuerpo (o Pedro Ximénez)** | 250 ml (1 vaso) | Calidad de mesa (evitar vinos ácidos de tetrabrik) |
+| **Caldo de pollo casero caliente** | 350 ml | Fondo claro de ave aromatizado |
+| **Miel pura de abeja** | 15 g (1 cucharadita) | Truco técnico para potenciar la melosidad |
+| **Hoja de laurel** | 1 unidad seca | |
+| **Tomillo seco** | 2 g (1 cucharadita de café) | |
+| **Aceite de oliva virgen extra (AOVE)** | 60 ml (4-5 cucharadas) | Para sellar y pochar el sofrito |
+| **Sal marina fina y pimienta negra** | 5 g sal + 1 g pimienta | Al gusto en el sazonado inicial |
+
+### 🔪 Equipamiento Necesario
+- Cazuela ancha y baja (tipo sauté o cocotte de hierro fundido de 28-30 cm).
+- Batidora de vaso o batidora de brazo eléctrica de alta potencia.
+- Pinzas de cocina y espátula de madera.
+- Colador chino (opcional para un acabado de restaurante).
+
+### 👨‍🍳 Paso a Paso Técnico y Minucioso
+
+![Técnica de Elaboración](assets/contramuslos_pollo_tipo_carrilleras_02_elaboracion.jpg)
+
+1. **Acondicionamiento y Sellado de Maillard:**
+   * Limpiar los contramuslos de restos de grasa. Salpimentar generosamente por ambas caras.
+   * Pasarlos por la harina sacudiendo minuciosamente para dejar solo una película imperceptible.
+   * Calentar el AOVE en la cazuela a fuego vivo y dorar el pollo durante 3-4 minutos por lado hasta que forme una costra tostada. Retirar a una fuente (los restos de harina tostada fijarán el cuerpo de la salsa).
+
+2. **Sofrito Paciente y Caramelización:**
+   * En la misma cazuela a fuego medio-bajo, añadir la cebolla, el puerro, la zanahoria y los ajos enteros con una pizca de sal.
+   * Pochar lentamente durante 12-15 minutos raspando los jugos del fondo con la espátula hasta que la verdura adquiera un color marrón dorado intenso y dulce.
+
+3. **Desglasado con Vino Tinto:**
+   * Verter los 250 ml de vino tinto o Pedro Ximénez.
+   * Subir a fuego máximo durante 3 minutos para disolver completamente el *fond* caramelizado y evaporar la totalidad del alcohol etílico.
+
+4. **Guisado a Fuego Lento (Chup-chup):**
+   * Bajar el fuego a nivel medio-bajo. Reincorporar los contramuslos con sus jugos reposados.
+   * Añadir la hoja de laurel, el tomillo seco, la cucharadita de miel y verter los 350 ml de caldo de pollo caliente.
+   * Tapar dejando una pequeña rendija y dejar cocer a fuego lento durante **35 minutos**. La fibra del contramuslo se tornará extremadamente tierna y melosa.
+
+5. **Triturado y Emulsión Brillante de la Salsa:**
+   * Retirar el pollo a un plato y desechar la hoja de laurel.
+   * Pasar todas las verduras y el caldo reducido al vaso de la batidora. Triturar a máxima velocidad durante 2 minutos hasta emulsionar en una salsa densa, homogénea, oscura y brillante.
+   * Devolver la salsa a la cazuela, reintroducir los contramuslos, dar un hervor de 1 minuto para ligar el conjunto y servir.
+
+![Resultado Final y Emplatado](assets/contramuslos_pollo_tipo_carrilleras_03_resultado_final.jpg)
+
+### 📦 Protocolo de Conservación y Batch Cooking
+* **Abatimiento:** Enfriar a <10°C en <60 minutos mediante baño maría inverso con hielo.
+* **Nevera (0-4°C):** Conservar en fiambrera de vidrio hermética durante **4-5 días**. La salsa gelatiniza en frío y los sabores maduran intensamente tras 24 horas.
+* **Congelador (-18°C):** Apto hasta **3 meses**. Regenerar directamente en cazuela sin descongelar previamente a fuego suave.
+* **Vacío:** Conservar hasta **12 días a 2°C**.
+
+### 🔥 Guía de Regeneración Multicanal
+* **Cazuela / Sartén:** Calentar tapado a fuego suave durante 5 minutos añadiendo 2 cucharadas de agua o caldo para devolver la fluidez a la salsa.
+* **Microondas:** 600W durante 2,5 minutos tapado con campana.
+* **Horno:** 160°C durante 10 minutos en bandeja cubierta con papel de hornear.
+
+---
+
+## 🥩 10. Rabo de Toro Estofado a la Cordobesa
+*Categoría: Carnes Rojas / Guiso Señorial de Cocción Lenta Tradicional*
+
+![Rabo de Toro Estofado a la Cordobesa](assets/rabo_toro_estofado_cordobesa_portada.jpg)
+
+> 📺 **Vídeo Oficial de Elaboración:** [Ver en YouTube: Receta de Rabo de Toro Tradicional](https://www.youtube.com/watch?v=IWOg233C2I0)  
+> 📊 **Infografía Educativa TouChef:** [Ver Infografía Técnica](assets/infografia_rabo_toro_estofado_cordobesa.jpg)
+
+![Infografía Educativa TouChef](assets/infografia_rabo_toro_estofado_cordobesa.jpg)
+
+> [!NOTE]
+> Uno de los grandes monumentos de la gastronomía andaluza e hispánica. Originario de los entornos taurinos de Córdoba en el siglo XIX, su magia radica en la transformación termodinámica del abundante tejido conectivo y colágeno del rabo en gelatina pura mediante una cocción pausada en vino tinto con cuerpo, azafrán, clavos de olor y hortalizas de la huerta. La carne se desprende del hueso al menor contacto con el tenedor.
+
+### 📋 Ficha Resumen
+| Parámetro | Valor |
+| :--- | :--- |
+| **Tiempo de Preparación** | 25 minutos |
+| **Tiempo de Cocción** | 3 horas (fuego lento) / 50 min (olla express) |
+| **Tiempo Total** | 3 horas 25 minutos |
+| **Dificultad** | Media |
+| **Raciones** | 4-5 personas (aprox. 350g por ración) |
+| **Coste Estimado** | Medio-Alto (14,00 € total / 2,80 € ración) |
+
+### ⚠️ Declaración de Alérgenos (Reglamento UE 1169/2011)
+| Alérgeno | Presencia | Ingrediente / Detalle |
+| :--- | :---: | :--- |
+| **Gluten** | 🟢 SÍ | Harina de trigo para sellado inicial (sustituible por fécula de maíz) |
+| **Sulfitos** | 🟢 SÍ | Vino tinto con cuerpo / Montilla-Moriles |
+| **Huevos** | ⚪ NO | Libre de huevo |
+| **Lácteos** | ⚪ NO | Libre de derivados lácteos |
+| **Frutos de cáscara** | ⚪ NO | Sin frutos secos |
+
+### ⚖️ Ingredientes Exactos (Mise en Place)
+
+![Ingredientes y Mise en Place](assets/rabo_toro_estofado_cordobesa_01_ingredientes.jpg)
+| Ingrediente | Cantidad Exacta | Notas de Selección y Corte |
+| :--- | :--- | :--- |
+| **Rabo de toro (o ternera)** | 1.000 g (1 kg troceado) | Cortado por las junturas vertebrales, limpio de exceso de sebo |
+| **Harina de trigo** | 40 g (2 cucharadas soperas) | Para enharinar ligeramente antes de sellar |
+| **Cebollas moradas o reca** | 250 g (2 unidades medianas) | Picadas en brunoise regular |
+| **Zanahorias grandes** | 250 g (2 unidades) | Peladas y cortadas en rodajas de 1 cm |
+| **Dientes de ajo morado** | 6 unidades (30 g) | Pelados y picados en brunoise fina |
+| **Tomate natural triturado** | 200 g | Tomate de pera maduro triturado o rallado |
+| **Vino tinto con cuerpo** | 300 ml | D.O. Rioja, Ribera, Toro o Montilla-Moriles tinto |
+| **Caldo de carne oscuro caliente** | 500 ml | Fondo oscuro de ternera y huesos tostados |
+| **Clavos de olor enteros** | 3 unidades | Aromatizante clásico cordobés |
+| **Azafrán en hebra** | 10-12 hebras | Tostadas ligeramente |
+| **Pimienta negra en grano** | 8 granos enteros + 2 g molida | |
+| **Hoja de laurel** | 1 unidad | |
+| **Aceite de oliva virgen extra (AOVE)** | 75 ml (5 cucharadas) | Para sellar a fuego vivo y pochar |
+| **Sal marina gruesa y fina** | 8 g sal marina | Para sazonar la carne |
+
+### 🔪 Equipamiento Necesario
+- Olla tradicional de hierro fundido (Cocotte) o cazuela de barro refractaria grande.
+- Olla a presión / express (alternativa rápida opcional).
+- Pinzas largas de acero inoxidable.
+- Pasapurés o batidora de inmersión para texturizar el fondo.
+
+### 👨‍🍳 Paso a Paso Técnico y Minucioso
+
+![Técnica de Elaboración](assets/rabo_toro_estofado_cordobesa_02_elaboracion.jpg)
+
+1. **Sellado Intenso y Fijación de Maillard:**
+   * Salpimentar generosamente los trozos de rabo de toro.
+   * Pasarlos por un velo fino de harina sacudiendo todo el exceso.
+   * En la olla con el AOVE bien caliente a fuego fuerte, dorar la carne por todas sus caras durante 8-10 minutos hasta lograr un color marrón oscuro crujiente. Retirar a una fuente.
+
+2. **Confección del Sofrito Cordobés:**
+   * En la misma grasa rica en jugos a fuego medio-bajo, incorporar las cebollas y los ajos picados junto con las rodajas de zanahoria.
+   * Pochar despacio durante 10 minutos hasta que la cebolla esté tierna y transparente.
+   * Añadir los 200 g de tomate triturado y sofreír durante 5-6 minutos más hasta que el agua evapore y el sofrito concentre su color.
+
+3. **Aromatización y Reducción del Vino:**
+   * Incorporar los 3 clavos de olor, las hebras de azafrán, los granos de pimienta y la hoja de laurel.
+   * Verter los 300 ml de vino tinto. Subir a fuego fuerte y dejar hervir con fuerza durante 4 minutos para evaporar los alcoholes y concentrar los taninos nobles.
+
+4. **Cocción Lenta Tradicional (3 Horas):**
+   * Reintroducir las piezas de rabo doradas en la olla.
+   * Cubrir con los 500 ml de caldo de carne caliente hasta tapar la carne casi por completo.
+   * Tapar la olla y llevar al mínimo absoluto (*chup-chup* suave) durante **2,5 a 3 horas** (si se opta por olla express: 45-50 minutos desde que sube la válvula de presión).
+   * La carne estará lista cuando al pincharla con un tenedor la carne se deslice y desprenda sola del hueso sin resistencia.
+
+5. **Acabado y Reposo Maestro:**
+   * Retirar los trozos de carne y las rodajas de zanahoria con cuidado a una fuente.
+   * Retirar el exceso de grasa superficial con un cucharón. Triturar el caldo y verduras del fondo para lograr una salsa densa, sedosa y untuosa.
+   * Devolver la carne y las zanahorias a la salsa. Reposar tapado (el rabo de toro multiplica su bouquet y gelatina consumido tras 12-24 horas de reposo).
+
+![Resultado Final y Emplatado](assets/rabo_toro_estofado_cordobesa_03_resultado_final.jpg)
+
+### 📦 Protocolo de Conservación y Batch Cooking
+* **Abatimiento:** Bajar de 60°C a <10°C en <90 minutos.
+* **Nevera (0-4°C):** Conservar en recipiente hermético de cristal durante **4-5 días**. Al día siguiente la salsa forma una jalea de colágeno puro deliciosa.
+* **Congelador (-18°C):** Congela de forma insuperable durante **4 meses**. Al descongelar, la fibra cárnica y la salsa conservan el 100% de su jugosidad.
+* **Vacío:** Conservar hasta **14 días a 2°C**.
+
+### 🔥 Guía de Regeneración Multicanal
+* **Cazuela a fuego lento (Método preferente):** Disponer el rabo y la salsa a fuego suave tapado durante 8-10 minutos hasta que la gelatina funda completamente y la carne alcance >74°C en el centro.
+* **Horno Convectivo:** 150°C durante 15 minutos en fuente cubierta con papel de aluminio.
+* **Microondas:** 600W durante 3 minutos tapado, reposando 1 minuto antes de servir.
+
+---
+
 ## 📊 Matriz Comparativa y Guía de Rendimiento Batch Cooking
 
 | Receta | Días Nevera (0-4°C) | Meses Congelador (-18°C) | Tolerancia al Vacío | Salsa Base / Ligazón | Maridaje Sugerido |
@@ -934,6 +1136,8 @@ La cocina de guiso y cazuela representa el patrimonio gastronómico más reconfo
 | **6. Estofado de Magro** | 3 días | *No recom. patata* | 5 días | Fécula patata chascada | Tinto Garnacha / Mencía |
 | **7. Pollo al Ajillo** | 4 días | 3 meses | 10 días | Emulsión AOVE, vino y ajo | Manzanilla de Sanlúcar |
 | **8. Conejo en Salsa Cazadora** | 4 días | 3 meses | 10 días | Majado de hígado y almendras | Vino Blanco Fermentado en Barrica |
+| **9. Contramuslos Carrillera** | 5 días | 3 meses | 12 días | Reducción vino, miel y puerro | Vino Tinto Roble / PX seco |
+| **10. Rabo de Toro Cordobesa** | 5 días | 4 meses | 14 días | Colágeno concentrado y vino | Vino Tinto Crianza / Montilla |
 
 ---
 

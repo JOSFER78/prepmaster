@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">TouChef</string>
+    <string name="title_activity_main">TouChef</string>
+    <string name="package_name">app.touchef.app</string>
+    <string name="custom_url_scheme">app.touchef.app</string>
+</resources>

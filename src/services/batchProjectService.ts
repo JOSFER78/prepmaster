@@ -70,6 +70,21 @@ export async function deleteBatchProject(userId: string, projectId: string): Pro
 }
 
 /**
+ * Elimina todos los proyectos de batch cooking de un usuario en Firestore
+ */
+export async function deleteAllUserBatchProjects(userId: string): Promise<void> {
+  try {
+    const projCol = collection(db, 'users', userId, 'batchProjects');
+    const snap = await getDocs(projCol);
+    for (const d of snap.docs) {
+      await deleteDoc(doc(db, 'users', userId, 'batchProjects', d.id));
+    }
+  } catch (error) {
+    console.error('Error deleting all batch projects from Firestore:', error);
+  }
+}
+
+/**
  * Escuchador en tiempo real de los proyectos de batch cooking del usuario
  */
 export function subscribeToUserBatchProjects(

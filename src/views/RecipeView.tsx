@@ -109,11 +109,19 @@ export function RecipeView({ onNavigate }: { onNavigate: (view: ViewState) => vo
         </div>
       </div>
 
-      {/* Description */}
-      <div className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-2xl p-4 sm:p-5 shadow-xs">
-        <p className="text-sm text-zinc-600 dark:text-zinc-300 leading-relaxed">
+      {/* Description & Cook Action */}
+      <div className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-2xl p-4 sm:p-5 shadow-xs flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <p className="text-sm text-zinc-600 dark:text-zinc-300 leading-relaxed flex-1">
           {detailedRecipe.description}
         </p>
+
+        <button
+          onClick={() => onNavigate({ name: 'interactive-cook', dishName: detailedRecipe.title })}
+          className="btn-hero-copper text-white text-xs font-black px-5 py-3 rounded-2xl shadow-md flex items-center justify-center gap-2 cursor-pointer hover:scale-[1.02] transition-transform shrink-0"
+        >
+          <Flame size={16} />
+          <span>👨‍🍳 Cocinar con Asistente en Directo</span>
+        </button>
       </div>
 
       {/* Tab Selectors */}

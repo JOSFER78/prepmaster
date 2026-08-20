@@ -1,0 +1,235 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 620" width="100%" height="100%">
+  <defs>
+    <!-- Background Gradient -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0b0f19" />
+      <stop offset="50%" stop-color="#0f172a" />
+      <stop offset="100%" stop-color="#030712" />
+    </linearGradient>
+
+    <!-- Card Gradient -->
+    <linearGradient id="cardGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1e293b" stop-opacity="0.75" />
+      <stop offset="100%" stop-color="#0f172a" stop-opacity="0.85" />
+    </linearGradient>
+
+    <!-- Line Gradients for Curves -->
+    <linearGradient id="grad55" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#10b981" />
+      <stop offset="100%" stop-color="#34d399" />
+    </linearGradient>
+    <linearGradient id="grad60" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#f59e0b" />
+      <stop offset="100%" stop-color="#fbbf24" />
+    </linearGradient>
+    <linearGradient id="grad65" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#ef4444" />
+      <stop offset="100%" stop-color="#f87171" />
+    </linearGradient>
+
+    <!-- Glow Filters -->
+    <filter id="glow55" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="3" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+    <filter id="glow60" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="3" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+    <filter id="glow65" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="3" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+
+    <filter id="cardShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#000000" flood-opacity="0.5" />
+    </filter>
+  </defs>
+
+  <style>
+    .title { font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif; font-size: 20px; font-weight: 700; fill: #f8fafc; letter-spacing: 0.5px; }
+    .subtitle { font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif; font-size: 12px; fill: #94a3b8; }
+    .badge { font-family: 'JetBrains Mono', 'Fira Code', Consolas, monospace; font-size: 11px; font-weight: 600; }
+    .axis-label { font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif; font-size: 12px; font-weight: 600; fill: #94a3b8; }
+    .tick-label { font-family: 'JetBrains Mono', monospace; font-size: 11px; fill: #64748b; }
+    .card-title { font-family: 'Segoe UI', sans-serif; font-size: 13px; font-weight: 700; fill: #e2e8f0; }
+    .card-text { font-family: 'JetBrains Mono', monospace; font-size: 11px; fill: #cbd5e1; line-height: 1.5; }
+    .formula { font-family: 'Cambria Math', 'Times New Roman', serif; font-size: 13px; font-style: italic; fill: #38bdf8; }
+    .grid-line { stroke: #1e293b; stroke-width: 1; stroke-dasharray: 4 4; }
+    .axis-line { stroke: #334155; stroke-width: 1.5; }
+  </style>
+
+  <!-- Background -->
+  <rect width="1000" height="620" fill="url(#bgGrad)" />
+
+  <!-- Outer Frame -->
+  <rect x="15" y="15" width="970" height="590" rx="12" fill="none" stroke="#1e293b" stroke-width="1.5" />
+
+  <!-- Header Section -->
+  <g transform="translate(40, 45)">
+    <!-- Icon / Badge -->
+    <rect x="0" y="0" width="36" height="36" rx="8" fill="#0284c7" fill-opacity="0.2" stroke="#0284c7" stroke-width="1" />
+    <path d="M18 8 L18 28 M10 18 L26 18 M12 12 L24 24 M12 24 L24 12" stroke="#38bdf8" stroke-width="2" stroke-linecap="round" />
+    
+    <text x="48" y="18" class="title">CURVAS DE PENETRACIÓN TÉRMICA EN NÚCLEO — MODELO BALDWIN</text>
+    <text x="48" y="34" class="subtitle">Solución Analítica de la Ecuación de Fourier (Losa Infinita Bi ≫ 1, T_inicial = 5°C → T_núcleo = T_baño - 1°C)</text>
+    
+    <!-- Tag Status -->
+    <rect x="760" y="4" width="160" height="24" rx="12" fill="#065f46" fill-opacity="0.3" stroke="#10b981" stroke-width="1" />
+    <circle cx="774" cy="16" r="4" fill="#10b981" />
+    <text x="786" y="20" class="badge" fill="#34d399">IJGFS VALIDATED</text>
+  </g>
+
+  <!-- Main Chart Canvas Area -->
+  <g transform="translate(0, 0)">
+    <!-- Grid Lines (Horizontal / Time) -->
+    <line x1="90" y1="470" x2="650" y2="470" class="axis-line" />
+    <line x1="90" y1="412" x2="650" y2="412" class="grid-line" />
+    <line x1="90" y1="353" x2="650" y2="353" class="grid-line" />
+    <line x1="90" y1="295" x2="650" y2="295" class="grid-line" />
+    <line x1="90" y1="237" x2="650" y2="237" class="grid-line" />
+    <line x1="90" y1="178" x2="650" y2="178" class="grid-line" />
+    <line x1="90" y1="120" x2="650" y2="120" class="grid-line" />
+
+    <!-- Y-Axis Ticks & Labels -->
+    <text x="80" y="474" class="tick-label" text-anchor="end">0 min</text>
+    <text x="80" y="416" class="tick-label" text-anchor="end">60 min (1h)</text>
+    <text x="80" y="357" class="tick-label" text-anchor="end">120 min (2h)</text>
+    <text x="80" y="299" class="tick-label" text-anchor="end">180 min (3h)</text>
+    <text x="80" y="241" class="tick-label" text-anchor="end">240 min (4h)</text>
+    <text x="80" y="182" class="tick-label" text-anchor="end">300 min (5h)</text>
+    <text x="80" y="124" class="tick-label" text-anchor="end">360 min (6h)</text>
+
+    <!-- Grid Lines (Vertical / Thickness) -->
+    <line x1="90" y1="120" x2="90" y2="470" class="axis-line" />
+    <line x1="120" y1="120" x2="120" y2="470" class="grid-line" />
+    <line x1="207" y1="120" x2="207" y2="470" class="grid-line" />
+    <line x1="293" y1="120" x2="293" y2="470" class="grid-line" />
+    <line x1="380" y1="120" x2="380" y2="470" class="grid-line" />
+    <line x1="467" y1="120" x2="467" y2="470" class="grid-line" />
+    <line x1="553" y1="120" x2="553" y2="470" class="grid-line" />
+    <line x1="640" y1="120" x2="640" y2="470" class="grid-line" />
+
+    <!-- X-Axis Ticks & Labels -->
+    <text x="120" y="492" class="tick-label" text-anchor="middle">10 mm</text>
+    <text x="207" y="492" class="tick-label" text-anchor="middle">20 mm</text>
+    <text x="293" y="492" class="tick-label" text-anchor="middle">30 mm</text>
+    <text x="380" y="492" class="tick-label" text-anchor="middle">40 mm</text>
+    <text x="467" y="492" class="tick-label" text-anchor="middle">50 mm</text>
+    <text x="553" y="492" class="tick-label" text-anchor="middle">60 mm</text>
+    <text x="640" y="492" class="tick-label" text-anchor="middle">70 mm</text>
+
+    <!-- Axis Titles -->
+    <text x="370" y="525" class="axis-label" text-anchor="middle">ESPESOR DEL CORTE / PIEZA PLANA (mm)</text>
+    <text x="32" y="295" class="axis-label" text-anchor="middle" transform="rotate(-90 32 295)">TIEMPO AL NÚCLEO (MINUTOS)</text>
+
+    <!-- Baldwin Curves -->
+    <!-- Curve 55°C (Rare) -->
+    <path d="M 120 457 Q 207 438, 293 403 T 380 353 T 467 286 T 553 207 T 640 120" 
+          fill="none" stroke="url(#grad55)" stroke-width="3.5" filter="url(#glow55)" />
+
+    <!-- Curve 60°C (Medium) -->
+    <path d="M 120 455 Q 207 435, 293 398 T 380 346 T 467 277 T 553 194 T 640 102" 
+          fill="none" stroke="url(#grad60)" stroke-width="3.5" filter="url(#glow60)" />
+
+    <!-- Curve 65°C (Poultry / Well Done) -->
+    <path d="M 120 453 Q 207 431, 293 392 T 380 338 T 467 266 T 553 179 T 640 85" 
+          fill="none" stroke="url(#grad65)" stroke-width="3.5" filter="url(#glow65)" />
+
+    <!-- Key Milestone Anchor Points -->
+    <circle cx="250" cy="420" r="5" fill="#f59e0b" stroke="#fff" stroke-width="1.5" />
+    <line x1="250" y1="420" x2="250" y2="470" stroke="#f59e0b" stroke-width="1" stroke-dasharray="2 2" />
+
+    <circle cx="336" cy="372" r="5" fill="#f59e0b" stroke="#fff" stroke-width="1.5" />
+    <line x1="336" y1="372" x2="336" y2="470" stroke="#f59e0b" stroke-width="1" stroke-dasharray="2 2" />
+
+    <circle cx="467" cy="277" r="5" fill="#f59e0b" stroke="#fff" stroke-width="1.5" />
+    <line x1="467" y1="277" x2="467" y2="470" stroke="#f59e0b" stroke-width="1" stroke-dasharray="2 2" />
+
+    <!-- Callouts on Chart -->
+    <g transform="translate(195, 365)">
+      <rect width="105" height="34" rx="6" fill="#0f172a" fill-opacity="0.9" stroke="#f59e0b" stroke-width="1" />
+      <text x="8" y="14" class="card-title" fill="#fbbf24" font-size="10">Corte 25 mm (Steak)</text>
+      <text x="8" y="27" class="badge" fill="#e2e8f0" font-size="9.5">t ≈ 45 - 55 min</text>
+    </g>
+
+    <g transform="translate(350, 310)">
+      <rect width="115" height="34" rx="6" fill="#0f172a" fill-opacity="0.9" stroke="#f59e0b" stroke-width="1" />
+      <text x="8" y="14" class="card-title" fill="#fbbf24" font-size="10">Medallón 35 mm</text>
+      <text x="8" y="27" class="badge" fill="#e2e8f0" font-size="9.5">t ≈ 105 - 115 min</text>
+    </g>
+
+    <g transform="translate(480, 220)">
+      <rect width="110" height="34" rx="6" fill="#0f172a" fill-opacity="0.9" stroke="#f59e0b" stroke-width="1" />
+      <text x="8" y="14" class="card-title" fill="#fbbf24" font-size="10">Bloque 50 mm</text>
+      <text x="8" y="27" class="badge" fill="#e2e8f0" font-size="9.5">t ≈ 200 - 215 min</text>
+    </g>
+  </g>
+
+  <!-- Right Side Scientific Panel -->
+  <g transform="translate(680, 100)">
+    <!-- Legend Box -->
+    <rect width="280" height="110" rx="10" fill="url(#cardGrad)" stroke="#334155" stroke-width="1" filter="url(#cardShadow)" />
+    <text x="18" y="24" class="card-title">REGÍMENES DE TEMPERATURA</text>
+    
+    <line x1="18" y1="46" x2="50" y2="46" stroke="#10b981" stroke-width="3" />
+    <circle cx="34" cy="46" r="3" fill="#34d399" />
+    <text x="60" y="50" class="badge" fill="#e2e8f0">Baño a 55.0°C (Poco Hecho / Rare)</text>
+
+    <line x1="18" y1="72" x2="50" y2="72" stroke="#f59e0b" stroke-width="3" />
+    <circle cx="34" cy="72" r="3" fill="#fbbf24" />
+    <text x="60" y="76" class="badge" fill="#e2e8f0">Baño a 60.0°C (Al Punto / Medium)</text>
+
+    <line x1="18" y1="98" x2="50" y2="98" stroke="#ef4444" stroke-width="3" />
+    <circle cx="34" cy="98" r="3" fill="#f87171" />
+    <text x="60" y="102" class="badge" fill="#e2e8f0">Baño a 65.0°C (Aves / Pasteurizado)</text>
+
+    <!-- Mathematical Physics Card -->
+    <g transform="translate(0, 125)">
+      <rect width="280" height="235" rx="10" fill="url(#cardGrad)" stroke="#334155" stroke-width="1" filter="url(#cardShadow)" />
+      
+      <rect x="14" y="14" width="252" height="24" rx="4" fill="#0284c7" fill-opacity="0.15" />
+      <text x="22" y="30" class="card-title" fill="#38bdf8">ECUACIÓN RECTORA DE FOURIER</text>
+      
+      <text x="18" y="65" class="formula">∂T/∂t = α · ∇²T = α (∂²T/∂x²)</text>
+      
+      <text x="18" y="92" class="card-text">Difusividad Térmica (Carne):</text>
+      <text x="18" y="110" class="badge" fill="#38bdf8">α = k / (ρ · c_p) ≈ 1.35×10⁻⁷ m²/s</text>
+      
+      <line x1="18" y1="124" x2="262" y2="124" stroke="#1e293b" stroke-width="1" />
+      
+      <!-- Quadratic Law -->
+      <text x="18" y="144" class="card-title" fill="#f59e0b">LEY CUADRÁTICA DEL ESPESOR:</text>
+      <text x="18" y="165" class="formula" fill="#fbbf24">t ∝ L² / α  ⇒  t₂ = t₁ · (L₂ / L₁)²</text>
+      
+      <text x="18" y="190" class="card-text" fill="#94a3b8">Duplicar espesor (25 → 50 mm)</text>
+      <text x="18" y="206" class="badge" fill="#ef4444">MULTIPLICA TIEMPO POR 4 (4×)</text>
+      
+      <text x="18" y="226" class="card-text" font-size="9.5" fill="#64748b">Ref: Baldwin, D. (2012) IJGFS 1(1):15-30</text>
+    </g>
+
+    <!-- Technical Takeaway Footer Badge -->
+    <g transform="translate(0, 375)">
+      <rect width="280" height="95" rx="10" fill="#064e3b" fill-opacity="0.25" stroke="#059669" stroke-width="1" />
+      <text x="16" y="24" class="card-title" fill="#34d399">REGLA DE CALIBRACIÓN TOUCHEF</text>
+      <text x="16" y="44" class="card-text" font-size="10.5">El grosor debe medirse con calibre</text>
+      <text x="16" y="59" class="card-text" font-size="10.5">técnico en el punto más ancho.</text>
+      <text x="16" y="78" class="badge" fill="#10b981">TOLERANCIA MÁXIMA: ± 2 mm</text>
+    </g>
+  </g>
+
+  <!-- Bottom Legend Footer -->
+  <g transform="translate(40, 565)">
+    <rect width="920" height="32" rx="6" fill="#0f172a" fill-opacity="0.9" stroke="#1e293b" stroke-width="1" />
+    <text x="16" y="20" class="card-text" font-size="10.5" fill="#94a3b8">Fuente Oficial: <tspan fill="#e2e8f0" font-weight="600">Douglas Baldwin, Ph.D. — Mathematics of Sous Vide Cooking</tspan> | USDA-FSIS Pathogen Modeling Program | TouChef Standard v2.4</text>
+  </g>
+</svg>

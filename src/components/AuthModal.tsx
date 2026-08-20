@@ -3,6 +3,7 @@ import {
   auth, 
   googleProvider, 
   signInWithPopup, 
+  signInWithGoogleNativeOrWeb,
   signInAnonymously, 
   signInWithEmailAndPassword, 
   createUserWithEmailAndPassword, 
@@ -212,12 +213,12 @@ export function AuthModal({
     setError(null);
     setLoading(true);
     try {
-      const userCred = await signInWithPopup(auth, googleProvider);
-      if (userCred.user) {
-        await setDoc(doc(db, 'users', userCred.user.uid), {
-          displayName: userCred.user.displayName,
-          email: userCred.user.email,
-          photoURL: userCred.user.photoURL,
+      const userResult = await signInWithGoogleNativeOrWeb();
+      if (userResult && userResult.uid) {
+        await setDoc(doc(db, 'users', userResult.uid), {
+          displayName: userResult.displayName,
+          email: userResult.email,
+          photoURL: userResult.photoURL,
           role: selectedRole,
           isChef: selectedRole === 'chef',
           updatedAt: new Date().toISOString()

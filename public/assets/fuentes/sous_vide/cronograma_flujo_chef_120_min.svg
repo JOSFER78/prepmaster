@@ -1,0 +1,298 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1050 620" width="100%" height="100%">
+  <defs>
+    <!-- Background Gradient -->
+    <linearGradient id="bgGrad4" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0b0f19" />
+      <stop offset="50%" stop-color="#0f172a" />
+      <stop offset="100%" stop-color="#020617" />
+    </linearGradient>
+
+    <!-- Card Gradients -->
+    <linearGradient id="cardGrad4" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1e293b" stop-opacity="0.85" />
+      <stop offset="100%" stop-color="#0f172a" stop-opacity="0.95" />
+    </linearGradient>
+
+    <!-- Phase Gradients -->
+    <linearGradient id="p1Grad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#f59e0b" />
+      <stop offset="100%" stop-color="#fbbf24" />
+    </linearGradient>
+    <linearGradient id="p2Grad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#10b981" />
+      <stop offset="100%" stop-color="#34d399" />
+    </linearGradient>
+    <linearGradient id="p3Grad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#ef4444" />
+      <stop offset="100%" stop-color="#f43f5e" />
+    </linearGradient>
+    <linearGradient id="p4Grad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#06b6d4" />
+      <stop offset="100%" stop-color="#3b82f6" />
+    </linearGradient>
+    <linearGradient id="p5Grad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#8b5cf6" />
+      <stop offset="100%" stop-color="#a855f7" />
+    </linearGradient>
+
+    <!-- Master Bar Gradient -->
+    <linearGradient id="masterBarGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#f59e0b" />
+      <stop offset="12.5%" stop-color="#f59e0b" />
+      <stop offset="12.5%" stop-color="#10b981" />
+      <stop offset="37.5%" stop-color="#10b981" />
+      <stop offset="37.5%" stop-color="#ef4444" />
+      <stop offset="75.0%" stop-color="#ef4444" />
+      <stop offset="75.0%" stop-color="#06b6d4" />
+      <stop offset="91.6%" stop-color="#06b6d4" />
+      <stop offset="91.6%" stop-color="#8b5cf6" />
+      <stop offset="100%" stop-color="#8b5cf6" />
+    </linearGradient>
+
+    <filter id="cardShadow4" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="6" stdDeviation="10" flood-color="#000000" flood-opacity="0.6" />
+    </filter>
+  </defs>
+
+  <style>
+    .title { font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif; font-size: 20px; font-weight: 700; fill: #f8fafc; letter-spacing: 0.5px; }
+    .subtitle { font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif; font-size: 12px; fill: #94a3b8; }
+    .badge { font-family: 'JetBrains Mono', 'Fira Code', Consolas, monospace; font-size: 11px; font-weight: 600; }
+    .timeline-time { font-family: 'JetBrains Mono', monospace; font-size: 11.5px; font-weight: 700; fill: #ffffff; }
+    .card-title { font-family: 'Segoe UI', sans-serif; font-size: 12.5px; font-weight: 700; fill: #e2e8f0; }
+    .card-text { font-family: 'Segoe UI', sans-serif; font-size: 10.5px; fill: #94a3b8; line-height: 1.45; }
+    .card-item { font-family: 'Segoe UI', sans-serif; font-size: 10px; fill: #cbd5e1; }
+    .phase-badge { font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 700; }
+  </style>
+
+  <!-- Background -->
+  <rect width="1050" height="620" fill="url(#bgGrad4)" />
+
+  <!-- Outer Frame -->
+  <rect x="15" y="15" width="1020" height="590" rx="12" fill="none" stroke="#1e293b" stroke-width="1.5" />
+
+  <!-- Header Section -->
+  <g transform="translate(40, 45)">
+    <rect x="0" y="0" width="36" height="36" rx="8" fill="#f59e0b" fill-opacity="0.2" stroke="#f59e0b" stroke-width="1" />
+    <path d="M12 18 L16 22 L24 14 M18 8 A10 10 0 1 0 28 18" stroke="#fbbf24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none" />
+
+    <text x="48" y="18" class="title">CRONOGRAMA OPERATIVO IN-SITU DE 120 MINUTOS — TOUCHEF CHEF SUITE</text>
+    <text x="48" y="34" class="subtitle">Flujo de Producción de Alta Eficiencia: 5 Fases Estancas, Cocción Concurrente Multizona y Estándar HACCP</text>
+
+    <!-- Tag Service Level -->
+    <rect x="790" y="4" width="180" height="24" rx="12" fill="#78350f" fill-opacity="0.5" stroke="#f59e0b" stroke-width="1" />
+    <circle cx="804" cy="16" r="4" fill="#fbbf24" />
+    <text x="814" y="20" class="badge" fill="#fde68a">120 MIN SLA CERTIFIED</text>
+  </g>
+
+  <!-- Master Progress Bar / Timeline Visual (X=50 to X=1000, Total Width=950) -->
+  <!-- 0-15m (118.75px), 15-45m (237.5px), 45-90m (356.25px), 90-110m (158.33px), 110-120m (79.17px) -->
+  <g transform="translate(50, 95)">
+    <!-- Base track -->
+    <rect x="0" y="15" width="950" height="12" rx="6" fill="url(#masterBarGrad)" />
+
+    <!-- Phase 1 Milestone [00:00 - 00:15] -->
+    <circle cx="0" cy="21" r="9" fill="#f59e0b" stroke="#0f172a" stroke-width="3" />
+    <text x="0" y="0" class="timeline-time" text-anchor="middle">00:00</text>
+    <text x="59" y="42" class="phase-badge" fill="#f59e0b" text-anchor="middle">FASE 1 (15')</text>
+
+    <!-- Phase 2 Milestone [00:15 - 00:45] -->
+    <circle cx="119" cy="21" r="9" fill="#10b981" stroke="#0f172a" stroke-width="3" />
+    <text x="119" y="0" class="timeline-time" text-anchor="middle">00:15</text>
+    <text x="238" y="42" class="phase-badge" fill="#10b981" text-anchor="middle">FASE 2 (30')</text>
+
+    <!-- Phase 3 Milestone [00:45 - 01:30] -->
+    <circle cx="356" cy="21" r="9" fill="#ef4444" stroke="#0f172a" stroke-width="3" />
+    <text x="356" y="0" class="timeline-time" text-anchor="middle">00:45</text>
+    <text x="534" y="42" class="phase-badge" fill="#ef4444" text-anchor="middle">FASE 3 (45') — COCCIÓN</text>
+
+    <!-- Phase 4 Milestone [01:30 - 01:50] -->
+    <circle cx="712" cy="21" r="9" fill="#06b6d4" stroke="#0f172a" stroke-width="3" />
+    <text x="712" y="0" class="timeline-time" text-anchor="middle">01:30</text>
+    <text x="791" y="42" class="phase-badge" fill="#06b6d4" text-anchor="middle">FASE 4 (20')</text>
+
+    <!-- Phase 5 Milestone [01:50 - 02:00] -->
+    <circle cx="871" cy="21" r="9" fill="#8b5cf6" stroke="#0f172a" stroke-width="3" />
+    <text x="871" y="0" class="timeline-time" text-anchor="middle">01:50</text>
+    <text x="910" y="42" class="phase-badge" fill="#8b5cf6" text-anchor="middle">FASE 5 (10')</text>
+
+    <!-- End Milestone -->
+    <circle cx="950" cy="21" r="9" fill="#a855f7" stroke="#0f172a" stroke-width="3" />
+    <text x="950" y="0" class="timeline-time" text-anchor="middle">02:00</text>
+  </g>
+
+  <!-- 5 Columns / Cards of Detailed Flow (X spans: Card Width = 180, Gap = 12.5) -->
+  <!-- Total width = 5 * 180 + 4 * 12.5 = 950 -->
+  <g transform="translate(50, 155)">
+    
+    <!-- CARD 1: SETUP (Width 180, Height 365) -->
+    <g transform="translate(0, 0)">
+      <rect width="180" height="365" rx="8" fill="url(#cardGrad4)" stroke="#f59e0b" stroke-width="1" stroke-opacity="0.4" filter="url(#cardShadow4)" />
+      <!-- Header pill -->
+      <rect x="8" y="8" width="164" height="26" rx="4" fill="#f59e0b" fill-opacity="0.2" />
+      <text x="90" y="25" class="card-title" fill="#fbbf24" text-anchor="middle" font-size="11">FASE 1: SETUP ASÉPTICO</text>
+
+      <text x="12" y="52" class="badge" fill="#f59e0b" font-size="9.5">⏱ 00:00 — 00:15 (15 min)</text>
+
+      <line x1="10" y1="62" x2="170" y2="62" stroke="#334155" stroke-width="1" />
+
+      <text x="12" y="80" class="card-title" font-size="11">Hitos Operativos:</text>
+      
+      <text x="12" y="102" class="card-item">• Llegada &amp; Saludo Chef</text>
+      <text x="12" y="120" class="card-item">• Inspección eléctrica 16A</text>
+      <text x="12" y="138" class="card-item">• Zonificación 4 áreas</text>
+      <text x="12" y="156" class="card-item">• Desinfección alcohol 70%</text>
+
+      <!-- Key Rule Callout -->
+      <rect x="8" y="180" width="164" height="70" rx="6" fill="#78350f" fill-opacity="0.3" stroke="#f59e0b" stroke-width="1" />
+      <text x="14" y="198" class="badge" fill="#fbbf24" font-size="9.5">REGLA MINUTO 10:</text>
+      <text x="14" y="215" class="card-text" fill="#fde68a" font-size="9.5">Roner y Horno deben</text>
+      <text x="14" y="230" class="card-text" fill="#fde68a" font-size="9.5">estar encendidos y a</text>
+      <text x="14" y="244" class="card-text" fill="#fde68a" font-size="9.5">régimen térmico ya.</text>
+
+      <g transform="translate(8, 260)">
+        <rect width="164" height="92" rx="6" fill="#0f172a" stroke="#1e293b" />
+        <text x="10" y="18" class="card-title" font-size="10" fill="#94a3b8">Entregable Fase 1:</text>
+        <text x="10" y="36" class="card-text" font-size="9">✔ Roner a 84°C / 64°C</text>
+        <text x="10" y="52" class="card-text" font-size="9">✔ Horno a 200°C</text>
+        <text x="10" y="68" class="card-text" font-size="9">✔ Mesas sanitizadas</text>
+        <text x="10" y="84" class="card-text" font-size="9">✔ EPP completo</text>
+      </g>
+    </g>
+
+    <!-- CARD 2: MISE EN PLACE & VACÍO -->
+    <g transform="translate(192.5, 0)">
+      <rect width="180" height="365" rx="8" fill="url(#cardGrad4)" stroke="#10b981" stroke-width="1" stroke-opacity="0.4" filter="url(#cardShadow4)" />
+      <rect x="8" y="8" width="164" height="26" rx="4" fill="#10b981" fill-opacity="0.2" />
+      <text x="90" y="25" class="card-title" fill="#34d399" text-anchor="middle" font-size="11">FASE 2: MISE &amp; VACÍO</text>
+
+      <text x="12" y="52" class="badge" fill="#10b981" font-size="9.5">⏱ 00:15 — 00:45 (30 min)</text>
+
+      <line x1="10" y1="62" x2="170" y2="62" stroke="#334155" stroke-width="1" />
+
+      <text x="12" y="80" class="card-title" font-size="11">Hitos Operativos:</text>
+      <text x="12" y="102" class="card-item">• Calibrado de grosor</text>
+      <text x="12" y="120" class="card-item">• Gramaje 180-200g</text>
+      <text x="12" y="138" class="card-item">• Salmueras &amp; Grasas</text>
+      <text x="12" y="156" class="card-item">• Aromáticos al 30%</text>
+
+      <rect x="8" y="180" width="164" height="70" rx="6" fill="#064e3b" fill-opacity="0.3" stroke="#10b981" stroke-width="1" />
+      <text x="14" y="198" class="badge" fill="#34d399" font-size="9.5">ESTÁNDAR SELLADO:</text>
+      <text x="14" y="215" class="card-text" fill="#a7f3d0" font-size="9.5">Vacío 99.8% PA/PE.</text>
+      <text x="14" y="230" class="card-text" fill="#a7f3d0" font-size="9.5">Doble soldadura plana.</text>
+      <text x="14" y="244" class="card-text" fill="#a7f3d0" font-size="9.5">Cero solapes de pieza.</text>
+
+      <g transform="translate(8, 260)">
+        <rect width="164" height="92" rx="6" fill="#0f172a" stroke="#1e293b" />
+        <text x="10" y="18" class="card-title" font-size="10" fill="#94a3b8">Entregable Fase 2:</text>
+        <text x="10" y="36" class="card-text" font-size="9">✔ 12-16 bolsas selladas</text>
+        <text x="10" y="52" class="card-text" font-size="9">✔ Grosor homogéneo</text>
+        <text x="10" y="68" class="card-text" font-size="9">✔ Líneas de soldadura OK</text>
+        <text x="10" y="84" class="card-text" font-size="9">✔ Cero jugos en cierre</text>
+      </g>
+    </g>
+
+    <!-- CARD 3: COCCIÓN MULTIZONA -->
+    <g transform="translate(385, 0)">
+      <rect width="180" height="365" rx="8" fill="url(#cardGrad4)" stroke="#ef4444" stroke-width="1" stroke-opacity="0.4" filter="url(#cardShadow4)" />
+      <rect x="8" y="8" width="164" height="26" rx="4" fill="#ef4444" fill-opacity="0.2" />
+      <text x="90" y="25" class="card-title" fill="#f87171" text-anchor="middle" font-size="11">FASE 3: COCCIÓN MULTI</text>
+
+      <text x="12" y="52" class="badge" fill="#ef4444" font-size="9.5">⏱ 00:45 — 01:30 (45 min)</text>
+
+      <line x1="10" y1="62" x2="170" y2="62" stroke="#334155" stroke-width="1" />
+
+      <text x="12" y="80" class="card-title" font-size="11">Matriz Concurrente:</text>
+      <text x="12" y="102" class="card-item">• Roner: 84°C (Verduras)</text>
+      <text x="12" y="120" class="card-item">• Roner: 64°C (Aves/7D)</text>
+      <text x="12" y="138" class="card-item">• Roner: 54°C (Vacuno)</text>
+      <text x="12" y="156" class="card-item">• Horno: Asados 200°C</text>
+
+      <rect x="8" y="180" width="164" height="70" rx="6" fill="#450a0a" fill-opacity="0.3" stroke="#ef4444" stroke-width="1" />
+      <text x="14" y="198" class="badge" fill="#f87171" font-size="9.5">DESCENSO TÉRMICO:</text>
+      <text x="14" y="215" class="card-text" fill="#fecaca" font-size="9.5">Alta Tª → Baja Tª</text>
+      <text x="14" y="230" class="card-text" fill="#fecaca" font-size="9.5">(Agua fría para bajar</text>
+      <text x="14" y="244" class="card-text" fill="#fecaca" font-size="9.5">de 84°C a 64°C en 2').</text>
+
+      <g transform="translate(8, 260)">
+        <rect width="164" height="92" rx="6" fill="#0f172a" stroke="#1e293b" />
+        <text x="10" y="18" class="card-title" font-size="10" fill="#94a3b8">Entregable Fase 3:</text>
+        <text x="10" y="36" class="card-text" font-size="9">✔ Pasteurización 100%</text>
+        <text x="10" y="52" class="card-text" font-size="9">✔ Textura óptima</text>
+        <text x="10" y="68" class="card-text" font-size="9">✔ Guarniciones listas</text>
+        <text x="10" y="84" class="card-text" font-size="9">✔ Cero sobrecocción</text>
+      </g>
+    </g>
+
+    <!-- CARD 4: ABATIMIENTO & ETIQUETAS -->
+    <g transform="translate(577.5, 0)">
+      <rect width="180" height="365" rx="8" fill="url(#cardGrad4)" stroke="#06b6d4" stroke-width="1" stroke-opacity="0.4" filter="url(#cardShadow4)" />
+      <rect x="8" y="8" width="164" height="26" rx="4" fill="#06b6d4" fill-opacity="0.2" />
+      <text x="90" y="25" class="card-title" fill="#38bdf8" text-anchor="middle" font-size="11">FASE 4: ABATIMIENTO</text>
+
+      <text x="12" y="52" class="badge" fill="#06b6d4" font-size="9.5">⏱ 01:30 — 01:50 (20 min)</text>
+
+      <line x1="10" y1="62" x2="170" y2="62" stroke="#334155" stroke-width="1" />
+
+      <text x="12" y="80" class="card-title" font-size="11">Hitos Operativos:</text>
+      <text x="12" y="102" class="card-item">• Baño hielo 50/50</text>
+      <text x="12" y="120" class="card-item">• Inmersión inmediata</text>
+      <text x="12" y="138" class="card-item">• Caída &lt; 4°C en &lt; 45'</text>
+      <text x="12" y="156" class="card-item">• Secado con microfibra</text>
+
+      <rect x="8" y="180" width="164" height="70" rx="6" fill="#0c4a6e" fill-opacity="0.3" stroke="#06b6d4" stroke-width="1" />
+      <text x="14" y="198" class="badge" fill="#38bdf8" font-size="9.5">ETIQUETADO HACCP:</text>
+      <text x="14" y="215" class="card-text" fill="#bae6fd" font-size="9.5">Nombre, lote, Tª, fecha</text>
+      <text x="14" y="230" class="card-text" fill="#bae6fd" font-size="9.5">caducidad + QR con</text>
+      <text x="14" y="244" class="card-text" fill="#bae6fd" font-size="9.5">vídeo-manual cliente.</text>
+
+      <g transform="translate(8, 260)">
+        <rect width="164" height="92" rx="6" fill="#0f172a" stroke="#1e293b" />
+        <text x="10" y="18" class="card-title" font-size="10" fill="#94a3b8">Entregable Fase 4:</text>
+        <text x="10" y="36" class="card-text" font-size="9">✔ Bolsas a &lt; 3.0°C</text>
+        <text x="10" y="52" class="card-text" font-size="9">✔ Superficie 100% seca</text>
+        <text x="10" y="68" class="card-text" font-size="9">✔ Etiquetas normativas</text>
+        <text x="10" y="84" class="card-text" font-size="9">✔ QR operativo</text>
+      </g>
+    </g>
+
+    <!-- CARD 5: WHITE GLOVE & BRIEFING -->
+    <g transform="translate(770, 0)">
+      <rect width="180" height="365" rx="8" fill="url(#cardGrad4)" stroke="#8b5cf6" stroke-width="1" stroke-opacity="0.4" filter="url(#cardShadow4)" />
+      <rect x="8" y="8" width="164" height="26" rx="4" fill="#8b5cf6" fill-opacity="0.2" />
+      <text x="90" y="25" class="card-title" fill="#c084fc" text-anchor="middle" font-size="11">FASE 5: WHITE GLOVE</text>
+
+      <text x="12" y="52" class="badge" fill="#8b5cf6" font-size="9.5">⏱ 01:50 — 02:00 (10 min)</text>
+
+      <line x1="10" y1="62" x2="170" y2="62" stroke="#334155" stroke-width="1" />
+
+      <text x="12" y="80" class="card-title" font-size="11">Hitos Operativos:</text>
+      <text x="12" y="102" class="card-item">• Fregado integral</text>
+      <text x="12" y="120" class="card-item">• Cocina más limpia</text>
+      <text x="12" y="138" class="card-item">• Almacén FIFO nevera</text>
+      <text x="12" y="156" class="card-item">• Briefing al cliente</text>
+
+      <rect x="8" y="180" width="164" height="70" rx="6" fill="#3b0764" fill-opacity="0.3" stroke="#8b5cf6" stroke-width="1" />
+      <text x="14" y="198" class="badge" fill="#c084fc" font-size="9.5">ENTREGA DEL MANUAL:</text>
+      <text x="14" y="215" class="card-text" fill="#e9d5ff" font-size="9.5">Explicación 3 min de</text>
+      <text x="14" y="230" class="card-text" fill="#e9d5ff" font-size="9.5">acabado en sartén y</text>
+      <text x="14" y="244" class="card-text" fill="#e9d5ff" font-size="9.5">templado en agua.</text>
+
+      <g transform="translate(8, 260)">
+        <rect width="164" height="92" rx="6" fill="#0f172a" stroke="#1e293b" />
+        <text x="10" y="18" class="card-title" font-size="10" fill="#94a3b8">Entregable Fase 5:</text>
+        <text x="10" y="36" class="card-text" font-size="9">✔ Nevera organizada</text>
+        <text x="10" y="52" class="card-text" font-size="9">✔ Cocina impecable</text>
+        <text x="10" y="68" class="card-text" font-size="9">✔ Cliente capacitado</text>
+        <text x="10" y="84" class="card-text" font-size="9">✔ Firma de conformidad</text>
+      </g>
+    </g>
+
+  </g>
+
+  <!-- Bottom Legend Footer -->
+  <g transform="translate(40, 565)">
+    <rect width="970" height="32" rx="6" fill="#0f172a" fill-opacity="0.9" stroke="#1e293b" stroke-width="1" />
+    <text x="16" y="20" class="card-text" font-size="10.5" fill="#94a3b8">Protocolo de Ejecución: <tspan fill="#e2e8f0" font-weight="600">TouChef 2.0 In-Situ Standard</tspan> | Cero Desperdicio | 100% Inocuidad y Eficiencia Operativa</text>
+  </g>
+</svg>
