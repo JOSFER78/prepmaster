@@ -59,10 +59,10 @@ export function PlannerView({
   }
 
   return (
-    <div className="w-full space-y-4 animate-fade-in pb-8 max-w-4xl mx-auto text-zinc-900 dark:text-zinc-100">
+    <div className="w-full space-y-4 sm:space-y-6 animate-fade-in pb-8 text-zinc-900 dark:text-zinc-100">
       
       {/* Header Banner - Raciones Totales Focused */}
-      <div className="bg-white dark:bg-zinc-900 rounded-3xl p-5 border border-zinc-200 dark:border-zinc-800 shadow-xs flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+      <div className="bg-white dark:bg-zinc-900 rounded-3xl p-5 sm:p-6 border border-zinc-200 dark:border-zinc-800 shadow-xs flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
         <div>
           <div className="flex items-center gap-2 mb-1">
             <span className="bg-[#E07A5F]/10 text-[#E07A5F] dark:text-[#F4A261] text-[10px] font-black px-2.5 py-0.5 rounded-full uppercase flex items-center gap-1">
@@ -83,14 +83,14 @@ export function PlannerView({
         <div className="flex items-center gap-2 w-full md:w-auto">
           <button 
             onClick={() => onNavigate({ name: 'shopping-list' })}
-            className="flex-1 md:flex-none flex items-center justify-center gap-1.5 bg-[#E07A5F] hover:bg-[#c96a50] text-white px-4 py-2.5 rounded-xl text-xs font-bold shadow-xs transition-all active:scale-95"
+            className="flex-1 md:flex-none flex items-center justify-center gap-1.5 bg-[#E07A5F] hover:bg-[#c96a50] text-white px-4 py-2.5 rounded-xl text-xs font-bold shadow-xs transition-all active:scale-95 cursor-pointer"
           >
             <ShoppingCart size={15} />
             <span>Lista de Compra</span>
           </button>
           <button 
             onClick={() => onNavigate({ name: 'interactive-cook' })}
-            className="flex-1 md:flex-none flex items-center justify-center gap-1.5 bg-zinc-100 dark:bg-zinc-800 hover:bg-zinc-200 text-zinc-800 dark:text-zinc-200 px-4 py-2.5 rounded-xl text-xs font-bold transition-all active:scale-95"
+            className="flex-1 md:flex-none flex items-center justify-center gap-1.5 bg-zinc-100 dark:bg-zinc-800 hover:bg-zinc-200 text-zinc-800 dark:text-zinc-200 px-4 py-2.5 rounded-xl text-xs font-bold transition-all active:scale-95 cursor-pointer"
           >
             <ChefHat size={15} />
             <span>Cocinar</span>
@@ -99,7 +99,7 @@ export function PlannerView({
       </div>
 
       {/* Grid of Dishes with live +/- serving controls */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
         {dishes.map((dish) => (
           <div 
             key={dish.id} 

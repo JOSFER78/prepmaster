@@ -37,7 +37,13 @@ import {
   User as UserIcon,
   Loader2,
   Wand2,
-  ListPlus
+  ListPlus,
+  Mic,
+  MicOff,
+  Plus,
+  Trash2,
+  Tag,
+  Volume2
 } from 'lucide-react';
 import { 
   GeneratedMenuPlan, 
@@ -57,7 +63,8 @@ import {
 import { 
   CARMEN_RECIPES_DATABASE, 
   getFilteredCarmenRecipes, 
-  CanonicalRecipe 
+  CanonicalRecipe,
+  matchCarmenRecipesByPrompt 
 } from '../data/recipesCarmenDatabase';
 import { 
   sendChatMessageToFreeLLM, 
@@ -86,6 +93,24 @@ interface AIGeneratorViewProps {
 }
 
 type ProjectMode = 'batch_cooking' | 'single_recipe';
+
+// Ingredientes y proteínas populares para interacción táctil y rápida
+const POPULAR_INGREDIENTS = [
+  { id: 'bacalao', label: 'Bacalao desalado', icon: '🐟', query: 'bacalao' },
+  { id: 'pollo', label: 'Contramuslos de Pollo', icon: '🍗', query: 'pollo contramuslos' },
+  { id: 'ternera', label: 'Ternera para guiso', icon: '🥩', query: 'ternera' },
+  { id: 'lentejas', label: 'Lentejas pardinas', icon: '🍲', query: 'lentejas' },
+  { id: 'garbanzos', label: 'Garbanzos / Vigilia', icon: '🥣', query: 'garbanzos' },
+  { id: 'merluza', label: 'Merluza en salsa', icon: '🐠', query: 'merluza' },
+  { id: 'calabacin', label: 'Calabacín / Cremas', icon: '🥦', query: 'calabacin crema' },
+  { id: 'pisto', label: 'Pisto Manchego', icon: '🍅', query: 'pisto' },
+  { id: 'carrilleras', label: 'Carrilleras ibéricas', icon: '🍖', query: 'carrilleras' },
+  { id: 'albondigas', label: 'Albóndigas caseras', icon: '🧆', query: 'albondigas' },
+  { id: 'tortilla', label: 'Tortilla de patatas', icon: '🍳', query: 'tortilla' },
+  { id: 'espinacas', label: 'Espinacas frescas', icon: '🥬', query: 'espinacas' },
+  { id: 'croquetas', label: 'Croquetas caseras', icon: '🥟', query: 'croquetas' },
+  { id: 'arroz', label: 'Arroz caldoso marinero', icon: '🍚', query: 'arroz' }
+];
 
 export function AIGeneratorView({ 
   onMenuApproved, 
@@ -127,6 +152,10 @@ export function AIGeneratorView({
   const [isAiResponding, setIsAiResponding] = useState<boolean>(false);
   const chatBottomRef = useRef<HTMLDivElement>(null);
 
+  // Speech Recognition (Voz / Dictado)
+  const [isListening, setIsListening] = useState<boolean>(false);
+  const [speechTarget, setSpeechTarget] = useState<'step1' | 'chat'>('chat');
+
   // Batch manual / auto selection
   const [manuallySelectedRecipeIds, setManuallySelectedRecipeIds] = useState<string[]>([
     'carmen-lentejas-chorizo',
@@ -136,10 +165,15 @@ export function AIGeneratorView({
     'carmen-croquetas-jamon-iberico'
   ]);
 
+  // Modal para añadir recetas rápidas desde el catálogo
+  const [isAddRecipeModalOpen, setIsAddRecipeModalOpen] = useState<boolean>(false);
+  const [quickAddSearch, setQuickAddSearch] = useState<string>('');
+
   // Generated state
   const [isGenerating, setIsGenerating] = useState<boolean>(false);
   const [generatedPlan, setGeneratedPlan] = useState<GeneratedMenuPlan | null>(null);
   const [generatedDishes, setGeneratedDishes] = useState<BatchDish[]>([]);
+  const [swappingDishId, setSwappingDishId] = useState<string | null>(null);
 
   // DYNAMIC BATCH ENGINE CALCULATION
   const structure = useMemo(() => {
@@ -161,20 +195,11 @@ export function AIGeneratorView({
     });
   }, [recipeCategoryFilter, selectedAllergens, recipeSearchQuery]);
 
-  // INITIALIZE AI COPILOT GREETING WHEN MOVING TO STEP 2
-  useEffect(() => {
-    if (wizardStep === 2 && chatMessages.length === 0) {
-      const modeText = projectMode === 'batch_cooking' 
-        ? `un menú de **Batch Cooking Semanal** para **${peopleCount} personas** durante **${daysCount} días** (${structure.totalIndividualServings} raciones en estilo ${dietStyle})`
-        : `una **Receta Individual Canónica** para **${peopleCount} personas**`;
-
-      const initialAiGreeting: AIChatMessage = {
-        role: 'assistant',
-        content: `¡Hola! Soy tu **Copiloto Culinario TouChef con IA**, entrenado con las recetas y técnicas de *Cocina con Carmen* y compendios de cocción simultánea.\n\nHe configurado tu proyecto para ${modeText}.${selectedAllergens.length > 0 ? ` He excluido automáticamente: ${selectedAllergens.join(', ')}.` : ''}\n\n¿Tienes alguna preferencia en especial? Por ejemplo: *"Quiero 2 platos de carne y 1 de pescado"*, *"Tengo calabacines en la nevera y quiero aprovecharlos"*, o *"Proponme un menú tradicional completo"*.\n\nPuedes pedirme variaciones o pulsar el botón para que te formule una propuesta óptima al instante.`
-      };
-      setChatMessages([initialAiGreeting]);
-    }
-  }, [wizardStep, projectMode, peopleCount, daysCount, dietStyle, selectedAllergens, structure.totalIndividualServings, chatMessages.length]);
+  // Live preview of matched recipes in Step 1 based on userSpecificGoal
+  const step1MatchedPreview = useMemo(() => {
+    if (!userSpecificGoal.trim()) return [];
+    return matchCarmenRecipesByPrompt(userSpecificGoal, selectedAllergens, dietStyle, 4);
+  }, [userSpecificGoal, selectedAllergens, dietStyle]);
 
   // Auto-scroll chat
   useEffect(() => {
@@ -193,7 +218,104 @@ export function AIGeneratorView({
     );
   };
 
-  // SEND MESSAGE TO AI COPILOT
+  // Toggle ingredient chip in Step 1
+  const togglePopularIngredientInStep1 = (ing: { label: string; query: string }) => {
+    setUserSpecificGoal(prev => {
+      const trimmed = prev.trim();
+      if (!trimmed) return ing.label;
+      if (trimmed.toLowerCase().includes(ing.query.toLowerCase()) || trimmed.toLowerCase().includes(ing.label.toLowerCase())) {
+        return trimmed;
+      }
+      return `${trimmed}, ${ing.label}`;
+    });
+  };
+
+  // One-click ingredient chip in Step 2: Adds/swaps matching Carmen recipe into the batch
+  const handleQuickAddIngredientInStep2 = (ing: { label: string; query: string }) => {
+    const matched = matchCarmenRecipesByPrompt(ing.query, selectedAllergens, dietStyle, 1);
+    if (matched.length > 0) {
+      const rec = matched[0];
+      if (!manuallySelectedRecipeIds.includes(rec.id)) {
+        setManuallySelectedRecipeIds(prev => [rec.id, ...prev.slice(0, 4)]);
+        setChatMessages(prev => [
+          ...prev,
+          {
+            role: 'assistant',
+            content: `🎯 **Añadido por panel interactivo**: He incorporado **${rec.name}** (${rec.prepTimeFormatted} · Estación: ${rec.station}) a tu lote semanal para cumplir tu preferencia de *${ing.label}*.`,
+            suggestedRecipes: [rec.id]
+          }
+        ]);
+      }
+    }
+  };
+
+  // Speech Recognition toggler
+  const toggleSpeechRecognition = (target: 'step1' | 'chat') => {
+    const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
+    if (!SpeechRecognition) {
+      alert('Tu navegador no tiene activado el reconocimiento de voz nativo. Puedes escribir directamente en el campo de texto.');
+      return;
+    }
+
+    if (isListening) {
+      setIsListening(false);
+      return;
+    }
+
+    try {
+      const recognition = new SpeechRecognition();
+      recognition.lang = 'es-ES';
+      recognition.continuous = false;
+      recognition.interimResults = false;
+
+      setIsListening(true);
+      setSpeechTarget(target);
+
+      recognition.onresult = (event: any) => {
+        const transcript = event.results[0][0].transcript;
+        setIsListening(false);
+        if (target === 'step1') {
+          setUserSpecificGoal(prev => prev ? `${prev}, ${transcript}` : transcript);
+        } else {
+          setChatInput(transcript);
+          handleSendChatMessage(transcript);
+        }
+      };
+
+      recognition.onerror = () => setIsListening(false);
+      recognition.onend = () => setIsListening(false);
+      recognition.start();
+    } catch (e) {
+      console.error('Speech recognition error:', e);
+      setIsListening(false);
+    }
+  };
+
+  // TRANSITION STEP 1 -> STEP 2 (PERSONALIZED & DETERMINISTIC MATCHING)
+  const handleProceedToStep2 = () => {
+    // 1. Calculate best matching recipes from Carmen for user's goal / preferences
+    const matched = matchCarmenRecipesByPrompt(userSpecificGoal, selectedAllergens, dietStyle, 5);
+    const matchedIds = matched.map(r => r.id);
+    setManuallySelectedRecipeIds(matchedIds);
+
+    // 2. Prepare personalized welcome greeting acknowledging user's input
+    let welcomeContent = '';
+    if (userSpecificGoal.trim()) {
+      welcomeContent = `¡Oído cocina! He analizado tu petición: **"${userSpecificGoal}"** para **${peopleCount} personas** durante **${daysCount} días** (${structure.totalIndividualServings} raciones en estilo ${dietStyle}).\n\nHe configurado tu lote inicial con recetas canónicas de Carmen que coinciden directamente con tus preferencias e ingredientes:${selectedAllergens.length > 0 ? `\n• Alérgenos excluidos: ${selectedAllergens.join(', ')}` : ''}\n\n${matched.map(r => `• **${r.name}** (${r.prepTimeFormatted} · Estación: *${r.station}*)`).join('\n')}\n\n¿Quieres hacer algún ajuste? Puedes pulsar los paneles interactivos de ingredientes, usar los botones rápidos o escribir/hablar por micrófono.`;
+    } else {
+      welcomeContent = `¡Hola! Soy tu **Copiloto Culinario TouChef con IA**, entrenado con las recetas y técnicas de *Cocina con Carmen* y compendios de cocción simultánea.\n\nHe configurado tu menú de **Batch Cooking Semanal** para **${peopleCount} personas** durante **${daysCount} días** (${structure.totalIndividualServings} raciones en estilo ${dietStyle}).${selectedAllergens.length > 0 ? ` He excluido automáticamente: ${selectedAllergens.join(', ')}.` : ''}\n\n${matched.map(r => `• **${r.name}** (${r.prepTimeFormatted} · Estación: *${r.station}*)`).join('\n')}\n\nPuedes seleccionar ingredientes en los paneles interactivos, usar el micrófono o pulsar el botón para formular una propuesta óptima.`;
+    }
+
+    const initialMsg: AIChatMessage = {
+      role: 'assistant',
+      content: welcomeContent,
+      suggestedRecipes: matchedIds
+    };
+    setChatMessages([initialMsg]);
+    setWizardStep(2);
+  };
+
+  // SEND MESSAGE TO AI COPILOT (WITH DIRECT INGREDIENT INTERPRETATION)
   const handleSendChatMessage = async (presetText?: string) => {
     const textToSend = presetText || chatInput.trim();
     if (!textToSend || isAiResponding) return;
@@ -204,6 +326,23 @@ export function AIGeneratorView({
     setChatInput('');
     setIsAiResponding(true);
 
+    // Análisis heurístico inmediato de ingredientes solicitados por el usuario
+    const instantMatches = matchCarmenRecipesByPrompt(textToSend, selectedAllergens, dietStyle, 2);
+    if (instantMatches.length > 0 && textToSend.length > 3) {
+      const lower = textToSend.toLowerCase();
+      if (
+        lower.includes('añad') || lower.includes('pon') || lower.includes('cambi') || 
+        lower.includes('quiero') || lower.includes('incluy') || lower.includes('bacalao') || 
+        lower.includes('pollo') || lower.includes('pescado') || lower.includes('carne') || 
+        lower.includes('lentejas') || lower.includes('verdura') || lower.includes('ternera')
+      ) {
+        const newIdToAdd = instantMatches[0].id;
+        if (!manuallySelectedRecipeIds.includes(newIdToAdd)) {
+          setManuallySelectedRecipeIds(prev => [newIdToAdd, ...prev.slice(0, 4)]);
+        }
+      }
+    }
+
     try {
       const aiReplyText = await sendChatMessageToFreeLLM(newHistory);
       const suggestedRecipeIds = extractRecipeIdsFromAIText(aiReplyText);
@@ -213,16 +352,18 @@ export function AIGeneratorView({
         {
           role: 'assistant',
           content: aiReplyText,
-          suggestedRecipes: suggestedRecipeIds.length > 0 ? suggestedRecipeIds : undefined
+          suggestedRecipes: suggestedRecipeIds.length > 0 ? suggestedRecipeIds : (instantMatches.length > 0 ? instantMatches.map(r => r.id) : undefined)
         }
       ]);
     } catch (err: any) {
       console.error('AI Copilot error:', err);
+      const fallbackDishes = instantMatches.length > 0 ? instantMatches : matchCarmenRecipesByPrompt(textToSend, selectedAllergens, dietStyle, 3);
       setChatMessages(prev => [
         ...prev,
         {
           role: 'assistant',
-          content: `Hubo un error de conexión con la IA (${err.message || 'FreeLLM API'}). Sin embargo, tienes a tu disposición todas las recetas canónicas de Carmen en el explorador.`
+          content: `He procesado tu indicación ("${textToSend}"). Te sugiero incorporar estas opciones de Carmen compatibles:\n\n${fallbackDishes.map(r => `• **${r.name}** (${r.prepTimeFormatted})`).join('\n')}`,
+          suggestedRecipes: fallbackDishes.map(r => r.id)
         }
       ]);
     } finally {
@@ -246,7 +387,6 @@ export function AIGeneratorView({
       if (proposal.selectedRecipeIds && proposal.selectedRecipeIds.length > 0) {
         setManuallySelectedRecipeIds(proposal.selectedRecipeIds);
         
-        // Add confirmation message to chat
         const confirmationMsg: AIChatMessage = {
           role: 'assistant',
           content: `✨ **¡Propuesta de Menú IA Formulada con Éxito!**\n\n📌 **${proposal.title}**\n${proposal.philosophy}\n\n**Recetas seleccionadas del catálogo de Carmen:**\n${proposal.selectedRecipeIds.map(id => {
@@ -264,8 +404,6 @@ export function AIGeneratorView({
       setIsAiResponding(false);
     }
   };
-
-  const [swappingDishId, setSwappingDishId] = useState<string | null>(null);
 
   // SWAP SPECIFIC RECIPE WITH AI
   const handleSwapRecipeWithAI = async (recipeId: string) => {
@@ -297,6 +435,23 @@ export function AIGeneratorView({
       setSwappingDishId(null);
       setIsAiResponding(false);
     }
+  };
+
+  // REMOVE RECIPE FROM ACTIVE BATCH
+  const handleRemoveRecipeFromBatch = (recipeId: string) => {
+    if (manuallySelectedRecipeIds.length <= 1) {
+      alert('Tu lote debe contener al menos 1 receta para poder cocinar.');
+      return;
+    }
+    setManuallySelectedRecipeIds(prev => prev.filter(id => id !== recipeId));
+  };
+
+  // ADD RECIPE DIRECTLY TO ACTIVE BATCH
+  const handleAddRecipeDirectly = (recipeId: string) => {
+    if (!manuallySelectedRecipeIds.includes(recipeId)) {
+      setManuallySelectedRecipeIds(prev => [...prev, recipeId]);
+    }
+    setIsAddRecipeModalOpen(false);
   };
 
   // APPLY SUGGESTED RECIPES FROM AI
@@ -438,7 +593,7 @@ export function AIGeneratorView({
   };
 
   return (
-    <div className="w-full max-w-4xl mx-auto space-y-8 animate-fade-in pb-20 text-zinc-900 dark:text-zinc-100">
+    <div className="w-full space-y-6 sm:space-y-8 animate-fade-in pb-20 text-zinc-900 dark:text-zinc-100">
       
       {/* ========================================================================= */}
       {/* WIZARD PROGRESS HEADER                                                    */}
@@ -486,7 +641,7 @@ export function AIGeneratorView({
       </div>
 
       {/* ========================================================================= */}
-      {/* STEP 1: PROJECT MODE, HOUSEHOLD & USER GOAL                               */}
+      {/* STEP 1: PROJECT MODE, HOUSEHOLD & INTERACTIVE GOAL                         */}
       {/* ========================================================================= */}
       {wizardStep === 1 && (
         <div className="glass-surface-elevated rounded-3xl p-6 sm:p-8 border border-zinc-200/80 dark:border-white/10 shadow-xl space-y-8">
@@ -619,18 +774,86 @@ export function AIGeneratorView({
             </div>
           </div>
 
-          {/* C. DIRECTIVA ESPECÍFICA PARA LA IA (OPCIONAL) */}
-          <div className="space-y-3 pt-4 border-t border-zinc-100 dark:border-zinc-800">
-            <span className="text-[11px] font-black uppercase tracking-wider text-[#E07A5F] block flex items-center gap-1.5">
-              <Wand2 size={14} /> C. Instrucción u Objetivo Específico para el Copiloto IA (Opcional):
-            </span>
-            <input
-              type="text"
-              placeholder="Ej: 'Quiero usar pollo y calabacines que tengo en la nevera', 'Platos ricos en hierro para niños', 'Sin picante'..."
-              value={userSpecificGoal}
-              onChange={(e) => setUserSpecificGoal(e.target.value)}
-              className="w-full p-3 rounded-2xl bg-zinc-50 dark:bg-zinc-800/80 border border-zinc-200 dark:border-zinc-700 text-xs font-medium text-zinc-800 dark:text-zinc-200 focus:outline-none"
-            />
+          {/* C. PANEL INTERACTIVO DE INGREDIENTES FAVORITOS & DICTADO POR VOZ */}
+          <div className="space-y-4 pt-4 border-t border-zinc-100 dark:border-zinc-800">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+              <span className="text-[11px] font-black uppercase tracking-wider text-[#E07A5F] flex items-center gap-1.5">
+                <Wand2 size={14} /> C. ¿Qué te apetece comer? (Elige ingredientes o escribe/dicta libremente)
+              </span>
+              <span className="text-[10px] text-zinc-400 font-medium">
+                Toca cualquier botón o usa el micrófono 🎙️
+              </span>
+            </div>
+
+            {/* QUICK INGREDIENT CHIPS */}
+            <div className="flex flex-wrap gap-2">
+              {POPULAR_INGREDIENTS.map(ing => {
+                const isSelected = userSpecificGoal.toLowerCase().includes(ing.query.toLowerCase()) || userSpecificGoal.toLowerCase().includes(ing.label.toLowerCase());
+                return (
+                  <button
+                    key={ing.id}
+                    type="button"
+                    onClick={() => togglePopularIngredientInStep1(ing)}
+                    className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer shadow-2xs ${
+                      isSelected
+                        ? 'bg-[#E07A5F] text-white ring-2 ring-[#E07A5F]/40 shadow-sm scale-[1.03]'
+                        : 'bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 hover:bg-zinc-200 dark:hover:bg-zinc-700 border border-zinc-200 dark:border-zinc-700/60'
+                    }`}
+                  >
+                    <span>{ing.icon}</span>
+                    <span>{ing.label}</span>
+                    {isSelected && <Check size={12} />}
+                  </button>
+                );
+              })}
+            </div>
+
+            {/* TEXT & VOICE INPUT */}
+            <div className="relative flex items-center gap-2">
+              <input
+                type="text"
+                placeholder="Ej: 'Quiero bacalao, contramuslos de pollo y calabacines', 'Menú rico en hierro', 'Comida tradicional andaluza'..."
+                value={userSpecificGoal}
+                onChange={(e) => setUserSpecificGoal(e.target.value)}
+                className="w-full p-3.5 pr-12 rounded-2xl bg-zinc-50 dark:bg-zinc-800/90 border border-zinc-200 dark:border-zinc-700 text-xs font-medium text-zinc-800 dark:text-zinc-100 focus:outline-none focus:ring-2 focus:ring-[#E07A5F]/40 shadow-inner"
+              />
+              <button
+                type="button"
+                onClick={() => toggleSpeechRecognition('step1')}
+                title={isListening && speechTarget === 'step1' ? 'Detener grabación' : 'Dictar tus preferencias por voz'}
+                className={`absolute right-2.5 p-2 rounded-xl transition-all cursor-pointer ${
+                  isListening && speechTarget === 'step1'
+                    ? 'bg-rose-500 text-white animate-pulse shadow-md'
+                    : 'bg-zinc-200 dark:bg-zinc-700 hover:bg-[#E07A5F] hover:text-white text-zinc-600 dark:text-zinc-300'
+                }`}
+              >
+                {isListening && speechTarget === 'step1' ? <MicOff size={16} /> : <Mic size={16} />}
+              </button>
+            </div>
+
+            {/* REAL-TIME PREVIEW OF MATCHING CARMEN RECIPES */}
+            {step1MatchedPreview.length > 0 && (
+              <div className="p-3.5 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 space-y-2 animate-fade-in">
+                <div className="flex items-center justify-between text-[11px]">
+                  <span className="font-black text-emerald-700 dark:text-emerald-400 flex items-center gap-1.5">
+                    <CheckCircle2 size={13} /> {step1MatchedPreview.length} platos canónicos de Carmen identificados para tu lote:
+                  </span>
+                  <span className="text-zinc-400 text-[10px]">Coincidencia por ingredientes 100% real</span>
+                </div>
+                {/* DISHES LIST */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
+                  {step1MatchedPreview.map(rec => (
+                    <div key={rec.id} className="p-2 rounded-xl bg-white dark:bg-zinc-900 border border-emerald-500/20 flex items-center gap-2.5 text-xs">
+                      <img src={rec.image} alt={rec.name} className="w-8 h-8 rounded-lg object-cover" />
+                      <div className="min-w-0">
+                        <strong className="font-bold text-zinc-900 dark:text-white block truncate text-[11px]">{rec.name}</strong>
+                        <span className="text-[10px] text-zinc-400">{rec.prepTimeFormatted} · {rec.station}</span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
           </div>
 
           {/* D. ALÉRGENOS */}
@@ -692,7 +915,7 @@ export function AIGeneratorView({
                   ¿Prefieres que un Chef diseñe todo tu menú a medida?
                 </strong>
                 <span className="text-[11px] text-zinc-600 dark:text-zinc-400">
-                  Corta aquí: publica tu encargo con estas preferencias y recibe propuestas personalizadas de cocineros con sus tarifas.
+                  Corta aquí: publica tu encargo con estas preferencias ({userSpecificGoal || 'Menú a convenir'}) y recibe propuestas de cocineros homologados.
                 </span>
               </div>
             </div>
@@ -724,7 +947,7 @@ export function AIGeneratorView({
               Paso 1 de 3 · Motor Unificado TouChef
             </span>
             <button
-              onClick={() => setWizardStep(2)}
+              onClick={handleProceedToStep2}
               className="btn-hero-copper text-white font-bold text-xs px-6 py-3 rounded-2xl flex items-center gap-2 cursor-pointer shadow-md hover:scale-[1.02] transition-transform"
             >
               <span>Abrir Copiloto IA &amp; Selección de Platos</span>
@@ -781,28 +1004,65 @@ export function AIGeneratorView({
 
           {/* ACTIVE BATCH DISHES LIVE BOARD (WITH DIRECT SWAP & DELEGATE) */}
           {projectMode === 'batch_cooking' && (
-            <div className="p-4 rounded-2xl bg-zinc-50 dark:bg-zinc-900/80 border border-zinc-200 dark:border-zinc-800 space-y-3">
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+            <div className="p-4 sm:p-5 rounded-2xl bg-zinc-50 dark:bg-zinc-900/90 border border-zinc-200 dark:border-zinc-800 space-y-4 shadow-sm">
+              
+              {/* TOP BAR OF BOARD: TITLE, COUNT, HIRE CHEF BUTTON & ADD BUTTON */}
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                 <div className="flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-full bg-emerald-500 animate-ping" />
-                  <span className="text-xs font-bold text-zinc-800 dark:text-zinc-200 uppercase tracking-wider">
-                    Platos seleccionados en tu lote actual ({manuallySelectedRecipeIds.length}):
+                  <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
+                  <span className="text-xs font-black text-zinc-800 dark:text-zinc-200 uppercase tracking-wider">
+                    Platos en tu lote activo ({manuallySelectedRecipeIds.length}):
+                  </span>
+                  <span className="text-[10px] text-zinc-400 font-mono">
+                    ~{structure.totalIndividualServings} raciones calculadas
                   </span>
                 </div>
                 
                 <div className="flex items-center gap-2">
                   <button
                     type="button"
+                    onClick={() => setIsAddRecipeModalOpen(true)}
+                    className="px-3 py-1.5 rounded-xl bg-zinc-200 dark:bg-zinc-800 hover:bg-[#E07A5F] hover:text-white text-zinc-800 dark:text-zinc-200 font-bold text-[11px] transition-all flex items-center gap-1 cursor-pointer"
+                  >
+                    <Plus size={13} />
+                    <span>+ Añadir Plato</span>
+                  </button>
+
+                  <button
+                    type="button"
                     onClick={() => handleExecuteHireChef('with_grocery')}
-                    className="px-3 py-1.5 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 text-amber-800 dark:text-amber-300 font-bold text-[11px] border border-amber-500/40 transition-all flex items-center gap-1.5 cursor-pointer shadow-2xs"
+                    className="px-3 py-1.5 rounded-xl bg-amber-500 hover:bg-amber-600 text-stone-950 font-black text-[11px] transition-all flex items-center gap-1.5 cursor-pointer shadow-xs"
                   >
                     <ChefHat size={13} />
-                    <span>Encargar este lote al Chef</span>
+                    <span>Encargar al Chef</span>
                   </button>
                 </div>
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2.5">
+              {/* QUICK INGREDIENT INTERACTIVE PANEL BAR IN STEP 2 */}
+              <div className="space-y-1.5 pt-1 border-t border-zinc-200/60 dark:border-zinc-800">
+                <div className="flex items-center justify-between">
+                  <span className="text-[10px] font-black uppercase text-zinc-400 flex items-center gap-1">
+                    <Tag size={11} className="text-[#E07A5F]" /> Panel interactivo: Toca para incorporar o probar ingredientes en el lote:
+                  </span>
+                </div>
+                <div className="flex flex-wrap gap-1.5">
+                  {POPULAR_INGREDIENTS.map(ing => (
+                    <button
+                      key={ing.id}
+                      type="button"
+                      onClick={() => handleQuickAddIngredientInStep2(ing)}
+                      className="px-2.5 py-1 rounded-lg bg-white dark:bg-zinc-800 hover:bg-[#E07A5F]/15 hover:text-[#E07A5F] border border-zinc-200 dark:border-zinc-700/70 text-[10px] font-bold text-zinc-700 dark:text-zinc-300 transition-all cursor-pointer flex items-center gap-1 shadow-2xs"
+                    >
+                      <span>{ing.icon}</span>
+                      <span>{ing.label}</span>
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* CARDS OF CURRENT ACTIVE DISHES */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3">
                 {manuallySelectedRecipeIds.map(recipeId => {
                   const rec = CARMEN_RECIPES_DATABASE.find(r => r.id === recipeId);
                   if (!rec) return null;
@@ -811,30 +1071,44 @@ export function AIGeneratorView({
                   return (
                     <div
                       key={rec.id}
-                      className="p-2.5 rounded-xl bg-white dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 flex items-center justify-between gap-2 shadow-2xs group"
+                      className="p-3 rounded-2xl bg-white dark:bg-zinc-800/90 border border-zinc-200 dark:border-zinc-700/80 flex flex-col justify-between space-y-2.5 shadow-sm hover:border-[#E07A5F]/50 transition-colors group relative"
                     >
-                      <div className="flex items-center gap-2.5 min-w-0">
-                        <img src={rec.image} alt={rec.name} className="w-9 h-9 rounded-lg object-cover shrink-0" />
-                        <div className="min-w-0">
-                          <strong className="text-[11px] font-bold text-zinc-900 dark:text-white block truncate">
+                      <div className="flex items-start gap-3">
+                        <img src={rec.image} alt={rec.name} className="w-12 h-12 rounded-xl object-cover shrink-0 shadow-2xs" />
+                        <div className="min-w-0 flex-1">
+                          <span className="text-[9px] font-black uppercase text-[#E07A5F] block truncate">
+                            {rec.category} · {rec.station}
+                          </span>
+                          <strong className="text-xs font-black text-zinc-900 dark:text-white block line-clamp-1 mt-0.5">
                             {rec.name}
                           </strong>
-                          <span className="text-[10px] text-zinc-400 block">
-                            {rec.prepTimeFormatted} · {rec.station}
+                          <span className="text-[10px] text-zinc-400 block mt-0.5">
+                            ⏱️ {rec.prepTimeFormatted}
                           </span>
                         </div>
                       </div>
 
-                      <button
-                        type="button"
-                        onClick={() => handleSwapRecipeWithAI(rec.id)}
-                        disabled={isSwappingThis || isAiResponding}
-                        title="Pedir a la IA sustituir este plato por otra opción compatible"
-                        className="px-2 py-1 rounded-lg bg-zinc-100 dark:bg-zinc-700 hover:bg-[#E07A5F]/15 hover:text-[#E07A5F] text-[10px] font-bold text-zinc-600 dark:text-zinc-300 transition-all flex items-center gap-1 cursor-pointer shrink-0 disabled:opacity-50"
-                      >
-                        {isSwappingThis ? <Loader2 size={11} className="animate-spin text-[#E07A5F]" /> : <RefreshCw size={11} />}
-                        <span>{isSwappingThis ? 'Cambiando...' : 'Cambiar'}</span>
-                      </button>
+                      <div className="pt-2 border-t border-zinc-100 dark:border-zinc-700/60 flex items-center justify-between gap-2">
+                        <button
+                          type="button"
+                          onClick={() => handleSwapRecipeWithAI(rec.id)}
+                          disabled={isSwappingThis || isAiResponding}
+                          title="Pedir a la IA sustituir este plato por otra opción compatible"
+                          className="px-2.5 py-1 rounded-lg bg-zinc-100 dark:bg-zinc-700/80 hover:bg-[#E07A5F]/15 hover:text-[#E07A5F] text-[10px] font-bold text-zinc-600 dark:text-zinc-300 transition-all flex items-center gap-1 cursor-pointer disabled:opacity-50"
+                        >
+                          {isSwappingThis ? <Loader2 size={11} className="animate-spin text-[#E07A5F]" /> : <RefreshCw size={11} />}
+                          <span>{isSwappingThis ? 'Cambiando...' : 'Swap IA'}</span>
+                        </button>
+
+                        <button
+                          type="button"
+                          onClick={() => handleRemoveRecipeFromBatch(rec.id)}
+                          title="Quitar este plato de mi lote"
+                          className="p-1.5 rounded-lg text-zinc-400 hover:text-rose-500 hover:bg-rose-500/10 transition-colors cursor-pointer"
+                        >
+                          <Trash2 size={13} />
+                        </button>
+                      </div>
                     </div>
                   );
                 })}
@@ -908,7 +1182,7 @@ export function AIGeneratorView({
                               if (!rec) return null;
                               return (
                                 <div key={rec.id} className="p-2.5 rounded-xl bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-700 flex items-center gap-2.5">
-                                  <img src={rec.image} alt={rec.name} className="w-10 h-10 rounded-lg object-cover" />
+                                  <img src={rec.image} alt={rec.name} className="w-10 h-10 rounded-lg object-cover shrink-0" />
                                   <div className="min-w-0 flex-1">
                                     <strong className="text-[11px] font-bold text-zinc-900 dark:text-white block truncate">
                                       {rec.name}
@@ -972,21 +1246,36 @@ export function AIGeneratorView({
                 </div>
               </div>
 
-              {/* CHAT INPUT BAR */}
+              {/* CHAT INPUT BAR WITH MICROPHONE & SEND */}
               <div className="flex gap-2">
-                <input
-                  type="text"
-                  placeholder="Pregúntale a la IA (ej: 'Cámbiame el pollo por salmón', 'Ajusta raciones', '¿Cómo se conservan las lentejas?')..."
-                  value={chatInput}
-                  onChange={(e) => setChatInput(e.target.value)}
-                  onKeyDown={(e) => {
-                    if (e.key === 'Enter' && !e.shiftKey) {
-                      e.preventDefault();
-                      handleSendChatMessage();
-                    }
-                  }}
-                  className="flex-1 px-4 py-3 rounded-2xl bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 text-xs font-medium text-zinc-800 dark:text-zinc-200 focus:outline-none focus:ring-2 focus:ring-[#E07A5F]/40"
-                />
+                <div className="relative flex-1 flex items-center">
+                  <input
+                    type="text"
+                    placeholder="Pregúntale a la IA (ej: 'Añade bacalao y quita pollo', 'Ajusta raciones', '¿Cómo se conservan las lentejas?')..."
+                    value={chatInput}
+                    onChange={(e) => setChatInput(e.target.value)}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter' && !e.shiftKey) {
+                        e.preventDefault();
+                        handleSendChatMessage();
+                      }
+                    }}
+                    className="w-full px-4 pr-12 py-3 rounded-2xl bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 text-xs font-medium text-zinc-800 dark:text-zinc-200 focus:outline-none focus:ring-2 focus:ring-[#E07A5F]/40"
+                  />
+                  
+                  <button
+                    type="button"
+                    onClick={() => toggleSpeechRecognition('chat')}
+                    title={isListening && speechTarget === 'chat' ? 'Detener grabación' : 'Hablar al Copiloto por micrófono'}
+                    className={`absolute right-2.5 p-2 rounded-xl transition-all cursor-pointer ${
+                      isListening && speechTarget === 'chat'
+                        ? 'bg-rose-500 text-white animate-pulse shadow-md'
+                        : 'bg-zinc-200 dark:bg-zinc-700 hover:bg-[#E07A5F] hover:text-white text-zinc-600 dark:text-zinc-300'
+                    }`}
+                  >
+                    {isListening && speechTarget === 'chat' ? <MicOff size={16} /> : <Mic size={16} />}
+                  </button>
+                </div>
 
                 <button
                   onClick={() => handleSendChatMessage()}
@@ -1039,7 +1328,7 @@ export function AIGeneratorView({
               </div>
 
               {/* RECIPES GRID VIEW */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 max-h-[500px] overflow-y-auto pr-1">
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-4 max-h-[620px] overflow-y-auto pr-1">
                 {availableCarmenRecipes.map(recipe => {
                   const isSelectedSingle = projectMode === 'single_recipe' && selectedSingleRecipe?.id === recipe.id;
                   const isSelectedManual = projectMode === 'batch_cooking' && manuallySelectedRecipeIds.includes(recipe.id);
@@ -1124,6 +1413,82 @@ export function AIGeneratorView({
       )}
 
       {/* ========================================================================= */}
+      {/* QUICK ADD RECIPE MODAL                                                    */}
+      {/* ========================================================================= */}
+      {isAddRecipeModalOpen && (
+        <div className="fixed inset-0 z-50 bg-black/70 backdrop-blur-xs flex items-center justify-center p-4">
+          <div className="w-full max-w-2xl bg-white dark:bg-zinc-900 rounded-3xl p-6 border border-zinc-200 dark:border-zinc-800 shadow-2xl space-y-4 max-h-[85vh] flex flex-col">
+            <div className="flex items-center justify-between pb-3 border-b border-zinc-100 dark:border-zinc-800">
+              <div className="flex items-center gap-2">
+                <div className="w-8 h-8 rounded-xl bg-[#E07A5F]/20 text-[#E07A5F] flex items-center justify-center font-bold">
+                  <Plus size={18} />
+                </div>
+                <div>
+                  <h3 className="font-black text-sm text-zinc-900 dark:text-white">Añadir Receta al Lote</h3>
+                  <span className="text-[11px] text-zinc-400">Recetario canónico de Cocina con Carmen</span>
+                </div>
+              </div>
+              <button 
+                onClick={() => setIsAddRecipeModalOpen(false)}
+                className="p-1.5 rounded-xl text-zinc-400 hover:text-zinc-900 dark:hover:text-white"
+              >
+                <X size={18} />
+              </button>
+            </div>
+
+            <div className="relative">
+              <Search size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-400" />
+              <input
+                type="text"
+                placeholder="Buscar por plato o ingrediente (bacalao, pollo, lentejas, pisto)..."
+                value={quickAddSearch}
+                onChange={(e) => setQuickAddSearch(e.target.value)}
+                className="w-full pl-9 pr-4 py-2.5 rounded-xl bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 text-xs font-medium text-zinc-800 dark:text-zinc-200 focus:outline-none"
+              />
+            </div>
+
+            <div className="flex-1 overflow-y-auto space-y-2 pr-1">
+              {CARMEN_RECIPES_DATABASE
+                .filter(r => {
+                  if (selectedAllergens.length > 0 && r.allergens.some(a => selectedAllergens.includes(a))) return false;
+                  if (!quickAddSearch.trim()) return true;
+                  const q = quickAddSearch.toLowerCase();
+                  return r.name.toLowerCase().includes(q) || r.ingredientsPerServing.some(i => i.name.toLowerCase().includes(q));
+                })
+                .map(r => {
+                  const isAlreadyIn = manuallySelectedRecipeIds.includes(r.id);
+                  return (
+                    <div key={r.id} className="p-3 rounded-2xl bg-zinc-50 dark:bg-zinc-800/80 border border-zinc-200 dark:border-zinc-700/80 flex items-center justify-between gap-3 text-xs">
+                      <div className="flex items-center gap-3 min-w-0">
+                        <img src={r.image} alt={r.name} className="w-10 h-10 rounded-xl object-cover shrink-0" />
+                        <div className="min-w-0">
+                          <strong className="font-bold text-zinc-900 dark:text-white block truncate text-[11px]">{r.name}</strong>
+                          <span className="text-[10px] text-zinc-400">{r.category} · {r.prepTimeFormatted} · {r.station}</span>
+                        </div>
+                      </div>
+
+                      <button
+                        type="button"
+                        onClick={() => handleAddRecipeDirectly(r.id)}
+                        disabled={isAlreadyIn}
+                        className={`px-3 py-1.5 rounded-xl font-bold text-xs transition-all flex items-center gap-1 cursor-pointer shrink-0 ${
+                          isAlreadyIn
+                            ? 'bg-zinc-200 dark:bg-zinc-700 text-zinc-400 cursor-not-allowed'
+                            : 'btn-hero-copper text-white shadow-2xs'
+                        }`}
+                      >
+                        {isAlreadyIn ? <Check size={13} /> : <Plus size={13} />}
+                        <span>{isAlreadyIn ? 'Ya en lote' : 'Añadir'}</span>
+                      </button>
+                    </div>
+                  );
+                })}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ========================================================================= */}
       {/* STEP 3: TECHNICAL SHEET & EXECUTION BIFURCATION                           */}
       {/* ========================================================================= */}
       {wizardStep === 3 && (
@@ -1166,8 +1531,8 @@ export function AIGeneratorView({
               <span className="text-[11px] font-black uppercase tracking-wider text-[#E07A5F] block">
                 Platos del Proyecto y Raciones Individuales:
               </span>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                {generatedDishes.map((dish, idx) => (
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
+                {generatedDishes.map((dish) => (
                   <div key={dish.id} className="p-4 rounded-2xl bg-zinc-50 dark:bg-zinc-850 border border-zinc-200 dark:border-zinc-800 flex items-center justify-between gap-3 text-xs">
                     <div className="flex items-center gap-3">
                       <img src={dish.image} alt={dish.name} className="w-12 h-12 rounded-xl object-cover" />

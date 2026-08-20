@@ -145,7 +145,7 @@ export function ShoppingListView({
   }
 
   return (
-    <div className="space-y-4 animate-fade-in pb-12 text-zinc-900 dark:text-zinc-100 max-w-4xl mx-auto">
+    <div className="w-full space-y-4 sm:space-y-6 animate-fade-in pb-12 text-zinc-900 dark:text-zinc-100">
       
       {/* HEADER: VINCULADO AL PROYECTO BATCH */}
       <div className="bg-white dark:bg-zinc-900 rounded-3xl border border-zinc-200 dark:border-zinc-800 p-5 sm:p-6 shadow-xs space-y-4">
@@ -330,7 +330,7 @@ export function ShoppingListView({
       </div>
 
       {/* CATEGORIZED INGREDIENTS LIST */}
-      <div className="space-y-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
         {Object.keys(categoriesMap).length > 0 ? (
           Object.entries(categoriesMap).map(([categoryKey, catItems]) => (
             <div 
