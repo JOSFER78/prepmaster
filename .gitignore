@@ -6,3 +6,26 @@ coverage/
 *.log
 .env*
 !.env.example
+
+# Documentación no versionable
+docs/
+
+# Android SDK local y artefactos de compilación
+android-sdk/
+android/.gradle/
+android/build/
+android/app/build/
+android/local.properties
+android/.idea/
+android/captures/
+*.apk
+*.aab
+*.zip
+
+# Descargas públicas pesadas (APKs / ZIPs)
+public/download/
+public/downloads/
+
+# Configuración IDE y Firebase Cache
+.vscode/
+.firebase/
