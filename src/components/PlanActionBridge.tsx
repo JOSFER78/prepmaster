@@ -41,7 +41,7 @@ export function PlanActionBridge({
               Tu Plan · Tu Cocina · Tu Chef
             </span>
             <span className="text-xs font-mono font-bold text-zinc-400">
-              {totalServings} raciones · {dishCount} recetas de Carmen
+              {totalServings} raciones · {dishCount} recetas tradicionales
             </span>
           </div>
           <h2 className="text-lg sm:text-xl font-display font-black text-zinc-900 dark:text-white mt-1">

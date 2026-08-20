@@ -19,7 +19,7 @@ export const INITIAL_BOOTSTRAP_CHEF: ChefProfile = {
   title: 'Especialista en Batch Cooking Mediterráneo & Cocina Tradicional',
   name: 'José Fernández',
   avatar: 'https://images.unsplash.com/photo-1577219491135-ce391730fb2c?w=400&auto=format&fit=crop&q=80',
-  bio: 'Chef profesional especializado en Batch Cooking tradicional español (Cocina con Carmen) y guisos de alta conservación. Manipulador de alimentos certificado con más de 10 años de experiencia.',
+  bio: 'Chef profesional especializado en Batch Cooking tradicional español y guisos de alta conservación. Manipulador de alimentos certificado con más de 10 años de experiencia.',
   rating: 5.0,
   reviewsCount: 0,
   completedBookingsCount: 0,
@@ -27,7 +27,7 @@ export const INITIAL_BOOTSTRAP_CHEF: ChefProfile = {
   zones: ['Chamberí', 'Salamanca', 'Retiro', 'Centro', 'Chamartín', 'Moncloa'],
   isVerified: true,
   yearsExperience: 10,
-  specialties: ['Batch Cooking', 'Mediterránea Tradicional', 'Cocina con Carmen', 'Fitness High Protein', 'Guisos & Cuchara'],
+  specialties: ['Batch Cooking', 'Mediterránea Tradicional', 'Cocina Popular Española', 'Fitness High Protein', 'Guisos & Cuchara'],
   pricing: {
     cookingHourRate: 25.0,        // €25/h solo cocina
     groceryShoppingHourRate: 18.0, // €18/h gestión compra
@@ -48,7 +48,7 @@ export const INITIAL_BOOTSTRAP_CHEF: ChefProfile = {
   haccpCompliance: true,
   featuredDishes: [
     {
-      name: 'Lentejas Pardinas con Chorizo de Carmen',
+      name: 'Lentejas Pardinas con Chorizo Tradicional',
       image: 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&auto=format&fit=crop&q=80',
       category: 'Legumbres',
       prepTime: '35 min'

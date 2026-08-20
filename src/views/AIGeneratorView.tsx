@@ -61,17 +61,17 @@ import {
   createDishFromCanonicalRecipe 
 } from '../lib/batchEngine';
 import { 
-  CARMEN_RECIPES_DATABASE, 
-  getFilteredCarmenRecipes, 
+  TRADITIONAL_RECIPES_DATABASE, 
+  getFilteredTraditionalRecipes, 
   CanonicalRecipe,
-  matchCarmenRecipesByPrompt 
-} from '../data/recipesCarmenDatabase';
+  matchTraditionalRecipesByPrompt 
+} from '../data/recipesTraditionalDatabase';
 import {
   detectIngredientFamilies,
   getAlternativeRecipesFor,
   buildSmartMultiStationBatch,
   IngredientFamilyGroup
-} from '../lib/carmenVariationsEngine';
+} from '../lib/traditionalVariationsEngine';
 import { 
   sendChatMessageToFreeLLM, 
   generateStructuredAIProposal, 
@@ -128,7 +128,7 @@ export function AIGeneratorView({
   onCookMyself
 }: AIGeneratorViewProps) {
   
-  // Wizard Step: 1 = Modo & Parámetros, 2 = Asistente IA & Selección (SSOT Carmen), 3 = Ficha Técnica & Ejecución
+  // Wizard Step: 1 = Modo & Parámetros, 2 = Asistente IA & Selección (SSOT Tradicional), 3 = Ficha Técnica & Ejecución
   const [wizardStep, setWizardStep] = useState<1 | 2 | 3>(1);
   const [projectMode, setProjectMode] = useState<ProjectMode>('batch_cooking');
   
@@ -145,7 +145,7 @@ export function AIGeneratorView({
   const [userSpecificGoal, setUserSpecificGoal] = useState<string>('');
 
   // Single recipe mode state
-  const [selectedSingleRecipe, setSelectedSingleRecipe] = useState<CanonicalRecipe | null>(CARMEN_RECIPES_DATABASE[0]);
+  const [selectedSingleRecipe, setSelectedSingleRecipe] = useState<CanonicalRecipe | null>(TRADITIONAL_RECIPES_DATABASE[0]);
   const [recipeSearchQuery, setRecipeSearchQuery] = useState<string>('');
   const [recipeCategoryFilter, setRecipeCategoryFilter] = useState<string>('all');
 
@@ -164,11 +164,11 @@ export function AIGeneratorView({
 
   // Batch manual / auto selection
   const [manuallySelectedRecipeIds, setManuallySelectedRecipeIds] = useState<string[]>([
-    'carmen-lentejas-chorizo',
-    'carmen-pollo-pepitoria',
-    'carmen-pisto-manchego',
-    'carmen-crema-calabacin-suave',
-    'carmen-croquetas-jamon-iberico'
+    'trad-lentejas-chorizo',
+    'trad-pollo-pepitoria',
+    'trad-pisto-manchego',
+    'trad-crema-calabacin-suave',
+    'trad-croquetas-jamon-iberico'
   ]);
 
   // Modal para añadir recetas rápidas desde el catálogo
@@ -192,9 +192,9 @@ export function AIGeneratorView({
     });
   }, [peopleCount, daysCount, mealCoverage, dietStyle, varietyPreference]);
 
-  // Available filtered recipes from Carmen SSOT
-  const availableCarmenRecipes = useMemo(() => {
-    return getFilteredCarmenRecipes({
+  // Available filtered recipes from Traditional SSOT
+  const availableTraditionalRecipes = useMemo(() => {
+    return getFilteredTraditionalRecipes({
       category: recipeCategoryFilter === 'all' ? undefined : (recipeCategoryFilter as any),
       excludedAllergens: selectedAllergens,
       searchQuery: recipeSearchQuery
@@ -207,10 +207,10 @@ export function AIGeneratorView({
   // Live preview of matched recipes in Step 1 based on userSpecificGoal
   const step1MatchedPreview = useMemo(() => {
     if (!userSpecificGoal.trim()) return [];
-    return matchCarmenRecipesByPrompt(userSpecificGoal, selectedAllergens, dietStyle, 4);
+    return matchTraditionalRecipesByPrompt(userSpecificGoal, selectedAllergens, dietStyle, 4);
   }, [userSpecificGoal, selectedAllergens, dietStyle]);
 
-  // Explorador de familias y variaciones culinarias canónicas de Carmen
+  // Explorador de familias y variaciones culinarias canónicas de Cocina Tradicional
   const detectedFamilies = useMemo(() => {
     return detectIngredientFamilies(userSpecificGoal, selectedAllergens);
   }, [userSpecificGoal, selectedAllergens]);
@@ -244,9 +244,9 @@ export function AIGeneratorView({
     });
   };
 
-  // One-click ingredient chip in Step 2: Adds/swaps matching Carmen recipe into the batch
+  // One-click ingredient chip in Step 2: Adds/swaps matching traditional recipe into the batch
   const handleQuickAddIngredientInStep2 = (ing: { label: string; query: string }) => {
-    const matched = matchCarmenRecipesByPrompt(ing.query, selectedAllergens, dietStyle, 1);
+    const matched = matchTraditionalRecipesByPrompt(ing.query, selectedAllergens, dietStyle, 1);
     if (matched.length > 0) {
       const rec = matched[0];
       if (!manuallySelectedRecipeIds.includes(rec.id)) {
@@ -307,10 +307,10 @@ export function AIGeneratorView({
 
   // TRANSITION STEP 1 -> STEP 2 (PERSONALIZED & DETERMINISTIC MATCHING WITH MULTI-STATION CONCURRENCY)
   const handleProceedToStep2 = () => {
-    // 1. Calculate best matching recipes from Carmen for user's goal / preferences
+    // 1. Calculate best matching recipes from Traditional catalogue for user's goal / preferences
     const baseIds = manuallySelectedRecipeIds.length > 0
       ? manuallySelectedRecipeIds
-      : matchCarmenRecipesByPrompt(userSpecificGoal, selectedAllergens, dietStyle, 4).map(r => r.id);
+      : matchTraditionalRecipesByPrompt(userSpecificGoal, selectedAllergens, dietStyle, 4).map(r => r.id);
 
     const matched = buildSmartMultiStationBatch(baseIds, 4, dietStyle, selectedAllergens);
     const matchedIds = matched.map(r => r.id);
@@ -319,9 +319,9 @@ export function AIGeneratorView({
     // 2. Prepare personalized welcome greeting acknowledging user's input
     let welcomeContent = '';
     if (userSpecificGoal.trim()) {
-      welcomeContent = `¡Oído cocina! He analizado tu petición: **"${userSpecificGoal}"** para **${peopleCount} personas** durante **${daysCount} días** (${structure.totalIndividualServings} raciones en estilo ${dietStyle}).\n\nHe configurado tu lote equilibrando estaciones térmicas concurrentes (horno, olla y fuegos) con recetas canónicas de Carmen:${selectedAllergens.length > 0 ? `\n• Alérgenos excluidos: ${selectedAllergens.join(', ')}` : ''}\n\n${matched.map(r => `• **${r.name}** (${r.prepTimeFormatted} · Estación: *${r.station}*)`).join('\n')}\n\n💡 **Variaciones Culinarias**: Puedes pulsar en *"🔄 Variantes"* sobre cualquier plato para cambiar su técnica gastronómica (ej. salsa, guiso, ajillo, horno o cazuela) o pedirme sugerencias en el chat.`;
+      welcomeContent = `¡Oído cocina! He analizado tu petición: **"${userSpecificGoal}"** para **${peopleCount} personas** durante **${daysCount} días** (${structure.totalIndividualServings} raciones en estilo ${dietStyle}).\n\nHe configurado tu lote equilibrando estaciones térmicas concurrentes (horno, olla y fuegos) con recetas canónicas tradicionales:${selectedAllergens.length > 0 ? `\n• Alérgenos excluidos: ${selectedAllergens.join(', ')}` : ''}\n\n${matched.map(r => `• **${r.name}** (${r.prepTimeFormatted} · Estación: *${r.station}*)`).join('\n')}\n\n💡 **Variaciones Culinarias**: Puedes pulsar en *"🔄 Variantes"* sobre cualquier plato para cambiar su técnica gastronómica (ej. salsa, guiso, ajillo, horno o cazuela) o pedirme sugerencias en el chat.`;
     } else {
-      welcomeContent = `¡Hola! Soy tu **Copiloto Culinario TouChef con IA**, entrenado con las recetas y técnicas de *Cocina con Carmen* y compendios de cocción simultánea.\n\nHe configurado tu menú de **Batch Cooking Semanal** para **${peopleCount} personas** durante **${daysCount} días** (${structure.totalIndividualServings} raciones en estilo ${dietStyle}).${selectedAllergens.length > 0 ? ` He excluido automáticamente: ${selectedAllergens.join(', ')}.` : ''}\n\n${matched.map(r => `• **${r.name}** (${r.prepTimeFormatted} · Estación: *${r.station}*)`).join('\n')}\n\nPuedes seleccionar ingredientes en los paneles interactivos, cambiar variantes de técnicas en cada plato o pedirme ajustes por chat.`;
+      welcomeContent = `¡Hola! Soy tu **Copiloto Culinario TouChef con IA**, entrenado con las recetas y técnicas de *Cocina Tradicional* y compendios de cocción simultánea.\n\nHe configurado tu menú de **Batch Cooking Semanal** para **${peopleCount} personas** durante **${daysCount} días** (${structure.totalIndividualServings} raciones en estilo ${dietStyle}).${selectedAllergens.length > 0 ? ` He excluido automáticamente: ${selectedAllergens.join(', ')}.` : ''}\n\n${matched.map(r => `• **${r.name}** (${r.prepTimeFormatted} · Estación: *${r.station}*)`).join('\n')}\n\nPuedes seleccionar ingredientes en los paneles interactivos, cambiar variantes de técnicas en cada plato o pedirme ajustes por chat.`;
     }
 
     const initialMsg: AIChatMessage = {
@@ -345,7 +345,7 @@ export function AIGeneratorView({
     setIsAiResponding(true);
 
     // Análisis heurístico inmediato de ingredientes solicitados por el usuario
-    const instantMatches = matchCarmenRecipesByPrompt(textToSend, selectedAllergens, dietStyle, 2);
+    const instantMatches = matchTraditionalRecipesByPrompt(textToSend, selectedAllergens, dietStyle, 2);
     if (instantMatches.length > 0 && textToSend.length > 3) {
       const lower = textToSend.toLowerCase();
       if (
@@ -375,12 +375,12 @@ export function AIGeneratorView({
       ]);
     } catch (err: any) {
       console.error('AI Copilot error:', err);
-      const fallbackDishes = instantMatches.length > 0 ? instantMatches : matchCarmenRecipesByPrompt(textToSend, selectedAllergens, dietStyle, 3);
+      const fallbackDishes = instantMatches.length > 0 ? instantMatches : matchTraditionalRecipesByPrompt(textToSend, selectedAllergens, dietStyle, 3);
       setChatMessages(prev => [
         ...prev,
         {
           role: 'assistant',
-          content: `He procesado tu indicación ("${textToSend}"). Te sugiero incorporar estas opciones de Carmen compatibles:\n\n${fallbackDishes.map(r => `• **${r.name}** (${r.prepTimeFormatted})`).join('\n')}`,
+          content: `He procesado tu indicación ("${textToSend}"). Te sugiero incorporar estas opciones tradicionales compatibles:\n\n${fallbackDishes.map(r => `• **${r.name}** (${r.prepTimeFormatted})`).join('\n')}`,
           suggestedRecipes: fallbackDishes.map(r => r.id)
         }
       ]);
@@ -407,8 +407,8 @@ export function AIGeneratorView({
         
         const confirmationMsg: AIChatMessage = {
           role: 'assistant',
-          content: `✨ **¡Propuesta de Menú IA Formulada con Éxito!**\n\n📌 **${proposal.title}**\n${proposal.philosophy}\n\n**Recetas seleccionadas del catálogo de Carmen:**\n${proposal.selectedRecipeIds.map(id => {
-            const rec = CARMEN_RECIPES_DATABASE.find(r => r.id === id);
+          content: `✨ **¡Propuesta de Menú IA Formulada con Éxito!**\n\n📌 **${proposal.title}**\n${proposal.philosophy}\n\n**Recetas seleccionadas del catálogo tradicional:**\n${proposal.selectedRecipeIds.map(id => {
+            const rec = TRADITIONAL_RECIPES_DATABASE.find(r => r.id === id);
             return `• **${rec?.name || id}** (${proposal.servingsPerDish?.[id] || peopleCount * 2} raciones)`;
           }).join('\n')}\n\n💡 *Consejos de concurrencia:*\n${proposal.variationsAndTips?.map(t => `• ${t}`).join('\n') || 'Optimizado para cocción en 2 horas.'}`,
           suggestedRecipes: proposal.selectedRecipeIds
@@ -436,8 +436,8 @@ export function AIGeneratorView({
       );
       if (res.newRecipeId) {
         setManuallySelectedRecipeIds(prev => prev.map(id => id === recipeId ? res.newRecipeId : id));
-        const oldName = CARMEN_RECIPES_DATABASE.find(r => r.id === recipeId)?.name || recipeId;
-        const newName = CARMEN_RECIPES_DATABASE.find(r => r.id === res.newRecipeId)?.name || res.newRecipeId;
+        const oldName = TRADITIONAL_RECIPES_DATABASE.find(r => r.id === recipeId)?.name || recipeId;
+        const newName = TRADITIONAL_RECIPES_DATABASE.find(r => r.id === res.newRecipeId)?.name || res.newRecipeId;
         setChatMessages(prev => [
           ...prev,
           {
@@ -489,13 +489,13 @@ export function AIGeneratorView({
       const plan: GeneratedMenuPlan = {
         id: `plan-recipe-${Date.now()}`,
         title: `${selectedSingleRecipe.shortName} (${peopleCount} Raciones)`,
-        philosophy: `Receta tradicional maestra de Cocina con Carmen elaborada con ${peopleCount} raciones individuales ajustadas.`,
+        philosophy: `Receta tradicional maestra elaborada con ${peopleCount} raciones individuales ajustadas.`,
         macrosTarget: { protein: '25%', carbs: '45%', fats: '30%' },
         meals: [],
         batchCookingSummary: {
           totalTime: selectedSingleRecipe.prepTimeFormatted,
           parallelSteps: [
-            'Mise en place de ingredientes con gramaje exacto de Carmen.',
+            'Mise en place de ingredientes con gramaje exacto.',
             `Cocción en estación térmica principal: ${selectedSingleRecipe.station}.`,
             selectedSingleRecipe.storageAdvice
           ]
@@ -508,7 +508,7 @@ export function AIGeneratorView({
       // BATCH COOKING MODE
       const targetServingsPerDish = Math.max(2, Math.ceil(structure.totalIndividualServings / Math.max(1, manuallySelectedRecipeIds.length)));
       const dishes: BatchDish[] = manuallySelectedRecipeIds.map(id => {
-        const rec = CARMEN_RECIPES_DATABASE.find(r => r.id === id) || CARMEN_RECIPES_DATABASE[0];
+        const rec = TRADITIONAL_RECIPES_DATABASE.find(r => r.id === id) || TRADITIONAL_RECIPES_DATABASE[0];
         return createDishFromCanonicalRecipe(rec, targetServingsPerDish);
       });
 
@@ -517,7 +517,7 @@ export function AIGeneratorView({
       const plan: GeneratedMenuPlan = {
         id: `plan-batch-${Date.now()}`,
         title: `Plan Batch Cooking ${dietStyle.toUpperCase()} (${structure.totalIndividualServings} Raciones)`,
-        philosophy: `Estructura optimizada para ${peopleCount} personas durante ${daysCount} días. ${dishes.length} recetas de Cocina con Carmen coordinadas en paralelo.`,
+        philosophy: `Estructura optimizada para ${peopleCount} personas durante ${daysCount} días. ${dishes.length} recetas tradicionales coordinadas en paralelo.`,
         macrosTarget: {
           protein: dietStyle === 'fitness' ? '30%' : '20%',
           carbs: dietStyle === 'lowcarb' ? '15%' : '45%',
@@ -633,7 +633,7 @@ export function AIGeneratorView({
               </div>
               <h1 className="text-xl font-black text-zinc-900 dark:text-white mt-0.5">
                 {wizardStep === 1 && '1. Tipo de Proyecto, Hogar & Petición a la IA'}
-                {wizardStep === 2 && (projectMode === 'batch_cooking' ? '2. Copiloto IA & Selección de Recetas de Carmen' : '2. Copiloto IA & Receta Canónica')}
+                {wizardStep === 2 && (projectMode === 'batch_cooking' ? '2. Copiloto IA & Selección de Recetas Tradicionales' : '2. Copiloto IA & Receta Canónica')}
                 {wizardStep === 3 && '3. Ficha Técnica, Ingredientes & Encargo de Servicio'}
               </h1>
             </div>
@@ -689,7 +689,7 @@ export function AIGeneratorView({
                   🍲 Plan Maestro de Batch Cooking Semanal
                 </strong>
                 <p className="text-xs text-zinc-600 dark:text-zinc-400 leading-relaxed">
-                  La IA organiza y balancea 4-5 platos de Carmen para cocinar en 2 horas en paralelo y cubrir comidas/cenas de toda tu semana.
+                  La IA organiza y balancea 4-5 platos tradicionales para cocinar en 2 horas en paralelo y cubrir comidas/cenas de toda tu semana.
                 </p>
               </div>
 
@@ -711,7 +711,7 @@ export function AIGeneratorView({
                   🥘 Receta Individual de Alta Cocina
                 </strong>
                 <p className="text-xs text-zinc-600 dark:text-zinc-400 leading-relaxed">
-                  Prepara o encarga una receta canónica específica de Carmen (guiso, arroz, merluza, etc.) con raciones exactas calculadas por la IA.
+                  Prepara o encarga una receta canónica específica tradicional (guiso, arroz, merluza, etc.) con raciones exactas calculadas por la IA.
                 </p>
               </div>
 
@@ -781,7 +781,7 @@ export function AIGeneratorView({
                   onChange={(e) => setDietStyle(e.target.value as any)}
                   className="w-full px-3 py-2 rounded-xl bg-white dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 text-xs font-bold text-zinc-800 dark:text-zinc-200 focus:outline-none cursor-pointer"
                 >
-                  <option value="mediterranean">Mediterránea de Carmen</option>
+                  <option value="mediterranean">Mediterránea Tradicional</option>
                   <option value="traditional">Tradicional y Guisos de la Abuela</option>
                   <option value="fitness">Fitness High Protein</option>
                   <option value="veggie">Vegetariana & Legumbres</option>
@@ -855,7 +855,7 @@ export function AIGeneratorView({
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 text-[11px]">
                   <span className="font-black text-amber-700 dark:text-amber-400 flex items-center gap-1.5">
                     <Sparkles size={14} className="text-amber-500" />
-                    Explorador de Variaciones de Carmen ({detectedFamilies.length} ingredientes detectados):
+                    Explorador de Variaciones Tradicionales ({detectedFamilies.length} ingredientes detectados):
                   </span>
                   <span className="text-zinc-500 dark:text-zinc-400 text-[10px]">
                     Toca para preseleccionar la técnica que te apetece o deja que la IA equilibre el lote
@@ -914,7 +914,7 @@ export function AIGeneratorView({
                 <div className="p-3.5 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 space-y-2 animate-fade-in">
                   <div className="flex items-center justify-between text-[11px]">
                     <span className="font-black text-emerald-700 dark:text-emerald-400 flex items-center gap-1.5">
-                      <CheckCircle2 size={13} /> {step1MatchedPreview.length} platos canónicos de Carmen identificados:
+                      <CheckCircle2 size={13} /> {step1MatchedPreview.length} platos tradicionales identificados:
                     </span>
                   </div>
                   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
@@ -1045,7 +1045,7 @@ export function AIGeneratorView({
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-zinc-100 dark:border-zinc-800">
             <div>
               <span className="text-[10px] font-black uppercase tracking-wider text-[#E07A5F] flex items-center gap-1">
-                <Sparkles size={12} /> SSOT: Compendios de Cocina con Carmen
+                <Sparkles size={12} /> SSOT: Compendios de Cocina Tradicional
               </span>
               <h3 className="text-lg font-black text-zinc-900 dark:text-white mt-0.5">
                 {step2SubMode === 'ai_copilot' ? 'Copiloto Culinario IA en Vivo' : 'Explorador Canónico de Recetas'}
@@ -1141,7 +1141,7 @@ export function AIGeneratorView({
               {/* CARDS OF CURRENT ACTIVE DISHES */}
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3">
                 {manuallySelectedRecipeIds.map(recipeId => {
-                  const rec = CARMEN_RECIPES_DATABASE.find(r => r.id === recipeId);
+                  const rec = TRADITIONAL_RECIPES_DATABASE.find(r => r.id === recipeId);
                   if (!rec) return null;
                   const isSwappingThis = swappingDishId === recipeId;
 
@@ -1263,11 +1263,11 @@ export function AIGeneratorView({
                       {msg.suggestedRecipes && msg.suggestedRecipes.length > 0 && (
                         <div className="pt-2 border-t border-zinc-100 dark:border-zinc-700/60 space-y-2">
                           <span className="text-[10px] font-black uppercase text-[#E07A5F] block">
-                            Platos de Carmen identificados en esta respuesta:
+                            Platos tradicionales identificados en esta respuesta:
                           </span>
                           <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                             {msg.suggestedRecipes.map(id => {
-                              const rec = CARMEN_RECIPES_DATABASE.find(r => r.id === id);
+                              const rec = TRADITIONAL_RECIPES_DATABASE.find(r => r.id === id);
                               if (!rec) return null;
                               return (
                                 <div key={rec.id} className="p-2.5 rounded-xl bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-700 flex items-center gap-2.5">
@@ -1418,7 +1418,7 @@ export function AIGeneratorView({
 
               {/* RECIPES GRID VIEW */}
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-4 max-h-[620px] overflow-y-auto pr-1">
-                {availableCarmenRecipes.map(recipe => {
+                {availableTraditionalRecipes.map(recipe => {
                   const isSelectedSingle = projectMode === 'single_recipe' && selectedSingleRecipe?.id === recipe.id;
                   const isSelectedManual = projectMode === 'batch_cooking' && manuallySelectedRecipeIds.includes(recipe.id);
 
@@ -1514,7 +1514,7 @@ export function AIGeneratorView({
                 </div>
                 <div>
                   <h3 className="font-black text-sm text-zinc-900 dark:text-white">Añadir Receta al Lote</h3>
-                  <span className="text-[11px] text-zinc-400">Recetario canónico de Cocina con Carmen</span>
+                  <span className="text-[11px] text-zinc-400">Recetario canónico de Cocina Tradicional</span>
                 </div>
               </div>
               <button 
@@ -1537,7 +1537,7 @@ export function AIGeneratorView({
             </div>
 
             <div className="flex-1 overflow-y-auto space-y-2 pr-1">
-              {CARMEN_RECIPES_DATABASE
+              {TRADITIONAL_RECIPES_DATABASE
                 .filter(r => {
                   if (selectedAllergens.length > 0 && r.allergens.some(a => selectedAllergens.includes(a))) return false;
                   if (!quickAddSearch.trim()) return true;
@@ -1589,7 +1589,7 @@ export function AIGeneratorView({
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-zinc-100 dark:border-zinc-800">
               <div>
                 <span className="text-[10px] font-black uppercase tracking-wider text-emerald-600 dark:text-emerald-400 bg-emerald-500/15 px-2.5 py-0.5 rounded-full">
-                  Ficha Técnica Consolidada (SSOT Cocina con Carmen)
+                  Ficha Técnica Consolidada (SSOT Cocina Tradicional)
                 </span>
                 <h2 className="text-xl font-black text-zinc-900 dark:text-white mt-1">
                   {generatedPlan?.title}
@@ -1669,10 +1669,10 @@ export function AIGeneratorView({
       )}
 
       {/* ========================================================================= */}
-      {/* MODAL DE VARIACIONES CULINARIAS ALTERNATIVAS (CARMEN SSOT)                */}
+      {/* MODAL DE VARIACIONES CULINARIAS ALTERNATIVAS (SSOT TRADICIONAL)           */}
       {/* ========================================================================= */}
       {activeVariationsRecipeId && (() => {
-        const currentRecipe = CARMEN_RECIPES_DATABASE.find(r => r.id === activeVariationsRecipeId);
+        const currentRecipe = TRADITIONAL_RECIPES_DATABASE.find(r => r.id === activeVariationsRecipeId);
         const alternatives = getAlternativeRecipesFor(activeVariationsRecipeId, selectedAllergens);
 
         return (
@@ -1682,7 +1682,7 @@ export function AIGeneratorView({
               <div className="flex items-center justify-between pb-3 border-b border-zinc-100 dark:border-zinc-800">
                 <div>
                   <span className="text-[10px] font-black uppercase tracking-wider text-[#E07A5F]">
-                    Variaciones &amp; Técnicas de Carmen
+                    Variaciones &amp; Técnicas de Cocina Tradicional
                   </span>
                   <h3 className="text-base font-black text-zinc-900 dark:text-white mt-0.5">
                     Alternativas para "{currentRecipe?.shortName || currentRecipe?.name}"
@@ -1698,7 +1698,7 @@ export function AIGeneratorView({
               </div>
 
               <p className="text-xs text-zinc-600 dark:text-zinc-400">
-                Puedes sustituir este plato por otra preparación canónica del mismo ingrediente o categoría técnica de Carmen:
+                Puedes sustituir este plato por otra preparación canónica del mismo ingrediente o categoría técnica tradicional:
               </p>
 
               <div className="space-y-3">

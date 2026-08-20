@@ -111,7 +111,7 @@ export const CreateChefRequestModal: React.FC<CreateChefRequestModalProps> = ({
   const dishes = !isOpenPreferences && activeProject?.dishes ? activeProject.dishes.map(d => ({ name: d.name, servings: d.servings })) : [];
   const planTitle = isOpenPreferences
     ? `Encargo Abierto: Menú a Medida (${dietStyle})`
-    : (activeProject?.title || 'Menú Semanal Batch Cooking Tradicional (Carmen)');
+    : (activeProject?.title || 'Menú Semanal Batch Cooking Tradicional');
 
   // Configuración de complementos según el paquete elegido
   const includeGrocery = servicePackage === 'with_grocery' || servicePackage === 'full_pack_with_assistant';
@@ -456,7 +456,7 @@ export const CreateChefRequestModal: React.FC<CreateChefRequestModalProps> = ({
                       onChange={(e) => setDietStyle(e.target.value)}
                       className="w-full bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl px-3 py-2 text-xs font-bold text-zinc-900 dark:text-white"
                     >
-                      <option value="mediterranean">Mediterránea de Carmen</option>
+                      <option value="mediterranean">Mediterránea Tradicional</option>
                       <option value="traditional">Tradicional y Guisos de la Abuela</option>
                       <option value="fitness">Fitness High Protein</option>
                       <option value="veggie">Vegetariana & Legumbres</option>

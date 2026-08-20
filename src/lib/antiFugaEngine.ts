@@ -130,7 +130,7 @@ export function getDefaultHouseholdMemory(): HouseholdMemory {
     kitchenRobotAvailable: false,
     glassTupperwareCount: 8,
     allergiesOrIntolerances: ['Sin alérgenos graves declarados'],
-    dietaryPreferences: ['Mediterránea Tradicional (Carmen)', 'Equilibrada'],
+    dietaryPreferences: ['Mediterránea Tradicional', 'Equilibrada'],
     kitchenRulesNotes: 'Frigorífico con 2 baldas despejadas para fiambreras. Zona de reciclaje bajo el fregadero.'
   };
 }

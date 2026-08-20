@@ -457,7 +457,7 @@ export function HomeView({
                     El proceso de encargo parte de tu Menú de Batch Cooking
                   </h4>
                   <p className="text-xs text-zinc-500 dark:text-zinc-400 max-w-md mx-auto mt-1">
-                    Creas tu plan con el Asistente Guiado (raciones, comensales y recetas de Carmen). Al finalizarlo, decides si encargas la compra de ingredientes o si el cocinero solo acude a cocinar lo que ya tienes.
+                    Creas tu plan con el Asistente Guiado (raciones, comensales y recetas tradicionales). Al finalizarlo, decides si encargas la compra de ingredientes o si el cocinero solo acude a cocinar lo que ya tienes.
                   </p>
                 </div>
                 <button

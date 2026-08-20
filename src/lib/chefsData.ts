@@ -13,7 +13,7 @@ export const BOOTSTRAP_CHEF_PROFILE: ChefProfile = {
   title: 'Especialista en Batch Cooking Mediterráneo & Guisos Saludables',
   name: 'José Fernández',
   avatar: 'https://images.unsplash.com/photo-1577219491135-ce391730fb2c?w=400&auto=format&fit=crop&q=80',
-  bio: 'Chef profesional especializado en Batch Cooking tradicional español (Cocina con Carmen) y guisos de alta conservación. Manipulador de alimentos certificado con más de 10 años de experiencia.',
+  bio: 'Chef profesional especializado en Batch Cooking tradicional español y guisos de alta conservación. Manipulador de alimentos certificado con más de 10 años de experiencia.',
   rating: 5.0,
   reviewsCount: 0,
   completedBookingsCount: 0,

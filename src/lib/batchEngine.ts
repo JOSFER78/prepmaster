@@ -452,7 +452,7 @@ import { TRADITIONAL_RECIPES_DATABASE, getFilteredTraditionalRecipes, CanonicalR
 
 /**
  * Genera el conjunto dinámico de platos ajustado a comensales, días, tomas, estilo y alérgenos
- * usando exclusivamente la base de datos de recetas de Cocina con Carmen.
+ * usando exclusivamente la base de datos de recetas de Cocina Tradicional.
  */
 export function generateDynamicBatchDishes(
   config: BatchCalculationConfig,

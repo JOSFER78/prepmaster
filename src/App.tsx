@@ -85,7 +85,7 @@ export default function App() {
     return [];
   });
 
-  // Favorites & Vault System (Batches & Individual Dishes derived from Carmen SSOT)
+  // Favorites & Vault System (Batches & Individual Dishes derived from Traditional SSOT)
   const [favoriteBatches, setFavoriteBatches] = useState<BatchProject[]>(() => loadFavoriteBatchesFromStorage());
   const [favoriteDishes, setFavoriteDishes] = useState<BatchDish[]>(() => loadFavoriteDishesFromStorage());
 

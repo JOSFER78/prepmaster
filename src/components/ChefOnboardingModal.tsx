@@ -164,7 +164,7 @@ export function ChefOnboardingModal({ isOpen, onClose, onChefRegistered }: ChefO
       haccpCompliance: true,
       featuredDishes: [
         {
-          name: 'Guiso Tradicional de Lentejas (Carmen)',
+          name: 'Guiso Tradicional de Lentejas Caseras',
           image: 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=500&auto=format&fit=crop&q=80',
           category: 'Legumbres',
           prepTime: '45 min'

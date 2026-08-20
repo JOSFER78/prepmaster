@@ -407,7 +407,7 @@ export function ProfileView({
       zones: chefZones.split(',').map(z => z.trim()),
       isVerified: true,
       yearsExperience: chefExperienceYears,
-      specialties: ['Batch Cooking', 'Mediterránea Tradicional (Carmen)', 'Saludable'],
+      specialties: ['Batch Cooking', 'Mediterránea Tradicional', 'Saludable'],
       pricing: {
         cookingHourRate: chefCookingRate,
         groceryShoppingHourRate: chefShoppingRate,
