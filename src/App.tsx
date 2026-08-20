@@ -175,7 +175,35 @@ export default function App() {
     setIsChefBookingModalOpen(true);
   };
 
+  const [openPreferencesBookingData, setOpenPreferencesBookingData] = useState<{
+    isOpenPreferences: boolean;
+    directives?: string;
+    dietStyle?: string;
+    peopleCount?: number;
+    allergens?: string[];
+  } | null>(null);
+
+  const handleOpenChefBookingForPreferences = (prefs: {
+    peopleCount: number;
+    daysCount: number;
+    dietStyle: string;
+    allergens: string[];
+    directives: string;
+  }) => {
+    setOpenPreferencesBookingData({
+      isOpenPreferences: true,
+      directives: prefs.directives,
+      dietStyle: prefs.dietStyle,
+      peopleCount: prefs.peopleCount,
+      allergens: prefs.allergens
+    });
+    setChefBookingInitialPackage('with_grocery');
+    setSelectedChefForBooking(null);
+    setIsChefBookingModalOpen(true);
+  };
+
   const handleOpenChefBookingForActiveProject = (servicePackage: ChefServicePackage = 'with_grocery') => {
+    setOpenPreferencesBookingData(null);
     setChefBookingInitialPackage(servicePackage);
     setSelectedChefForBooking(null);
     setIsChefBookingModalOpen(true);
@@ -501,6 +529,7 @@ export default function App() {
                 handleBatchProjectCreated(proj);
                 handleOpenChefBookingForActiveProject(pkg || 'with_grocery');
               }}
+              onHireChefOpenPreferences={handleOpenChefBookingForPreferences}
               onCookMyself={(proj) => {
                 handleBatchProjectCreated(proj);
                 setCurrentView({ name: 'batch-session' });
@@ -588,10 +617,18 @@ export default function App() {
       {/* Global Create Chef Request Modal */}
       <CreateChefRequestModal
         isOpen={isChefBookingModalOpen}
-        onClose={() => setIsChefBookingModalOpen(false)}
+        onClose={() => {
+          setIsChefBookingModalOpen(false);
+          setOpenPreferencesBookingData(null);
+        }}
         activeProject={activeProject}
         selectedChef={selectedChefForBooking}
         initialServicePackage={chefBookingInitialPackage}
+        isOpenPreferencesRequest={openPreferencesBookingData?.isOpenPreferences}
+        initialDirectives={openPreferencesBookingData?.directives}
+        initialDietStyle={openPreferencesBookingData?.dietStyle}
+        initialPeopleCount={openPreferencesBookingData?.peopleCount}
+        initialAllergies={openPreferencesBookingData?.allergens}
         onSuccess={handleCreateChefBooking}
       />
 

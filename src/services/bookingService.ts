@@ -50,7 +50,8 @@ export async function saveBooking(booking: ChefBookingRequest): Promise<void> {
 export async function applyToBookingInFirestore(
   bookingId: string,
   chef: ChefProfile,
-  message: string
+  message: string,
+  proposedMenu?: string
 ): Promise<void> {
   try {
     const bookingRef = doc(db, 'bookings', bookingId);
@@ -68,6 +69,7 @@ export async function applyToBookingInFirestore(
       chefSpecialties: chef.specialties,
       appliedAt: new Date().toISOString(),
       message,
+      proposedMenu,
       status: 'pending'
     };
 

@@ -28,6 +28,11 @@ interface CreateChefRequestModalProps {
   activeProject?: BatchProject | null;
   selectedChef?: ChefProfile | null;
   initialServicePackage?: ChefServicePackage;
+  isOpenPreferencesRequest?: boolean;
+  initialDirectives?: string;
+  initialDietStyle?: string;
+  initialPeopleCount?: number;
+  initialAllergies?: string[];
 }
 
 export const CreateChefRequestModal: React.FC<CreateChefRequestModalProps> = ({
@@ -36,9 +41,20 @@ export const CreateChefRequestModal: React.FC<CreateChefRequestModalProps> = ({
   onSuccess,
   activeProject,
   selectedChef,
-  initialServicePackage = 'with_grocery'
+  initialServicePackage = 'with_grocery',
+  isOpenPreferencesRequest = false,
+  initialDirectives = '',
+  initialDietStyle = 'mediterranean',
+  initialPeopleCount = 4,
+  initialAllergies = []
 }) => {
   const [step, setStep] = useState<1 | 2 | 3>(1);
+  const [isOpenPreferences, setIsOpenPreferences] = useState<boolean>(isOpenPreferencesRequest || !activeProject?.dishes?.length);
+  const [dietaryDirectives, setDietaryDirectives] = useState<string>(initialDirectives || 'Platos saludables y equilibrados para toda la semana. Priorizar verduras de temporada y guisos ligeros.');
+  const [dietStyle, setDietStyle] = useState<string>(initialDietStyle || 'mediterranean');
+  const [selectedAllergensList, setSelectedAllergensList] = useState<string[]>(initialAllergies || []);
+  const [peopleCount, setPeopleCount] = useState<number>(initialPeopleCount || activeProject?.peopleCount || 4);
+
   const [selectionMode, setSelectionMode] = useState<'broadcast' | 'direct'>(selectedChef ? 'direct' : 'broadcast');
   const [targetChefId, setTargetChefId] = useState<string>(selectedChef?.id || 'any');
   
@@ -71,15 +87,31 @@ export const CreateChefRequestModal: React.FC<CreateChefRequestModalProps> = ({
     }
   }, [selectedChef]);
 
+  useEffect(() => {
+    if (isOpenPreferencesRequest) {
+      setIsOpenPreferences(true);
+    }
+    if (initialDirectives) {
+      setDietaryDirectives(initialDirectives);
+    }
+    if (initialPeopleCount) {
+      setPeopleCount(initialPeopleCount);
+    }
+    if (initialAllergies && initialAllergies.length > 0) {
+      setSelectedAllergensList(initialAllergies);
+    }
+  }, [isOpenPreferencesRequest, initialDirectives, initialPeopleCount, initialAllergies]);
+
   if (!isOpen) return null;
 
   const assignedChef = selectionMode === 'direct' && targetChefId !== 'any'
     ? APPROVED_CHEFS.find(c => c.id === targetChefId) || selectedChef || BOOTSTRAP_CHEF_PROFILE
     : BOOTSTRAP_CHEF_PROFILE;
 
-  const dishes = activeProject?.dishes ? activeProject.dishes.map(d => ({ name: d.name, servings: d.servings })) : [];
-  const peopleCount = activeProject?.peopleCount || 4;
-  const planTitle = activeProject?.title || 'Menú Semanal Batch Cooking Tradicional (Carmen)';
+  const dishes = !isOpenPreferences && activeProject?.dishes ? activeProject.dishes.map(d => ({ name: d.name, servings: d.servings })) : [];
+  const planTitle = isOpenPreferences
+    ? `Encargo Abierto: Menú a Medida (${dietStyle})`
+    : (activeProject?.title || 'Menú Semanal Batch Cooking Tradicional (Carmen)');
 
   // Configuración de complementos según el paquete elegido
   const includeGrocery = servicePackage === 'with_grocery' || servicePackage === 'full_pack_with_assistant';
@@ -125,6 +157,10 @@ export const CreateChefRequestModal: React.FC<CreateChefRequestModalProps> = ({
       targetDate: date,
       targetTimeSlot: timeSlot,
       estimatedHours: hours,
+      isOpenPreferencesRequest: isOpenPreferences,
+      dietaryDirectives: isOpenPreferences ? dietaryDirectives : undefined,
+      dietStyle: isOpenPreferences ? dietStyle : undefined,
+      allergies: selectedAllergensList,
       servicePackage,
       includeGroceryShopping: includeGrocery,
       includeCleaning: true,
@@ -373,29 +409,92 @@ export const CreateChefRequestModal: React.FC<CreateChefRequestModalProps> = ({
             </div>
           </div>
 
-          {/* 3. Menú y Platos Seleccionados */}
-          <div className="p-4 rounded-2xl bg-zinc-100 dark:bg-zinc-950/50 border border-zinc-200 dark:border-zinc-800/80 space-y-2">
-            <div className="flex items-center justify-between">
-              <span className="text-xs font-bold text-zinc-500 dark:text-zinc-400 uppercase tracking-wider">
-                Recetas a Elaborar ({dishes.length} platos · {peopleCount} comensales)
+          {/* 3. Menú o Directivas del Encargo */}
+          <div className="p-4 rounded-2xl bg-zinc-100 dark:bg-zinc-950/50 border border-zinc-200 dark:border-zinc-800/80 space-y-3">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+              <span className="text-xs font-bold text-zinc-700 dark:text-zinc-300 uppercase tracking-wider flex items-center gap-1.5">
+                <Sparkles size={14} className="text-amber-500" />
+                3. {isOpenPreferences ? 'Pautas y Directivas para el Chef (Menú Abierto)' : `Recetas a Elaborar (${dishes.length} platos · ${peopleCount} comensales)`}
               </span>
-              <span className="text-xs text-amber-600 dark:text-amber-400 font-bold">
-                Recetario Cocina con Carmen
-              </span>
+              
+              <button
+                type="button"
+                onClick={() => setIsOpenPreferences(!isOpenPreferences)}
+                className="text-[11px] font-bold text-amber-600 dark:text-amber-400 hover:underline cursor-pointer text-left"
+              >
+                {isOpenPreferences ? '← Cambiar a Menú con Platos Concretos' : '✨ ¿Prefieres que el Chef diseñe el menú?'}
+              </button>
             </div>
-            {dishes.length > 0 ? (
-              <div className="space-y-1.5 pt-1">
-                {dishes.map((dish, i) => (
-                  <div key={i} className="flex items-center justify-between text-xs py-1 border-b border-zinc-200/50 dark:border-zinc-800/50 last:border-0">
-                    <span className="font-medium text-zinc-800 dark:text-zinc-200">▫️ {dish.name}</span>
-                    <span className="font-mono text-zinc-500">{dish.servings} raciones</span>
+
+            {isOpenPreferences ? (
+              <div className="space-y-3 pt-1">
+                <div className="p-3 bg-amber-500/10 border border-amber-500/20 rounded-xl text-xs text-amber-900 dark:text-amber-300">
+                  <strong>💡 Modalidad Encargo Abierto:</strong> No necesitas seleccionar recetas. Los cocineros de tu zona recibirán tus pautas y te contestarán con un menú personalizado y su presupuesto para que elijas al que más te guste.
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  <div>
+                    <label className="text-[11px] font-bold text-zinc-500 uppercase block mb-1">
+                      Comensales / Personas
+                    </label>
+                    <input
+                      type="number"
+                      min={1}
+                      max={12}
+                      value={peopleCount}
+                      onChange={(e) => setPeopleCount(Math.max(1, Number(e.target.value)))}
+                      className="w-full bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl px-3 py-2 text-xs font-bold text-zinc-900 dark:text-white"
+                    />
                   </div>
-                ))}
+
+                  <div>
+                    <label className="text-[11px] font-bold text-zinc-500 uppercase block mb-1">
+                      Estilo Culinario Base
+                    </label>
+                    <select
+                      value={dietStyle}
+                      onChange={(e) => setDietStyle(e.target.value)}
+                      className="w-full bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl px-3 py-2 text-xs font-bold text-zinc-900 dark:text-white"
+                    >
+                      <option value="mediterranean">Mediterránea de Carmen</option>
+                      <option value="traditional">Tradicional y Guisos de la Abuela</option>
+                      <option value="fitness">Fitness High Protein</option>
+                      <option value="veggie">Vegetariana & Legumbres</option>
+                      <option value="lowcarb">Low Carb & Pescados</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div>
+                  <label className="text-[11px] font-bold text-zinc-500 uppercase block mb-1">
+                    Directivas nutricionales y gustos para el Chef:
+                  </label>
+                  <textarea
+                    rows={2}
+                    value={dietaryDirectives}
+                    onChange={(e) => setDietaryDirectives(e.target.value)}
+                    placeholder="Ej: 'Cocíname lo que consideres sano, pero no quiero nada de leche, ni nata, ni carne roja. Nos encantan las legumbres y el pescado fresco'..."
+                    className="w-full bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl p-2.5 text-xs text-zinc-900 dark:text-white focus:outline-none focus:ring-1 focus:ring-amber-500"
+                  />
+                </div>
               </div>
             ) : (
-              <div className="py-2 text-center text-xs text-zinc-500 space-y-1">
-                <span>⚠️ No tienes ningún menú formulado todavía.</span>
-                <p className="text-[11px] text-zinc-400">Formula primero tu menú en el Asistente Guiado para que el chef conozca los platos y raciones.</p>
+              <div>
+                {dishes.length > 0 ? (
+                  <div className="space-y-1.5 pt-1">
+                    {dishes.map((dish, i) => (
+                      <div key={i} className="flex items-center justify-between text-xs py-1 border-b border-zinc-200/50 dark:border-zinc-800/50 last:border-0">
+                        <span className="font-medium text-zinc-800 dark:text-zinc-200">▫️ {dish.name}</span>
+                        <span className="font-mono text-zinc-500">{dish.servings} raciones</span>
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <div className="py-2 text-center text-xs text-zinc-500 space-y-1">
+                    <span>⚠️ No tienes ningún menú formulado todavía.</span>
+                    <p className="text-[11px] text-zinc-400">Puedes usar la modalidad de <strong>Encargo Abierto</strong> para que el chef diseñe la propuesta por ti.</p>
+                  </div>
+                )}
               </div>
             )}
           </div>

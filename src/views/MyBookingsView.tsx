@@ -208,6 +208,18 @@ export const MyBookingsView: React.FC<MyBookingsViewProps> = ({
                             </div>
                           </div>
 
+                          {/* Proposed Menu if open request */}
+                          {app.proposedMenu && (
+                            <div className="p-2.5 bg-amber-500/10 rounded-xl border border-amber-500/25 space-y-1 text-xs text-amber-900 dark:text-amber-300">
+                              <strong className="text-[10px] uppercase font-black block flex items-center gap-1">
+                                <Sparkles size={11} /> Menú Propuesto por {app.chefName}:
+                              </strong>
+                              <p className="whitespace-pre-line text-[11px] leading-relaxed">
+                                {app.proposedMenu}
+                              </p>
+                            </div>
+                          )}
+
                           {/* Candidate pitch message */}
                           <div className="p-2.5 bg-zinc-50 dark:bg-zinc-900/60 rounded-xl border border-zinc-200 dark:border-zinc-800 text-[11px] text-zinc-700 dark:text-zinc-300 italic leading-relaxed">
                             "{app.message}"
@@ -235,7 +247,7 @@ export const MyBookingsView: React.FC<MyBookingsViewProps> = ({
                               className="flex-1 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-xs font-black text-white flex items-center justify-center gap-1.5 shadow-xs transition-all cursor-pointer active:scale-95"
                             >
                               <Check size={14} strokeWidth={3} />
-                              <span>Aceptar Cocinero</span>
+                              <span>Aceptar Oferta</span>
                             </button>
                           </div>
                         </div>
@@ -244,20 +256,35 @@ export const MyBookingsView: React.FC<MyBookingsViewProps> = ({
                   </div>
                 )}
 
-                {/* Dishes list */}
-                <div>
-                  <div className="text-xs font-bold text-zinc-600 dark:text-zinc-400 uppercase tracking-wider mb-2">
-                    Menú a preparar ({b.dishes.length} platos · {b.peopleCount} comensales):
+                {/* Directives for open preferences request */}
+                {b.isOpenPreferencesRequest ? (
+                  <div className="p-3.5 bg-zinc-50 dark:bg-zinc-850 rounded-2xl border border-zinc-200 dark:border-zinc-800 text-xs space-y-1.5">
+                    <div className="flex items-center justify-between">
+                      <span className="text-[10px] font-black uppercase text-amber-600 dark:text-amber-400">
+                        Pautas y Directivas del Encargo Abierto:
+                      </span>
+                      <span className="text-zinc-400 font-mono text-[10px]">{b.peopleCount} comensales</span>
+                    </div>
+                    <p className="text-zinc-700 dark:text-zinc-300 italic">
+                      "{b.dietaryDirectives || 'Menú a medida formulado por el chef.'}"
+                    </p>
                   </div>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2">
-                    {b.dishes.map((dish, i) => (
-                      <div key={i} className="p-2.5 rounded-xl bg-zinc-50 dark:bg-zinc-800/60 border border-zinc-200 dark:border-zinc-700/60 text-xs text-zinc-800 dark:text-zinc-200 flex items-center justify-between">
-                        <span className="font-semibold truncate">{dish.name}</span>
-                        <span className="text-zinc-500 dark:text-zinc-400 font-mono text-[11px]">{dish.servings} rac.</span>
-                      </div>
-                    ))}
+                ) : (
+                  /* Dishes list */
+                  <div>
+                    <div className="text-xs font-bold text-zinc-600 dark:text-zinc-400 uppercase tracking-wider mb-2">
+                      Menú a preparar ({b.dishes.length} platos · {b.peopleCount} comensales):
+                    </div>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2">
+                      {b.dishes.map((dish, dIdx) => (
+                        <div key={dIdx} className="p-2.5 bg-zinc-50 dark:bg-zinc-800/60 rounded-xl border border-zinc-200 dark:border-zinc-700/60 flex items-center justify-between text-xs text-zinc-800 dark:text-zinc-200">
+                          <span className="font-medium truncate">{dish.name}</span>
+                          <span className="text-zinc-400 font-mono text-[10px] shrink-0">{dish.servings} rac.</span>
+                        </div>
+                      ))}
+                    </div>
                   </div>
-                </div>
+                )}
 
                 {/* Included Extras */}
                 <div className="flex flex-wrap gap-2 text-xs">

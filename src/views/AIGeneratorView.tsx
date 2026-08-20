@@ -63,6 +63,8 @@ import {
   sendChatMessageToFreeLLM, 
   generateStructuredAIProposal, 
   extractRecipeIdsFromAIText,
+  requestAISwapRecipe,
+  QUICK_ACTION_PROMPTS,
   AIChatMessage,
   AIPlanProposal 
 } from '../services/aiAssistantService';
@@ -73,6 +75,13 @@ interface AIGeneratorViewProps {
   initialContext?: MealPlanConfig | null;
   onBatchProjectCreated?: (project: BatchProject) => void;
   onHireChefForBatch?: (project: BatchProject, servicePackage?: ChefServicePackage) => void;
+  onHireChefOpenPreferences?: (prefs: {
+    peopleCount: number;
+    daysCount: number;
+    dietStyle: string;
+    allergens: string[];
+    directives: string;
+  }) => void;
   onCookMyself?: (project: BatchProject) => void;
 }
 
@@ -84,6 +93,7 @@ export function AIGeneratorView({
   initialContext, 
   onBatchProjectCreated, 
   onHireChefForBatch,
+  onHireChefOpenPreferences,
   onCookMyself
 }: AIGeneratorViewProps) {
   
@@ -251,6 +261,40 @@ export function AIGeneratorView({
       console.error('Error applying AI auto proposal:', error);
     } finally {
       setIsGenerating(false);
+      setIsAiResponding(false);
+    }
+  };
+
+  const [swappingDishId, setSwappingDishId] = useState<string | null>(null);
+
+  // SWAP SPECIFIC RECIPE WITH AI
+  const handleSwapRecipeWithAI = async (recipeId: string) => {
+    setSwappingDishId(recipeId);
+    setIsAiResponding(true);
+    try {
+      const res = await requestAISwapRecipe(
+        manuallySelectedRecipeIds,
+        recipeId,
+        userSpecificGoal || 'Sustituir por otra opción compatible y deliciosa',
+        selectedAllergens
+      );
+      if (res.newRecipeId) {
+        setManuallySelectedRecipeIds(prev => prev.map(id => id === recipeId ? res.newRecipeId : id));
+        const oldName = CARMEN_RECIPES_DATABASE.find(r => r.id === recipeId)?.name || recipeId;
+        const newName = CARMEN_RECIPES_DATABASE.find(r => r.id === res.newRecipeId)?.name || res.newRecipeId;
+        setChatMessages(prev => [
+          ...prev,
+          {
+            role: 'assistant',
+            content: `🔄 He sustituido **${oldName}** por **${newName}** en tu menú.\n*${res.reason}*`,
+            suggestedRecipes: [res.newRecipeId]
+          }
+        ]);
+      }
+    } catch (err) {
+      console.error('Error swapping recipe:', err);
+    } finally {
+      setSwappingDishId(null);
       setIsAiResponding(false);
     }
   };
@@ -637,8 +681,48 @@ export function AIGeneratorView({
             </div>
           </div>
 
+          {/* CORTE TEMPRANO / ENCARGO DIRECTO A CHEF CON PREFERENCIAS */}
+          <div className="p-4 rounded-2xl bg-gradient-to-r from-amber-500/15 via-[#E07A5F]/10 to-transparent border border-amber-500/30 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-xl bg-amber-500 text-stone-950 flex items-center justify-center font-black shrink-0 shadow-sm">
+                <ChefHat size={20} />
+              </div>
+              <div>
+                <strong className="text-xs font-black text-zinc-900 dark:text-white block">
+                  ¿Prefieres que un Chef diseñe todo tu menú a medida?
+                </strong>
+                <span className="text-[11px] text-zinc-600 dark:text-zinc-400">
+                  Corta aquí: publica tu encargo con estas preferencias y recibe propuestas personalizadas de cocineros con sus tarifas.
+                </span>
+              </div>
+            </div>
+            <button
+              type="button"
+              onClick={() => {
+                if (onHireChefOpenPreferences) {
+                  onHireChefOpenPreferences({
+                    peopleCount,
+                    daysCount,
+                    dietStyle,
+                    allergens: selectedAllergens,
+                    directives: userSpecificGoal
+                  });
+                } else {
+                  handleExecuteHireChef('with_grocery');
+                }
+              }}
+              className="px-4 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-600 text-stone-950 font-black text-xs shadow-sm transition-all flex items-center justify-center gap-1.5 cursor-pointer shrink-0"
+            >
+              <Sparkles size={14} />
+              <span>Encargar Abierto a Chefs</span>
+            </button>
+          </div>
+
           {/* STEP 1 NEXT BUTTON */}
-          <div className="pt-4 flex justify-end">
+          <div className="pt-4 flex items-center justify-between">
+            <span className="text-xs text-zinc-400 font-medium">
+              Paso 1 de 3 · Motor Unificado TouChef
+            </span>
             <button
               onClick={() => setWizardStep(2)}
               className="btn-hero-copper text-white font-bold text-xs px-6 py-3 rounded-2xl flex items-center gap-2 cursor-pointer shadow-md hover:scale-[1.02] transition-transform"
@@ -694,6 +778,69 @@ export function AIGeneratorView({
               </button>
             </div>
           </div>
+
+          {/* ACTIVE BATCH DISHES LIVE BOARD (WITH DIRECT SWAP & DELEGATE) */}
+          {projectMode === 'batch_cooking' && (
+            <div className="p-4 rounded-2xl bg-zinc-50 dark:bg-zinc-900/80 border border-zinc-200 dark:border-zinc-800 space-y-3">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                <div className="flex items-center gap-2">
+                  <span className="w-2 h-2 rounded-full bg-emerald-500 animate-ping" />
+                  <span className="text-xs font-bold text-zinc-800 dark:text-zinc-200 uppercase tracking-wider">
+                    Platos seleccionados en tu lote actual ({manuallySelectedRecipeIds.length}):
+                  </span>
+                </div>
+                
+                <div className="flex items-center gap-2">
+                  <button
+                    type="button"
+                    onClick={() => handleExecuteHireChef('with_grocery')}
+                    className="px-3 py-1.5 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 text-amber-800 dark:text-amber-300 font-bold text-[11px] border border-amber-500/40 transition-all flex items-center gap-1.5 cursor-pointer shadow-2xs"
+                  >
+                    <ChefHat size={13} />
+                    <span>Encargar este lote al Chef</span>
+                  </button>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2.5">
+                {manuallySelectedRecipeIds.map(recipeId => {
+                  const rec = CARMEN_RECIPES_DATABASE.find(r => r.id === recipeId);
+                  if (!rec) return null;
+                  const isSwappingThis = swappingDishId === recipeId;
+
+                  return (
+                    <div
+                      key={rec.id}
+                      className="p-2.5 rounded-xl bg-white dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 flex items-center justify-between gap-2 shadow-2xs group"
+                    >
+                      <div className="flex items-center gap-2.5 min-w-0">
+                        <img src={rec.image} alt={rec.name} className="w-9 h-9 rounded-lg object-cover shrink-0" />
+                        <div className="min-w-0">
+                          <strong className="text-[11px] font-bold text-zinc-900 dark:text-white block truncate">
+                            {rec.name}
+                          </strong>
+                          <span className="text-[10px] text-zinc-400 block">
+                            {rec.prepTimeFormatted} · {rec.station}
+                          </span>
+                        </div>
+                      </div>
+
+                      <button
+                        type="button"
+                        onClick={() => handleSwapRecipeWithAI(rec.id)}
+                        disabled={isSwappingThis || isAiResponding}
+                        title="Pedir a la IA sustituir este plato por otra opción compatible"
+                        className="px-2 py-1 rounded-lg bg-zinc-100 dark:bg-zinc-700 hover:bg-[#E07A5F]/15 hover:text-[#E07A5F] text-[10px] font-bold text-zinc-600 dark:text-zinc-300 transition-all flex items-center gap-1 cursor-pointer shrink-0 disabled:opacity-50"
+                      >
+                        {isSwappingThis ? <Loader2 size={11} className="animate-spin text-[#E07A5F]" /> : <RefreshCw size={11} />}
+                        <span>{isSwappingThis ? 'Cambiando...' : 'Cambiar'}</span>
+                      </button>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          )}
 
           {/* ===================================================================== */}
           {/* SUB-VIEW 1: AI COPILOT CHAT INTERFACE                                 */}
@@ -806,25 +953,23 @@ export function AIGeneratorView({
                 <div ref={chatBottomRef} />
               </div>
 
-              {/* QUICK SUGGESTION PROMPT CHIPS */}
-              <div className="flex flex-wrap gap-2 pt-1">
-                <span className="text-[10px] font-bold text-zinc-400 flex items-center gap-1 self-center">
-                  Sugerencias:
+              {/* QUICK MODIFICATION PROMPT CHIPS */}
+              <div className="space-y-1.5 pt-1">
+                <span className="text-[10px] font-bold text-zinc-400 flex items-center gap-1">
+                  Acciones y modificaciones rápidas con el Copiloto:
                 </span>
-                {[
-                  '¿Cómo equilibrar carnes y pescados para 5 días?',
-                  'Proponme 4 platos tradicionales de Carmen sin gluten',
-                  'Quiero recetas de olla rápida para ahorrar tiempo',
-                  'Dime una variación ligera para las cenas'
-                ].map((chipText, i) => (
-                  <button
-                    key={i}
-                    onClick={() => handleSendChatMessage(chipText)}
-                    className="px-3 py-1 rounded-xl bg-zinc-100 dark:bg-zinc-800 hover:bg-zinc-200 dark:hover:bg-zinc-700 text-[11px] font-medium text-zinc-700 dark:text-zinc-300 transition-all cursor-pointer"
-                  >
-                    {chipText}
-                  </button>
-                ))}
+                <div className="flex flex-wrap gap-2">
+                  {QUICK_ACTION_PROMPTS.map(action => (
+                    <button
+                      key={action.id}
+                      onClick={() => handleSendChatMessage(action.prompt)}
+                      disabled={isAiResponding}
+                      className="px-3 py-1.5 rounded-xl bg-zinc-100 dark:bg-zinc-800 hover:bg-zinc-200 dark:hover:bg-zinc-700 border border-zinc-200 dark:border-zinc-700/80 text-[11px] font-bold text-zinc-700 dark:text-zinc-300 transition-all cursor-pointer shadow-2xs hover:scale-[1.02] disabled:opacity-50"
+                    >
+                      {action.label}
+                    </button>
+                  ))}
+                </div>
               </div>
 
               {/* CHAT INPUT BAR */}

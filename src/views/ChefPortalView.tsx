@@ -62,6 +62,7 @@ export const ChefPortalView: React.FC<ChefPortalViewProps> = ({
   const [isProSubscriber, setIsProSubscriber] = useState<boolean>(false);
   const [selectedSlots, setSelectedSlots] = useState<string[]>(['Lunes Tarde', 'Miércoles Tarde', 'Viernes Tarde', 'Sábado Mañana']);
   const [applicationMessages, setApplicationMessages] = useState<Record<string, string>>({});
+  const [proposedMenus, setProposedMenus] = useState<Record<string, string>>({});
   const [appliedBookings, setAppliedBookings] = useState<Record<string, boolean>>({});
 
   const [bookings, setBookings] = useState<ChefBookingRequest[]>([]);
@@ -104,9 +105,10 @@ export const ChefPortalView: React.FC<ChefPortalViewProps> = ({
   };
 
   const handleApplyToBooking = async (bookingId: string) => {
-    const msg = applicationMessages[bookingId] || '¡Hola! Me encantaría preparar tu menú de Cocina con Carmen. Cuento con carnet de manipulador de alimentos, cuchillos profesionales esterilizados y disponibilidad completa.';
+    const msg = applicationMessages[bookingId] || '¡Hola! Me encantaría preparar tu menú de Batch Cooking. Cuento con carnet de manipulador de alimentos, cuchillos profesionales esterilizados y disponibilidad completa.';
+    const menuProposal = proposedMenus[bookingId] || '';
     try {
-      await applyToBookingInFirestore(bookingId, currentChef, msg);
+      await applyToBookingInFirestore(bookingId, currentChef, msg, menuProposal);
       setAppliedBookings(prev => ({ ...prev, [bookingId]: true }));
     } catch (err) {
       console.error('Error applying to broadcast booking in Firestore:', err);
@@ -283,26 +285,49 @@ export const ChefPortalView: React.FC<ChefPortalViewProps> = ({
                       </div>
                     </div>
 
-                    {/* Dishes list */}
-                    <div>
-                      <span className="text-[11px] font-bold text-zinc-600 dark:text-zinc-400 block mb-1.5 uppercase tracking-wider">
-                        Platos a Cocinar ({req.dishes.length}):
-                      </span>
-                      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2">
-                        {req.dishes.map((dish, dIdx) => (
-                          <div key={dIdx} className="p-2 bg-zinc-50 dark:bg-zinc-800/60 rounded-xl border border-zinc-200 dark:border-zinc-700/60 flex items-center justify-between text-zinc-800 dark:text-zinc-200">
-                            <span className="truncate">{dish.name}</span>
-                            <span className="text-zinc-400 font-mono text-[10px]">{dish.servings} rac.</span>
+                    {/* Open preferences vs Defined dishes */}
+                    {req.isOpenPreferencesRequest ? (
+                      <div className="p-3.5 bg-amber-500/10 rounded-2xl border border-amber-500/25 space-y-2">
+                        <div className="flex items-center gap-1.5 text-[11px] font-bold text-amber-700 dark:text-amber-400 uppercase tracking-wider">
+                          <Sparkles size={13} />
+                          <span>Pautas Culinarias del Cliente (Encargo a Medida):</span>
+                        </div>
+                        <p className="text-xs font-medium text-zinc-800 dark:text-zinc-200 italic bg-white/60 dark:bg-zinc-800/60 p-2.5 rounded-xl border border-amber-500/20">
+                          "{req.dietaryDirectives || 'Platos variados y saludables acordes al estilo mediterráneo.'}"
+                        </p>
+                        {req.allergies && req.allergies.length > 0 && (
+                          <div className="flex items-center gap-1.5 text-[10px] text-rose-600 dark:text-rose-400 font-bold">
+                            <span>⚠️ Excluir alérgenos:</span>
+                            <span>{req.allergies.join(', ')}</span>
                           </div>
-                        ))}
+                        )}
                       </div>
-                    </div>
+                    ) : (
+                      <div>
+                        <span className="text-[11px] font-bold text-zinc-600 dark:text-zinc-400 block mb-1.5 uppercase tracking-wider">
+                          Platos a Cocinar ({req.dishes.length}):
+                        </span>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2">
+                          {req.dishes.map((dish, dIdx) => (
+                            <div key={dIdx} className="p-2 bg-zinc-50 dark:bg-zinc-800/60 rounded-xl border border-zinc-200 dark:border-zinc-700/60 flex items-center justify-between text-zinc-800 dark:text-zinc-200">
+                              <span className="truncate">{dish.name}</span>
+                              <span className="text-zinc-400 font-mono text-[10px]">{dish.servings} rac.</span>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
 
                     {/* Logistics tags */}
                     <div className="flex flex-wrap items-center gap-2 text-[11px]">
                       <span className="px-2 py-1 rounded-lg bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 flex items-center gap-1 font-medium">
                         <Clock size={12} /> {req.estimatedHours}h de sesión
                       </span>
+                      {req.includeGroceryShopping && (
+                        <span className="px-2 py-1 rounded-lg bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 flex items-center gap-1 font-medium">
+                          <ShoppingBag size={12} /> Con gestión de compra en supermercado (+18€/h)
+                        </span>
+                      )}
                       {req.grocerySource === 'supermarket_delivery' && (
                         <span className="px-2 py-1 rounded-lg bg-rose-500/10 text-rose-700 dark:text-rose-300 flex items-center gap-1 font-medium">
                           <ShoppingBag size={12} /> Ingredientes DIA entregados por adelantado
@@ -316,28 +341,45 @@ export const ChefPortalView: React.FC<ChefPortalViewProps> = ({
                     </div>
 
                     {/* Application form / status */}
-                    <div className="pt-2 border-t border-zinc-200 dark:border-zinc-800 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
+                    <div className="pt-2 border-t border-zinc-200 dark:border-zinc-800 space-y-2">
                       {isAlreadyApplied ? (
                         <div className="p-2.5 bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-500/30 rounded-xl text-emerald-800 dark:text-emerald-300 font-bold text-xs flex items-center gap-2">
                           <CheckCircle2 size={16} className="text-emerald-600 dark:text-emerald-400" />
-                          <span>¡Ya has postulado a este encargo! El cliente ha recibido tu propuesta.</span>
+                          <span>¡Ya has enviado tu oferta a este encargo! El cliente podrá aceptarla en su panel.</span>
                         </div>
                       ) : (
-                        <div className="flex-1 flex flex-col sm:flex-row items-center gap-2">
-                          <input
-                            type="text"
-                            placeholder="Escribe un mensaje de presentación al cliente (ej: Llevo cuchillos desinfectados y domino los guisos)..."
-                            value={applicationMessages[req.id] || ''}
-                            onChange={(e) => setApplicationMessages({ ...applicationMessages, [req.id]: e.target.value })}
-                            className="w-full bg-zinc-50 dark:bg-zinc-800 border border-zinc-300 dark:border-zinc-700 rounded-xl px-3.5 py-2 text-xs text-zinc-900 dark:text-white"
-                          />
-                          <button
-                            onClick={() => handleApplyToBooking(req.id)}
-                            className="w-full sm:w-auto px-5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs flex items-center justify-center gap-1.5 shrink-0 shadow-xs cursor-pointer active:scale-95 transition-all"
-                          >
-                            <Send size={13} />
-                            <span>Aceptar &amp; Postularme</span>
-                          </button>
+                        <div className="space-y-2">
+                          {req.isOpenPreferencesRequest && (
+                            <div>
+                              <label className="text-[11px] font-bold text-zinc-600 dark:text-zinc-400 uppercase block mb-1">
+                                Redacta tu propuesta de menú para este cliente (4-5 platos sugeridos):
+                              </label>
+                              <textarea
+                                rows={2}
+                                placeholder="Ej: 1. Lentejas caseras con verduras, 2. Merluza en salsa verde, 3. Pollo a la pepitoria sin lácteos, 4. Pisto manchego..."
+                                value={proposedMenus[req.id] || ''}
+                                onChange={(e) => setProposedMenus({ ...proposedMenus, [req.id]: e.target.value })}
+                                className="w-full bg-zinc-50 dark:bg-zinc-800 border border-zinc-300 dark:border-zinc-700 rounded-xl p-2.5 text-xs text-zinc-900 dark:text-white focus:outline-none focus:ring-1 focus:ring-amber-500"
+                              />
+                            </div>
+                          )}
+
+                          <div className="flex flex-col sm:flex-row items-center gap-2">
+                            <input
+                              type="text"
+                              placeholder="Escribe un mensaje de presentación al cliente (ej: Llevo cuchillos desinfectados y disponibilidad completa)..."
+                              value={applicationMessages[req.id] || ''}
+                              onChange={(e) => setApplicationMessages({ ...applicationMessages, [req.id]: e.target.value })}
+                              className="w-full bg-zinc-50 dark:bg-zinc-800 border border-zinc-300 dark:border-zinc-700 rounded-xl px-3.5 py-2 text-xs text-zinc-900 dark:text-white"
+                            />
+                            <button
+                              onClick={() => handleApplyToBooking(req.id)}
+                              className="w-full sm:w-auto px-5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs flex items-center justify-center gap-1.5 shrink-0 shadow-xs cursor-pointer active:scale-95 transition-all"
+                            >
+                              <Send size={13} />
+                              <span>Enviar Propuesta y Tarifa</span>
+                            </button>
+                          </div>
                         </div>
                       )}
                     </div>

@@ -303,6 +303,7 @@ export interface ChefApplication {
   chefSpecialties: string[];
   appliedAt: string;
   message: string;
+  proposedMenu?: string; // Menú personalizado propuesto por el chef en solicitudes abiertas
   status: 'pending' | 'accepted' | 'declined';
 }
 
@@ -321,6 +322,11 @@ export interface ChefBookingRequest {
   targetDate: string;
   targetTimeSlot: string;
   estimatedHours: number;
+  
+  // Solicitud abierta basada en preferencias (Corte Temprano)
+  isOpenPreferencesRequest?: boolean;
+  dietaryDirectives?: string;
+  dietStyle?: string;
   
   // Paquete y servicios seleccionados
   servicePackage: ChefServicePackage;

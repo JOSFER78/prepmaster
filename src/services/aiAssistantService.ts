@@ -98,6 +98,113 @@ export function extractRecipeIdsFromAIText(text: string): string[] {
   return unique.filter(id => CARMEN_RECIPES_DATABASE.some(r => r.id === id));
 }
 
+export interface QuickActionPrompt {
+  id: string;
+  label: string;
+  icon: string;
+  prompt: string;
+}
+
+export const QUICK_ACTION_PROMPTS: QuickActionPrompt[] = [
+  {
+    id: 'more_veggies',
+    label: '🥗 Más Verduras & Ligero',
+    icon: 'Salad',
+    prompt: 'Por favor, haz el menú más ligero aumentando la presencia de verduras de temporada, cremas y reduciendo grasas.'
+  },
+  {
+    id: 'swap_to_fish',
+    label: '🐟 Más Pescado & Mariscos',
+    icon: 'Fish',
+    prompt: 'Prefiero incluir más pescado blanco o azul de lonja en vez de carnes.'
+  },
+  {
+    id: 'express_90min',
+    label: '⚡ Optimizar a 90 Minutos',
+    icon: 'Zap',
+    prompt: 'Optimiza el lote para cocinarlo en menos de 90 minutos usando olla rápida y horno en paralelo.'
+  },
+  {
+    id: 'high_protein',
+    label: '💪 Alto en Proteínas',
+    icon: 'Dumbbell',
+    prompt: 'Adapta las raciones y platos para un enfoque Fitness con alta densidad proteica y legumbres saciantes.'
+  },
+  {
+    id: 'add_soup',
+    label: '🍲 Añadir Crema o Cuchara',
+    icon: 'Soup',
+    prompt: 'Quiero asegurarme de tener una buena crema de verduras o plato de cuchara para las cenas.'
+  }
+];
+
+/**
+ * Solicita a la IA sustituir una receta específica por otra alternativa idónea
+ */
+export async function requestAISwapRecipe(
+  currentRecipeIds: string[],
+  recipeToReplaceId: string,
+  userReason: string = '',
+  allergens: string[] = []
+): Promise<{ newRecipeId: string; reason: string }> {
+  const currentDishesNames = currentRecipeIds.map(id => {
+    const r = CARMEN_RECIPES_DATABASE.find(x => x.id === id);
+    return r ? `"${r.name}" (${r.category})` : id;
+  }).join(', ');
+
+  const targetDish = CARMEN_RECIPES_DATABASE.find(x => x.id === recipeToReplaceId)?.name || recipeToReplaceId;
+
+  const prompt = `Actualmente el menú tiene estos platos: ${currentDishesNames}.
+Queremos SUSTITUIR el plato "${targetDish}" por otra receta del catálogo de Carmen.
+Motivo o preferencia del usuario: "${userReason || 'Dar otra alternativa deliciosa y compatible'}".
+Alérgenos a evitar: ${allergens.join(', ') || 'Ninguno'}.
+
+Catálogo disponible:
+${CARMEN_RECIPES_DATABASE.filter(r => !currentRecipeIds.includes(r.id)).map(r => `- [ID: ${r.id}] "${r.name}" (${r.category}, ${r.prepTimeFormatted})`).join('\n')}
+
+Responde ÚNICAMENTE un JSON con:
+{
+  "newRecipeId": "carmen-...",
+  "reason": "Breve explicación de por qué esta receta encaja perfectamente como sustituta"
+}`;
+
+  try {
+    const response = await fetch(`${DEFAULT_BASE_URL}/chat/completions`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${DEFAULT_API_KEY}`
+      },
+      body: JSON.stringify({
+        model: DEFAULT_MODEL,
+        messages: [
+          { role: 'system', content: 'Eres un asistente culinario experto. Responde sólo JSON válido.' },
+          { role: 'user', content: prompt }
+        ],
+        temperature: 0.3,
+        max_tokens: 400
+      })
+    });
+
+    const data = await response.json();
+    let content = data.choices?.[0]?.message?.content || '{}';
+    content = content.replace(/```json/g, '').replace(/```/g, '').trim();
+    const parsed = JSON.parse(content);
+    if (parsed.newRecipeId && CARMEN_RECIPES_DATABASE.some(r => r.id === parsed.newRecipeId)) {
+      return parsed;
+    }
+  } catch (err) {
+    console.warn('Fallback swap recipe:', err);
+  }
+
+  // Fallback: pick another recipe from database not in current
+  const alternative = CARMEN_RECIPES_DATABASE.find(r => !currentRecipeIds.includes(r.id) && !r.allergens.some(a => allergens.includes(a))) || CARMEN_RECIPES_DATABASE[0];
+  return {
+    newRecipeId: alternative.id,
+    reason: `Sustituido por ${alternative.name} para mantener el equilibrio del lote.`
+  };
+}
+
 /**
  * Pide a la IA una propuesta estructurada en formato JSON para autoconfigurar el lote semanal
  */

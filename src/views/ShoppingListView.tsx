@@ -228,6 +228,47 @@ export function ShoppingListView({
 
       </div>
 
+      {/* PANTRY VS SHOPPING COMPARATIVE SUMMARY */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        <div className="p-4 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-between text-xs">
+          <div className="flex items-center gap-3">
+            <div className="w-9 h-9 rounded-xl bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 flex items-center justify-center font-bold">
+              <Refrigerator size={18} />
+            </div>
+            <div>
+              <span className="text-[10px] font-bold uppercase text-emerald-700 dark:text-emerald-400 block">
+                En tu Nevera &amp; Despensa
+              </span>
+              <strong className="text-zinc-900 dark:text-white text-xs">
+                {items.filter(i => i.isFromPantryDeduction || i.inPantryQty > 0).length} ingredientes aprovechados
+              </strong>
+            </div>
+          </div>
+          <span className="text-emerald-600 dark:text-emerald-400 font-black text-xs">
+            Descontados
+          </span>
+        </div>
+
+        <div className="p-4 rounded-2xl bg-[#E07A5F]/10 border border-[#E07A5F]/20 flex items-center justify-between text-xs">
+          <div className="flex items-center gap-3">
+            <div className="w-9 h-9 rounded-xl bg-[#E07A5F]/20 text-[#E07A5F] flex items-center justify-center font-bold">
+              <ShoppingBag size={18} />
+            </div>
+            <div>
+              <span className="text-[10px] font-bold uppercase text-[#E07A5F] block">
+                Qué Necesitas Comprar
+              </span>
+              <strong className="text-zinc-900 dark:text-white text-xs">
+                {items.filter(i => i.toBuyQty > 0).length} productos para el súper/mercado
+              </strong>
+            </div>
+          </div>
+          <span className="text-[#E07A5F] font-black text-xs">
+            Pendientes
+          </span>
+        </div>
+      </div>
+
       {/* BANNER 100% COMPLETADO */}
       {progressPercent === 100 && totalItems > 0 && (
         <div className="p-4 bg-[#E07A5F]/15 border border-[#E07A5F]/40 rounded-3xl flex flex-col sm:flex-row items-center justify-between gap-4 animate-fade-in shadow-xs">
@@ -256,7 +297,7 @@ export function ShoppingListView({
       <div className="flex items-center gap-2">
         <button
           onClick={() => setFilter('all')}
-          className={`px-3 py-1.5 text-xs font-bold rounded-xl transition-all ${
+          className={`px-3 py-1.5 text-xs font-bold rounded-xl transition-all cursor-pointer ${
             filter === 'all' 
               ? 'bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 shadow-xs' 
               : 'bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-zinc-600 dark:text-zinc-400'
@@ -267,24 +308,24 @@ export function ShoppingListView({
 
         <button
           onClick={() => setFilter('pending')}
-          className={`px-3 py-1.5 text-xs font-bold rounded-xl transition-all ${
+          className={`px-3 py-1.5 text-xs font-bold rounded-xl transition-all cursor-pointer ${
             filter === 'pending' 
               ? 'bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 shadow-xs' 
               : 'bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-zinc-600 dark:text-zinc-400'
           }`}
         >
-          Pendientes ({pendingItems})
+          🧺 Por Comprar ({items.filter(i => !i.isBought && i.toBuyQty > 0).length})
         </button>
 
         <button
           onClick={() => setFilter('bought')}
-          className={`px-3 py-1.5 text-xs font-bold rounded-xl transition-all ${
+          className={`px-3 py-1.5 text-xs font-bold rounded-xl transition-all cursor-pointer ${
             filter === 'bought' 
               ? 'bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 shadow-xs' 
               : 'bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-zinc-600 dark:text-zinc-400'
           }`}
         >
-          Comprados / En Casa ({boughtItems})
+          🧊 Comprados / En Despensa ({boughtItems})
         </button>
       </div>
 
