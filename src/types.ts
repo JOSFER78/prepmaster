@@ -137,33 +137,33 @@ export interface BatchCookingPlan {
     type?: string;
     technique?: string;
     description?: string;
-    duration: string;
-    container: string;
-    tip: string;
+    duration?: string;
+    container?: string;
+    tip?: string;
   }[];
 }
 
 export interface GeneratedMenuPlan {
   id: string;
   title: string;
-  philosophy: string;
+  philosophy?: string;
   mode?: string;
   peopleCount?: number;
   daysCount?: number;
   referenceChannelName?: string;
   items?: any[];
-  macrosTarget: {
+  macrosTarget?: {
     protein: string;
     carbs: string;
     fats: string;
   };
-  batchCookingSummary: {
+  batchCookingSummary?: {
     totalTime: string;
     sessionsCount?: number;
     parallelSteps?: string[];
     recommendedTechniques?: string[];
   };
-  meals: Meal[];
+  meals?: Meal[];
 }
 
 export type UserRole = 'user' | 'superadmin';

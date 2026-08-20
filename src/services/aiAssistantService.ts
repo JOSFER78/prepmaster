@@ -1,4 +1,4 @@
-import { CARMEN_RECIPES_DATABASE, CanonicalRecipe } from '../data/recipesCarmenDatabase';
+import { CARMEN_RECIPES_DATABASE, CanonicalRecipe, matchCarmenRecipesByPrompt } from '../data/recipesCarmenDatabase';
 import { BatchDish, GeneratedMenuPlan } from '../types';
 
 const DEFAULT_BASE_URL = 'https://143-47-35-167.sslip.io/v1';
@@ -218,23 +218,28 @@ export async function generateStructuredAIProposal(
   const baseUrl = DEFAULT_BASE_URL;
   const apiKey = customApiKey || DEFAULT_API_KEY;
 
+  // Pre-emparejar deterministicamente con el recetario de Carmen por si la IA tarda o falla
+  const preMatched = matchCarmenRecipesByPrompt(userGoal, allergens, undefined, 4);
+  const preMatchedIds = preMatched.map(r => r.id);
+
   const prompt = `Genera un menú semanal de Batch Cooking para ${peopleCount} personas durante ${daysCount} días.
 Alérgenos a excluir: ${allergens.join(', ') || 'Ninguno'}.
 Petición específica del usuario: "${userGoal}".
 
+CANDIDATOS PRIORITARIOS RECOMENDADOS SEGÚN LA PETICIÓN DEL USUARIO:
+${preMatched.map(r => `- [ID: ${r.id}] "${r.name}" (${r.category}, estación: ${r.station}, tiempo: ${r.prepTimeFormatted})`).join('\n')}
+
 Debes responder ÚNICAMENTE un objeto JSON válido con esta estructura exacta, sin markdown adicional:
 {
   "title": "Título sugerente del menú",
-  "philosophy": "Explicación de por qué este menú y cómo se cocina en 2 horas en paralelo",
-  "selectedRecipeIds": ["carmen-lentejas-chorizo", "carmen-pollo-pepitoria", "carmen-merluza-salsa-verde", "carmen-pisto-manchego"],
+  "philosophy": "Explicación de cómo este menú cumple la petición '${userGoal}' y cómo se cocina en 2 horas en paralelo",
+  "selectedRecipeIds": ${JSON.stringify(preMatchedIds)},
   "servingsPerDish": {
-    "carmen-lentejas-chorizo": 8,
-    "carmen-pollo-pepitoria": 8,
-    "carmen-merluza-salsa-verde": 6,
-    "carmen-pisto-manchego": 6
+    "${preMatchedIds[0] || 'carmen-lentejas-chorizo'}": ${Math.max(4, peopleCount * 2)},
+    "${preMatchedIds[1] || 'carmen-pollo-pepitoria'}": ${Math.max(4, peopleCount * 2)}
   },
   "variationsAndTips": [
-    "Consejo de mise en place previa",
+    "Consejo de mise en place previa para coordinar fuegos",
     "Adaptación de cocción en paralelo"
   ]
 }
@@ -255,33 +260,42 @@ ${CARMEN_RECIPES_DATABASE.map(r => r.id).join(', ')}`;
           { role: 'system', content: 'Eres un generador JSON culinario estricto de TouChef. Devuelve sólo JSON válido sin bloques markdown ni texto exterior.' },
           { role: 'user', content: prompt }
         ],
-        temperature: 0.4,
+        temperature: 0.3,
         max_tokens: 1000
       })
     });
 
     const data = await response.json();
     let content = data.choices?.[0]?.message?.content || '{}';
-    // Clean code blocks if present
     content = content.replace(/```json/g, '').replace(/```/g, '').trim();
     const parsed = JSON.parse(content) as AIPlanProposal;
-    return parsed;
+
+    // Validar que los IDs devueltos existen realmente en el catálogo
+    const validIds = (parsed.selectedRecipeIds || []).filter(id => CARMEN_RECIPES_DATABASE.some(r => r.id === id));
+    if (validIds.length > 0) {
+      return {
+        ...parsed,
+        selectedRecipeIds: validIds
+      };
+    }
   } catch (error) {
-    console.warn('Fallback generating default proposal due to LLM error:', error);
-    return {
-      title: `Menú Tradicional Mediterráneo (${peopleCount} comensales · ${daysCount} días)`,
-      philosophy: `Estructura armónica con legumbres, ave y pescados de Cocina con Carmen coordinados en paralelo.`,
-      selectedRecipeIds: ['carmen-lentejas-chorizo', 'carmen-pollo-pepitoria', 'carmen-merluza-salsa-verde', 'carmen-crema-calabacin-suave'],
-      servingsPerDish: {
-        'carmen-lentejas-chorizo': peopleCount * 2,
-        'carmen-pollo-pepitoria': peopleCount * 2,
-        'carmen-merluza-salsa-verde': peopleCount * 2,
-        'carmen-crema-calabacin-suave': peopleCount * 2
-      },
-      variationsAndTips: [
-        'Hacer sofrito madre unificado para las lentejas y la salsa del pollo.',
-        'Hornear y cocer en paralelo para optimizar a 2 horas.'
-      ]
-    };
+    console.warn('Fallback generating smart matched proposal due to LLM error:', error);
   }
+
+  // Fallback garantizado e inmediato con las recetas emparejadas por ingredientes reales
+  const fallbackServings: Record<string, number> = {};
+  preMatchedIds.forEach(id => {
+    fallbackServings[id] = Math.max(4, Math.ceil((peopleCount * daysCount * 2) / Math.max(1, preMatchedIds.length)));
+  });
+
+  return {
+    title: userGoal ? `Menú Adaptado: ${userGoal.slice(0, 45)}` : `Menú Tradicional Equilibrado (${peopleCount} personas · ${daysCount} días)`,
+    philosophy: `Estructura optimizada con recetas de Carmen seleccionadas expresamente según tus preferencias (${userGoal || 'Equilibrado'}), coordinadas en paralelo.`,
+    selectedRecipeIds: preMatchedIds.length > 0 ? preMatchedIds : ['carmen-lentejas-chorizo', 'carmen-pollo-pepitoria', 'carmen-pisto-manchego', 'carmen-crema-calabacin-suave'],
+    servingsPerDish: fallbackServings,
+    variationsAndTips: [
+      'Picar todas las verduras en mise en place antes de encender fogones.',
+      'Cocinar en paralelo usando la olla rápida y los fuegos para terminar en 2 horas.'
+    ]
+  };
 }

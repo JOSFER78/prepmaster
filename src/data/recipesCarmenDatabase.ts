@@ -792,3 +792,90 @@ export function getFilteredCarmenRecipes(params: {
 export function getCarmenRecipeById(id: string): CanonicalRecipe | undefined {
   return CARMEN_RECIPES_DATABASE.find(r => r.id === id);
 }
+
+/**
+ * Emparejador inteligente por palabras clave e ingredientes en el catálogo de Carmen
+ * Prioriza concordancias de ingredientes (bacalao, contramuslos, ternera, etc.),
+ * respeta alérgenos excluidos y balancea estaciones térmicas para batch cooking concurrente.
+ */
+export function matchCarmenRecipesByPrompt(
+  userPrompt: string,
+  excludedAllergens: string[] = [],
+  dietStyle?: string,
+  count: number = 5
+): CanonicalRecipe[] {
+  if (!userPrompt || !userPrompt.trim()) {
+    return getFilteredCarmenRecipes({
+      excludedAllergens,
+      dietStyle: dietStyle as any
+    }).slice(0, count);
+  }
+
+  const normalizedQuery = userPrompt
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '');
+
+  const rawTokens = normalizedQuery
+    .replace(/[^\w\s]/g, ' ')
+    .split(/\s+/)
+    .filter(t => t.length >= 3 && !['para', 'con', 'sin', 'que', 'los', 'las', 'una', 'uno', 'unos', 'unas', 'del', 'quiero', 'tengo', 'nevera', 'despensa', 'hacer', 'platos', 'comida', 'menu', 'batch', 'cooking', 'algo', 'como', 'gustaria', 'preparar', 'cocinar'].includes(t));
+
+  const scoredRecipes = CARMEN_RECIPES_DATABASE.map(recipe => {
+    // Verificación estricta de alérgenos
+    if (excludedAllergens && excludedAllergens.length > 0) {
+      if (recipe.allergens.some(a => excludedAllergens.includes(a))) {
+        return { recipe, score: -9999 };
+      }
+    }
+
+    let score = 0;
+    const normName = (recipe.name + ' ' + recipe.shortName).toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+    const normIngredients = recipe.ingredientsPerServing
+      .map(i => i.name.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, ''))
+      .join(' ');
+    const normCategory = recipe.category.toLowerCase();
+
+    for (const token of rawTokens) {
+      if (normName.includes(token)) score += 20;
+      if (normIngredients.includes(token)) score += 18;
+      if (normCategory.includes(token)) score += 10;
+    }
+
+    // Puntuación directa para términos comunes
+    if (normalizedQuery.includes('bacalao') && normName.includes('bacalao')) score += 30;
+    if (normalizedQuery.includes('contramuslo') && (normIngredients.includes('contramuslo') || normName.includes('pollo'))) score += 30;
+    if (normalizedQuery.includes('pollo') && (normName.includes('pollo') || normIngredients.includes('pollo'))) score += 25;
+    if (normalizedQuery.includes('pescado') && (recipe.category === 'pescados' || normIngredients.includes('pescado'))) score += 20;
+    if (normalizedQuery.includes('legumbre') && recipe.category === 'legumbres') score += 20;
+    if (normalizedQuery.includes('carne') && recipe.category === 'carnes') score += 20;
+    if (normalizedQuery.includes('verdura') && (recipe.category === 'verduras' || recipe.category === 'cremas')) score += 20;
+    if (normalizedQuery.includes('calabacin') && (normName.includes('calabacin') || normIngredients.includes('calabacin'))) score += 30;
+
+    if (dietStyle && recipe.suitableDiets.includes(dietStyle as any)) {
+      score += 3;
+    }
+
+    return { recipe, score };
+  });
+
+  const matched = scoredRecipes
+    .filter(item => item.score > 0)
+    .sort((a, b) => b.score - a.score)
+    .map(item => item.recipe);
+
+  if (matched.length >= count) {
+    return matched.slice(0, count);
+  }
+
+  // Rellenar los huecos restantes con recetas equilibradas libres de alérgenos
+  const matchedIds = new Set(matched.map(r => r.id));
+  const remaining = CARMEN_RECIPES_DATABASE.filter(r => 
+    !matchedIds.has(r.id) && 
+    (!excludedAllergens || !r.allergens.some(a => excludedAllergens.includes(a))) &&
+    (!dietStyle || r.suitableDiets.includes(dietStyle as any))
+  );
+
+  const finalResult = [...matched, ...remaining].slice(0, count);
+  return finalResult.length > 0 ? finalResult : CARMEN_RECIPES_DATABASE.slice(0, count);
+}
