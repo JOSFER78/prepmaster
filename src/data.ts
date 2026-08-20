@@ -7,12 +7,12 @@ export const currentUser = {
 
 export const referenceChannels: ReferenceChannel[] = [
   {
-    id: 'cocina-con-carmen',
-    name: 'Cocina con Carmen (YouTube)',
-    author: 'Carmen',
+    id: 'cocina-tradicional-es',
+    name: 'Cocina Tradicional Española',
+    author: 'Maestros del Recetario Popular',
     style: 'Cocina Casera Tradicional & Recetas Explicadas Paso a Paso',
     philosophy: 'Sabores auténticos de la abuela, trucos para que salgan perfectas a la primera, sin complicaciones.',
-    keyTechniques: ['Bechamel cremosa sin grumos tamizada', 'Sofrito andaluz con ajo y vino montilla/jerez', 'Guisos con patata tronchada para espesar caldo'],
+    keyTechniques: ['Bechamel cremosa sin grumos tamizada', 'Sofrito tradicional con ajo y vino montilla/jerez', 'Guisos con patata chascada para espesar caldo'],
     avatar: 'https://images.unsplash.com/photo-1556910103-1c02745aae4d?w=150&auto=format&fit=crop&q=80'
   },
   {
@@ -46,19 +46,19 @@ export const referenceChannels: ReferenceChannel[] = [
 
 export const userNotebooks: UserNotebook[] = [
   {
-    id: 'nb-carmen-1',
-    title: 'Croquetas de Jamón Cremosas (Cocina con Carmen)',
-    channelId: 'cocina-con-carmen',
+    id: 'nb-trad-1',
+    title: 'Croquetas de Jamón Cremosas (Cocina Tradicional)',
+    channelId: 'cocina-tradicional-es',
     content: 'Tostar la harina en la mantequilla durante 3 minutos (roux) para quitar el sabor a crudo. Verter la leche entera caliente poco a poco remviendo con varillas sin parar. Añadir el jamón al final y reposar la masa tapada a piel en la nevera 12h.',
-    tags: ['Croquetas', 'Cocina con Carmen', 'Tradicional', 'Bechamel'],
+    tags: ['Croquetas', 'Cocina Tradicional', 'Bechamel'],
     updatedAt: '2026-08-06'
   },
   {
-    id: 'nb-carmen-2',
-    title: 'Pollo en Salsa Tradicional (Cocina con Carmen)',
-    channelId: 'cocina-con-carmen',
+    id: 'nb-trad-2',
+    title: 'Pollo en Salsa Tradicional (Cocina Tradicional)',
+    channelId: 'cocina-tradicional-es',
     content: 'Dorar bien los trozos de pollo salpimentados con ajos enteros en camisa. Retirar pollo, pochar cebolla y pimiento, desglasar con vino blanco de Montilla/Jerez. Triturar la salsa para un acabado fino y espeso.',
-    tags: ['Pollo', 'Cocina con Carmen', 'Guisos', 'Salsas'],
+    tags: ['Pollo', 'Cocina Tradicional', 'Guisos', 'Salsas'],
     updatedAt: '2026-08-06'
   },
   {

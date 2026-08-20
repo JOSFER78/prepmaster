@@ -101,7 +101,7 @@ export function CookieBanner({ onOpenCookiesPolicy, onOpenPrivacyPolicy }: Cooki
               <span className="text-[10px] bg-stone-700 text-stone-300 font-bold px-2 py-0.5 rounded">Obligatorias</span>
             </div>
 
-            <div className="flex items-center justify-between pt-1 border-t border-stone-750">
+            <div className="flex items-center justify-between pt-1 border-t border-stone-700">
               <div>
                 <strong className="text-zinc-900 dark:text-white block text-[11px]">Cookies de Preferencias</strong>
                 <span className="text-[10px] text-zinc-600 dark:text-zinc-400">Recuerdan tu tipo de cocina y comensales.</span>
@@ -114,7 +114,7 @@ export function CookieBanner({ onOpenCookiesPolicy, onOpenPrivacyPolicy }: Cooki
               />
             </div>
 
-            <div className="flex items-center justify-between pt-1 border-t border-stone-750">
+            <div className="flex items-center justify-between pt-1 border-t border-stone-700">
               <div>
                 <strong className="text-zinc-900 dark:text-white block text-[11px]">Cookies de Rendimiento Anónimo</strong>
                 <span className="text-[10px] text-zinc-600 dark:text-zinc-400">Ayudan a optimizar los tiempos de cálculo.</span>
@@ -141,7 +141,7 @@ export function CookieBanner({ onOpenCookiesPolicy, onOpenPrivacyPolicy }: Cooki
           <div className="flex items-center gap-2">
             <button
               onClick={handleAcceptEssential}
-              className="px-3 py-1.5 rounded-xl bg-stone-800 hover:bg-stone-750 text-stone-300 hover:text-white text-xs font-bold transition-all cursor-pointer border border-stone-700"
+              className="px-3 py-1.5 rounded-xl bg-stone-800 hover:bg-stone-700 text-stone-300 hover:text-white text-xs font-bold transition-all cursor-pointer border border-stone-700"
             >
               Solo Necesarias
             </button>

@@ -448,7 +448,7 @@ export function HomeView({
                 </div>
               </div>
             ) : (
-              <div className="p-6 rounded-2xl bg-zinc-50 dark:bg-zinc-850 border border-zinc-200 dark:border-zinc-800 text-center space-y-3">
+              <div className="p-6 rounded-2xl bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-center space-y-3">
                 <div className="w-12 h-12 rounded-2xl bg-amber-500/15 text-amber-600 dark:text-amber-400 flex items-center justify-center mx-auto">
                   <ChefHat size={24} />
                 </div>

@@ -135,7 +135,7 @@ export const ServiceTimelineModal: React.FC<ServiceTimelineModalProps> = ({
                     ? 'bg-emerald-50 dark:bg-emerald-950/20 border-emerald-300 dark:border-emerald-500/30 text-zinc-900 dark:text-stone-200'
                     : m.status === 'current'
                       ? 'bg-amber-500/15 border-amber-500/60 text-zinc-900 dark:text-white font-bold shadow-md'
-                      : 'bg-stone-850/50 border-stone-800 text-stone-500'
+                      : 'bg-stone-900/50 border-stone-800 text-stone-500'
                 }`}
               >
                 <div className="p-2 rounded-xl bg-stone-900 border border-stone-800 shrink-0">
@@ -181,7 +181,7 @@ export const ServiceTimelineModal: React.FC<ServiceTimelineModalProps> = ({
         <div className="p-4 bg-stone-950/80 border-t border-stone-800 flex justify-end">
           <button
             onClick={onClose}
-            className="px-5 py-2.5 rounded-xl bg-stone-800 hover:bg-stone-750 text-white font-bold text-xs transition-colors cursor-pointer"
+            className="px-5 py-2.5 rounded-xl bg-stone-800 hover:bg-stone-700 text-white font-bold text-xs transition-colors cursor-pointer"
           >
             Cerrar
           </button>

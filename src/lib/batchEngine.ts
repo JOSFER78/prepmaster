@@ -448,7 +448,7 @@ const RECIPE_BLUEPRINTS: RecipeBlueprint[] = [
   }
 ];
 
-import { CARMEN_RECIPES_DATABASE, getFilteredCarmenRecipes, CanonicalRecipe } from '../data/recipesCarmenDatabase';
+import { TRADITIONAL_RECIPES_DATABASE, getFilteredTraditionalRecipes, CanonicalRecipe } from '../data/recipesTraditionalDatabase';
 
 /**
  * Genera el conjunto dinámico de platos ajustado a comensales, días, tomas, estilo y alérgenos
@@ -461,22 +461,22 @@ export function generateDynamicBatchDishes(
   const structure = calculateBatchStructure(config);
   const diet = config.dietStyle || 'mediterranean';
 
-  // Obtener recetas filtradas de Cocina con Carmen
-  const lunchPool = getFilteredCarmenRecipes({
+  // Obtener recetas filtradas de Cocina Tradicional
+  const lunchPool = getFilteredTraditionalRecipes({
     mealType: 'lunch',
     dietStyle: diet as any,
     excludedAllergens
   });
 
-  const dinnerPool = getFilteredCarmenRecipes({
+  const dinnerPool = getFilteredTraditionalRecipes({
     mealType: 'dinner',
     dietStyle: diet as any,
     excludedAllergens
   });
 
   // Fallback si el filtro es muy restrictivo
-  const fallbackLunch = CARMEN_RECIPES_DATABASE.filter(r => r.mealType === 'lunch' || r.mealType === 'universal');
-  const fallbackDinner = CARMEN_RECIPES_DATABASE.filter(r => r.mealType === 'dinner' || r.mealType === 'universal');
+  const fallbackLunch = TRADITIONAL_RECIPES_DATABASE.filter(r => r.mealType === 'lunch' || r.mealType === 'universal');
+  const fallbackDinner = TRADITIONAL_RECIPES_DATABASE.filter(r => r.mealType === 'dinner' || r.mealType === 'universal');
 
   const finalLunchPool = lunchPool.length > 0 ? lunchPool : fallbackLunch;
   const finalDinnerPool = dinnerPool.length > 0 ? dinnerPool : fallbackDinner;
@@ -527,7 +527,7 @@ export function generateDynamicBatchDishes(
 }
 
 /**
- * Convierte una receta canónica individual de Carmen en un BatchDish con las raciones especificadas
+ * Convierte una receta canónica individual de Cocina Tradicional en un BatchDish con las raciones especificadas
  */
 export function createDishFromCanonicalRecipe(recipe: CanonicalRecipe, servings: number): BatchDish {
   const safeServings = Math.max(1, servings || 4);

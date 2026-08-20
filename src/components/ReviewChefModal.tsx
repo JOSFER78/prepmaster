@@ -58,7 +58,7 @@ export const ReviewChefModal: React.FC<ReviewChefModalProps> = ({
   };
 
   const renderStarInput = (label: string, value: number, onChange: (val: number) => void) => (
-    <div className="flex items-center justify-between p-2.5 bg-zinc-50 dark:bg-stone-850 rounded-xl border border-zinc-200 dark:border-stone-800">
+    <div className="flex items-center justify-between p-2.5 bg-zinc-50 dark:bg-stone-900 rounded-xl border border-zinc-200 dark:border-stone-800">
       <span className="text-xs text-zinc-700 dark:text-stone-300 font-medium">{label}</span>
       <div className="flex items-center gap-1">
         {[1, 2, 3, 4, 5].map((star) => (
@@ -156,7 +156,7 @@ export const ReviewChefModal: React.FC<ReviewChefModalProps> = ({
               onChange={(e) => setComment(e.target.value)}
               rows={3}
               placeholder="¿Qué platos quedaron especialmente buenos? ¿Cómo fue el orden en la cocina?"
-              className="w-full bg-white dark:bg-stone-850 border border-zinc-300 dark:border-stone-700 rounded-xl p-3 text-xs text-zinc-900 dark:text-white placeholder:text-zinc-400 dark:placeholder:text-stone-500 focus:outline-none focus:border-amber-500"
+              className="w-full bg-white dark:bg-stone-900 border border-zinc-300 dark:border-stone-700 rounded-xl p-3 text-xs text-zinc-900 dark:text-white placeholder:text-zinc-400 dark:placeholder:text-stone-500 focus:outline-none focus:border-amber-500"
             />
           </div>
 
@@ -179,7 +179,7 @@ export const ReviewChefModal: React.FC<ReviewChefModalProps> = ({
             <button
               type="button"
               onClick={onClose}
-              className="px-4 py-2.5 rounded-xl bg-stone-800 hover:bg-stone-750 text-zinc-700 dark:text-stone-300 text-xs font-bold transition-colors cursor-pointer"
+              className="px-4 py-2.5 rounded-xl bg-stone-800 hover:bg-stone-700 text-zinc-700 dark:text-stone-300 text-xs font-bold transition-colors cursor-pointer"
             >
               Cancelar
             </button>

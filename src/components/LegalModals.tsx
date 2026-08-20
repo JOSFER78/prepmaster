@@ -80,7 +80,7 @@ export function LegalModals({ isOpen, type, onClose }: LegalModalProps) {
           {/* 2. TERMS OF SERVICE */}
           {type === 'terms' && (
             <>
-              <div className="p-3 bg-zinc-50 dark:bg-stone-850 border border-zinc-200 dark:border-stone-800 rounded-2xl text-zinc-700 dark:text-stone-300 text-[11px]">
+              <div className="p-3 bg-zinc-50 dark:bg-stone-900 border border-zinc-200 dark:border-stone-800 rounded-2xl text-zinc-700 dark:text-stone-300 text-[11px]">
                 <strong>Condiciones de Plataforma:</strong> Regulan el acceso al software planificador TouChef y la contratación de servicios de cocina a domicilio en territorio español.
               </div>
 
@@ -123,11 +123,11 @@ export function LegalModals({ isOpen, type, onClose }: LegalModalProps) {
 
                 <h4 className="font-bold text-zinc-900 dark:text-white text-sm pt-2">2. Tipología de Cookies Empleadas</h4>
                 <div className="space-y-2">
-                  <div className="p-2.5 bg-zinc-50 dark:bg-stone-850 rounded-xl border border-zinc-200 dark:border-stone-800">
+                  <div className="p-2.5 bg-zinc-50 dark:bg-stone-900 rounded-xl border border-zinc-200 dark:border-stone-800">
                     <strong className="text-zinc-900 dark:text-white block text-xs">Cookies Técnicas (Estrictamente Necesarias)</strong>
                     <span className="text-zinc-600 dark:text-stone-400 text-[11px]">Gestión del token de autenticación Firebase, persistencia del lote activo y estado de la cesta DIA. No requieren consentimiento previo.</span>
                   </div>
-                  <div className="p-2.5 bg-zinc-50 dark:bg-stone-850 rounded-xl border border-zinc-200 dark:border-stone-800">
+                  <div className="p-2.5 bg-zinc-50 dark:bg-stone-900 rounded-xl border border-zinc-200 dark:border-stone-800">
                     <strong className="text-zinc-900 dark:text-white block text-xs">Cookies de Personalización</strong>
                     <span className="text-zinc-600 dark:text-stone-400 text-[11px]">Guardan la memoria del hogar (tipo de placa, fuegos, comensales y alérgenos).</span>
                   </div>

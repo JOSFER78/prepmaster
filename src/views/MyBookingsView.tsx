@@ -258,7 +258,7 @@ export const MyBookingsView: React.FC<MyBookingsViewProps> = ({
 
                 {/* Directives for open preferences request */}
                 {b.isOpenPreferencesRequest ? (
-                  <div className="p-3.5 bg-zinc-50 dark:bg-zinc-850 rounded-2xl border border-zinc-200 dark:border-zinc-800 text-xs space-y-1.5">
+                  <div className="p-3.5 bg-zinc-50 dark:bg-zinc-900 rounded-2xl border border-zinc-200 dark:border-zinc-800 text-xs space-y-1.5">
                     <div className="flex items-center justify-between">
                       <span className="text-[10px] font-black uppercase text-amber-600 dark:text-amber-400">
                         Pautas y Directivas del Encargo Abierto:

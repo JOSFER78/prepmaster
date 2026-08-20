@@ -1,4 +1,4 @@
-import { CARMEN_RECIPES_DATABASE, CanonicalRecipe, matchCarmenRecipesByPrompt } from '../data/recipesCarmenDatabase';
+import { TRADITIONAL_RECIPES_DATABASE, CanonicalRecipe, matchTraditionalRecipesByPrompt } from '../data/recipesTraditionalDatabase';
 import { BatchDish, GeneratedMenuPlan } from '../types';
 
 const DEFAULT_BASE_URL = 'https://143-47-35-167.sslip.io/v1';
@@ -8,7 +8,7 @@ const DEFAULT_MODEL = 'auto';
 export interface AIChatMessage {
   role: 'system' | 'user' | 'assistant';
   content: string;
-  suggestedRecipes?: string[]; // IDs of Carmen recipes suggested in this message
+  suggestedRecipes?: string[]; // IDs of traditional recipes suggested in this message
 }
 
 export interface AIPlanProposal {
@@ -20,10 +20,10 @@ export interface AIPlanProposal {
 }
 
 /**
- * Resumen del catálogo de Carmen para alimentar el System Prompt del LLM
+ * Resumen del catálogo tradicional para alimentar el System Prompt del LLM
  */
-function getCarmenCatalogSummary(): string {
-  return CARMEN_RECIPES_DATABASE.map(r => 
+function getTraditionalCatalogSummary(): string {
+  return TRADITIONAL_RECIPES_DATABASE.map(r => 
     `- [ID: ${r.id}] "${r.name}" (${r.category}, estación: ${r.station}, tiempo: ${r.prepTimeFormatted}, alérgenos: ${r.allergens.join(', ') || 'ninguno'}, nevera: ${r.shelfLifeDaysFridge}d)`
   ).join('\n');
 }
@@ -39,19 +39,18 @@ export async function sendChatMessageToFreeLLM(
   const baseUrl = customBaseUrl || DEFAULT_BASE_URL;
   const apiKey = customApiKey || DEFAULT_API_KEY;
 
-  const systemPrompt = `Eres TouChef AI, el Copiloto Culinario y Asesor Culinario Experto de la plataforma TouChef 2.0.
-Tu conocimiento proviene directamente del recetario tradicional de Cocina con Carmen y de los compendios técnicos de Batch Cooking y Seguridad Alimentaria (docs/fuentes/).
+  const systemPrompt = `Eres TouChef AI, el Copiloto Culinario y Asesor Experto en Batch Cooking de la plataforma TouChef 2.0.
+Tu conocimiento proviene directamente del recetario de Cocina Tradicional Española y de los compendios técnicos de Batch Cooking y Concurrencia Térmica (docs/fuentes/).
 
 DIRECTIVAS PRINCIPALES:
 1. Habla con cercanía, profesionalidad y pasión por la cocina casera tradicional y saludable.
-2. Si el usuario te da pocos detalles, hazle 1 o 2 preguntas clave (número de comensales, días, gustos, intolerancias, o qué tiene en su despensa).
-3. Propón siempre platos concretos de la base canónica de Cocina con Carmen.
-4. Explica las raciones recomendadas, los gramajes aproximados y cómo coordinar la cocción en paralelo (olla rápida, horno, fuegos).
-5. Si el usuario pide variaciones (ej: sin gluten, sin cerdo, más proteína, vegetariano), explícale la adaptación técnica exacta.
-6. Al proponer un lote o menú, incluye siempre los [ID: carmen-...] de las recetas recomendadas para que el sistema pueda cargarlas automáticamente.
+2. IMPORTANTE SOBRE VARIACIONES DE INGREDIENTES: Un ingrediente (como bacalao o pollo/contramuslos) admite múltiples preparaciones canónicas tradicionales (guiso/cazuela, salsa verde, al ajillo, asado al horno, potaje de cuchara, arroz meloso, tortilla). Si el usuario pide un ingrediente, reconócele las opciones disponibles y pregúntale qué estilo o técnica prefiere si procede.
+3. Propón siempre platos concretos de la base canónica de Cocina Tradicional incluyendo siempre sus [ID: trad-...] para que el sistema interactivo los cargue.
+4. Explica cómo coordinar las estaciones térmicas en paralelo (olla rápida, horno simultáneo, fuego 1, fuego 2) para cocinar todo el lote en 90-120 minutos sin cuellos de botella.
+5. Adapta según alérgenos y estilos dietéticos (Mediterráneo, Tradicional, Fitness, Vegetariano, Low Carb).
 
-CATÁLOGO CANÓNICO DE RECETAS DE CARMEN DISPONIBLES:
-${getCarmenCatalogSummary()}
+CATÁLOGO CANÓNICO DE RECETAS TRADICIONALES DISPONIBLES:
+${getTraditionalCatalogSummary()}
 `;
 
   const payloadMessages = [
@@ -89,13 +88,13 @@ ${getCarmenCatalogSummary()}
 }
 
 /**
- * Extrae los IDs de recetas de Carmen sugeridas en el texto de la IA
+ * Extrae los IDs de recetas tradicionales sugeridas en el texto de la IA
  */
 export function extractRecipeIdsFromAIText(text: string): string[] {
-  const matches = text.match(/carmen-[\w-]+/g);
+  const matches = text.match(/trad-[\w-]+/g);
   if (!matches) return [];
   const unique = Array.from(new Set(matches));
-  return unique.filter(id => CARMEN_RECIPES_DATABASE.some(r => r.id === id));
+  return unique.filter(id => TRADITIONAL_RECIPES_DATABASE.some(r => r.id === id));
 }
 
 export interface QuickActionPrompt {
@@ -148,23 +147,23 @@ export async function requestAISwapRecipe(
   allergens: string[] = []
 ): Promise<{ newRecipeId: string; reason: string }> {
   const currentDishesNames = currentRecipeIds.map(id => {
-    const r = CARMEN_RECIPES_DATABASE.find(x => x.id === id);
+    const r = TRADITIONAL_RECIPES_DATABASE.find(x => x.id === id);
     return r ? `"${r.name}" (${r.category})` : id;
   }).join(', ');
 
-  const targetDish = CARMEN_RECIPES_DATABASE.find(x => x.id === recipeToReplaceId)?.name || recipeToReplaceId;
+  const targetDish = TRADITIONAL_RECIPES_DATABASE.find(x => x.id === recipeToReplaceId)?.name || recipeToReplaceId;
 
   const prompt = `Actualmente el menú tiene estos platos: ${currentDishesNames}.
-Queremos SUSTITUIR el plato "${targetDish}" por otra receta del catálogo de Carmen.
+Queremos SUSTITUIR el plato "${targetDish}" por otra receta del catálogo tradicional.
 Motivo o preferencia del usuario: "${userReason || 'Dar otra alternativa deliciosa y compatible'}".
 Alérgenos a evitar: ${allergens.join(', ') || 'Ninguno'}.
 
 Catálogo disponible:
-${CARMEN_RECIPES_DATABASE.filter(r => !currentRecipeIds.includes(r.id)).map(r => `- [ID: ${r.id}] "${r.name}" (${r.category}, ${r.prepTimeFormatted})`).join('\n')}
+${TRADITIONAL_RECIPES_DATABASE.filter(r => !currentRecipeIds.includes(r.id)).map(r => `- [ID: ${r.id}] "${r.name}" (${r.category}, ${r.prepTimeFormatted})`).join('\n')}
 
 Responde ÚNICAMENTE un JSON con:
 {
-  "newRecipeId": "carmen-...",
+  "newRecipeId": "trad-...",
   "reason": "Breve explicación de por qué esta receta encaja perfectamente como sustituta"
 }`;
 
@@ -190,7 +189,7 @@ Responde ÚNICAMENTE un JSON con:
     let content = data.choices?.[0]?.message?.content || '{}';
     content = content.replace(/```json/g, '').replace(/```/g, '').trim();
     const parsed = JSON.parse(content);
-    if (parsed.newRecipeId && CARMEN_RECIPES_DATABASE.some(r => r.id === parsed.newRecipeId)) {
+    if (parsed.newRecipeId && TRADITIONAL_RECIPES_DATABASE.some(r => r.id === parsed.newRecipeId)) {
       return parsed;
     }
   } catch (err) {
@@ -198,7 +197,7 @@ Responde ÚNICAMENTE un JSON con:
   }
 
   // Fallback: pick another recipe from database not in current
-  const alternative = CARMEN_RECIPES_DATABASE.find(r => !currentRecipeIds.includes(r.id) && !r.allergens.some(a => allergens.includes(a))) || CARMEN_RECIPES_DATABASE[0];
+  const alternative = TRADITIONAL_RECIPES_DATABASE.find(r => !currentRecipeIds.includes(r.id) && !r.allergens.some(a => allergens.includes(a))) || TRADITIONAL_RECIPES_DATABASE[0];
   return {
     newRecipeId: alternative.id,
     reason: `Sustituido por ${alternative.name} para mantener el equilibrio del lote.`
@@ -218,8 +217,8 @@ export async function generateStructuredAIProposal(
   const baseUrl = DEFAULT_BASE_URL;
   const apiKey = customApiKey || DEFAULT_API_KEY;
 
-  // Pre-emparejar deterministicamente con el recetario de Carmen por si la IA tarda o falla
-  const preMatched = matchCarmenRecipesByPrompt(userGoal, allergens, undefined, 4);
+  // Pre-emparejar deterministicamente con el recetario tradicional por si la IA tarda o falla
+  const preMatched = matchTraditionalRecipesByPrompt(userGoal, allergens, undefined, 4);
   const preMatchedIds = preMatched.map(r => r.id);
 
   const prompt = `Genera un menú semanal de Batch Cooking para ${peopleCount} personas durante ${daysCount} días.
@@ -235,8 +234,8 @@ Debes responder ÚNICAMENTE un objeto JSON válido con esta estructura exacta, s
   "philosophy": "Explicación de cómo este menú cumple la petición '${userGoal}' y cómo se cocina en 2 horas en paralelo",
   "selectedRecipeIds": ${JSON.stringify(preMatchedIds)},
   "servingsPerDish": {
-    "${preMatchedIds[0] || 'carmen-lentejas-chorizo'}": ${Math.max(4, peopleCount * 2)},
-    "${preMatchedIds[1] || 'carmen-pollo-pepitoria'}": ${Math.max(4, peopleCount * 2)}
+    "${preMatchedIds[0] || 'trad-lentejas-chorizo'}": ${Math.max(4, peopleCount * 2)},
+    "${preMatchedIds[1] || 'trad-pollo-pepitoria'}": ${Math.max(4, peopleCount * 2)}
   },
   "variationsAndTips": [
     "Consejo de mise en place previa para coordinar fuegos",
@@ -244,8 +243,8 @@ Debes responder ÚNICAMENTE un objeto JSON válido con esta estructura exacta, s
   ]
 }
 
-Usa EXCLUSIVAMENTE IDs reales del catálogo de Carmen:
-${CARMEN_RECIPES_DATABASE.map(r => r.id).join(', ')}`;
+Usa EXCLUSIVAMENTE IDs reales del catálogo tradicional:
+${TRADITIONAL_RECIPES_DATABASE.map(r => r.id).join(', ')}`;
 
   try {
     const response = await fetch(`${baseUrl}/chat/completions`, {
@@ -271,7 +270,7 @@ ${CARMEN_RECIPES_DATABASE.map(r => r.id).join(', ')}`;
     const parsed = JSON.parse(content) as AIPlanProposal;
 
     // Validar que los IDs devueltos existen realmente en el catálogo
-    const validIds = (parsed.selectedRecipeIds || []).filter(id => CARMEN_RECIPES_DATABASE.some(r => r.id === id));
+    const validIds = (parsed.selectedRecipeIds || []).filter(id => TRADITIONAL_RECIPES_DATABASE.some(r => r.id === id));
     if (validIds.length > 0) {
       return {
         ...parsed,
@@ -290,8 +289,8 @@ ${CARMEN_RECIPES_DATABASE.map(r => r.id).join(', ')}`;
 
   return {
     title: userGoal ? `Menú Adaptado: ${userGoal.slice(0, 45)}` : `Menú Tradicional Equilibrado (${peopleCount} personas · ${daysCount} días)`,
-    philosophy: `Estructura optimizada con recetas de Carmen seleccionadas expresamente según tus preferencias (${userGoal || 'Equilibrado'}), coordinadas en paralelo.`,
-    selectedRecipeIds: preMatchedIds.length > 0 ? preMatchedIds : ['carmen-lentejas-chorizo', 'carmen-pollo-pepitoria', 'carmen-pisto-manchego', 'carmen-crema-calabacin-suave'],
+    philosophy: `Estructura optimizada con recetas de Cocina Tradicional seleccionadas expresamente según tus preferencias (${userGoal || 'Equilibrado'}), coordinadas en paralelo.`,
+    selectedRecipeIds: preMatchedIds.length > 0 ? preMatchedIds : ['trad-lentejas-chorizo', 'trad-pollo-pepitoria', 'trad-pisto-manchego', 'trad-crema-calabacin-suave'],
     servingsPerDish: fallbackServings,
     variationsAndTips: [
       'Picar todas las verduras en mise en place antes de encender fogones.',

@@ -1,6 +1,5 @@
 /**
- * 🥘 BASE DE DATOS MAESTRA DE RECETAS CANÓNICAS — COCINA CON CARMEN
- * Fuente Única de Verdad (SSOT) indexada desde `docs/fuentes/01_recetas_cocina_con_carmen/`
+ * 🥘 BASE DE DATOS MAESTRA DE RECETAS CANÓNICAS — COCINA TRADICIONAL
  * Estandarización milimétrica para TouChef Batch Cooking & Recetas Individuales:
  * - Ingredientes exactos y proporciones por ración individual.
  * - Clasificación de estaciones térmicas para cocinado concurrente.
@@ -30,8 +29,8 @@ export interface CanonicalRecipe {
   suitableDiets: Array<'mediterranean' | 'traditional' | 'fitness' | 'veggie' | 'lowcarb'>;
   allergens: string[];
   image: string;
-  source: 'Cocina con Carmen';
-  sourceCompendium: string; // Archivo markdown de origen en docs/fuentes/
+  source: 'Cocina Tradicional';
+  sourceCompendium: string;
   ingredientsPerServing: CanonicalRecipeIngredient[];
   instructions: string[];
   batchTip: string;
@@ -40,12 +39,12 @@ export interface CanonicalRecipe {
   culinaryTechnique?: 'guiso' | 'salsa' | 'asado_horno' | 'sarten_ajillo' | 'cuchara_potaje' | 'crema' | 'arroz_meloso' | 'tortilla' | 'frito_empanado' | 'frio_alino';
 }
 
-export const CARMEN_RECIPES_DATABASE: CanonicalRecipe[] = [
+export const TRADITIONAL_RECIPES_DATABASE: CanonicalRecipe[] = [
   // =========================================================================
-  // 1. FAMILIA BACALAO (VARIACIONES CANÓNICAS DE CARMEN)
+  // 1. FAMILIA BACALAO (VARIACIONES CANÓNICAS TRADICIONALES)
   // =========================================================================
   {
-    id: 'carmen-bacalao-ajoarriero',
+    id: 'trad-bacalao-ajoarriero',
     name: 'Bacalao al Ajoarriero Tradicional con Pimientos Asados y Tomate Confitado',
     shortName: 'Bacalao al Ajoarriero',
     category: 'pescados',
@@ -59,7 +58,7 @@ export const CARMEN_RECIPES_DATABASE: CanonicalRecipe[] = [
     suitableDiets: ['mediterranean', 'traditional', 'fitness', 'lowcarb'],
     allergens: ['Pescado'],
     image: 'https://images.unsplash.com/photo-1534422298391-e4f8c172dddb?w=600&auto=format&fit=crop&q=80',
-    source: 'Cocina con Carmen',
+    source: 'Cocina Tradicional',
     sourceCompendium: 'pescados_legumbres_arroces.md',
     youtubeUrl: 'https://www.youtube.com/watch?v=TNjGDWUjEg8',
     mainIngredientFamily: 'bacalao',
@@ -80,8 +79,8 @@ export const CARMEN_RECIPES_DATABASE: CanonicalRecipe[] = [
     batchTip: 'Plato emblemático de batch cooking: tras 24h en frío, la gelatina y el pimiento intensifican su sabor.'
   },
   {
-    id: 'carmen-potaje-vigilia-bacalao',
-    name: 'Potaje de Garbanzos con Bacalao y Espinacas Frescas (Vigilia de Carmen)',
+    id: 'trad-potaje-vigilia-bacalao',
+    name: 'Potaje de Garbanzos con Bacalao y Espinacas Frescas (Vigilia Tradicional)',
     shortName: 'Potaje de Garbanzos con Bacalao',
     category: 'legumbres',
     mealType: 'lunch',
@@ -94,7 +93,7 @@ export const CARMEN_RECIPES_DATABASE: CanonicalRecipe[] = [
     suitableDiets: ['mediterranean', 'traditional', 'fitness'],
     allergens: ['Pescado', 'Huevos'],
     image: 'https://images.unsplash.com/photo-1547592180-85f173990554?w=600&auto=format&fit=crop&q=80',
-    source: 'Cocina con Carmen',
+    source: 'Cocina Tradicional',
     sourceCompendium: '09_legumbres_y_potajes_de_cuchara.md',
     youtubeUrl: 'https://www.youtube.com/watch?v=dTxbi-ma7zQ',
     mainIngredientFamily: 'bacalao',
@@ -115,7 +114,7 @@ export const CARMEN_RECIPES_DATABASE: CanonicalRecipe[] = [
     batchTip: 'El majado emulsiona el caldo sedosamente sin necesidad de espesantes industriales.'
   },
   {
-    id: 'carmen-bacalao-salsa-verde',
+    id: 'trad-bacalao-salsa-verde',
     name: 'Lomos de Bacalao en Salsa Verde Tradicional con Almejas y Perejil',
     shortName: 'Bacalao en Salsa Verde con Almejas',
     category: 'pescados',
@@ -129,7 +128,7 @@ export const CARMEN_RECIPES_DATABASE: CanonicalRecipe[] = [
     suitableDiets: ['mediterranean', 'traditional', 'fitness', 'lowcarb'],
     allergens: ['Pescado', 'Moluscos'],
     image: 'https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?w=600&auto=format&fit=crop&q=80',
-    source: 'Cocina con Carmen',
+    source: 'Cocina Tradicional',
     sourceCompendium: 'pescados_legumbres_arroces.md',
     mainIngredientFamily: 'bacalao',
     culinaryTechnique: 'salsa',
@@ -148,7 +147,7 @@ export const CARMEN_RECIPES_DATABASE: CanonicalRecipe[] = [
     batchTip: 'Salsa verde ligera con un punto sedoso gracias a la gelatina natural del bacalao y el vaivén de la cazuela.'
   },
   {
-    id: 'carmen-tortilla-bacalao',
+    id: 'trad-tortilla-bacalao',
     name: 'Tortilla Jugosa de Bacalao Desmigado con Pimientos y Cebolla Pochada',
     shortName: 'Tortilla de Bacalao y Pimientos',
     category: 'huevos',
@@ -162,7 +161,7 @@ export const CARMEN_RECIPES_DATABASE: CanonicalRecipe[] = [
     suitableDiets: ['mediterranean', 'traditional', 'fitness', 'lowcarb'],
     allergens: ['Huevos', 'Pescado'],
     image: 'https://images.unsplash.com/photo-1510693206972-df098062cb71?w=600&auto=format&fit=crop&q=80',
-    source: 'Cocina con Carmen',
+    source: 'Cocina Tradicional',
     sourceCompendium: '04_huevos_tortillas_y_revueltos.md',
     mainIngredientFamily: 'bacalao',
     culinaryTechnique: 'tortilla',
@@ -181,7 +180,7 @@ export const CARMEN_RECIPES_DATABASE: CanonicalRecipe[] = [
     batchTip: 'Cena rápida de alto valor proteico, muy jugosa y fácil de conservar en fiambrera.'
   },
   {
-    id: 'carmen-arroz-bacalao-coliflor',
+    id: 'trad-arroz-bacalao-coliflor',
     name: 'Arroz Meloso Tradicional con Bacalao, Coliflor y Azafrán de la Mancha',
     shortName: 'Arroz con Bacalao y Coliflor',
     category: 'arroces_pastas',
@@ -195,7 +194,7 @@ export const CARMEN_RECIPES_DATABASE: CanonicalRecipe[] = [
     suitableDiets: ['mediterranean', 'traditional', 'fitness'],
     allergens: ['Pescado'],
     image: 'https://images.unsplash.com/photo-1536304993881-ff6e9eefa2a6?w=600&auto=format&fit=crop&q=80',
-    source: 'Cocina con Carmen',
+    source: 'Cocina Tradicional',
     sourceCompendium: '07_arroces_paellas_y_fideuas.md',
     mainIngredientFamily: 'bacalao',
     culinaryTechnique: 'arroz_meloso',
@@ -215,10 +214,10 @@ export const CARMEN_RECIPES_DATABASE: CanonicalRecipe[] = [
   },
 
   // =========================================================================
-  // 2. FAMILIA POLLO / CONTRAMUSLOS / AVES (VARIACIONES CANÓNICAS)
+  // 2. FAMILIA POLLO / CONTRAMUSLOS / AVES (VARIACIONES TRADICIONALES)
   // =========================================================================
   {
-    id: 'carmen-pollo-pepitoria',
+    id: 'trad-pollo-pepitoria',
     name: 'Pollo de Corral en Pepitoria Tradicional con Almendras Tostadas y Azafrán',
     shortName: 'Pollo de Corral en Pepitoria',
     category: 'carnes',
@@ -232,7 +231,7 @@ export const CARMEN_RECIPES_DATABASE: CanonicalRecipe[] = [
     suitableDiets: ['mediterranean', 'traditional', 'fitness', 'lowcarb'],
     allergens: ['Frutos de cáscara', 'Huevos'],
     image: 'https://images.unsplash.com/photo-1598103442097-8b74394b95c6?w=600&auto=format&fit=crop&q=80',
-    source: 'Cocina con Carmen',
+    source: 'Cocina Tradicional',
     sourceCompendium: 'carnes_y_guisos.md',
     youtubeUrl: 'https://www.youtube.com/watch?v=F_fP4q16tCg',
     mainIngredientFamily: 'pollo',
@@ -253,7 +252,7 @@ export const CARMEN_RECIPES_DATABASE: CanonicalRecipe[] = [
     batchTip: 'Salsa espesada naturalmente por la almendra y la yema; excelente para recalentar toda la semana.'
   },
   {
-    id: 'carmen-pollo-ajillo',
+    id: 'trad-pollo-ajillo',
     name: 'Pollo al Ajillo Tradicional con Romero Fresco y Reducción de Vino Blanco',
     shortName: 'Pollo al Ajillo con Romero',
     category: 'carnes',
@@ -267,7 +266,7 @@ export const CARMEN_RECIPES_DATABASE: CanonicalRecipe[] = [
     suitableDiets: ['mediterranean', 'traditional', 'fitness', 'lowcarb'],
     allergens: ['Sulfitos'],
     image: 'https://images.unsplash.com/photo-1532550907401-a500c9a57435?w=600&auto=format&fit=crop&q=80',
-    source: 'Cocina con Carmen',
+    source: 'Cocina Tradicional',
     sourceCompendium: 'carnes_y_guisos.md',
     youtubeUrl: 'https://www.youtube.com/watch?v=d_k8wX2g8A4',
     mainIngredientFamily: 'pollo',
@@ -287,7 +286,7 @@ export const CARMEN_RECIPES_DATABASE: CanonicalRecipe[] = [
     batchTip: 'Sencillo, rápido y con un sabor intenso a campo gracias a los ajos en camisa confitados.'
   },
   {
-    id: 'carmen-pollo-asado-limon',
+    id: 'trad-pollo-asado-limon',
     name: 'Pollo Asado al Horno con Limón, Tomillo y Lecho de Patatas Panaderas',
     shortName: 'Pollo Asado al Limón con Patatas',
     category: 'carnes',
@@ -301,7 +300,7 @@ export const CARMEN_RECIPES_DATABASE: CanonicalRecipe[] = [
     suitableDiets: ['mediterranean', 'traditional', 'fitness'],
     allergens: [],
     image: 'https://images.unsplash.com/photo-1598103442097-8b74394b95c6?w=600&auto=format&fit=crop&q=80',
-    source: 'Cocina con Carmen',
+    source: 'Cocina Tradicional',
     sourceCompendium: 'carnes_y_guisos.md',
     mainIngredientFamily: 'pollo',
     culinaryTechnique: 'asado_horno',
@@ -320,7 +319,7 @@ export const CARMEN_RECIPES_DATABASE: CanonicalRecipe[] = [
     batchTip: 'Ideal para cocción en paralelo en el horno mientras se guisa en los fuegos de inducción.'
   },
   {
-    id: 'carmen-arroz-pollo-campero',
+    id: 'trad-arroz-pollo-campero',
     name: 'Arroz con Pollo Campero y Verduras de la Huerta a la Cazuela',
     shortName: 'Arroz con Pollo Campero',
     category: 'arroces_pastas',
@@ -334,7 +333,7 @@ export const CARMEN_RECIPES_DATABASE: CanonicalRecipe[] = [
     suitableDiets: ['mediterranean', 'traditional', 'fitness'],
     allergens: [],
     image: 'https://images.unsplash.com/photo-1543339308-43e59d6b73a6?w=600&auto=format&fit=crop&q=80',
-    source: 'Cocina con Carmen',
+    source: 'Cocina Tradicional',
     sourceCompendium: '07_arroces_paellas_y_fideuas.md',
     mainIngredientFamily: 'pollo',
     culinaryTechnique: 'arroz_meloso',
@@ -353,8 +352,8 @@ export const CARMEN_RECIPES_DATABASE: CanonicalRecipe[] = [
     batchTip: 'Comida reconfortante de mediodía llena de sabor y nutrientes.'
   },
   {
-    id: 'carmen-croquetas-pollo-asado',
-    name: 'Croquetas Caseras Cremosas de Pollo Asado y Huevo Duro de Carmen',
+    id: 'trad-croquetas-pollo-asado',
+    name: 'Croquetas Caseras Cremosas de Pollo Asado y Huevo Duro',
     shortName: 'Croquetas de Pollo Asado',
     category: 'tapas',
     mealType: 'dinner',
@@ -367,7 +366,7 @@ export const CARMEN_RECIPES_DATABASE: CanonicalRecipe[] = [
     suitableDiets: ['mediterranean', 'traditional'],
     allergens: ['Gluten', 'Lácteos', 'Huevos'],
     image: 'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=600&auto=format&fit=crop&q=80',
-    source: 'Cocina con Carmen',
+    source: 'Cocina Tradicional',
     sourceCompendium: '01_tapas_y_entrantes.md',
     mainIngredientFamily: 'pollo',
     culinaryTechnique: 'frito_empanado',
@@ -387,10 +386,10 @@ export const CARMEN_RECIPES_DATABASE: CanonicalRecipe[] = [
   },
 
   // =========================================================================
-  // 3. FAMILIA TERNERA / CARNES TRADICIONALES (VARIACIONES CANÓNICAS)
+  // 3. FAMILIA TERNERA / CARNES TRADICIONALES (VARIACIONES)
   // =========================================================================
   {
-    id: 'carmen-albondigas-salsa-abuela',
+    id: 'trad-albondigas-salsa-abuela',
     name: 'Albóndigas Caseras de Ternera en Salsa de la Abuela con Champiñones',
     shortName: 'Albóndigas Caseras en Salsa',
     category: 'carnes',
@@ -404,7 +403,7 @@ export const CARMEN_RECIPES_DATABASE: CanonicalRecipe[] = [
     suitableDiets: ['mediterranean', 'traditional', 'fitness'],
     allergens: ['Gluten', 'Huevos'],
     image: 'https://images.unsplash.com/photo-1529042410759-befb1204b468?w=600&auto=format&fit=crop&q=80',
-    source: 'Cocina con Carmen',
+    source: 'Cocina Tradicional',
     sourceCompendium: 'carnes_y_guisos.md',
     youtubeUrl: 'https://www.youtube.com/watch?v=kYv_87U1uH0',
     mainIngredientFamily: 'ternera',
@@ -424,7 +423,7 @@ export const CARMEN_RECIPES_DATABASE: CanonicalRecipe[] = [
     batchTip: 'Plato infalible para toda la familia: la salsa gana melosidad al reposar.'
   },
   {
-    id: 'carmen-carrilleras-vino-tinto',
+    id: 'trad-carrilleras-vino-tinto',
     name: 'Carrilleras de Ternera Glaseadas al Vino Tinto Rioja con Zanahorias',
     shortName: 'Carrilleras al Vino Tinto',
     category: 'carnes',
@@ -438,7 +437,7 @@ export const CARMEN_RECIPES_DATABASE: CanonicalRecipe[] = [
     suitableDiets: ['mediterranean', 'traditional', 'lowcarb', 'fitness'],
     allergens: ['Sulfitos'],
     image: 'https://images.unsplash.com/photo-1544025162-d76694265947?w=600&auto=format&fit=crop&q=80',
-    source: 'Cocina con Carmen',
+    source: 'Cocina Tradicional',
     sourceCompendium: 'carnes_y_guisos.md',
     youtubeUrl: 'https://www.youtube.com/watch?v=0hW64X_aHkI',
     mainIngredientFamily: 'ternera',
@@ -462,7 +461,7 @@ export const CARMEN_RECIPES_DATABASE: CanonicalRecipe[] = [
   // 4. FAMILIA PESCADOS & MARISCOS TRADICIONALES
   // =========================================================================
   {
-    id: 'carmen-merluza-salsa-verde',
+    id: 'trad-merluza-salsa-verde',
     name: 'Merluza del Cantábrico en Salsa Verde con Almejas y Espárragos Blancos',
     shortName: 'Merluza en Salsa Verde con Almejas',
     category: 'pescados',
@@ -476,7 +475,7 @@ export const CARMEN_RECIPES_DATABASE: CanonicalRecipe[] = [
     suitableDiets: ['mediterranean', 'traditional', 'fitness', 'lowcarb'],
     allergens: ['Pescado', 'Moluscos'],
     image: 'https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?w=600&auto=format&fit=crop&q=80',
-    source: 'Cocina con Carmen',
+    source: 'Cocina Tradicional',
     sourceCompendium: 'pescados_legumbres_arroces.md',
     youtubeUrl: 'https://www.youtube.com/watch?v=q6gX_p7fM_Y',
     mainIngredientFamily: 'merluza',
@@ -496,7 +495,7 @@ export const CARMEN_RECIPES_DATABASE: CanonicalRecipe[] = [
     batchTip: 'Cena ligera, digestiva y de alta calidad gastronómica para los primeros días del lote.'
   },
   {
-    id: 'carmen-marmitako-bonito',
+    id: 'trad-marmitako-bonito',
     name: 'Marmitako Tradicional de Bonito del Norte con Patatas Chascadas y Pimiento Choricero',
     shortName: 'Marmitako de Bonito del Norte',
     category: 'pescados',
@@ -510,7 +509,7 @@ export const CARMEN_RECIPES_DATABASE: CanonicalRecipe[] = [
     suitableDiets: ['mediterranean', 'traditional', 'fitness'],
     allergens: ['Pescado'],
     image: 'https://images.unsplash.com/photo-1547592180-85f173990554?w=600&auto=format&fit=crop&q=80',
-    source: 'Cocina con Carmen',
+    source: 'Cocina Tradicional',
     sourceCompendium: 'pescados_legumbres_arroces.md',
     youtubeUrl: 'https://www.youtube.com/watch?v=1-3U1_Z512c',
     mainIngredientFamily: 'atun',
@@ -534,8 +533,8 @@ export const CARMEN_RECIPES_DATABASE: CanonicalRecipe[] = [
   // 5. FAMILIA LEGUMBRES & VERDURAS TRADICIONALES
   // =========================================================================
   {
-    id: 'carmen-lentejas-chorizo',
-    name: 'Lentejas Pardinas con Chorizo, Costilla y el Majado Secreto de Carmen',
+    id: 'trad-lentejas-chorizo',
+    name: 'Lentejas Pardinas con Chorizo, Costilla y Majado Tradicional',
     shortName: 'Lentejas Pardinas con Chorizo',
     category: 'legumbres',
     mealType: 'lunch',
@@ -548,7 +547,7 @@ export const CARMEN_RECIPES_DATABASE: CanonicalRecipe[] = [
     suitableDiets: ['mediterranean', 'traditional', 'fitness'],
     allergens: ['Sulfitos'],
     image: 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=600&auto=format&fit=crop&q=80',
-    source: 'Cocina con Carmen',
+    source: 'Cocina Tradicional',
     sourceCompendium: '09_legumbres_y_potajes_de_cuchara.md',
     youtubeUrl: 'https://www.youtube.com/watch?v=ktv5vseGTSY',
     mainIngredientFamily: 'legumbres',
@@ -574,7 +573,7 @@ export const CARMEN_RECIPES_DATABASE: CanonicalRecipe[] = [
     batchTip: 'Guiso rey del batch cooking: gana untuosidad y profundidad tras 24h de reposo en frío.'
   },
   {
-    id: 'carmen-alubias-blancas-estofadas',
+    id: 'trad-alubias-blancas-estofadas',
     name: 'Alubias Blancas Estofadas con Verduras de la Huerta y Panceta Ibérica',
     shortName: 'Alubias Blancas Estofadas',
     category: 'legumbres',
@@ -588,7 +587,7 @@ export const CARMEN_RECIPES_DATABASE: CanonicalRecipe[] = [
     suitableDiets: ['mediterranean', 'traditional'],
     allergens: [],
     image: 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=600&auto=format&fit=crop&q=80',
-    source: 'Cocina con Carmen',
+    source: 'Cocina Tradicional',
     sourceCompendium: '09_legumbres_y_potajes_de_cuchara.md',
     mainIngredientFamily: 'legumbres',
     culinaryTechnique: 'cuchara_potaje',
@@ -607,8 +606,8 @@ export const CARMEN_RECIPES_DATABASE: CanonicalRecipe[] = [
     batchTip: 'Cuchara tradicional nutritiva y muy fácil de calentar en microondas 3 min.'
   },
   {
-    id: 'carmen-pisto-manchego',
-    name: 'Pisto Manchego Tradicional Confitado a Fuego Lento de Carmen',
+    id: 'trad-pisto-manchego',
+    name: 'Pisto Manchego Tradicional Confitado a Fuego Lento',
     shortName: 'Pisto Manchego Confitado',
     category: 'verduras',
     mealType: 'universal',
@@ -621,7 +620,7 @@ export const CARMEN_RECIPES_DATABASE: CanonicalRecipe[] = [
     suitableDiets: ['mediterranean', 'traditional', 'veggie', 'fitness', 'lowcarb'],
     allergens: [],
     image: 'https://images.unsplash.com/photo-1540420773420-3366772f4999?w=600&auto=format&fit=crop&q=80',
-    source: 'Cocina con Carmen',
+    source: 'Cocina Tradicional',
     sourceCompendium: 'verduras_salsas_postres.md',
     youtubeUrl: 'https://www.youtube.com/watch?v=0hW64X_aHkI',
     mainIngredientFamily: 'verduras',
@@ -641,7 +640,7 @@ export const CARMEN_RECIPES_DATABASE: CanonicalRecipe[] = [
     batchTip: 'Compañero universal: sirve de guarnición para carnes, pescados, huevos fritos o relleno de empanada.'
   },
   {
-    id: 'carmen-crema-calabacin-suave',
+    id: 'trad-crema-calabacin-suave',
     name: 'Crema Aterciopelada de Calabacín, Puerro y Quesitos Suaves',
     shortName: 'Crema de Calabacín Aterciopelada',
     category: 'cremas',
@@ -655,7 +654,7 @@ export const CARMEN_RECIPES_DATABASE: CanonicalRecipe[] = [
     suitableDiets: ['mediterranean', 'traditional', 'veggie', 'fitness'],
     allergens: ['Lácteos'],
     image: 'https://images.unsplash.com/photo-1547592166-23ac45744acd?w=600&auto=format&fit=crop&q=80',
-    source: 'Cocina con Carmen',
+    source: 'Cocina Tradicional',
     sourceCompendium: '02_sopas_cremas_y_potajes.md',
     youtubeUrl: 'https://www.youtube.com/watch?v=d_k8wX2g8A4',
     mainIngredientFamily: 'verduras',
@@ -675,8 +674,8 @@ export const CARMEN_RECIPES_DATABASE: CanonicalRecipe[] = [
     batchTip: 'Cena digestiva, saciante y con un color verde brillante muy apetecible.'
   },
   {
-    id: 'carmen-salmorejo-cordobes',
-    name: 'Salmorejo Cordobés Tradicional de Carmen con Jamón Ibérico y Huevo Duro',
+    id: 'trad-salmorejo-cordobes',
+    name: 'Salmorejo Cordobés Tradicional con Jamón Ibérico y Huevo Duro',
     shortName: 'Salmorejo Cordobés Tradicional',
     category: 'cremas',
     mealType: 'universal',
@@ -689,7 +688,7 @@ export const CARMEN_RECIPES_DATABASE: CanonicalRecipe[] = [
     suitableDiets: ['mediterranean', 'traditional'],
     allergens: ['Gluten', 'Huevos'],
     image: 'https://images.unsplash.com/photo-1540420773420-3366772f4999?w=600&auto=format&fit=crop&q=80',
-    source: 'Cocina con Carmen',
+    source: 'Cocina Tradicional',
     sourceCompendium: '02_sopas_cremas_y_potajes.md',
     youtubeUrl: 'https://www.youtube.com/watch?v=F_fP4q16tCg',
     mainIngredientFamily: 'verduras',
@@ -713,8 +712,8 @@ export const CARMEN_RECIPES_DATABASE: CanonicalRecipe[] = [
   // 6. ARROCES, PASTAS & MASAS TRADICIONALES
   // =========================================================================
   {
-    id: 'carmen-arroz-caldoso-marinero',
-    name: 'Arroz Caldoso Marinero con Gambones, Sepia y Fumet Concentrado de Carmen',
+    id: 'trad-arroz-caldoso-marinero',
+    name: 'Arroz Caldoso Marinero con Gambones, Sepia y Fumet Concentrado',
     shortName: 'Arroz Caldoso Marinero',
     category: 'arroces_pastas',
     mealType: 'lunch',
@@ -727,7 +726,7 @@ export const CARMEN_RECIPES_DATABASE: CanonicalRecipe[] = [
     suitableDiets: ['mediterranean', 'traditional', 'fitness'],
     allergens: ['Crustáceos', 'Moluscos', 'Pescado'],
     image: 'https://images.unsplash.com/photo-1536304993881-ff6e9eefa2a6?w=600&auto=format&fit=crop&q=80',
-    source: 'Cocina con Carmen',
+    source: 'Cocina Tradicional',
     sourceCompendium: '07_arroces_paellas_y_fideuas.md',
     youtubeUrl: 'https://www.youtube.com/watch?v=ktv5vseGTSY',
     mainIngredientFamily: 'arroz',
@@ -747,8 +746,8 @@ export const CARMEN_RECIPES_DATABASE: CanonicalRecipe[] = [
     batchTip: 'El fumet casero de cabezas de marisco multiplica el sabor marinero del caldo.'
   },
   {
-    id: 'carmen-tortilla-patatas-cebolla',
-    name: 'Tortilla Española de Patatas Jugosa con Cebolla Pochada (el punto de Carmen)',
+    id: 'trad-tortilla-patatas-cebolla',
+    name: 'Tortilla Española de Patatas Jugosa con Cebolla Pochada',
     shortName: 'Tortilla de Patatas con Cebolla',
     category: 'huevos',
     mealType: 'universal',
@@ -761,7 +760,7 @@ export const CARMEN_RECIPES_DATABASE: CanonicalRecipe[] = [
     suitableDiets: ['mediterranean', 'traditional', 'veggie'],
     allergens: ['Huevos'],
     image: 'https://images.unsplash.com/photo-1510693206972-df098062cb71?w=600&auto=format&fit=crop&q=80',
-    source: 'Cocina con Carmen',
+    source: 'Cocina Tradicional',
     sourceCompendium: '04_huevos_tortillas_y_revueltos.md',
     youtubeUrl: 'https://www.youtube.com/watch?v=F_fP4q16tCg',
     mainIngredientFamily: 'huevos',
@@ -780,7 +779,7 @@ export const CARMEN_RECIPES_DATABASE: CanonicalRecipe[] = [
     batchTip: 'Dejar reposar las patatas confitadas en el huevo batido es el secreto de la jugosidad extrema.'
   },
   {
-    id: 'carmen-croquetas-jamon-iberico',
+    id: 'trad-croquetas-jamon-iberico',
     name: 'Croquetas de Jamón Ibérico Cremosas de la Abuela con Bechamel Tamizada',
     shortName: 'Croquetas de Jamón Ibérico',
     category: 'tapas',
@@ -794,7 +793,7 @@ export const CARMEN_RECIPES_DATABASE: CanonicalRecipe[] = [
     suitableDiets: ['mediterranean', 'traditional'],
     allergens: ['Gluten', 'Lácteos', 'Huevos'],
     image: 'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=600&auto=format&fit=crop&q=80',
-    source: 'Cocina con Carmen',
+    source: 'Cocina Tradicional',
     sourceCompendium: '01_tapas_y_entrantes.md',
     youtubeUrl: 'https://www.youtube.com/watch?v=kYv_87U1uH0',
     culinaryTechnique: 'frito_empanado',
@@ -812,7 +811,7 @@ export const CARMEN_RECIPES_DATABASE: CanonicalRecipe[] = [
     batchTip: 'Bechamel cocinada 20 minutos a fuego suave para eliminar el sabor a harina cruda.'
   },
   {
-    id: 'carmen-empanada-gallega-atun',
+    id: 'trad-empanada-gallega-atun',
     name: 'Empanada Gallega Tradicional de Atún con Sofrito Confitado y Huevo Duro',
     shortName: 'Empanada Gallega de Atún',
     category: 'masas',
@@ -826,7 +825,7 @@ export const CARMEN_RECIPES_DATABASE: CanonicalRecipe[] = [
     suitableDiets: ['mediterranean', 'traditional'],
     allergens: ['Gluten', 'Pescado', 'Huevos'],
     image: 'https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?w=600&auto=format&fit=crop&q=80',
-    source: 'Cocina con Carmen',
+    source: 'Cocina Tradicional',
     sourceCompendium: '12_masas_panes_empanadas_y_quiches.md',
     youtubeUrl: 'https://www.youtube.com/watch?v=ktv5vseGTSY',
     mainIngredientFamily: 'atun',
@@ -849,14 +848,14 @@ export const CARMEN_RECIPES_DATABASE: CanonicalRecipe[] = [
 /**
  * Obtiene recetas canónicas filtradas por tipo de comida y estilo dietético
  */
-export function getFilteredCarmenRecipes(params: {
+export function getFilteredTraditionalRecipes(params: {
   mealType?: 'lunch' | 'dinner' | 'universal';
   dietStyle?: 'mediterranean' | 'traditional' | 'fitness' | 'veggie' | 'lowcarb';
   category?: CanonicalRecipe['category'] | 'all';
   excludedAllergens?: string[];
   searchQuery?: string;
 }): CanonicalRecipe[] {
-  return CARMEN_RECIPES_DATABASE.filter(recipe => {
+  return TRADITIONAL_RECIPES_DATABASE.filter(recipe => {
     if (params.mealType && params.mealType !== 'universal' && recipe.mealType !== 'universal' && recipe.mealType !== params.mealType) {
       return false;
     }
@@ -884,22 +883,22 @@ export function getFilteredCarmenRecipes(params: {
 /**
  * Obtiene una receta por su ID
  */
-export function getCarmenRecipeById(id: string): CanonicalRecipe | undefined {
-  return CARMEN_RECIPES_DATABASE.find(r => r.id === id);
+export function getTraditionalRecipeById(id: string): CanonicalRecipe | undefined {
+  return TRADITIONAL_RECIPES_DATABASE.find(r => r.id === id);
 }
 
 /**
- * Emparejador inteligente por palabras clave e ingredientes en el catálogo de Carmen
+ * Emparejador inteligente por palabras clave e ingredientes en el catálogo de Cocina Tradicional
  * Respeta alérgenos excluidos y balancea estaciones térmicas para batch cooking concurrente.
  */
-export function matchCarmenRecipesByPrompt(
+export function matchTraditionalRecipesByPrompt(
   userPrompt: string,
   excludedAllergens: string[] = [],
   dietStyle?: string,
   count: number = 5
 ): CanonicalRecipe[] {
   if (!userPrompt || !userPrompt.trim()) {
-    return getFilteredCarmenRecipes({
+    return getFilteredTraditionalRecipes({
       excludedAllergens,
       dietStyle: dietStyle as any
     }).slice(0, count);
@@ -915,7 +914,7 @@ export function matchCarmenRecipesByPrompt(
     .split(/\s+/)
     .filter(t => t.length >= 3 && !['para', 'con', 'sin', 'que', 'los', 'las', 'una', 'uno', 'unos', 'unas', 'del', 'quiero', 'tengo', 'nevera', 'despensa', 'hacer', 'platos', 'comida', 'menu', 'batch', 'cooking', 'algo', 'como', 'gustaria', 'preparar', 'cocinar'].includes(t));
 
-  const scoredRecipes = CARMEN_RECIPES_DATABASE.map(recipe => {
+  const scoredRecipes = TRADITIONAL_RECIPES_DATABASE.map(recipe => {
     if (excludedAllergens && excludedAllergens.length > 0) {
       if (recipe.allergens.some(a => excludedAllergens.includes(a))) {
         return { recipe, score: -9999 };
@@ -962,12 +961,12 @@ export function matchCarmenRecipesByPrompt(
   }
 
   const matchedIds = new Set(matched.map(r => r.id));
-  const remaining = CARMEN_RECIPES_DATABASE.filter(r => 
+  const remaining = TRADITIONAL_RECIPES_DATABASE.filter(r => 
     !matchedIds.has(r.id) && 
     (!excludedAllergens || !r.allergens.some(a => excludedAllergens.includes(a))) &&
     (!dietStyle || r.suitableDiets.includes(dietStyle as any))
   );
 
   const finalResult = [...matched, ...remaining].slice(0, count);
-  return finalResult.length > 0 ? finalResult : CARMEN_RECIPES_DATABASE.slice(0, count);
+  return finalResult.length > 0 ? finalResult : TRADITIONAL_RECIPES_DATABASE.slice(0, count);
 }

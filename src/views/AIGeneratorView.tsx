@@ -66,6 +66,12 @@ import {
   CanonicalRecipe,
   matchCarmenRecipesByPrompt 
 } from '../data/recipesCarmenDatabase';
+import {
+  detectIngredientFamilies,
+  getAlternativeRecipesFor,
+  buildSmartMultiStationBatch,
+  IngredientFamilyGroup
+} from '../lib/carmenVariationsEngine';
 import { 
   sendChatMessageToFreeLLM, 
   generateStructuredAIProposal, 
@@ -195,11 +201,19 @@ export function AIGeneratorView({
     });
   }, [recipeCategoryFilter, selectedAllergens, recipeSearchQuery]);
 
+  // Modal para ver/cambiar variaciones culinarias de un ingrediente o plato
+  const [activeVariationsRecipeId, setActiveVariationsRecipeId] = useState<string | null>(null);
+
   // Live preview of matched recipes in Step 1 based on userSpecificGoal
   const step1MatchedPreview = useMemo(() => {
     if (!userSpecificGoal.trim()) return [];
     return matchCarmenRecipesByPrompt(userSpecificGoal, selectedAllergens, dietStyle, 4);
   }, [userSpecificGoal, selectedAllergens, dietStyle]);
+
+  // Explorador de familias y variaciones culinarias canónicas de Carmen
+  const detectedFamilies = useMemo(() => {
+    return detectIngredientFamilies(userSpecificGoal, selectedAllergens);
+  }, [userSpecificGoal, selectedAllergens]);
 
   // Auto-scroll chat
   useEffect(() => {
@@ -291,19 +305,23 @@ export function AIGeneratorView({
     }
   };
 
-  // TRANSITION STEP 1 -> STEP 2 (PERSONALIZED & DETERMINISTIC MATCHING)
+  // TRANSITION STEP 1 -> STEP 2 (PERSONALIZED & DETERMINISTIC MATCHING WITH MULTI-STATION CONCURRENCY)
   const handleProceedToStep2 = () => {
     // 1. Calculate best matching recipes from Carmen for user's goal / preferences
-    const matched = matchCarmenRecipesByPrompt(userSpecificGoal, selectedAllergens, dietStyle, 5);
+    const baseIds = manuallySelectedRecipeIds.length > 0
+      ? manuallySelectedRecipeIds
+      : matchCarmenRecipesByPrompt(userSpecificGoal, selectedAllergens, dietStyle, 4).map(r => r.id);
+
+    const matched = buildSmartMultiStationBatch(baseIds, 4, dietStyle, selectedAllergens);
     const matchedIds = matched.map(r => r.id);
     setManuallySelectedRecipeIds(matchedIds);
 
     // 2. Prepare personalized welcome greeting acknowledging user's input
     let welcomeContent = '';
     if (userSpecificGoal.trim()) {
-      welcomeContent = `¡Oído cocina! He analizado tu petición: **"${userSpecificGoal}"** para **${peopleCount} personas** durante **${daysCount} días** (${structure.totalIndividualServings} raciones en estilo ${dietStyle}).\n\nHe configurado tu lote inicial con recetas canónicas de Carmen que coinciden directamente con tus preferencias e ingredientes:${selectedAllergens.length > 0 ? `\n• Alérgenos excluidos: ${selectedAllergens.join(', ')}` : ''}\n\n${matched.map(r => `• **${r.name}** (${r.prepTimeFormatted} · Estación: *${r.station}*)`).join('\n')}\n\n¿Quieres hacer algún ajuste? Puedes pulsar los paneles interactivos de ingredientes, usar los botones rápidos o escribir/hablar por micrófono.`;
+      welcomeContent = `¡Oído cocina! He analizado tu petición: **"${userSpecificGoal}"** para **${peopleCount} personas** durante **${daysCount} días** (${structure.totalIndividualServings} raciones en estilo ${dietStyle}).\n\nHe configurado tu lote equilibrando estaciones térmicas concurrentes (horno, olla y fuegos) con recetas canónicas de Carmen:${selectedAllergens.length > 0 ? `\n• Alérgenos excluidos: ${selectedAllergens.join(', ')}` : ''}\n\n${matched.map(r => `• **${r.name}** (${r.prepTimeFormatted} · Estación: *${r.station}*)`).join('\n')}\n\n💡 **Variaciones Culinarias**: Puedes pulsar en *"🔄 Variantes"* sobre cualquier plato para cambiar su técnica gastronómica (ej. salsa, guiso, ajillo, horno o cazuela) o pedirme sugerencias en el chat.`;
     } else {
-      welcomeContent = `¡Hola! Soy tu **Copiloto Culinario TouChef con IA**, entrenado con las recetas y técnicas de *Cocina con Carmen* y compendios de cocción simultánea.\n\nHe configurado tu menú de **Batch Cooking Semanal** para **${peopleCount} personas** durante **${daysCount} días** (${structure.totalIndividualServings} raciones en estilo ${dietStyle}).${selectedAllergens.length > 0 ? ` He excluido automáticamente: ${selectedAllergens.join(', ')}.` : ''}\n\n${matched.map(r => `• **${r.name}** (${r.prepTimeFormatted} · Estación: *${r.station}*)`).join('\n')}\n\nPuedes seleccionar ingredientes en los paneles interactivos, usar el micrófono o pulsar el botón para formular una propuesta óptima.`;
+      welcomeContent = `¡Hola! Soy tu **Copiloto Culinario TouChef con IA**, entrenado con las recetas y técnicas de *Cocina con Carmen* y compendios de cocción simultánea.\n\nHe configurado tu menú de **Batch Cooking Semanal** para **${peopleCount} personas** durante **${daysCount} días** (${structure.totalIndividualServings} raciones en estilo ${dietStyle}).${selectedAllergens.length > 0 ? ` He excluido automáticamente: ${selectedAllergens.join(', ')}.` : ''}\n\n${matched.map(r => `• **${r.name}** (${r.prepTimeFormatted} · Estación: *${r.station}*)`).join('\n')}\n\nPuedes seleccionar ingredientes en los paneles interactivos, cambiar variantes de técnicas en cada plato o pedirme ajustes por chat.`;
     }
 
     const initialMsg: AIChatMessage = {
@@ -708,7 +726,7 @@ export function AIGeneratorView({
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
               
-              <div className="p-4 rounded-2xl bg-zinc-50 dark:bg-zinc-850 border border-zinc-200 dark:border-zinc-800 space-y-2">
+              <div className="p-4 rounded-2xl bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 space-y-2">
                 <div className="flex items-center justify-between text-xs">
                   <span className="font-bold text-zinc-700 dark:text-zinc-300 flex items-center gap-1.5">
                     <Users size={14} className="text-[#E07A5F]" /> Comensales / Personas:
@@ -731,7 +749,7 @@ export function AIGeneratorView({
               </div>
 
               {projectMode === 'batch_cooking' && (
-                <div className="p-4 rounded-2xl bg-zinc-50 dark:bg-zinc-850 border border-zinc-200 dark:border-zinc-800 space-y-2">
+                <div className="p-4 rounded-2xl bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 space-y-2">
                   <div className="flex items-center justify-between text-xs">
                     <span className="font-bold text-zinc-700 dark:text-zinc-300 flex items-center gap-1.5">
                       <Calendar size={14} className="text-[#E07A5F]" /> Días de Cobertura:
@@ -754,7 +772,7 @@ export function AIGeneratorView({
                 </div>
               )}
 
-              <div className="p-4 rounded-2xl bg-zinc-50 dark:bg-zinc-850 border border-zinc-200 dark:border-zinc-800 space-y-2">
+              <div className="p-4 rounded-2xl bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 space-y-2">
                 <span className="font-bold text-xs text-zinc-700 dark:text-zinc-300 block">
                   Estilo Culinario Base:
                 </span>
@@ -831,28 +849,87 @@ export function AIGeneratorView({
               </button>
             </div>
 
-            {/* REAL-TIME PREVIEW OF MATCHING CARMEN RECIPES */}
-            {step1MatchedPreview.length > 0 && (
-              <div className="p-3.5 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 space-y-2 animate-fade-in">
-                <div className="flex items-center justify-between text-[11px]">
-                  <span className="font-black text-emerald-700 dark:text-emerald-400 flex items-center gap-1.5">
-                    <CheckCircle2 size={13} /> {step1MatchedPreview.length} platos canónicos de Carmen identificados para tu lote:
+            {/* REAL-TIME PREVIEW / EXPLORADOR DE VARIACIONES CULINARIAS POR INGREDIENTE */}
+            {detectedFamilies.length > 0 ? (
+              <div className="p-4 rounded-2xl bg-amber-500/10 dark:bg-amber-950/20 border border-amber-500/30 space-y-4 animate-fade-in">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 text-[11px]">
+                  <span className="font-black text-amber-700 dark:text-amber-400 flex items-center gap-1.5">
+                    <Sparkles size={14} className="text-amber-500" />
+                    Explorador de Variaciones de Carmen ({detectedFamilies.length} ingredientes detectados):
                   </span>
-                  <span className="text-zinc-400 text-[10px]">Coincidencia por ingredientes 100% real</span>
+                  <span className="text-zinc-500 dark:text-zinc-400 text-[10px]">
+                    Toca para preseleccionar la técnica que te apetece o deja que la IA equilibre el lote
+                  </span>
                 </div>
-                {/* DISHES LIST */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
-                  {step1MatchedPreview.map(rec => (
-                    <div key={rec.id} className="p-2 rounded-xl bg-white dark:bg-zinc-900 border border-emerald-500/20 flex items-center gap-2.5 text-xs">
-                      <img src={rec.image} alt={rec.name} className="w-8 h-8 rounded-lg object-cover" />
-                      <div className="min-w-0">
-                        <strong className="font-bold text-zinc-900 dark:text-white block truncate text-[11px]">{rec.name}</strong>
-                        <span className="text-[10px] text-zinc-400">{rec.prepTimeFormatted} · {rec.station}</span>
+
+                <div className="space-y-3">
+                  {detectedFamilies.map(fam => (
+                    <div key={fam.familyKey} className="p-3.5 rounded-xl bg-white dark:bg-zinc-900 border border-zinc-200/80 dark:border-zinc-800 space-y-2.5 shadow-2xs">
+                      <div className="flex items-center justify-between gap-2">
+                        <div className="flex items-center gap-2">
+                          <span className="text-base">{fam.icon}</span>
+                          <strong className="text-xs font-black text-zinc-900 dark:text-white">{fam.displayName}</strong>
+                        </div>
+                        <span className="text-[10px] font-mono text-[#E07A5F] bg-[#E07A5F]/10 px-2 py-0.5 rounded-md font-bold">
+                          {fam.variations.length} técnicas disponibles
+                        </span>
+                      </div>
+                      <p className="text-[11px] text-zinc-600 dark:text-zinc-400">{fam.description}</p>
+
+                      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 pt-1">
+                        {fam.variations.map(rec => {
+                          const isSelected = manuallySelectedRecipeIds.includes(rec.id);
+                          return (
+                            <button
+                              key={rec.id}
+                              type="button"
+                              onClick={() => toggleManualRecipe(rec.id)}
+                              className={`p-2.5 rounded-xl border text-left flex items-start gap-2.5 transition-all cursor-pointer ${
+                                isSelected
+                                  ? 'bg-amber-500/15 border-amber-500 text-zinc-900 dark:text-white shadow-xs font-bold ring-1 ring-amber-500/50'
+                                  : 'bg-zinc-50 dark:bg-zinc-800/60 border-zinc-200/80 dark:border-zinc-700/60 text-zinc-700 dark:text-zinc-300 hover:border-amber-500/50 hover:bg-amber-500/5'
+                              }`}
+                            >
+                              <img src={rec.image} alt={rec.name} className="w-10 h-10 rounded-lg object-cover shrink-0 mt-0.5 shadow-2xs" />
+                              <div className="min-w-0 flex-1">
+                                <div className="flex items-center justify-between gap-1">
+                                  <span className="text-[9px] font-black uppercase text-[#E07A5F] block truncate">
+                                    {rec.culinaryTechnique || rec.category} · {rec.station}
+                                  </span>
+                                  {isSelected && <Check size={13} className="text-amber-500 font-black shrink-0" />}
+                                </div>
+                                <strong className="text-[11px] font-bold block leading-snug line-clamp-1 mt-0.5">{rec.name}</strong>
+                                <span className="text-[10px] text-zinc-400 block mt-0.5">⏱️ {rec.prepTimeFormatted}</span>
+                              </div>
+                            </button>
+                          );
+                        })}
                       </div>
                     </div>
                   ))}
                 </div>
               </div>
+            ) : (
+              step1MatchedPreview.length > 0 && (
+                <div className="p-3.5 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 space-y-2 animate-fade-in">
+                  <div className="flex items-center justify-between text-[11px]">
+                    <span className="font-black text-emerald-700 dark:text-emerald-400 flex items-center gap-1.5">
+                      <CheckCircle2 size={13} /> {step1MatchedPreview.length} platos canónicos de Carmen identificados:
+                    </span>
+                  </div>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
+                    {step1MatchedPreview.map(rec => (
+                      <div key={rec.id} className="p-2 rounded-xl bg-white dark:bg-zinc-900 border border-emerald-500/20 flex items-center gap-2.5 text-xs">
+                        <img src={rec.image} alt={rec.name} className="w-8 h-8 rounded-lg object-cover" />
+                        <div className="min-w-0">
+                          <strong className="font-bold text-zinc-900 dark:text-white block truncate text-[11px]">{rec.name}</strong>
+                          <span className="text-[10px] text-zinc-400">{rec.prepTimeFormatted} · {rec.station}</span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )
             )}
           </div>
 
@@ -1088,17 +1165,29 @@ export function AIGeneratorView({
                         </div>
                       </div>
 
-                      <div className="pt-2 border-t border-zinc-100 dark:border-zinc-700/60 flex items-center justify-between gap-2">
-                        <button
-                          type="button"
-                          onClick={() => handleSwapRecipeWithAI(rec.id)}
-                          disabled={isSwappingThis || isAiResponding}
-                          title="Pedir a la IA sustituir este plato por otra opción compatible"
-                          className="px-2.5 py-1 rounded-lg bg-zinc-100 dark:bg-zinc-700/80 hover:bg-[#E07A5F]/15 hover:text-[#E07A5F] text-[10px] font-bold text-zinc-600 dark:text-zinc-300 transition-all flex items-center gap-1 cursor-pointer disabled:opacity-50"
-                        >
-                          {isSwappingThis ? <Loader2 size={11} className="animate-spin text-[#E07A5F]" /> : <RefreshCw size={11} />}
-                          <span>{isSwappingThis ? 'Cambiando...' : 'Swap IA'}</span>
-                        </button>
+                      <div className="pt-2 border-t border-zinc-100 dark:border-zinc-700/60 flex items-center justify-between gap-1.5">
+                        <div className="flex items-center gap-1">
+                          <button
+                            type="button"
+                            onClick={() => setActiveVariationsRecipeId(rec.id)}
+                            title="Ver técnicas y variantes alternativas de este plato o ingrediente"
+                            className="px-2 py-1 rounded-lg bg-amber-500/10 hover:bg-amber-500/20 text-[10px] font-bold text-amber-700 dark:text-amber-300 transition-all flex items-center gap-1 cursor-pointer"
+                          >
+                            <Sparkles size={11} className="text-amber-500" />
+                            <span>Variantes</span>
+                          </button>
+
+                          <button
+                            type="button"
+                            onClick={() => handleSwapRecipeWithAI(rec.id)}
+                            disabled={isSwappingThis || isAiResponding}
+                            title="Pedir a la IA sustituir este plato por otra opción compatible"
+                            className="px-2 py-1 rounded-lg bg-zinc-100 dark:bg-zinc-700/80 hover:bg-[#E07A5F]/15 hover:text-[#E07A5F] text-[10px] font-bold text-zinc-600 dark:text-zinc-300 transition-all flex items-center gap-1 cursor-pointer disabled:opacity-50"
+                          >
+                            {isSwappingThis ? <Loader2 size={11} className="animate-spin text-[#E07A5F]" /> : <RefreshCw size={11} />}
+                            <span>{isSwappingThis ? '...' : 'Swap IA'}</span>
+                          </button>
+                        </div>
 
                         <button
                           type="button"
@@ -1533,7 +1622,7 @@ export function AIGeneratorView({
               </span>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
                 {generatedDishes.map((dish) => (
-                  <div key={dish.id} className="p-4 rounded-2xl bg-zinc-50 dark:bg-zinc-850 border border-zinc-200 dark:border-zinc-800 flex items-center justify-between gap-3 text-xs">
+                  <div key={dish.id} className="p-4 rounded-2xl bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700/80 flex items-center justify-between gap-3 text-xs shadow-xs hover:border-[#E07A5F]/40 transition-colors">
                     <div className="flex items-center gap-3">
                       <img src={dish.image} alt={dish.name} className="w-12 h-12 rounded-xl object-cover" />
                       <div>
@@ -1578,6 +1667,84 @@ export function AIGeneratorView({
 
         </div>
       )}
+
+      {/* ========================================================================= */}
+      {/* MODAL DE VARIACIONES CULINARIAS ALTERNATIVAS (CARMEN SSOT)                */}
+      {/* ========================================================================= */}
+      {activeVariationsRecipeId && (() => {
+        const currentRecipe = CARMEN_RECIPES_DATABASE.find(r => r.id === activeVariationsRecipeId);
+        const alternatives = getAlternativeRecipesFor(activeVariationsRecipeId, selectedAllergens);
+
+        return (
+          <div className="fixed inset-0 z-50 bg-black/75 backdrop-blur-md flex items-center justify-center p-4 animate-fade-in">
+            <div className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-3xl p-6 sm:p-8 max-w-2xl w-full shadow-2xl space-y-5 max-h-[88vh] overflow-y-auto">
+              
+              <div className="flex items-center justify-between pb-3 border-b border-zinc-100 dark:border-zinc-800">
+                <div>
+                  <span className="text-[10px] font-black uppercase tracking-wider text-[#E07A5F]">
+                    Variaciones &amp; Técnicas de Carmen
+                  </span>
+                  <h3 className="text-base font-black text-zinc-900 dark:text-white mt-0.5">
+                    Alternativas para "{currentRecipe?.shortName || currentRecipe?.name}"
+                  </h3>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setActiveVariationsRecipeId(null)}
+                  className="p-2 rounded-xl hover:bg-zinc-100 dark:hover:bg-zinc-800 text-zinc-500 hover:text-zinc-900 dark:hover:text-white transition-colors cursor-pointer"
+                >
+                  <X size={18} />
+                </button>
+              </div>
+
+              <p className="text-xs text-zinc-600 dark:text-zinc-400">
+                Puedes sustituir este plato por otra preparación canónica del mismo ingrediente o categoría técnica de Carmen:
+              </p>
+
+              <div className="space-y-3">
+                {alternatives.length > 0 ? (
+                  alternatives.map(alt => (
+                    <div
+                      key={alt.id}
+                      className="p-3.5 rounded-2xl bg-zinc-50 dark:bg-zinc-800/80 border border-zinc-200/80 dark:border-zinc-700/80 flex flex-col sm:flex-row sm:items-center justify-between gap-3 hover:border-amber-500/50 transition-colors"
+                    >
+                      <div className="flex items-start sm:items-center gap-3 min-w-0 flex-1">
+                        <img src={alt.image} alt={alt.name} className="w-12 h-12 rounded-xl object-cover shrink-0 shadow-2xs mt-0.5 sm:mt-0" />
+                        <div className="min-w-0">
+                          <div className="flex items-center gap-2">
+                            <span className="text-[9px] font-black uppercase text-[#E07A5F] bg-[#E07A5F]/10 px-2 py-0.5 rounded">
+                              {alt.culinaryTechnique || alt.category} · {alt.station}
+                            </span>
+                            <span className="text-[10px] text-zinc-400">⏱️ {alt.prepTimeFormatted}</span>
+                          </div>
+                          <strong className="text-xs font-bold text-zinc-900 dark:text-white block truncate mt-1">{alt.name}</strong>
+                          <span className="text-[10px] text-zinc-500 block line-clamp-1 mt-0.5">{alt.batchTip}</span>
+                        </div>
+                      </div>
+
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setManuallySelectedRecipeIds(prev =>
+                            prev.map(id => (id === activeVariationsRecipeId ? alt.id : id))
+                          );
+                          setActiveVariationsRecipeId(null);
+                        }}
+                        className="px-4 py-2 rounded-xl btn-hero-copper text-white text-xs font-black shrink-0 cursor-pointer shadow-xs self-end sm:self-center hover:scale-[1.02] transition-transform"
+                      >
+                        Elegir esta variante
+                      </button>
+                    </div>
+                  ))
+                ) : (
+                  <p className="text-xs text-zinc-500 py-6 text-center">No hay otras variantes disponibles con los filtros y alérgenos actuales.</p>
+                )}
+              </div>
+
+            </div>
+          </div>
+        );
+      })()}
 
     </div>
   );

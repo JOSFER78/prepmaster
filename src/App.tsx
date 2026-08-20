@@ -69,10 +69,23 @@ export default function App() {
   // Legal Modals state
   const [activeLegalModal, setActiveLegalModal] = useState<'privacy' | 'terms' | 'cookies' | null>(null);
 
-  // Batch Projects System (Active Project & Batch History)
-  const [batchProjects, setBatchProjects] = useState<BatchProject[]>([]);
+  // Batch Projects System (Active Project & Batch History - Persisted in localStorage / Firestore)
+  const [batchProjects, setBatchProjects] = useState<BatchProject[]>(() => {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('touchef_batch_projects_v2');
+      if (saved) {
+        try {
+          const parsed = JSON.parse(saved);
+          if (Array.isArray(parsed)) return parsed;
+        } catch (e) {
+          console.error('Error parsing stored batch projects:', e);
+        }
+      }
+    }
+    return [];
+  });
 
-  // Favorites & Vault System (Batches & Individual Dishes)
+  // Favorites & Vault System (Batches & Individual Dishes derived from Carmen SSOT)
   const [favoriteBatches, setFavoriteBatches] = useState<BatchProject[]>(() => loadFavoriteBatchesFromStorage());
   const [favoriteDishes, setFavoriteDishes] = useState<BatchDish[]>(() => loadFavoriteDishesFromStorage());
 
@@ -101,6 +114,9 @@ export default function App() {
     if (!currentUser) return;
     const unsub = subscribeToUserBatchProjects(currentUser.uid, (projects) => {
       setBatchProjects(projects);
+      if (typeof window !== 'undefined') {
+        localStorage.setItem('touchef_batch_projects_v2', JSON.stringify(projects));
+      }
     });
     return () => unsub();
   }, [currentUser]);
@@ -121,6 +137,9 @@ export default function App() {
 
   const handleSaveProjects = (updated: BatchProject[]) => {
     setBatchProjects(updated);
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('touchef_batch_projects_v2', JSON.stringify(updated));
+    }
     if (currentUser) {
       updated.forEach(p => {
         saveBatchProject(currentUser.uid, p).catch(console.error);
@@ -131,12 +150,20 @@ export default function App() {
   const handleDeleteBatchProject = async (projectId: string) => {
     const updated = batchProjects.filter(p => p.id !== projectId);
     setBatchProjects(updated);
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('touchef_batch_projects_v2', JSON.stringify(updated));
+    }
     if (currentUser) {
       await deleteBatchProject(currentUser.uid, projectId);
     }
   };
 
   const handleClearAllBatchProjects = async () => {
+    if (typeof window !== 'undefined') {
+      localStorage.removeItem('touchef_batch_projects_v2');
+      localStorage.removeItem('touchef_favorite_batches_v1');
+      localStorage.removeItem('touchef_favorite_dishes_v1');
+    }
     if (currentUser) {
       for (const p of batchProjects) {
         await deleteBatchProject(currentUser.uid, p.id);

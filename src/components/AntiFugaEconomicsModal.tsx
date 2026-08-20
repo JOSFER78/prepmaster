@@ -90,7 +90,7 @@ export const AntiFugaEconomicsModal: React.FC<AntiFugaEconomicsModalProps> = ({
         <div className="p-6 overflow-y-auto space-y-6 text-stone-200 text-xs leading-relaxed">
           
           {/* Main Value Proposition */}
-          <div className="p-4 rounded-2xl bg-gradient-to-r from-emerald-950/40 via-stone-850 to-emerald-950/40 border border-emerald-500/30 space-y-2">
+          <div className="p-4 rounded-2xl bg-gradient-to-r from-emerald-950/40 via-stone-900 to-emerald-950/40 border border-emerald-500/30 space-y-2">
             <div className="flex items-center gap-2 text-emerald-700 dark:text-emerald-300 font-bold font-bold text-sm">
               <TrendingDown className="w-4 h-4 text-emerald-400" />
               <span>Comisión Decreciente por Fidelidad (Hasta un 5%)</span>
@@ -108,7 +108,7 @@ export const AntiFugaEconomicsModal: React.FC<AntiFugaEconomicsModalProps> = ({
             
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
               {/* Tier 1 */}
-              <div className="p-4 rounded-2xl bg-zinc-50 dark:bg-stone-850 border border-zinc-200 dark:border-stone-800 space-y-3 flex flex-col justify-between">
+              <div className="p-4 rounded-2xl bg-zinc-50 dark:bg-stone-900 border border-zinc-200 dark:border-stone-800 space-y-3 flex flex-col justify-between">
                 <div>
                   <span className="text-[10px] font-bold uppercase bg-stone-800 text-zinc-700 dark:text-stone-300 px-2 py-0.5 rounded">
                     Reserva 1 (Inicial)
@@ -127,7 +127,7 @@ export const AntiFugaEconomicsModal: React.FC<AntiFugaEconomicsModalProps> = ({
               </div>
 
               {/* Tier 2 */}
-              <div className="p-4 rounded-2xl bg-zinc-50 dark:bg-stone-850 border border-zinc-200 dark:border-stone-800 space-y-3 flex flex-col justify-between">
+              <div className="p-4 rounded-2xl bg-zinc-50 dark:bg-stone-900 border border-zinc-200 dark:border-stone-800 space-y-3 flex flex-col justify-between">
                 <div>
                   <span className="text-[10px] font-bold uppercase bg-amber-500/20 text-amber-300 px-2 py-0.5 rounded">
                     Reservas 2 a 4
@@ -173,7 +173,7 @@ export const AntiFugaEconomicsModal: React.FC<AntiFugaEconomicsModalProps> = ({
             </h4>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-              <div className="p-3 bg-stone-850 rounded-xl border border-stone-800 flex items-start gap-2.5">
+              <div className="p-3 bg-stone-900 rounded-xl border border-stone-800 flex items-start gap-2.5">
                 <Lock className="w-4 h-4 text-amber-700 dark:text-amber-400 shrink-0 mt-0.5" />
                 <div>
                   <strong className="text-zinc-900 dark:text-white block text-xs font-bold">Pago Protegido en Depósito</strong>
@@ -181,7 +181,7 @@ export const AntiFugaEconomicsModal: React.FC<AntiFugaEconomicsModalProps> = ({
                 </div>
               </div>
 
-              <div className="p-3 bg-stone-850 rounded-xl border border-stone-800 flex items-start gap-2.5">
+              <div className="p-3 bg-stone-900 rounded-xl border border-stone-800 flex items-start gap-2.5">
                 <UtensilsCrossed className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
                 <div>
                   <strong className="text-zinc-900 dark:text-white block text-xs font-bold">Memoria del Hogar Sincronizada</strong>
@@ -189,7 +189,7 @@ export const AntiFugaEconomicsModal: React.FC<AntiFugaEconomicsModalProps> = ({
                 </div>
               </div>
 
-              <div className="p-3 bg-stone-850 rounded-xl border border-stone-800 flex items-start gap-2.5">
+              <div className="p-3 bg-stone-900 rounded-xl border border-stone-800 flex items-start gap-2.5">
                 <ShieldCheck className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
                 <div>
                   <strong className="text-zinc-900 dark:text-white block text-xs font-bold">Seguro y Reemplazo Inmediato</strong>
@@ -197,7 +197,7 @@ export const AntiFugaEconomicsModal: React.FC<AntiFugaEconomicsModalProps> = ({
                 </div>
               </div>
 
-              <div className="p-3 bg-stone-850 rounded-xl border border-stone-800 flex items-start gap-2.5">
+              <div className="p-3 bg-stone-900 rounded-xl border border-stone-800 flex items-start gap-2.5">
                 <RotateCcw className="w-4 h-4 text-amber-700 dark:text-amber-400 shrink-0 mt-0.5" />
                 <div>
                   <strong className="text-zinc-900 dark:text-white block text-xs font-bold">Replicación en 1 Clic</strong>

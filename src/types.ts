@@ -179,7 +179,7 @@ export type BatchStatus =
 export interface BatchDish {
   id: string;
   name: string;
-  category: 'legumbres' | 'carnes' | 'pescados' | 'verduras' | 'cremas' | 'acompanamientos' | 'tapas' | 'masas' | 'postres' | 'arroces_pastas';
+  category: 'legumbres' | 'carnes' | 'pescados' | 'verduras' | 'cremas' | 'acompanamientos' | 'tapas' | 'masas' | 'postres' | 'arroces_pastas' | 'huevos';
   servings: number;
   prepTime: string;
   cookingMethod: 'horno' | 'fuego_1' | 'fuego_2' | 'fuego_3' | 'olla_expres' | 'robot' | 'frio';

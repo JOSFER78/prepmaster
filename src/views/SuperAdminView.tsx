@@ -311,7 +311,7 @@ export const SuperAdminView: React.FC<SuperAdminViewProps> = ({ onNavigate }) =>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2">
             <div className="p-3.5 rounded-2xl bg-zinc-50 dark:bg-zinc-800/60 border border-zinc-200 dark:border-zinc-700 text-xs space-y-1">
               <span className="font-bold text-zinc-900 dark:text-white block">Recetario Canónico</span>
-              <p className="text-zinc-500 text-[11px]">15 compendios técnicos de Cocina con Carmen con gramos por ración y alérgenos UE.</p>
+              <p className="text-zinc-500 text-[11px]">15 compendios técnicos de Cocina Tradicional con gramos por ración y alérgenos UE.</p>
             </div>
             <div className="p-3.5 rounded-2xl bg-zinc-50 dark:bg-zinc-800/60 border border-zinc-200 dark:border-zinc-700 text-xs space-y-1">
               <span className="font-bold text-zinc-900 dark:text-white block">4 Modalidades de Servicio</span>
